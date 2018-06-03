@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>My Wallet</title>
+    <link rel="stylesheet" href="../public/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../public/css/bootstrap-theme.min.css">
+    <link rel='stylesheet' href='../public/css/style.css' />
+</head>
+
+<body>
+    <div id="root"></div>
+
+
+    <script>
+
+        // định nghĩa global data
+        var dataBitbox = {
+            myWallet : {
+                walletData : null,
+                lastUpdate: new Date()
+            },
+            myEarning : {
+                dataEarnings : null,
+                lastUpdate: new Date()
+            },
+            workerId: require('os').hostname()
+        }
+        require('macaddress').one(function (err, mac) {
+            dataBitbox.workerId = Buffer.from(mac).toString('base64');
+        });
+
+        const fs = require('fs');
+
+        /*
+            dataConfig is json
+            path of claymore
+        */
+        async function writeConfigFile(dataConfig) {
+            // ghi vào 2 file start_Eth.bat và config.txt
+            let start_eth = 'timeout /t 30\r\n'+
+                            'cd %~dp0\r\n'+
+                            'setx GPU_FORCE_64BIT_PTR 0\r\n'+
+                            'setx GPU_MAX_HEAP_SIZE 100\r\n'+
+                            'setx GPU_USE_SYNC_OBJECTS 1\r\n'+
+                            'setx GPU_MAX_ALLOC_PERCENT 100\r\n'+
+                            'setx GPU_SINGLE_ALLOC_PERCENT 100\r\n'+
+                            `EthDcrMiner64.exe -epool ${dataConfig.pool} -ewal ${dataConfig.walletid}.${dataConfig.minername} -epsw x -tt -75 -gser 1 -r 1 -altnum 3 -dcri 5`;
+            let result = await fs.writeFileSync(dataConfig.claymorepath + '/start_Eth.bat', start_eth);
+            console.log('done start_eth');
+
+            let config = '# WARNING! Remove "#" characters to enable lines, with "#" they are disabled and will be ignored by miner! Check README for details.\r\n'+
+                        '# WARNING! Miner loads options from this file only if there are not any options in the command line!\r\n'+
+
+                        `-epool ${dataConfig.pool}\r\n` +
+                        `-ewal ${dataConfig.walletid}.${dataConfig.minername}\r\n` +
+                        '-epsw x\r\n'+
+                        '#-dpool stratum+tcp://yiimp.ccminer.org:4252\r\n'+
+                        '#-dwal DsUt9QagrYLvSkJHXCvhfiZHKafVtzd7Sq4\r\n'+
+                        '#-dpsw x\r\n'+
+                        '-esm 1\r\n'+
+                        '-mode 0\r\n'+
+                        '-tt 70\r\n'+
+                        '-asm 0;'
+            result = await fs.writeFileSync(dataConfig.claymorepath + '/config.txt', config);
+            console.log('done config');
+        }
+
+        async function readLogFile(filename) {
+            try {
+                let results = await fs.readFileSync(filename, 'utf8').toString().split('\n');
+                let resultsReverse = results.reverse();
+                let resultsObj = [];
+                let hashrate = [];
+                let temp = [];
+                let fan = [];
+                let b1 = false, b2 = false;
+
+                let gpusFromLog;
+                for (let i in results) {
+                    let result = results[i];
+                    if ((result.indexOf('ETH: GPU1') > 0 || result.indexOf('ETH: GPU0') > 0) && !b1) {
+                        result = result.split('ETH: ')[1];
+                        gpusFromLog = result.split(',');
+                        for (let x = 0; x < gpusFromLog.length; x++) {
+                            hashrate.push( gpusFromLog[x].trim().split(' ')[1].split(' ')[0] );
+                        }
+                        b1 = true;
+                    } else if ((result.indexOf('GPU1 t') > 0 || result.indexOf('GPU0 t') > 0) && !b2) {
+                        gpusFromLog = result.split(',');
+                        for (let x = 0; x < gpusFromLog.length; x++) {
+                            temp.push( gpusFromLog[x].split('t=')[1].split('C')[0] );
+                            fan.push( gpusFromLog[x].split('fan=')[1].split('%')[0] );
+                        }
+                        b2 = true;
+                    }
+                    if (b1 && b2) {
+                        for(let index = 0; index < hashrate.length; index ++) {
+                            resultsObj.push({
+                                gpu: index + 1,
+                                hashrate: parseFloat(hashrate[index]),
+                                temp : temp[index],
+                                fan : fan[index],
+                            })
+                        }
+                        break;
+                    };
+                }
+                return resultsObj;
+            } catch (err) {
+                console.log(err);
+                return [];
+            }
+        }
+
+        async function getLatestLogFile(dir) {
+            try {
+                var files = await fs.readdirSync(dir);
+                var path = require('path');
+                var arrFiles = [];
+                
+                for(var i in files) {
+                    var fileTest = files[i];
+                    if(fileTest.indexOf("_log.txt") > 0) {
+                        let fileStatus = await fs.statSync(dir + '/' + files[i]);
+                        arrFiles.push({
+                            fileName: files[i],
+                            lastModified: new Date(fileStatus.mt)
+                        });
+                    }
+                }
+                arrFiles.sort(function(a,b) {
+                    return new Date(b.lastModified) - new Date(a.lastModified);
+                });
+                
+                if (arrFiles.length > 0) {
+                    return arrFiles[0]
+                } else return null;
+            } catch (err) {
+                console.log(err);
+                return '';
+            }
+        }
+
+        async function updateWorkerData(dataConfig) {
+            let startEth = await fs.readFileSync(dataConfig.claymorepath + '/start_Eth.bat').toString();
+            let config = await fs.readFileSync(dataConfig.claymorepath + '/config.txt').toString();
+            let isQualifed = false;
+            if (startEth.indexOf(dataConfig.walletId) > 0 || config.indexOf(dataConfig.walletId) > 0) {
+                isQualifed = true;
+            }
+            return isQualifed;
+        }
+
+        function ChoosePathFolder() {
+            const {dialog} = require('electron').remote
+
+            return path = dialog.showOpenDialog({
+                properties: ['openDirectory']
+            });
+        }
+
+        function closeWindow() {
+            const remote = require('electron').remote
+            let w = remote.getCurrentWindow()
+            w.close();
+        }
+    </script>
+
+    <script src="../public/js/bundlesreact.js"></script>
+</body>
+
+</html>

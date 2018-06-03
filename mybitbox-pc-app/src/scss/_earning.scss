@@ -1,0 +1,41 @@
+.pt_earning {
+    table {
+        width: 100%;
+        text-align: center;
+        tr {
+            td {
+                border: 1px solid #fff;
+                &:nth-child(1) {
+                    text-transform: uppercase;
+                }
+            }
+        }
+        .header {
+            text-transform: uppercase;
+            color: $main-text-color;
+            font-size: 20px;
+            padding: 10px;
+            height: 40px;
+        }
+        tr:not(.header) {
+            font-size: 18px;
+            padding: 10px;
+            height: 30px;
+        }
+        .hour {
+            color: rgb(255, 196, 0);
+        }
+        .day {
+            color: rgb(0, 255, 13);
+        }
+        .week {
+            color: rgb(0, 204, 255);
+        }
+        .month {
+            color: rgb(255, 0, 255);
+        }
+        .year {
+            color: red;
+        }
+    }
+}

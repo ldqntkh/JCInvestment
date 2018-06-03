@@ -1,0 +1,31 @@
+{
+  "expo": {
+    "name": "myBitboxViewer",
+    "description": "myBitbox viewer",
+    "slug": "myBitboxViewer",
+    "privacy": "public",
+    "sdkVersion": "27.0.0",
+    "platforms": ["ios", "android"],
+    "version": "1.1.0",
+    "orientation": "portrait",
+    "icon": "./public/images/icon.png",
+    "splash": {
+      "image": "./public/images/icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#05B6CB"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "infoPlist":{  
+        "NSCameraUsageDescription":"myBitbox888 needs permissions for accessing camera to scan qrcode. Please allow to use this feature!"
+     },
+      "supportsTablet": true,
+      "bundleIdentifier" : "com.quangle.mybitbox888"
+    }
+  }
+}

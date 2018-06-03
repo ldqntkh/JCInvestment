@@ -1,0 +1,101 @@
+.h1-title-support {
+    color: white;
+}
+
+.dv-users-custom-support {
+    border: 1px solid white;
+    border-radius: 5px;
+    height: calc(100vh - 150px);
+    .dv-users-listclient {
+        height: 100%;
+        .title {
+            text-align: center;
+            height: 40px;
+            font-size: 25px;
+            font-weight: bold;
+            color: white;
+        }
+        .listclient {
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+            overflow-y: auto;
+            height: calc(100% - 40px);
+            padding-bottom: 5px;
+            .item_support {
+                border: 1px dashed silver;
+                border-radius: 5px;
+                padding: 5px;
+                margin: 3px 0px;
+                display: flex;
+                flex-direction: column;
+                cursor: pointer;
+                h4 {
+                    color: white;
+                }
+                small {
+                    color: white;
+                }
+                &:hover {
+                    background-color: rgba(250, 235, 215, 0.479);
+                    border-color: red;
+                }
+            }
+            .item-active {
+                h4 {
+                    color: red;
+                }
+            }
+            .item-actived {
+                h4 {
+                    color: green;
+                }
+                border-color: rgb(0, 160, 99);
+            }
+            .item-click {
+                background-color: rgba(250, 235, 215, 0.479);
+                border-color: rgb(0, 160, 99);
+            }
+        }
+    }
+
+    .dv-users-support-content {
+        border-left: 1px solid white;
+        padding: 0 !important;
+        .support-content {
+            margin: 5px;
+            height: calc(100% - 105px);
+
+            img {
+                max-width: 95%;
+                margin: 5px 2.5%;
+            }
+        }
+        .support-text {
+            height: 100px;
+            margin: 5px;
+            border-top: 1px solid white;
+            button {
+                display: none;
+                float: right;
+                margin: 5px;
+            }
+        }
+    }
+}
+
+
+.dialog-support {
+    position: fixed;
+    z-index: 9999;
+    top: 80vh;
+    left: 100px;
+    background-color: #d65555;
+    border: 1px solid red;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 3px;
+    a {
+        color: white;
+    }
+}

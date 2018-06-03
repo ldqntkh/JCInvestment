@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title><%- title %></title>
+    <style>
+        .dv-log {
+            display: flex;
+            border-bottom: 1px solid darkgray;
+            padding-bottom: 5px;
+        }
+        .item-1 {
+            background-color: antiquewhite;
+        }
+        .item-2 {
+            background-color: azure;
+        }
+        .dv-date {
+            width: 200px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+    <% data.map((item, index) => { %>
+        <div class="dv-log item-<%- index % 2 == 0? '1':'2' %>">
+            <div class="dv-date">
+                <p><%- item.date %></p>
+            </div>
+            <div class="dv-content">
+                <p>File name: <%- item.filename %></p>
+                <p>Line: <%- item.line %></p>
+                <p>Function: <%- item.func %></p>
+                <span>Log:</span></br>
+                <code>
+                    <%- JSON.stringify(item.logMessage) %>
+                </code>
+            </div>
+        </div>
+    <%}) %>
+    </div>
+</body>
+</html>

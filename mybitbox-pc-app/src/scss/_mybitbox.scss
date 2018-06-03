@@ -1,0 +1,53 @@
+.pt_bitbox {
+    table {
+        width: 100%;
+        text-align: center;
+        tr {
+            td {
+                border: 1px solid #fff;
+                &:nth-child(1) {
+                    text-transform: uppercase;
+                }
+            }
+        }
+        .header {
+            text-transform: uppercase;
+            color: $main-text-color;
+            font-size: 20px;
+            padding: 10px;
+            height: 40px;
+        }
+        .row-data {
+            font-size: 18px;
+            padding: 10px;
+            height: 30px;
+            td {
+                width: 28%;
+            }
+            td:nth-child(1) {
+                width: 16%;
+            }
+        }
+        tr:nth-child(2) {
+            color: rgb(255, 196, 0);
+        }
+        tr:nth-child(3) {
+            color: rgb(230, 243, 53);
+        }
+        tr:nth-child(4) {
+            color: rgb(0, 255, 13);
+        }
+        tr:nth-child(5) {
+            color: rgb(0, 204, 255);
+        }
+        tr:nth-child(6) {
+            color: rgb(255, 0, 255);
+        }
+        tr:nth-child(7) {
+            color: rgb(245, 141, 6);
+        }
+        tr:nth-child(8) {
+            color: rgb(253, 0, 0);
+        }
+    }
+}

@@ -1,0 +1,32 @@
+Before we build send mail function we should have smtp account. We will use nodemailer package.
+* Warning: the requirement for this package is version of Nodejs should greated or equal v6
+Step 1: Install package nodemailer by command: npm install nodemailer --save
+Step 2: Use method createTransport to define smtp account. Example below
+    let transporter = nodemailer.createTransport({
+        host: 'smtp.gmail.com',
+        port: 465,
+        secure: true, // true for 465, false for other ports
+        auth: {
+            user: account.user, // smtp user name
+            pass: account.pass // smtp password
+        }
+    });
+Step 3: Define mail options.
+    let mailOptions = {
+        from: '"Fred Foo 👻" <foo@example.com>', // sender address
+        to: 'bar@example.com, baz@example.com', // list of receivers
+        subject: 'Hello ✔', // Subject line
+        text: 'Hello world?', // plain text body
+        html: '<b>Hello world?</b>' // html body
+    };
+Step 4: Use method sendMail. If not the error is not occur then mail is sent successfully
+    transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+            return console.log(error);
+        }
+        console.log('Message sent: %s', info.messageId);
+        // Preview only available when sending through an SMTP account
+        console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
+    });
+Step 5: After send email then we should close connection. Because we open connection in step 1. Please follow example below
+transporter.close();

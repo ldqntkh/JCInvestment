@@ -1,0 +1,47 @@
+.pt_setting {
+    .dv-row {
+        margin: 10px 5px;
+        label {
+            width: 140px;
+            text-align: right;
+            padding-right: 10px;
+        }
+        input {
+            width: calc(100% - 140px);
+            background-color: $body_back_ground;
+            border: 1px solid;
+            padding: 3px;
+        }
+        &:first-child {
+            position: relative;
+            button {
+                position: absolute;
+                right: 0px;
+                height: 28px;
+                font-size: 20px;
+                color: black;
+            }
+        }
+        select {
+            width: calc(100% - 140px);
+            background: transparent;
+            border: 1px solid;
+            padding: 3px;
+            option {
+                color: black;
+            }
+        }
+    }
+    .dv-button-save {
+        position: relative;
+        button {
+            position: absolute;
+            right: 5px;
+            background: linear-gradient(to bottom right, #060cc7, #0091ff);
+            border: 0;
+            border-radius: 5px;
+            padding: 5px 10px;
+            font-size: 20px;
+        }
+    }
+}
