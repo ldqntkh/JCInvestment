@@ -1,11 +1,10 @@
 import React, { Component } from 'react'
 import {
-    View, TouchableOpacity
+    View, TouchableOpacity, Text
 } from 'react-native';
 import {
     Picker, Icon
-} from 'native-base'
-import Button from 'react-native-button';
+} from 'native-base';
 import { Field, reduxForm, submit, SubmissionError } from 'redux-form';
 
 import ScannerQrCodeComponent from '../../lib/scannerQrCodeComponent'
@@ -158,15 +157,13 @@ class WalletModalFormComponent extends Component {
                             style={walletModalStyle.hiddenInput} styleItem={{width: 300}}/>
 
                     <View style={walletModalStyle.btnGroup}>
-                        <Button
-                            style={ [walletModalStyle.btnSaveCustom, walletModalStyle.btnCustom] }
-                            onPress={ handleSubmit(this.save) }
-                        > {SAVE}  </Button>
+                        <TouchableOpacity onPress={handleSubmit(this.save)} style={[walletModalStyle.btnCustom , walletModalStyle.btnSaveCustom]}>
+                            <Text style={walletModalStyle.buttonText}>{SAVE}</Text>
+                        </TouchableOpacity>
 
-                        <Button
-                            style={ [walletModalStyle.btnCancelCustom, walletModalStyle.btnCustom] }
-                            onPress={ this.props.hideWalletModal }
-                        > {CANCEL} </Button>
+                        <TouchableOpacity onPress={this.props.hideWalletModal} style={[walletModalStyle.btnCustom , walletModalStyle.btnCancelCustom]}>
+                            <Text style={walletModalStyle.buttonText}>{CANCEL}</Text>
+                        </TouchableOpacity>
                     </View>
                 </View> : null}
             </React.Fragment>

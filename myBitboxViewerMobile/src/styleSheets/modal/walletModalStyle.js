@@ -89,8 +89,7 @@ const walletModalStyle = StyleSheet.create({
         paddingTop: 5,
         paddingBottom: 5,
         width: 120,
-        margin: 5,
-        color: MAIN_TEXT_COLOR
+        margin: 5
     },
     btnSaveCustom: {
         backgroundColor: BTN_LOGIN_BG_COLOR,
@@ -99,6 +98,10 @@ const walletModalStyle = StyleSheet.create({
     btnCancelCustom: {
         backgroundColor: BTN_CANCEL_BG_COLOR,
         borderColor: BTN_CANCEL_BG_COLOR
+    },
+    buttonText : {
+        color: MAIN_TEXT_COLOR,
+        textAlign: 'center'
     },
     buttonCamera: {
         position: 'absolute',
