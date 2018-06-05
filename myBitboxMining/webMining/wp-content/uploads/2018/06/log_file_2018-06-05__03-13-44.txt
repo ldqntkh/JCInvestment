@@ -1,0 +1,84 @@
+
+---Downloaded files---
+The import files for: Demo content were successfully downloaded!
+Initial max execution time = 30
+Files info:
+Site URL = http://localhost:9999/softwares/JCInvestment/myBitboxMining/webMining
+Data file = E:\React\softwares\JCInvestment\myBitboxMining\webMining/wp-content/themes/sydney/demo-content/demo-content.xml
+Widget file = E:\React\softwares\JCInvestment\myBitboxMining\webMining/wp-content/themes/sydney/demo-content/demo-widgets.wie
+Customizer file = not defined!
+Redux files:
+not defined!
+
+------
+New AJAX call!
+[WARNING] Failed to import product_type external
+[WARNING] Failed to import product_type grouped
+[WARNING] Failed to import product_type simple
+[WARNING] Failed to import product_type variable
+
+
+------
+New AJAX call!
+[WARNING] Failed to import product_type external
+[WARNING] Failed to import product_type grouped
+[WARNING] Failed to import product_type simple
+[WARNING] Failed to import product_type variable
+
+
+------
+New AJAX call!
+[WARNING] Failed to import product_type external
+[WARNING] Failed to import product_type grouped
+[WARNING] Failed to import product_type simple
+[WARNING] Failed to import product_type variable
+
+
+------
+New AJAX call!
+[WARNING] Failed to import product_type external
+[WARNING] Failed to import product_type grouped
+[WARNING] Failed to import product_type simple
+[WARNING] Failed to import product_type variable
+
+
+------
+New AJAX call!
+[WARNING] Failed to import product_type external
+[WARNING] Failed to import product_type grouped
+[WARNING] Failed to import product_type simple
+[WARNING] Failed to import product_type variable
+
+
+---Importing widgets---
+sidebar-above-header : Sidebar does not exist in theme (moving widget to Inactive)
+
+Tìm kiếm - No Title - Widget already exists
+Bài viết mới - No Title - Widget already exists
+Phản hồi gần đây - No Title - Widget already exists
+Lưu trữ - No Title - Widget already exists
+Chuyên mục - No Title - Widget already exists
+Meta - No Title - Widget already exists
+
+Sidebar : 
+
+Tìm kiếm - No Title - Imported
+Bài viết mới - No Title - Imported
+Lịch - No Title - Imported
+
+Footer 1 : 
+
+Sydney: Video - No Title - Imported
+
+Footer 2 : 
+
+Văn bản - No Title - Imported
+
+Footer 3 : 
+
+Sydney: Contact info - Get in touch - Imported
+
+
+
+---pt-ocdi/after_import---
+
