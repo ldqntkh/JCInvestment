@@ -168,6 +168,9 @@ function sydney_scripts() {
 	wp_enqueue_style( 'sydney-ie9', get_template_directory_uri() . '/css/ie9.css', array( 'sydney-style' ) );
 	wp_style_add_data( 'sydney-ie9', 'conditional', 'lte IE 9' );
 
+	/* Add custom style */
+	wp_enqueue_style( 'custom-style', get_template_directory_uri() . '/css/custom-style.css' );
+
 	wp_enqueue_script( 'sydney-scripts', get_template_directory_uri() . '/js/scripts.js', array('jquery'),'', true );
 
 	wp_enqueue_script( 'sydney-main', get_template_directory_uri() . '/js/main.min.js', array('jquery'),'20180213', true );
