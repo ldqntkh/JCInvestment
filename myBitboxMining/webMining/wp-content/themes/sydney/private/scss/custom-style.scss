@@ -1,0 +1,89 @@
+.ethereum-mining-row-1 {
+    .textwidget {
+        font-size: 16px;
+
+        .title {
+            color: #bdb76b;
+            font-size: 40px;
+            font-weight: 700;
+
+            @media screen and (min-width: 1024px){
+                width: 40%;
+            }
+        }
+
+        .content {
+            font-size: 16px;
+
+            @media screen and (min-width: 1024px){
+                width: 35%;
+            }
+
+            .highlight {
+                color: #bf3654;
+                font-weight: bold;
+                text-transform: uppercase;
+            }
+
+            p {
+                margin-bottom: 10px;
+            }
+
+            .button_container {
+                margin-top: 20px;
+            }
+
+            .theme_button {
+                color: white;
+                border-radius: 30px;
+                background-color: #bf3654;
+                font-weight: bold;
+                padding: 15px;
+                letter-spacing: 0.2em;
+                text-transform: uppercase;
+            }
+
+            .theme_button:hover {
+                background-color: #bdb76b;
+            }
+        }
+    }
+}
+
+.etherum-mining-hashrate-row {
+    .hashrate_container {
+        p {
+            margin-bottom: 0;
+        }
+
+        .title {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .hashrate_value {
+            border-color: #bf3654;
+            color: #bf3654;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .hashrate_price {
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 20px;
+            text-transform: uppercase;
+
+            .number::before {
+                content: '\0024';
+            }
+        }
+
+        .hashrate_content {
+            color: #808080;
+            font-size:16px;
+            line-height:30px;
+            margin-bottom: 15px;
+        }
+    }
+}
