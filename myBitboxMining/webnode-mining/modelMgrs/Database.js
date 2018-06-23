@@ -40,7 +40,6 @@ class DbConnect {
     getConnect(){
         this.connectPool.getConnection(function(err, connection){
             if (err) {
-                logFile.writeLogFile('getConnect', __filename, 43, err);
                 throw err;
             }
             return connection;
@@ -54,15 +53,12 @@ class DbConnect {
         return new Promise((resolve, reject) => {
             this.connectPool.getConnection(function(err, connection){
                 if (err) {
-                    logFile.writeLogFile('getConnection', __filename, 57 ,err);
                     reject(new Error(err));
                 }
                 else {
                     connection.query(query, function (error, results, fields) {
                         connection.release();
                         if (error) {
-                            logFile.writeLogFile('Doquery', __filename, 64 ,error);
-                            logFile.writeLogFile('Doquery_SQL', __filename, 65 ,query);
                             reject(new Error(error));
                         }
                         else {

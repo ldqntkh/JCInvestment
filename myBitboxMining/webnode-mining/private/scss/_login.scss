@@ -1,0 +1,32 @@
+.customer-login {
+    .col-md-5 {
+        margin: 20% 0;
+    }
+
+    .login-header {
+        box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14), 0 7px 10px -5px rgba(76, 175, 80, 0.4);
+        background: linear-gradient(60deg, #66bb6a, #43a047);
+        border-radius: 3px;
+        margin-top: -20px;
+        padding: 15px;
+        z-index: 3 !important;
+    }
+
+    .card-body {
+        #login-alert {
+            display: none;
+        }
+
+        .input-group {
+            margin: 0 0 25px;
+        }
+    
+        .form-group {
+            margin: 10px 0 0;
+        }
+    }
+
+    .error-message {
+        color: red;
+    }
+}
