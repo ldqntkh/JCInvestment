@@ -38,9 +38,11 @@ app.use(passport.session());
 // router customer
 var indexRouter = require('./routes/customer/index');
 var customerAccountRoute = require('./routes/customer/account');
+var calculation = require('./routes/customer/calculation');
 // use router of customer
 app.use('/', indexRouter);
 app.use('/', customerAccountRoute);
+app.use('/', calculation);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
