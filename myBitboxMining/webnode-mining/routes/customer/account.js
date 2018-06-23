@@ -4,14 +4,8 @@ var CustomerManager = require('../../modelMgrs/CustomerManager');
 var db = require('../../modelMgrs/Database');
 
 router.get('/login', function(req, res, next) {
-    var customer = {
-        email: '',
-        password: ''
-    };
     res.render('customer/login', {
-        "title": "Customer Login",
-        customer: customer,
-        errorMessage: ''
+        "title": "Customer Login"
     });
 })
 .post('/login', async (req, res, next) => {
