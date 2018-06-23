@@ -18,19 +18,17 @@ router.get('/login', function(req, res, next) {
         var customerMgr = new CustomerManager(new db());
         var customer = await customerMgr.getCustomerByEmailAndPassword(customer.email, customer.password);
 
-        if (req.body.email === '' || req.body.password === '') {
-            errorMessage = 'Username or password is missing';
-        }
-        
         if (customer !== null) {
             req.session.customer = customer;
             return res.redirect('/');
         } else {
-            errorMessage = 'Incorrect password';
+            errorMessage = 'Incorrect username or password';
         }
 
         res.render('customer/login', {
             "title": "User Login",
+            email: req.body.email,
+            password: req.body.password,
             errorMessage: errorMessage
         });
     } catch(err) {
