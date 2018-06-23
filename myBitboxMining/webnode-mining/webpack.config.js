@@ -1,34 +1,33 @@
-var path = require('path');
-//Thư mục sẽ chứa tập tin được biên dịch
-var BUILD_DIR = path.resolve(__dirname, 'public/javascript/react');
-//Thư mục chứa dự án - các component React
-var APP_DIR = path.resolve(__dirname, 'private/reactjs');
-
-//var WEB_STORE = path.resolve(__dirname, 'wp-content/themes/storefront/assets/js/utils');
-
-var config = {
-    entry: APP_DIR + '/App.js',
+/*
+    ./webpack.config.js
+*/
+const path = require('path');
+module.exports = {
+    entry: './private/reactjs/customer/App.js',
     output: {
-        path: BUILD_DIR,
-        filename: 'bundlesreact.js'
-    },
-    resolve: {
-        alias: {
-            reducer: path.resolve(__dirname, 'App/reducers/indexReducer.js')
-        }
+        path: path.resolve('public/reactjs'),
+        filename: 'bundle.js'
     },
     module: {
         rules: [{
-            loader: 'babel-loader',
-            test: /\.jsx?$/,
-            exclude: /node_modules/,
-            query: {
-                presets: ['react', ["es2015", {
-                    "modules": false
-                }]]
+                test: /\.css$/,
+                use: [{
+                        loader: "style-loader"
+                    },
+                    {
+                        loader: "css-loader"
+                    }
+                ]
+            },
+            {
+                test: /\.js$/,
+                exclude: /node_modules/,
+                use: "babel-loader"
+            }, {
+                test: /\.jsx?$/,
+                exclude: /node_modules/,
+                use: "babel-loader"
             }
-        }]
+        ]
     }
-};
-
-module.exports = config;
+}

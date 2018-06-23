@@ -25,8 +25,8 @@
     <div class="wrapper ">
         <div class="sidebar" data-color="purple" data-background-color="white" data-image="/images/sidebar-1.jpg">
             <div class="logo">
-                <a href="http://www.creative-tim.com" class="simple-text logo-normal">
-                    Creative Tim
+                <a href="/" class="simple-text logo-normal">
+                    <%- typeof fullname !== 'undefined' ? fullname : '' %>
                 </a>
             </div>
             <% if(typeof menu_active !== 'undefined' && menu_active !== '') {%>
@@ -42,6 +42,12 @@
                         <a class="nav-link" href="./user">
                             <i class="material-icons">person</i>
                             <p>User Profile</p>
+                        </a>
+                    </li>
+                    <li class="nav-item <%- menu_active === 'calculation' ? 'active' : '' %>">
+                        <a class="nav-link" href="./calculation">
+                            <i class="fa fa-calculator"></i>
+                            <p>Calculation</p>
                         </a>
                     </li>
                 </ul>
