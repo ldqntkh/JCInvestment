@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
 var CustomerManager = require('../../modelMgrs/CustomerManager');
-var db = require('../../modelMgrs/Database');
 
 router.get('/login', function(req, res, next) {
     res.render('customer/login', {
@@ -15,7 +14,7 @@ router.get('/login', function(req, res, next) {
             password: req.body.password
         };
         var errorMessage = null;
-        var customerMgr = new CustomerManager(new db());
+        var customerMgr = new CustomerManager(req.app.locals._db);
         var customer = await customerMgr.getCustomerByEmailAndPassword(customer.email, customer.password);
 
         if (customer !== null) {
