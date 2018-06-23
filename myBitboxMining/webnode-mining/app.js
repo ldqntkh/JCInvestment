@@ -13,6 +13,9 @@ var LocalStrategy = require('passport-local').Strategy;
 
 var app = express();
 
+var _db = require('./modelMgrs/Database');
+app.locals._db = new _db();
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
