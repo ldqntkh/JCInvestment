@@ -1,28 +1,28 @@
 'use strict';
 
-class User {
-    constructor(UserObject) {
-        UserObject && Object.assign(this, UserObject)
+class Customer {
+    constructor(CustomerObject) {
+        CustomerObject && Object.assign(this, CustomerObject)
         /**
-         * username : String
+         * email : String
          * password : String
          */
     }
 
     /**
-     * get username of user
-     * @return {String} username
+     * get email of user
+     * @return {String} email
      */
-    getUsername() {
-        return this.username
+    getEmail() {
+        return this.email
     }
 
     /**
-     * set username for user
-     * @param {String} username 
+     * set email for user
+     * @param {String} email 
      */
-    setEmail(username) {
-        this.username = username;
+    setEmail(email) {
+        this.email = email;
     }
 
     /**
@@ -43,4 +43,4 @@ class User {
 
 }
 
-module.exports = User;
+module.exports = Customer;

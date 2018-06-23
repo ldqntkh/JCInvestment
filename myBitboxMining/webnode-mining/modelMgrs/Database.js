@@ -50,7 +50,7 @@ class DbConnect {
     // select data
     Doquery (query, objData) {
         query = this.queryFormat(query, objData);
-        //console.log(query);
+        console.log(query);
         return new Promise((resolve, reject) => {
             this.connectPool.getConnection(function(err, connection){
                 if (err) {
