@@ -29,6 +29,7 @@
                     Creative Tim
                 </a>
             </div>
+            <% if(typeof menu_active !== 'undefined' && menu_active !== '') {%>
             <div class="sidebar-wrapper">
                 <ul class="nav">
                     <li class="nav-item <%- menu_active === 'dashboard' ? 'active' : '' %>">
@@ -45,6 +46,7 @@
                     </li>
                 </ul>
             </div>
+            <%}%>
         </div>
         <div class="main-panel">
             
