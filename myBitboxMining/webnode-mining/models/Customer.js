@@ -6,11 +6,15 @@ class Customer {
         /**
          * email : String
          * password : String
+         * phone: Number
+         * fullname: String
+         * birthday: Date
+         * updateAt: Date
          */
     }
 
     /**
-     * get email of user
+     * get email of customer
      * @return {String} email
      */
     getEmail() {
@@ -18,7 +22,7 @@ class Customer {
     }
 
     /**
-     * set email for user
+     * set email for customer
      * @param {String} email 
      */
     setEmail(email) {
@@ -26,7 +30,7 @@ class Customer {
     }
 
     /**
-     * get password of user
+     * get password of customer
      * @return {String}
      */
     getPassword() {
@@ -34,11 +38,75 @@ class Customer {
     }
 
     /**
-     * set new password for user
+     * set new password for customer
      * @param {String} password 
      */
     setPassword(password) {
         this.password = password;
+    }
+
+    /**
+     * get phone of customer
+     * @return {Number}
+     */
+    getPhone() {
+        return this.phone;
+    }
+
+    /**
+     * set phone of customer
+     * @param {Number} phone
+     */
+    setPhone(phone) {
+        this.phone = phone;
+    }
+
+    /**
+     * get fullname of customer
+     * @return {String}
+     */
+    getFullName() {
+        return this.fullname;
+    }
+
+    /**
+     * set fullname of customer
+     * @param {String} fullname
+     */
+    setFullName(fullname) {
+        this.fullname = fullname;
+    }
+
+    /**
+     * get birthday of customer
+     * @return {Date}
+     */
+    getBirthday() {
+        return this.birthday;
+    }
+
+    /**
+     * set birthday of customer
+     * @param {Date} birthday
+     */
+    setBirthday(birthday) {
+        this.birthday = birthday;
+    }
+
+    /**
+     * get updateAt
+     * @return {Date}
+     */
+    getUpdateAt() {
+        return this.updateAt;
+    }
+
+    /**
+     * set updateAt
+     * @param {Date} updateAt
+     */
+    setUpdateAt(updateAt) {
+        this.updateAt = updateAt;
     }
 
 }

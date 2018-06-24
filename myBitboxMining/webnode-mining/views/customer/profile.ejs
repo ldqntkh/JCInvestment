@@ -1,0 +1,83 @@
+<%- include('../share_customer/header', {"title" : title, "menu_active" : menu_active}); %>
+    <%- include('../share_customer/navbar', {"title" : title}); %>
+    <div class="content">
+        <div class="container-fluid edit-profile">
+            <div class="row">
+            <div class="col-md-8">
+                <div class="card">
+                <div class="card-header card-header-primary">
+                    <h4 class="card-title">Edit Profile</h4>
+                    <p class="card-category">Complete your profile</p>
+                </div>
+                <div class="card-body">
+                    <form action="/editprofile" method="POST" >
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="bmd-label-floating">Email address</label>
+                                <input type="email" name="email" class="form-control" value="<%= typeof customer.email !== 'undefined' ? customer.email : '' %>" maxlength="50" required <%= typeof customer.email !== 'undefined' ? 'disabled' : '' %>>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="bmd-label-floating">Full Name</label>
+                                <input type="text" name="fullname" class="form-control" value="<%= typeof customer.fullname !== 'undefined' ? customer.fullname : '' %>" maxlength="50" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="">Birthday</label>
+                                <input type="date" name="birthday" class="form-control" value="<%= typeof customer.birthday !== 'undefined' ? customer.birthday : '' %>" maxlength="50">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="bmd-label-floating">Phone number</label>
+                                <input type="tel" name="phone" class="form-control" value="<%= typeof customer.phone !== 'undefined' ? customer.phone : '' %>" maxlength="11">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="bmd-label-floating">Adress</label>
+                                <input type="text" class="form-control" maxlength="100">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 message <%= typeof isError !== 'undefined' && isError ? 'text-danger' : 'text-success' %>">
+                            <span><%= typeof message !== 'undefined' ? message : '' %></span>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary pull-right">Update Profile</button>
+                    <div class="clearfix"></div>
+                    </form>
+                </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card card-profile">
+                <div class="card-avatar">
+                    <a href="#pablo">
+                    <img class="img" src="https://demos.creative-tim.com/material-dashboard/assets/img/faces/marc.jpg" />
+                    </a>
+                </div>
+                <div class="card-body">
+                    <h6 class="card-category text-gray">CEO / Co-Founder</h6>
+                    <h4 class="card-title">Alec Thompson</h4>
+                    <p class="card-description">
+                    Don't be scared of the truth because we need to restart the human foundation in truth And I love you like Kanye loves Kanye I love Rick Owens’ bed design but the back is...
+                    </p>
+                    <a href="#pablo" class="btn btn-primary btn-round">Follow</a>
+                </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+    <%- include('../share_customer/footer'); %>

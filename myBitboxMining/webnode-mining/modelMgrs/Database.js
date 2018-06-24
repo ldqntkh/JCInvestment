@@ -98,15 +98,12 @@ class DbConnect {
         return new Promise((resolve, reject) => {
             this.connectPool.getConnection(function(err, connection){
                 if (err) {
-                    logFile.writeLogFile('getConnection', __filename, 105 ,err);
                     reject(new Error(err));
                 }
                 else {
                     connection.query(query, function (error, results, fields) {
                         connection.release();
                         if (error) {
-                            logFile.writeLogFile('ExcuteInsert', __filename, 113 ,error);
-                            logFile.writeLogFile('ExcuteInsert_SQL', __filename, 114 ,query);
                             reject(new Error(error));
                         }
                         else {
@@ -124,15 +121,12 @@ class DbConnect {
         return new Promise((resolve, reject) => {
             this.connectPool.getConnection(function(err, connection){
                 if (err) {
-                    logFile.writeLogFile('getConnection', __filename, 131 ,error);
                     reject(new Error(err));
                 }
                 else {
                     connection.query(query, function (error, results, fields) {
                         connection.release();
                         if (error) {
-                            logFile.writeLogFile('ExcuteUpdate', __filename, 138 ,error);
-                            logFile.writeLogFile('ExcuteInsert_SQL', __filename, 139 ,query);
                             reject(new Error(error));
                         }
                         else {
@@ -150,15 +144,12 @@ class DbConnect {
         return new Promise((resolve, reject) => {
             this.connectPool.getConnection(function(err, connection){
                 if (err) {
-                    logFile.writeLogFile('getConnection', __filename, 157 ,err);
                     reject(new Error(err));
                 }
                 else {
                     connection.query(query, function (error, results, fields) {
                         connection.release();
                         if (error) {
-                            logFile.writeLogFile('ExcuteDelete', __filename, 164 ,error);
-                            logFile.writeLogFile('ExcuteDelete_SQL', __filename, 165 ,query);
                             reject(new Error(error));
                         }
                         else {
