@@ -1,3 +1,4 @@
+<% var isAuthenticated = typeof customer !== 'undefined'%>
 <%- include('../share_customer/header', {"title" : title, "menu_active" : menu_active}); %>
     <%- include('../share_customer/navbar', {"title" : title}); %>
     <div class="content">
@@ -15,13 +16,13 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="bmd-label-floating">Email address</label>
-                                <input type="email" name="email" class="form-control" value="<%= typeof customer.email !== 'undefined' ? customer.email : '' %>" maxlength="50" required <%= typeof customer.email !== 'undefined' ? 'disabled' : '' %>>
+                                <input type="email" name="email" class="form-control" value="<%= isAuthenticated && typeof customer.email !== 'undefined' ? customer.email : '' %>" maxlength="50" required disabled>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="bmd-label-floating">Full Name</label>
-                                <input type="text" name="fullname" class="form-control" value="<%= typeof customer.fullname !== 'undefined' ? customer.fullname : '' %>" maxlength="50" required>
+                                <input type="text" name="fullname" class="form-control" value="<%= isAuthenticated && typeof customer.fullname !== 'undefined' ? customer.fullname : '' %>" maxlength="50" required>
                             </div>
                         </div>
                     </div>
@@ -29,7 +30,8 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="">Birthday</label>
-                                <input type="date" name="birthday" class="form-control" value="<%= typeof customer.birthday !== 'undefined' ? customer.birthday : '' %>" maxlength="50">
+                                <input type="text" name="birthday" class="form-control" value="<%= isAuthenticated && typeof customer.birthday !== 'undefined' ? customer.birthday : '' %>" maxlength="50"
+                                pattern="(?:19|20)[0-9]{2}-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))" placeholder="yyyy-mm-dd" required />
                             </div>
                         </div>
                     </div>
@@ -37,15 +39,8 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="bmd-label-floating">Phone number</label>
-                                <input type="tel" name="phone" class="form-control" value="<%= typeof customer.phone !== 'undefined' ? customer.phone : '' %>" maxlength="11">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="bmd-label-floating">Adress</label>
-                                <input type="text" class="form-control" maxlength="100">
+                                <input type="tel" name="phone" class="form-control" value="<%= isAuthenticated && typeof customer.phone !== 'undefined' ? customer.phone : '' %>" maxlength="11"
+                                    pattern="\(?([0-9]{3})\)?([ .-]?)([0-9]{3})\2([0-9]{5})" />
                             </div>
                         </div>
                     </div>
