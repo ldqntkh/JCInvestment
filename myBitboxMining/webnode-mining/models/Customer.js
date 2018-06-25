@@ -9,6 +9,7 @@ class Customer {
          * phone: Number
          * fullname: String
          * birthday: Date
+         * active: Number
          * updateAt: Date
          */
     }
@@ -91,6 +92,22 @@ class Customer {
      */
     setBirthday(birthday) {
         this.birthday = birthday;
+    }
+
+    /**
+     * get active
+     * @return {Number}
+     */
+    getActive() {
+        return this.active;
+    }
+
+    /**
+     * set updateAt
+     * @param {Number} active
+     */
+    setActive(active) {
+        this.active = active;
     }
 
     /**

@@ -29,4 +29,26 @@
     .error-message {
         color: red;
     }
+
+    .card {
+        .card-footer {
+            border-top: 1px solid #eee;
+    
+            span {
+                margin-left: 10px;
+            }
+
+            a {
+                color: #999999;
+            }
+
+            a:hover {
+                color: #9c27b0;
+            }
+        }
+    }
+}
+
+.create-profile {
+    padding-top: 30px;
 }

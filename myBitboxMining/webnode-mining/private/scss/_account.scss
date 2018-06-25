@@ -1,0 +1,10 @@
+.register-account-container {
+    .register-account-form {
+        @media (min-width: 768px) and (min-height: 750px) {
+            left: 50%;
+            position: fixed;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+    }
+}
