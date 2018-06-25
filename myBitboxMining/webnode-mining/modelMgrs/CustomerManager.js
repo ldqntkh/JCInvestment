@@ -1,6 +1,9 @@
 'use strict';
 var customerObj = require('../models/Customer');
 
+// require module
+var moment = require('moment');
+
 class CustomerManager {
     constructor(dbConnect) {
         this.dbConnect = dbConnect;
@@ -19,6 +22,23 @@ class CustomerManager {
         } catch(err) {
             //console.log(err);
             return null;
+        }
+    }
+
+    /**
+     * Update data customer
+     * @param {Object} customer 
+     * @return {Number} affectedRows
+     */
+    async updateCustomer(customer) {
+        try {
+            customer.setUpdateAt(moment(Date.now()).format('YYYY-MM-DD HH:mm:ss'));
+
+            var result = await this.dbConnect.ExcuteUpdate( `update customer set email = :email, fullname = :fullname, phone = :phone
+                                                            , birthday = :birthday, updateAt = :updateAt where id = :id`, customer);
+            return result.affectedRows;
+        } catch (err) {
+            return -1;
         }
     }
 }
