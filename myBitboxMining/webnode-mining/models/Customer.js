@@ -10,6 +10,7 @@ class Customer {
          * fullname: String
          * birthday: Date
          * active: Number
+         * createAt: Date
          * updateAt: Date
          */
     }
@@ -108,6 +109,22 @@ class Customer {
      */
     setActive(active) {
         this.active = active;
+    }
+
+    /**
+     * get createAt
+     * @return {Date}
+     */
+    getCreateAt() {
+        return this.createAt;
+    }
+
+    /**
+     * set createAt
+     * @param {Date} createAt
+     */
+    setCreateAt(createAt) {
+        this.createAt = createAt;
     }
 
     /**

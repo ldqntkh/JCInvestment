@@ -1,8 +1,10 @@
 'use strict';
 var customerObj = require('../models/Customer');
+var EmailHelper = require('../private/js/EmailHelper');
 
 // require module
 var moment = require('moment');
+var crypto = require('crypto');
 
 class CustomerManager {
     constructor(dbConnect) {
@@ -63,13 +65,16 @@ class CustomerManager {
      */
     async addCustomer(customer) {
         try {
-            customer.setPassword(globalFunc.encrypt(customer.getPassword()));
-            customer.setUpdateAt(moment(Date.now()).format('YYYY-MM-DD HH:mm:ss'));
-            let result = null;
-            result = await this.dbConnect.ExcuteInsert("insert into customer(email, password, fullname, phone, level) " +
-                                                            "values(:email, :password, :fullname, :phone, :level)", customer);
+            var passwordHashed = crypto.createHmac('sha256', customer.getPassword())
+                .digest('hex');
+            customer.setPassword(passwordHashed);
+            customer.setCreateAt(moment(Date.now()).format('YYYY-MM-DD HH:mm:ss'));
+            var result = null;
+            result = await this.dbConnect.ExcuteInsert("insert into customer(email, password, fullname, birthday, phone, active, createAt) " +
+                                                            "values(:email, :password, :fullname, :birthday, :phone, :active, :createAt)", customer);
             return (result !== null) ? {affectedRows: result.affectedRows, id: result.insertId} : -1;
         } catch(err) {
+            console.log(err.message);
             return -1;
         }
     }
