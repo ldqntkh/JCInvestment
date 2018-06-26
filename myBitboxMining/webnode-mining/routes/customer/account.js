@@ -22,8 +22,12 @@ router.get('/login', function(req, res, next) {
         var customer = await customerMgr.getCustomerByEmailAndPassword(customer.email, customer.password);
 
         if (customer !== null) {
-            req.session.customer = customer;
-            return res.redirect('/');
+            if (await customerMgr.getCustomerByActive(customer.getActive()) !== null ) {
+                req.session.customer = customer;
+                return res.redirect('/');
+            } else {
+                errorMessage = 'Your account is not active. Please active before login';
+            }
         } else {
             errorMessage = 'Incorrect username or password';
         }
@@ -57,13 +61,15 @@ router.post('/editprofile', async (req, res) => {
             message = 'There is something error while trying to update your profile';
             isError = true;
         } else {
+            req.session.customer = customer;
             message = 'Your profile is updated';
         }
 
         res.render('customer/profile', {
             "title" : "User Profile",
             "menu_active": "user",
-            "customer": customer,
+            "customer": req.session.customer,
+            "fullname" : req.session.customer.fullname,
             "message": message,
             "isError": isError
         });
@@ -71,13 +77,12 @@ router.post('/editprofile', async (req, res) => {
         console.log(err);
     }
 })
-.get('/registeraccount', function(req, res) {
-    console.log(JSON.stringify({affectedRows: 1, id: 1}));
+.get('/registeraccount', (req, res) => {
     res.render('customer/register', {
         "title" : "Register Account"
     });
 })
-.post('/registerform', async (req, res) => {
+.post('/registeraccount', async (req, res) => {
     try {
         var errMessage = {}, message = '';
         var isError = false;
@@ -102,15 +107,18 @@ router.post('/editprofile', async (req, res) => {
                 isError = true;
                 errMessage.customer = 'Can not registered account. Please check all input field to make sure data is right';
             } else {
-                var redirectUrl = req.hostname + ':3030/login?token=' + FileHelper.encrypt(JSON.stringify(customerAdded));
+                var verifyUrl = FileHelper.getUrl(req, 'verifyaccount/' + FileHelper.encrypt(JSON.stringify(customerAdded)));
                 var options = {
-                    from: '<phat.le@isobar.com>', // sender address
-                    to: customer.email, // list of receivers
+                    to: customer.email,
                     subject: '[myBitboxMining] Verify Account',
-                    html: '<p>Please click in this link to active your personal account <a href="' + redirectUrl + '">Verify account</a></p>'
+                    html: '<p>Please click in this link to active your personal account <a href="' + verifyUrl + '">Verify account</a></p>'
                 }
                 if (await new EmailHelper().sendEmail(options) !== null) {
                     message = 'Your account is created successully. Please check email to active';
+                    return res.render('customer/registersuccess', {
+                        title : 'Register Account',
+                        message: message
+                    });
                 }
             }
         }
@@ -123,7 +131,26 @@ router.post('/editprofile', async (req, res) => {
             isError: isError
         });
     } catch(err) {
-        console.log('error in router registerform ' + err.message);
+        console.log('error while trying to register account ' + err.message);
     }
+});
+
+router.get('/verifyaccount/:token', async (req, res) => {
+    try {
+        if (req.params.token && req.params.token !== '') {
+            var customerMgr = new CustomerManager(req.app.locals._db);
+            var token = JSON.parse(FileHelper.decrypt(req.params.token.split('&')[0]));
+            
+            var customer = await customerMgr.getCustomerById(token.id);
+            console.log(customer);
+            if (customer !== null && customer.getActive() === 0) {
+                customer.setActive(1);
+                await customerMgr.updateCustomerActive(customer);
+            }
+        }
+    } catch(err) {
+        console.log('error while update active in field customer: ' + err.message);
+    }
+    res.redirect('/login');
 });
 module.exports = router;

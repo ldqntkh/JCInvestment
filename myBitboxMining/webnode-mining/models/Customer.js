@@ -4,6 +4,7 @@ class Customer {
     constructor(CustomerObject) {
         CustomerObject && Object.assign(this, CustomerObject)
         /**
+         * id: Number
          * email : String
          * password : String
          * phone: Number
@@ -13,6 +14,22 @@ class Customer {
          * createAt: Date
          * updateAt: Date
          */
+    }
+
+    /**
+     * get id of customer
+     * @return {Number} id
+     */
+    getId() {
+        return this.id
+    }
+
+    /**
+     * set id for customer
+     * @param {Number} id 
+     */
+    setId(id) {
+        this.id = id;
     }
 
     /**
