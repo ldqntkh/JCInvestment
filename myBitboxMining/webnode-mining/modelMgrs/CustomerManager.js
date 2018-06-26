@@ -57,20 +57,6 @@ class CustomerManager {
     }
 
     /**
-     * get customer by active
-     * @param {Number} active
-     * @return {Object} customer
-     */
-    async getCustomerByActive(active) {
-        try {
-            var result = await this.dbConnect.Doquery("select email from customer where active = :active", {"active" : active});
-            return result !== null && result.length > 0 ? new customerObj(result[0]) : null;
-        } catch(err) {
-            return null;
-        }
-    }
-
-    /**
      * add new customer
      * @param {Object} customer 
      * @return {Number} affectedRows

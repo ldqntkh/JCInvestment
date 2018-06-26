@@ -22,7 +22,7 @@ router.get('/login', function(req, res, next) {
         var customer = await customerMgr.getCustomerByEmailAndPassword(customer.email, customer.password);
 
         if (customer !== null) {
-            if (await customerMgr.getCustomerByActive(customer.getActive()) !== null ) {
+            if (customer.getActive() === 1 ) {
                 req.session.customer = customer;
                 return res.redirect('/');
             } else {
