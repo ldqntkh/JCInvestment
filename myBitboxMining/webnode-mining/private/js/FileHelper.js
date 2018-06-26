@@ -31,5 +31,10 @@ module.exports = {
 
     getUrl: (request, parameter) => {
         return request.protocol + '://' + request.headers.host + '/' + parameter;
+    },
+
+    crypto: (value) => {
+        return crypto.createHmac('sha256', value)
+        .digest('hex');
     }
 }

@@ -1,6 +1,7 @@
 'use strict';
 var customerObj = require('../models/Customer');
-var EmailHelper = require('../private/js/EmailHelper');
+const EmailHelper = require('../private/js/EmailHelper');
+const FileHelper = require('../private/js/FileHelper');
 
 // require module
 var moment = require('moment');
@@ -19,8 +20,7 @@ class CustomerManager {
      */
     async getCustomerByEmailAndPassword(email, password) {
         try {
-            var passwordHashed = crypto.createHmac('sha256', password)
-                                       .digest('hex');
+            var passwordHashed = FileHelper.crypto(password);
             var result = await this.dbConnect.Doquery("select * from customer where email = :email and password = :password", {"email" : email, "password": passwordHashed});
             return result !== null && result.length > 0 ? new customerObj(result[0]) : null;
         } catch(err) {
@@ -78,8 +78,7 @@ class CustomerManager {
      */
     async addCustomer(customer) {
         try {
-            var passwordHashed = crypto.createHmac('sha256', customer.getPassword())
-                .digest('hex');
+            var passwordHashed = FileHelper.crypto(customer.getPassword());
             customer.setPassword(passwordHashed);
             customer.setCreateAt(moment(Date.now()).format('YYYY-MM-DD HH:mm:ss'));
             var result = await this.dbConnect.ExcuteInsert("insert into customer(email, password, fullname, birthday, phone, active, createAt) " +

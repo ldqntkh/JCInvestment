@@ -137,20 +137,26 @@ router.post('/editprofile', async (req, res) => {
 
 router.get('/verifyaccount/:token', async (req, res) => {
     try {
+        var message = '';
         if (req.params.token && req.params.token !== '') {
             var customerMgr = new CustomerManager(req.app.locals._db);
             var token = JSON.parse(FileHelper.decrypt(req.params.token.split('&')[0]));
-            
             var customer = await customerMgr.getCustomerById(token.id);
-            console.log(customer);
             if (customer !== null && customer.getActive() === 0) {
                 customer.setActive(1);
-                await customerMgr.updateCustomerActive(customer);
+                if(await customerMgr.updateCustomerActive(customer) > 0) {
+                    message = 'Your account is actived.';
+                    return res.render('customer/verifysuccess', {
+                        "title": "Verify Account",
+                        message: message
+                    });
+                }
             }
         }
     } catch(err) {
         console.log('error while update active in field customer: ' + err.message);
     }
+
     res.redirect('/login');
 });
 module.exports = router;
