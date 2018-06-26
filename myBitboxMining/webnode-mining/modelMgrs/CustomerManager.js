@@ -3,23 +3,42 @@ var customerObj = require('../models/Customer');
 const EmailHelper = require('../private/js/EmailHelper');
 const FileHelper = require('../private/js/FileHelper');
 const SequelizeConfig = require('./SequelizeConfig');
+const Sequelize = SequelizeConfig.sequelize();
+const globalAttributes = ['id', 'email', 'fullname', 'phone', 'birthday'];
+var customer = Sequelize.define('customer');
 
 // require module
 const moment = require('moment');
 
 module.exports = {
     getCustomerByEmail: async (email) => {
-        if (SequelizeConfig.isAuthenticated()) {
-            var sequelize = SequelizeConfig.sequelize();
-            var customer = sequelize.define('customer', {});
+        try {
             customer = await customer.findOne({
+                attributes: globalAttributes,
                 where: {
                     email: email
                 }
             });
+            return customer ? customer.dataValues : null;
+        } catch(err) {
+            console.log(err);
         }
-        console.log(customer);
-        return customer;
+    },
+    getCustomerByEmailAndPassword: async (email, password) => {
+        try {
+            var passwordHashed = FileHelper.crypto(password);
+            customer = await customer.findOne({
+                attributes: globalAttributes,
+                where: {
+                    email: email,
+                    password: passwordHashed
+                }
+            });
+            return customer ? customer.dataValues : null;
+        } catch(err) {
+            console.log(err);
+            return null;
+        }
     }
 }
 

@@ -86,7 +86,6 @@ router.post('/editprofile', async (req, res) => {
     try {
         var errMessage = {}, message = '';
         var isError = false;
-        var customerMgr = new CustomerManager(req.app.locals._db);
         var customer = {
             email: req.body.email,
             fullname: req.body.fullname,
@@ -95,13 +94,13 @@ router.post('/editprofile', async (req, res) => {
             phone: req.body.phone
         }
 
-        errMessage.email = await customerMgr.getCustomerByEmail(customer.email) !== null ? 'The email address is existed. Please try again' : null;
+        errMessage.email = await CustomerManager.getCustomerByEmail(customer.email) !== null ? 'The email address is existed. Please try again' : null;
         errMessage.passwordconfirm = customer.password !== req.body.passwordconfirm ? 'The password confirm is incorrect. Please try again' : null;
 
         if (errMessage.email === null && errMessage.passwordconfirm === null) {
             var customerObj = new CustomerObj(customer);
             customerObj.setActive(0);
-            var customerAdded = await customerMgr.addCustomer(customerObj);
+            var customerAdded = await CustomerMgr.addCustomer(customerObj);
 
             if (customerAdded < 0 && customerAdded.effectedRows < 0) {
                 isError = true;
