@@ -4,8 +4,7 @@ const EmailHelper = require('../private/js/EmailHelper');
 const FileHelper = require('../private/js/FileHelper');
 
 // require module
-var moment = require('moment');
-var crypto = require('crypto');
+const moment = require('moment');
 
 class CustomerManager {
     constructor(dbConnect) {
