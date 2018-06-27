@@ -2,7 +2,7 @@
 const Sequelize = require('sequelize');
 
 module.exports = {
-    sequelize: () => {
+    init: () => {
         return new Sequelize('db_mybitboxmining', 'root', '', {
             host: 'localhost',
             dialect: 'mysql',
@@ -25,5 +25,8 @@ module.exports = {
             console.log(err);
         }
         return false;
+    },
+    getSequelizeModule: () => {
+        return Sequelize;
     }
 }

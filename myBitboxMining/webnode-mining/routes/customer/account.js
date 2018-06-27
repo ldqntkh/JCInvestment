@@ -18,8 +18,10 @@ router.get('/login', function(req, res, next) {
             password: req.body.password
         };
         var errorMessage = null;
-        var customerMgr = new CustomerManager(req.app.locals._db);
-        var customer = await customerMgr.getCustomerByEmailAndPassword(customer.email, customer.password);
+        var customer = await CustomerManager.getCustomerByField({
+            email: customer.email,
+            password: FileHelper.crypto(customer.password)
+        });
 
         if (customer !== null) {
             if (customer.getActive() === 1 ) {
@@ -56,8 +58,7 @@ router.post('/editprofile', async (req, res) => {
         var message = '',
             isError = false;
 
-        var customerMgr = new CustomerManager(req.app.locals._db);
-        if (await customerMgr.updateCustomer(new CustomerObj(customer)) < 0) {
+        if (await CustomerManager.updateCustomer(new CustomerObj(customer), {id: customer.id}) < 0) {
             message = 'There is something error while trying to update your profile';
             isError = true;
         } else {
@@ -90,19 +91,18 @@ router.post('/editprofile', async (req, res) => {
             email: req.body.email,
             fullname: req.body.fullname,
             password: req.body.password,
-            birthday: req.body.birthday,
-            phone: req.body.phone
+            birthday: req.body.birthday !== '' ? req.body.birthday : null,
+            phone: req.body.phone,
+            active: 0
         }
 
-        errMessage.email = await CustomerManager.getCustomerByEmail(customer.email) !== null ? 'The email address is existed. Please try again' : null;
+        errMessage.email = await CustomerManager.getCustomerByField({email: customer.email}) !== null ? 'The email address is existed. Please try again' : null;
         errMessage.passwordconfirm = customer.password !== req.body.passwordconfirm ? 'The password confirm is incorrect. Please try again' : null;
 
         if (errMessage.email === null && errMessage.passwordconfirm === null) {
             var customerObj = new CustomerObj(customer);
-            customerObj.setActive(0);
-            var customerAdded = await CustomerMgr.addCustomer(customerObj);
-
-            if (customerAdded < 0 && customerAdded.effectedRows < 0) {
+            var customerAdded = await CustomerManager.addCustomer(customerObj);
+            if (customerAdded === null) {
                 isError = true;
                 errMessage.customer = 'Can not registered account. Please check all input field to make sure data is right';
             } else {
@@ -138,12 +138,11 @@ router.get('/verifyaccount/:token', async (req, res) => {
     try {
         var message = '';
         if (req.params.token && req.params.token !== '') {
-            var customerMgr = new CustomerManager(req.app.locals._db);
             var token = JSON.parse(FileHelper.decrypt(req.params.token.split('&')[0]));
-            var customer = await customerMgr.getCustomerById(token.id);
+            var customer = await CustomerManager.getCustomerByField({id: token.id});
             if (customer !== null && customer.getActive() === 0) {
                 customer.setActive(1);
-                if(await customerMgr.updateCustomerActive(customer) > 0) {
+                if(await CustomerManager.updateCustomer(customer) > 0) {
                     message = 'Your account is actived.';
                     return res.render('customer/verifysuccess', {
                         "title": "Verify Account",

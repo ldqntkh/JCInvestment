@@ -1,149 +1,78 @@
 'use strict';
-var customerObj = require('../models/Customer');
-const EmailHelper = require('../private/js/EmailHelper');
-const FileHelper = require('../private/js/FileHelper');
+const CustomerModel = require('../models/Customer');
 const SequelizeConfig = require('./SequelizeConfig');
-const Sequelize = SequelizeConfig.sequelize();
-const globalAttributes = ['id', 'email', 'fullname', 'phone', 'birthday'];
-var customer = Sequelize.define('customer');
+
+const Sequelize = SequelizeConfig.getSequelizeModule();
+
+const sequelize = SequelizeConfig.init();
+
+//const globalAttributes = ['id', 'email', 'fullname', 'phone', 'birthday'];
+
+const CustomerTable = sequelize.define('customer', {
+    email: Sequelize.STRING,
+    password: Sequelize.STRING,
+    fullname:  Sequelize.STRING,
+    active: Sequelize.INTEGER,
+    phone: Sequelize.STRING,
+    birthday: Sequelize.DATE,
+    createAt: Sequelize.DATE,
+    updateAt: Sequelize.DATE
+});
+
+// class helper
+const FileHelper = require('../private/js/FileHelper');
 
 // require module
 const moment = require('moment');
 
 module.exports = {
-    getCustomerByEmail: async (email) => {
+    /**
+     * get customer by field name/value
+     * @param {Object} field example: {fieldName: valueOfField}
+     * @return {Object} customer
+     */
+    getCustomerByField: async (field) => {
         try {
-            customer = await customer.findOne({
-                attributes: globalAttributes,
-                where: {
-                    email: email
-                }
+            var customer = await CustomerTable.findOne({
+                where: field
             });
-            return customer ? customer.dataValues : null;
+            return customer  && customer.dataValues !== null ? new CustomerModel(customer.dataValues) : null;
         } catch(err) {
-            console.log(err);
+            console.log('error while get customer by field name: ' + err.message);
+            return null;
         }
     },
-    getCustomerByEmailAndPassword: async (email, password) => {
+    /**
+     * add new customer
+     * @param {Object} customer 
+     * @return {Object} customerModel
+     */
+    addCustomer: async (customerObj) => {
         try {
-            var passwordHashed = FileHelper.crypto(password);
-            customer = await customer.findOne({
-                attributes: globalAttributes,
-                where: {
-                    email: email,
-                    password: passwordHashed
-                }
-            });
-            return customer ? customer.dataValues : null;
+            customerObj.setPassword(FileHelper.crypto(customerObj.getPassword()));
+            customerObj.setCreateAt(moment(Date.now()).format('YYYY-MM-DD HH:mm:ss'));
+            var customer = await CustomerTable.create(customerObj);
+            return customer && customer.dataValues !== null ? new CustomerModel(customer.dataValues) : null;
         } catch(err) {
-            console.log(err);
+            console.log('error while adding new customer: ' + err.message);
             return null;
+        }
+    },
+    /**
+     * update customer
+     * @param {Object} customer
+     * @return {Number} affectedRows
+     */
+    updateCustomer: async (customer) => {
+        try {
+            customer.setUpdateAt(moment(Date.now()).format('YYYY-MM-DD HH:mm:ss'));
+            var affectedRows =  await CustomerTable.update(customer, {
+                                    where: {id: customer.getId()}
+                                });
+            return affectedRows.length > 0 ? affectedRows[0] : -1;
+        } catch(err) {
+            console.log(err.message);
+            return -1;
         }
     }
 }
-
-// class CustomerManager {
-//     constructor(dbConnect) {
-//         this.dbConnect = dbConnect;
-//     }
-
-//     /**
-//      * get object user by email and password
-//      * @param {String} email
-//      * @param {String} password 
-//      * @return {Object} customer
-//      */
-//     async getCustomerByEmailAndPassword(email, password) {
-//         try {
-//             var passwordHashed = FileHelper.crypto(password);
-//             var result = await this.dbConnect.Doquery("select * from customer where email = :email and password = :password", {"email" : email, "password": passwordHashed});
-//             return result !== null && result.length > 0 ? new customerObj(result[0]) : null;
-//         } catch(err) {
-//             //console.log(err);
-//             return null;
-//         }
-//     }
-
-//     /**
-//      * get customer by email
-//      * @param {String} email
-//      * @return {Object} customer
-//      */
-//     async getCustomerByEmail(email) {
-//         try {
-//             var result = await this.dbConnect.Doquery("select * from customer where email = :email", {"email" : email});
-//             return result !== null && result.length > 0 ? new customerObj(result[0]) : null;
-//         } catch(err) {
-//             return null;
-//         }
-//     }
-
-//     /**
-//      * get customer by id
-//      * @param {Number} id
-//      * @return {Object} customer
-//      */
-//     async getCustomerById(id) {
-//         try {
-//             var result = await this.dbConnect.Doquery("select * from customer where id = :id", {"id" : id});
-//             return result !== null && result.length > 0 ? new customerObj(result[0]) : null;
-//         } catch(err) {
-//             return null;
-//         }
-//     }
-
-//     /**
-//      * add new customer
-//      * @param {Object} customer 
-//      * @return {Number} affectedRows
-//      */
-//     async addCustomer(customer) {
-//         try {
-//             var passwordHashed = FileHelper.crypto(customer.getPassword());
-//             customer.setPassword(passwordHashed);
-//             customer.setCreateAt(moment(Date.now()).format('YYYY-MM-DD HH:mm:ss'));
-//             var result = await this.dbConnect.ExcuteInsert("insert into customer(email, password, fullname, birthday, phone, active, createAt) " +
-//                                                             "values(:email, :password, :fullname, :birthday, :phone, :active, :createAt)", customer);
-//             return (result !== null) ? {affectedRows: result.affectedRows, id: result.insertId} : -1;
-//         } catch(err) {
-//             console.log(err.message);
-//             return -1;
-//         }
-//     }
-
-//     /**
-//      * update customer
-//      * @param {Object} customer 
-//      * @return {Number} affectedRows
-//      */
-//     async updateCustomer(customer) {
-//         try {
-//             customer.setUpdateAt(moment(Date.now()).format('YYYY-MM-DD HH:mm:ss'));
-//             var result = await this.dbConnect.ExcuteUpdate("update customer set phone = :phone, fullname = :fullname, birthday = :birthday," +
-//                                                             "updateAt = :updateAt where id = :id", customer);
-//             return (result !== null) ? result.affectedRows : -1;
-//         } catch(err) {
-//             console.log(err.message);
-//             return -1;
-//         }
-//     }
-
-//     /**
-//      * Update active field in customer
-//      * @param {Object} customer
-//      * @return {Number} affectedRows
-//      */
-//     async updateCustomerActive(customer) {
-//         try {
-//             console.log(customer);
-//             customer.setUpdateAt(moment(Date.now()).format('YYYY-MM-DD HH:mm:ss'));
-
-//             var result = await this.dbConnect.ExcuteUpdate( "update customer set active = :active, updateAt = :updateAt where id = :id", customer);
-//             return result.affectedRows;
-//         } catch (err) {
-//             return -1;
-//         }
-//     }
-// }
-
-// module.exports = CustomerManager;
