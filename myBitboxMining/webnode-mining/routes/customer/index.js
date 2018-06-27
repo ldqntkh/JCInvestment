@@ -19,11 +19,12 @@ router.get('/user', async (req, res, next) => {
     try {
         if (!req.session.customer) res.redirect('/login');
         // format birthday to render template
-        req.session.customer.birthday = moment(new Date(req.session.customer.birthday)).format('YYYY-MM-DD');
+        if (req.session.customer.birthday !== null) {
+            req.session.customer.birthday = moment(new Date(req.session.customer.birthday)).format('YYYY-MM-DD');
+        }
     } catch(err) {
         console.log('error while go to user page: ' + err.message);
     }
-
     res.render('customer/profile', {
         "title" : "User Profile",
         "menu_active": "user",

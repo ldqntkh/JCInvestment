@@ -1,113 +1,78 @@
 'use strict';
-var customerObj = require('../models/Customer');
-const EmailHelper = require('../private/js/EmailHelper');
+const CustomerModel = require('../models/Customer');
+const SequelizeConfig = require('./SequelizeConfig');
+
+const Sequelize = SequelizeConfig.getSequelizeModule();
+
+const sequelize = SequelizeConfig.init();
+
+//const globalAttributes = ['id', 'email', 'fullname', 'phone', 'birthday'];
+
+const CustomerTable = sequelize.define('customer', {
+    email: Sequelize.STRING,
+    password: Sequelize.STRING,
+    fullname:  Sequelize.STRING,
+    active: Sequelize.INTEGER,
+    phone: Sequelize.STRING,
+    birthday: Sequelize.DATE,
+    createAt: Sequelize.DATE,
+    updateAt: Sequelize.DATE
+});
+
+// class helper
 const FileHelper = require('../private/js/FileHelper');
 
 // require module
 const moment = require('moment');
 
-class CustomerManager {
-    constructor(dbConnect) {
-        this.dbConnect = dbConnect;
-    }
-
+module.exports = {
     /**
-     * get object user by email and password
-     * @param {String} email
-     * @param {String} password 
+     * get customer by field name/value
+     * @param {Object} field example: {fieldName: valueOfField}
      * @return {Object} customer
      */
-    async getCustomerByEmailAndPassword(email, password) {
+    getCustomerByField: async (field) => {
         try {
-            var passwordHashed = FileHelper.crypto(password);
-            var result = await this.dbConnect.Doquery("select * from customer where email = :email and password = :password", {"email" : email, "password": passwordHashed});
-            return result !== null && result.length > 0 ? new customerObj(result[0]) : null;
+            var customer = await CustomerTable.findOne({
+                where: field
+            });
+            return customer  && customer.dataValues !== null ? new CustomerModel(customer.dataValues) : null;
         } catch(err) {
-            //console.log(err);
+            console.log('error while get customer by field name: ' + err.message);
             return null;
         }
-    }
-
-    /**
-     * get customer by email
-     * @param {String} email
-     * @return {Object} customer
-     */
-    async getCustomerByEmail(email) {
-        try {
-            var result = await this.dbConnect.Doquery("select * from customer where email = :email", {"email" : email});
-            return result !== null && result.length > 0 ? new customerObj(result[0]) : null;
-        } catch(err) {
-            return null;
-        }
-    }
-
-    /**
-     * get customer by id
-     * @param {Number} id
-     * @return {Object} customer
-     */
-    async getCustomerById(id) {
-        try {
-            var result = await this.dbConnect.Doquery("select * from customer where id = :id", {"id" : id});
-            return result !== null && result.length > 0 ? new customerObj(result[0]) : null;
-        } catch(err) {
-            return null;
-        }
-    }
-
+    },
     /**
      * add new customer
      * @param {Object} customer 
-     * @return {Number} affectedRows
+     * @return {Object} customerModel
      */
-    async addCustomer(customer) {
+    addCustomer: async (customerObj) => {
         try {
-            var passwordHashed = FileHelper.crypto(customer.getPassword());
-            customer.setPassword(passwordHashed);
-            customer.setCreateAt(moment(Date.now()).format('YYYY-MM-DD HH:mm:ss'));
-            var result = await this.dbConnect.ExcuteInsert("insert into customer(email, password, fullname, birthday, phone, active, createAt) " +
-                                                            "values(:email, :password, :fullname, :birthday, :phone, :active, :createAt)", customer);
-            return (result !== null) ? {affectedRows: result.affectedRows, id: result.insertId} : -1;
+            customerObj.setPassword(FileHelper.crypto(customerObj.getPassword()));
+            customerObj.setCreateAt(moment(Date.now()).format('YYYY-MM-DD HH:mm:ss'));
+            var customer = await CustomerTable.create(customerObj);
+            return customer && customer.dataValues !== null ? new CustomerModel(customer.dataValues) : null;
         } catch(err) {
-            console.log(err.message);
-            return -1;
+            console.log('error while adding new customer: ' + err.message);
+            return null;
         }
-    }
-
+    },
     /**
      * update customer
-     * @param {Object} customer 
-     * @return {Number} affectedRows
-     */
-    async updateCustomer(customer) {
-        try {
-            customer.setUpdateAt(moment(Date.now()).format('YYYY-MM-DD HH:mm:ss'));
-            var result = await this.dbConnect.ExcuteUpdate("update customer set phone = :phone, fullname = :fullname, birthday = :birthday," +
-                                                            "updateAt = :updateAt where id = :id", customer);
-            return (result !== null) ? result.affectedRows : -1;
-        } catch(err) {
-            console.log(err.message);
-            return -1;
-        }
-    }
-
-    /**
-     * Update active field in customer
      * @param {Object} customer
      * @return {Number} affectedRows
      */
-    async updateCustomerActive(customer) {
+    updateCustomer: async (customer) => {
         try {
-            console.log(customer);
             customer.setUpdateAt(moment(Date.now()).format('YYYY-MM-DD HH:mm:ss'));
-
-            var result = await this.dbConnect.ExcuteUpdate( "update customer set active = :active, updateAt = :updateAt where id = :id", customer);
-            return result.affectedRows;
-        } catch (err) {
+            var affectedRows =  await CustomerTable.update(customer, {
+                                    where: {id: customer.getId()}
+                                });
+            return affectedRows.length > 0 ? affectedRows[0] : -1;
+        } catch(err) {
+            console.log(err.message);
             return -1;
         }
     }
 }
-
-module.exports = CustomerManager;
