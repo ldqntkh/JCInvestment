@@ -13,9 +13,6 @@ var LocalStrategy = require('passport-local').Strategy;
 
 var app = express();
 
-var _db = require('./modelMgrs/Database');
-app.locals._db = new _db();
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -39,13 +36,15 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // router customer
-var indexRouter = require('./routes/customer/index');
-var customerAccountRoute = require('./routes/customer/account');
-var calculation = require('./routes/customer/calculation');
+const indexRouter = require('./routes/customer/index');
+const customerAccountRoute = require('./routes/customer/account');
+const calculation = require('./routes/customer/calculation');
+const productApi = require('./routes/customerApi/products');
 // use router of customer
 app.use('/', indexRouter);
 app.use('/', customerAccountRoute);
 app.use('/', calculation);
+app.use('/api-v1/products/', productApi);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
