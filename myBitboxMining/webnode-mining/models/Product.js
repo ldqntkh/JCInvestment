@@ -10,6 +10,7 @@ class Product {
          * price : float
          * sale_price : float
          * currency : String
+         * symbol_currency: String
          * desc1 : String
          * desc2 : String
          * desc3 : String

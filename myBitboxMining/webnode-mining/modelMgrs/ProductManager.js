@@ -12,6 +12,7 @@ const ProductTable = sequelize.define('product', {
     price : Sequelize.FLOAT,
     sale_price : Sequelize.FLOAT,
     currency : Sequelize.STRING,
+    symbol_currency : Sequelize.STRING,
     desc1 : Sequelize.STRING,
     desc2 : Sequelize.STRING,
     desc3 : Sequelize.STRING,
