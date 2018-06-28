@@ -34,14 +34,13 @@
                             <div class="card-footer">
                                 <div class="stats">
                                     <i class="material-icons">account_box</i><a href="/registeraccount">Register</a>
-                                    <a href="#"><span>Forgot password</span></a>
+                                    <a href="#" data-toggle="modal" data-target="#forgot-password"><span>Forgot password</span></a>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <%- include('./forgotpassword'); %>
         </div>
-    </div>
-</div>
-</body>
+    <%- include('../global/footer_UI'); %>
