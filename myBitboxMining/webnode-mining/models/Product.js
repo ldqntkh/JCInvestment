@@ -6,6 +6,7 @@ class Product {
         /**
          * id : Number
          * name : String
+         * sku : String
          * hashrate : float
          * price : float
          * sale_price : float
@@ -20,6 +21,45 @@ class Product {
          * createAt : datetime
          * updateAt : datetime
          */
+    }
+    /**
+     * get product name
+     * @returns {String} product nanme
+     */
+    getProductName() {
+        return this.name;
+    }
+
+    /**
+     * get product sku
+     * @returns {String} product sku
+     */
+    getSku() {
+        return this.sku;
+    }
+
+    /**
+     * get currency
+     * @return {String} currency
+     */
+    getCurrency() {
+        return this.currency;
+    }
+
+    /**
+     * get product price
+     * @returns {Number} product price
+     */
+    getPrice() {
+        return this.price;
+    }
+
+    /**
+     * get product sale price
+     * @returns {Number} product sale price
+     */
+    getSalePrice() {
+        return this.sale_price;
     }
 }
 module.exports = Product;

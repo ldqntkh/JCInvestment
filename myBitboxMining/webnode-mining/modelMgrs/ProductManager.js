@@ -8,6 +8,7 @@ const sequelize = SequelizeConfig.init();
 
 const ProductTable = sequelize.define('product', {
     name : Sequelize.STRING,
+    sku : Sequelize.STRING,
     hashrate : Sequelize.FLOAT,
     price : Sequelize.FLOAT,
     sale_price : Sequelize.FLOAT,
@@ -49,5 +50,21 @@ module.exports = {
             console.log('error while get list product: ' + err.message);
         }
         return results;
+    },
+
+    /**
+     * get product object by product id
+     * @param {Object} field example: {id: 1}
+     */
+    getProductById: async (field)=> {
+        try {
+            let product = await ProductTable.findOne({
+                where: field
+            });
+            return product  && product.dataValues !== null ? new ProductModel(product.dataValues) : null;
+        } catch(err) {
+            console.log('error while get product by productid: ' + err.message);
+            return null;
+        }
     }
 }
