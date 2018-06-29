@@ -10,7 +10,7 @@
                         </div>
                         <div class="card-body">
                             <div id="login-alert" class="alert alert-danger col-sm-12"></div>
-                            <form id="loginform" class="col-md-12" role="form" method="POST">
+                            <form id="loginform" class="col-md-12" role="form" method="POST" action="/login" >
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
                                     <input id="login-username" type="text" class="form-control" name="email" value="<%= typeof email !== 'undefined' ? email : '' %>"  placeholder="Email" required>
@@ -21,8 +21,8 @@
                                     <input id="login-password" type="password" class="form-control" name="password" placeholder="password" value="<%= typeof password !== 'undefined' ? password : '' %>" required>
                                 </div>
 
-                                <% if(typeof errorMessage !== 'undefined' && errorMessage !== '') { %>
-                                    <div class="error-message"><%= errorMessage %></div>
+                                <% if(typeof message !== 'undefined' && message !== '') { %>
+                                    <div class="<%= typeof errorCode !== 'undefined' && errorCode === 0 ? 'text-success' : 'text-danger' %>"><%= message %></div>
                                 <% } %>
 
                                 <div class="form-group">
@@ -34,14 +34,13 @@
                             <div class="card-footer">
                                 <div class="stats">
                                     <i class="material-icons">account_box</i><a href="/registeraccount">Register</a>
-                                    <a href="#"><span>Forgot password</span></a>
+                                    <a href="#" data-toggle="modal" data-target="#forgot-password"><span>Forgot password</span></a>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <%- include('./forgotpassword'); %>
         </div>
-    </div>
-</div>
-</body>
+    <%- include('../global/footer_UI'); %>

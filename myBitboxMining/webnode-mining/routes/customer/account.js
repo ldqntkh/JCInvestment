@@ -2,6 +2,8 @@ var express = require('express');
 var router = express.Router();
 var CustomerManager = require('../../modelMgrs/CustomerManager');
 var CustomerObj = require('../../models/Customer');
+var TokenManager = require('../../modelMgrs/TokenManager');
+var TokenObj = require('../../models/Token');
 var EmailHelper = require('../../private/js/EmailHelper');
 var FileHelper = require('../../private/js/FileHelper');
 
@@ -17,7 +19,8 @@ router.get('/login', function(req, res, next) {
             email: req.body.email,
             password: req.body.password
         };
-        var errorMessage = null;
+        var message = null;
+        var errCode = 1;
         var customer = await CustomerManager.getCustomerByField({
             email: customer.email,
             password: FileHelper.crypto(customer.password)
@@ -28,17 +31,17 @@ router.get('/login', function(req, res, next) {
                 req.session.customer = customer;
                 return res.redirect('/');
             } else {
-                errorMessage = 'Your account is not active. Please active before login';
+                message = 'Your account is not active. Please active before login';
             }
         } else {
-            errorMessage = 'Incorrect username or password';
+            message = 'Incorrect username or password';
         }
 
         res.render('customer/login', {
             "title": "User Login",
             email: req.body.email,
             password: req.body.password,
-            errorMessage: errorMessage
+            message: message
         });
     } catch(err) {
         console.log(err);
@@ -156,5 +159,96 @@ router.get('/verifyaccount/:token', async (req, res) => {
     }
 
     res.redirect('/login');
+});
+
+router.post('/resetpassword', async (req, res) => {
+    try {
+        let message = '', errCode = 1;
+        let email = req.body.email ? req.body.email : '';
+        let customer = await CustomerManager.getCustomerByField({email: email});
+        if (customer === null) {
+            message = 'The email address is not existed. Please try again.';
+        } else if(customer.getActive() === 0) {
+            message = 'Your account is not active. Please try again.';
+        } else {
+            let tokenServer = FileHelper.encrypt(FileHelper.getRandomNumber().toString() + email);
+            let subjectMail = '[Mybitbox] Reset password';
+            let html = '<b>Hello! Please follow this link to reset your password: ' + '<a href="' + FileHelper.getUrl(req, 'changepassword/' + tokenServer) + '">Reset password</a></b>';
+            let mailOptions = FileHelper.getEmailOptions(email, subjectMail, html);
+            let existedToken = await TokenManager.getTokenByField({email: email});
+
+            if (existedToken !== null && existedToken.getName() !== null) {
+                if (FileHelper.isTimeout(existedToken.getCreateAt(), 2)) {
+                    message = 'Your token is not expired. Please check your email or wait 2 hours to get new token';
+                } else {
+                    errCode = 0;
+                    existedToken.setName(tokenServer);
+                    await TokenManager.updateToken(existedToken);
+                }
+            } else {
+                errCode = 0;
+                await TokenManager.addToken(new TokenObj({
+                    email: customer.getEmail(),
+                    name: tokenServer
+                }));
+            }
+
+            if (errCode === 0) {
+                if (await new EmailHelper().sendEmail(mailOptions) !== null) {
+                    errCode = 0;
+                    message = 'Please check your email and find your token to reset your password';
+                } else {
+                    message = 'The email is not sent. Please check your email';
+                }
+            }
+        }
+        return res.send({
+            errCode: errCode,
+            message: message
+        });
+    } catch(err) {
+        console.log('error while trying to connect to reset password: ' + err.message);
+    }
+    res.send({});
+});
+
+router.get('/changepassword/:token', async (req, res) => {
+    try {
+        let token = req.params.token.split('&')[0];
+        let existedToken = await TokenManager.getTokenByField({name: token});
+        if (existedToken !== null) {
+            return res.render('customer/changepassword', {
+                "title": "Customer Change Password"
+            });
+        } else {
+            return res.render('customer/login', {
+                title: 'User Login',
+                errorMessage: 'Your token is not existed. Please try again'
+            });
+        }
+    } catch(err) {
+        console.log('error while change password: ' + err.message);
+    }
+    res.send();
+})
+.post('/changepassword/:token', async (req, res) => {
+    try {
+        let token = req.params.token.split('&')[0];
+        let password = req.body.password;
+        let existedToken = await TokenManager.getTokenByField({name: token});
+        if (existedToken !== null) {
+            let customer = await CustomerManager.getCustomerByField({email: existedToken.getEmail()});
+            customer.setPassword(FileHelper.crypto(password));
+            await CustomerManager.updateCustomer(customer);
+            return res.render('customer/login', {
+                title: 'User Login',
+                message: 'Your password is changed. Please login to enjoy!',
+                errorCode: 0
+            });
+        }
+    } catch(err) {
+        console.log('error while changing new password: ' + err.message);
+    }
+    res.send();
 });
 module.exports = router;
