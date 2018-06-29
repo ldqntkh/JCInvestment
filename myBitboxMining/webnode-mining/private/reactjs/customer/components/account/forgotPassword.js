@@ -55,28 +55,26 @@ export default class ForgotPassword extends Component {
         }
 
         return(
-            <React.Fragment>
-                <div className="modal-dialog modal-notify modal-success" role="document">
-                    <div className="modal-content">
-                        <div className="modal-body text-center">
-                            <h3><i className="fa fa-lock fa-4x"></i></h3>
-                            <h2 className="text-center">Forgot Password?</h2>
-                            <p>You can reset your password here.</p>
+            <div className="modal-dialog modal-notify modal-success" role="document">
+                <div className="modal-content">
+                    <div className="modal-body text-center">
+                        <h3><i className="fa fa-lock fa-4x"></i></h3>
+                        <h2 className="text-center">Forgot Password?</h2>
+                        <p>You can reset your password here.</p>
 
-                            <div className="form-group">
-                                <div className="input-group">
-                                    <span className="input-group-addon"><i className="glyphicon glyphicon-envelope color-blue"></i></span>
-                                    <input placeholder="Email address" className="form-control"  type="email" value={this.state.value} onChange={this.handleChange}/>
-                                </div>
+                        <div className="form-group">
+                            <div className="input-group">
+                                <span className="input-group-addon"><i className="glyphicon glyphicon-envelope color-blue"></i></span>
+                                <input placeholder="Email address" className="form-control"  type="email" value={this.state.value} onChange={this.handleChange}/>
                             </div>
-                            {errMsgSection}
-                            <div class="form-group">
-                                <button type="button" name="recover-submit" className="btn btn-lg btn-primary btn-success" value="Reset Password" onClick={this.handleSubmit}>Reset Password</button>
-                            </div>
+                        </div>
+                        {errMsgSection}
+                        <div class="form-group">
+                            <button type="button" name="recover-submit" className="btn btn-lg btn-primary btn-success" value="Reset Password" onClick={this.handleSubmit}>Reset Password</button>
                         </div>
                     </div>
                 </div>
-            </React.Fragment>
+            </div>
         );
     }
 }
