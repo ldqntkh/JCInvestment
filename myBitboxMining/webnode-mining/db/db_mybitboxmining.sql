@@ -22,6 +22,19 @@ SET time_zone = "+00:00";
 -- Cơ sở dữ liệu: `db_mybitboxmining`
 --
 
+--
+-- Table structure for table `token`
+--
+
+DROP TABLE IF EXISTS `token`;
+CREATE TABLE IF NOT EXISTS `token` (
+  `email` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `createAt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updateAt` datetime DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`email`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
 -- --------------------------------------------------------
 
 --
