@@ -1,0 +1,19 @@
+<%- include('../header'); %>
+<%- include('../navbar'); %>
+<div class="content" >
+    <div class="container-fluid">
+        <h2>
+            <%- error.title %>
+        </h2>
+        <p>
+            <%- error.message %>
+        </p>
+        <%if (typeof error.callback_url !== 'undefined') { %>
+            <p><a href="<%- error.callback_url.href%>">
+                <%- error.callback_url.desc %>
+            </a></p>
+        <% } %>
+    </div>
+</div>
+
+<%- include('../footer'); %>

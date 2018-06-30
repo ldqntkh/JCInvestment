@@ -7,10 +7,13 @@ var TokenObj = require('../../models/Token');
 var EmailHelper = require('../../private/js/EmailHelper');
 var FileHelper = require('../../private/js/FileHelper');
 
+// import const
+const language = require('../../const/variableLabel');
+
 router.get('/login', function(req, res, next) {
     if (req.session.customer) return res.redirect('/');
     res.render('customer/login', {
-        "title": "Customer Login"
+        "title": language.en.TITLE_CUSTOMER_LOGIN
     });
 })
 .post('/login', async (req, res, next) => {
@@ -31,14 +34,14 @@ router.get('/login', function(req, res, next) {
                 req.session.customer = customer;
                 return res.redirect('/');
             } else {
-                message = 'Your account is not active. Please active before login';
+                message = language.en.WARNING_ACCOUNT_NOT_ACTIVE;
             }
         } else {
-            message = 'Incorrect username or password';
+            message = language.en.ERROR_INCORRECT_ACCOUNT;
         }
 
         res.render('customer/login', {
-            "title": "User Login",
+            "title": language.en.TITLE_CUSTOMER_LOGIN,
             email: req.body.email,
             password: req.body.password,
             message: message
@@ -62,15 +65,15 @@ router.post('/editprofile', async (req, res) => {
             isError = false;
 
         if (await CustomerManager.updateCustomer(new CustomerObj(customer), {id: customer.id}) < 0) {
-            message = 'There is something error while trying to update your profile';
+            message = language.en.ERROR_UPDATE_PROFILE;
             isError = true;
         } else {
             req.session.customer = customer;
-            message = 'Your profile is updated';
+            message = language.en.LABEL_PROFILE_UPDATED;
         }
 
         res.render('customer/profile', {
-            "title" : "User Profile",
+            "title" : language.en.TITLE_CUSTOMER_UPDATE_PROFILE,
             "menu_active": "user",
             "customer": req.session.customer,
             "fullname" : req.session.customer.fullname,
@@ -83,7 +86,7 @@ router.post('/editprofile', async (req, res) => {
 })
 .get('/registeraccount', (req, res) => {
     res.render('customer/register', {
-        "title" : "Register Account"
+        "title" : language.en.TITLE_CUSTOMER_REGISTER
     });
 })
 .post('/registeraccount', async (req, res) => {
@@ -99,26 +102,26 @@ router.post('/editprofile', async (req, res) => {
             active: 0
         }
 
-        errMessage.email = await CustomerManager.getCustomerByField({email: customer.email}) !== null ? 'The email address is existed. Please try again' : null;
-        errMessage.passwordconfirm = customer.password !== req.body.passwordconfirm ? 'The password confirm is incorrect. Please try again' : null;
+        errMessage.email = await CustomerManager.getCustomerByField({email: customer.email}) !== null ? language.en.WARNING_EMAIL_EXISTS : null;
+        errMessage.passwordconfirm = customer.password !== req.body.passwordconfirm ? language.en.ERROR_PASS_CONFIRM_INCORRECT : null;
 
         if (errMessage.email === null && errMessage.passwordconfirm === null) {
             var customerObj = new CustomerObj(customer);
             var customerAdded = await CustomerManager.addCustomer(customerObj);
             if (customerAdded === null) {
                 isError = true;
-                errMessage.customer = 'Can not registered account. Please check all input field to make sure data is right';
+                errMessage.customer = language.en.ERROR_NOT_CREATE_ACCOUNT;
             } else {
                 var verifyUrl = FileHelper.getUrl(req, 'verifyaccount/' + FileHelper.encrypt(JSON.stringify(customerAdded)));
                 var options = {
                     to: customer.email,
-                    subject: '[myBitboxMining] Verify Account',
-                    html: '<p>Please click in this link to active your personal account <a href="' + verifyUrl + '">Verify account</a></p>'
+                    subject: language.en.LABEL_SUBJECT_VERIFY_ACCOUNT,
+                    html: language.en.LABEL_HTML_VERIFY_ACCOUNT.replace('{0}',verifyUrl)
                 }
                 if (await new EmailHelper().sendEmail(options) !== null) {
-                    message = 'Your account is created successully. Please check email to active';
+                    message = language.en.SUCCESS_CREATE_ACCOUNT;
                     return res.render('customer/registersuccess', {
-                        title : 'Register Account',
+                        title :  language.en.TITLE_CUSTOMER_REGISTER,
                         message: message
                     });
                 }
@@ -126,14 +129,14 @@ router.post('/editprofile', async (req, res) => {
         }
 
         res.render('customer/register', {
-            title : 'Register Account',
+            title : language.en.TITLE_CUSTOMER_REGISTER,
             customer: customer,
             errMessage: errMessage,
             message: message,
             isError: isError
         });
     } catch(err) {
-        console.log('error while trying to register account ' + err.message);
+        console.log(language.en.ERROR_REGISTER_ACCOUNT + err.message);
     }
 });
 
@@ -146,16 +149,16 @@ router.get('/verifyaccount/:token', async (req, res) => {
             if (customer !== null && customer.getActive() === 0) {
                 customer.setActive(1);
                 if(await CustomerManager.updateCustomer(customer) > 0) {
-                    message = 'Your account is actived.';
+                    message = language.en.LABEL_ACCOUNT_ACTIVED;
                     return res.render('customer/verifysuccess', {
-                        "title": "Verify Account",
+                        "title": language.en.TITLE_CUSTOMER_VERIFY_ACCOUNT,
                         message: message
                     });
                 }
             }
         }
     } catch(err) {
-        console.log('error while update active in field customer: ' + err.message);
+        console.log(language.en.ERROR_CUSTOMER_UPDATE_ACTIVE + err.message);
     }
 
     res.redirect('/login');
@@ -167,19 +170,19 @@ router.post('/resetpassword', async (req, res) => {
         let email = req.body.email ? req.body.email : '';
         let customer = await CustomerManager.getCustomerByField({email: email});
         if (customer === null) {
-            message = 'The email address is not existed. Please try again.';
+            message = language.en.ERROR_EMAIL_NOTFOUND;
         } else if(customer.getActive() === 0) {
-            message = 'Your account is not active. Please try again.';
+            message = language.en.ERROR_ACCOUNT_NOTACTIVE;
         } else {
             let tokenServer = FileHelper.encrypt(FileHelper.getRandomNumber().toString() + email);
-            let subjectMail = '[Mybitbox] Reset password';
-            let html = '<b>Hello! Please follow this link to reset your password: ' + '<a href="' + FileHelper.getUrl(req, 'changepassword/' + tokenServer) + '">Reset password</a></b>';
+            let subjectMail = language.en.LABEL_SUBJECT_RESET_PASS;
+            let html = language.en.LABEL_HTML_RESET_PASS.replace('{0}', FileHelper.getUrl(req, 'changepassword/' + tokenServer));
             let mailOptions = FileHelper.getEmailOptions(email, subjectMail, html);
             let existedToken = await TokenManager.getTokenByField({email: email});
 
             if (existedToken !== null && existedToken.getName() !== null) {
                 if (FileHelper.isTimeout(existedToken.getCreateAt(), 2)) {
-                    message = 'Your token is not expired. Please check your email or wait 2 hours to get new token';
+                    message = language.en.ERROR_TOKEN_EXPIRED;
                 } else {
                     errCode = 0;
                     existedToken.setName(tokenServer);
@@ -196,9 +199,9 @@ router.post('/resetpassword', async (req, res) => {
             if (errCode === 0) {
                 if (await new EmailHelper().sendEmail(mailOptions) !== null) {
                     errCode = 0;
-                    message = 'Please check your email and find your token to reset your password';
+                    message = language.en.LABEL_CHECKMAIL_TOKEN;
                 } else {
-                    message = 'The email is not sent. Please check your email';
+                    message = language.en.ERROR_SEND_MAIL;
                 }
             }
         }
@@ -207,7 +210,7 @@ router.post('/resetpassword', async (req, res) => {
             message: message
         });
     } catch(err) {
-        console.log('error while trying to connect to reset password: ' + err.message);
+        console.log(language.en.ERROR_SV_RESET_PASS + err.message);
     }
     res.send({});
 });
@@ -218,16 +221,16 @@ router.get('/changepassword/:token', async (req, res) => {
         let existedToken = await TokenManager.getTokenByField({name: token});
         if (existedToken !== null) {
             return res.render('customer/changepassword', {
-                "title": "Customer Change Password"
+                "title": language.en.TITLE_CUSTOMER_CHANGEPASS
             });
         } else {
             return res.render('customer/login', {
-                title: 'User Login',
-                errorMessage: 'Your token is not existed. Please try again'
+                title: language.en.TITLE_CUSTOMER_LOGIN,
+                errorMessage: language.en.ERROR_TOKEN_NOT_EXISTS
             });
         }
     } catch(err) {
-        console.log('error while change password: ' + err.message);
+        console.log(language.en.ERROR_CHANGE_PASS + err.message);
     }
     res.send();
 })
@@ -241,13 +244,13 @@ router.get('/changepassword/:token', async (req, res) => {
             customer.setPassword(FileHelper.crypto(password));
             await CustomerManager.updateCustomer(customer);
             return res.render('customer/login', {
-                title: 'User Login',
-                message: 'Your password is changed. Please login to enjoy!',
+                title: language.en.TITLE_CUSTOMER_LOGIN,
+                message: language.en.WARNING_PASS_CHANGED,
                 errorCode: 0
             });
         }
     } catch(err) {
-        console.log('error while changing new password: ' + err.message);
+        console.log(language.en.ERROR_CHANGE_PASS + err.message);
     }
     res.send();
 });

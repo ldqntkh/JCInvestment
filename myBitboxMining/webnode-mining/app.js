@@ -10,11 +10,17 @@ var bodyParser = require('body-parser');
 var session = require('express-session');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
+var paypal = require('paypal-rest-sdk');
 
 var app = express();
 
-var _db = require('./modelMgrs/Database');
-app.locals._db = new _db();
+// config paypal
+paypal.configure({
+    'mode': 'sandbox', //sandbox or live
+    'client_id': 'ASLnhIT9I40_D0Qi1XcnV0vPqdmzytHF2lO5Gd3TIQTfbdweddTJ6NVmhIvQUM6ZXo7C1vcDfg00idZP',
+    'client_secret': 'EMlUXVwhKm6rwtlc6-3JdLdqxoWJAFVKqgFK_KIJxj7XlW_dUi6SR19LlYXVQVFG6pH40Pd_OkeIhuLs'
+});
+app.locals.paypal = paypal;
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -39,13 +45,20 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // router customer
-var indexRouter = require('./routes/customer/index');
-var customerAccountRoute = require('./routes/customer/account');
-var calculation = require('./routes/customer/calculation');
+const indexRouter = require('./routes/customer/index');
+const customerAccountRoute = require('./routes/customer/account');
+const calculation = require('./routes/customer/calculation');
+const product = require('./routes/customer/product');
+const orders = require('./routes/customer/orders');
+// router api
+const productApi = require('./routes/customerApi/products');
 // use router of customer
 app.use('/', indexRouter);
 app.use('/', customerAccountRoute);
 app.use('/', calculation);
+app.use('/', product);
+app.use('/', orders);
+app.use('/api-v1/products/', productApi);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
