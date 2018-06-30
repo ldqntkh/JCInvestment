@@ -61,5 +61,13 @@ class Product {
     getSalePrice() {
         return this.sale_price;
     }
+
+    /**
+     * get period
+     * @returns {Number} period
+     */
+    getPeriod() {
+        return this.period;
+    }
 }
 module.exports = Product;
