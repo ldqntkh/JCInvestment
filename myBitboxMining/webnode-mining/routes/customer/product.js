@@ -11,6 +11,7 @@ const OrderModel = require('../../models/Order');
 
 // import const
 const varibale = require('../../const/variable');
+const language = require('../../const/variableLabel');
 
 var FileHelper = require('../../private/js/FileHelper');
 router.post('/products/:productid/buy', async (req, res, next)=> {
@@ -41,7 +42,7 @@ router.post('/products/:productid/buy', async (req, res, next)=> {
             customerid : customer.id,
             productname: product.getProductName(),
             quantity: 1,
-            description : "Buy " + product.getProductName() + " with price " + product.getCurrency() + (price * quantity).toString(),
+            description : language.en.LABEL_BUY_PRODUCT.replace('{0}', product.getProductName()). replace('{1}', product.getCurrency() + (price * quantity).toString()),
             state : varibale.ORDER_CREATE,
             amount : price * 1,
             currency : product.getCurrency(),
@@ -77,7 +78,7 @@ router.post('/products/:productid/buy', async (req, res, next)=> {
                         "currency": product.getCurrency(),
                         "total": (price * quantity).toString()
                     },
-                    "description": "Buy " + product.getProductName() + " with price " + product.getCurrency() + (price * quantity).toString()
+                    "description": language.en.LABEL_BUY_PRODUCT.replace('{0}', product.getProductName()). replace('{1}', product.getCurrency() + (price * quantity).toString())
                 }]
             };
             req.app.locals.paypal.payment.create(create_payment_json, function (error, payment) {
@@ -94,28 +95,30 @@ router.post('/products/:productid/buy', async (req, res, next)=> {
         } else {
             // fail create order
             res.render('share_customer/error/error', {
+                "title" : language.en.TITLE_CUSTOMER_BUY_PRODUCT,
                 "menu_active" : 'not-found',
                 "fullname" : req.session.customer.fullname,
                 "error" : {
                     title : "Error",
-                    message : "Can not buy product. Please try again.",
+                    message : language.en.LABEL_BUY_PRODUCT_FAIL,
                     callback_url : {
                         href : '/',
-                        desc : 'Click to back dashboard page'
+                        desc : language.en.LABEL_DESC_BACK_DASHBOARD
                     }
                 }
             })
         }
     } else {
         res.render('share_customer/error/error', {
+            "title" : language.en.TITLE_CUSTOMER_BUY_PRODUCT,
             "menu_active" : 'not-found',
             "fullname" : req.session.customer.fullname,
             "error" : {
-                title : "Error",
-                message : "Can not find this product",
+                title : language.en.TITLE_CUSTOMER_BUY_PRODUCT,
+                message : language.en.ERROR_PRODUCT_NOTFOUND,
                 callback_url : {
                     href : '/',
-                    desc : 'Click to back dashboard page'
+                    desc : language.en.LABEL_DESC_BACK_DASHBOARD
                 }
             }
         })

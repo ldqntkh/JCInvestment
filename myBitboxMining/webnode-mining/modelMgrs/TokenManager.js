@@ -2,6 +2,9 @@
 const TokenModel = require('../models/Token');
 const SequelizeConfig = require('./SequelizeConfig');
 
+// import const
+const language = require('../const/variableLabel');
+
 const Sequelize = SequelizeConfig.getSequelizeModule();
 
 const sequelize = SequelizeConfig.init();
@@ -34,7 +37,7 @@ module.exports = {
             });
             return token && token.dataValues !== null ? new TokenModel(token.dataValues) : null;
         } catch(err) {
-            console.log('error while get Token by field name: ' + err.message);
+            console.log(language.en.ERROR_GETTOKEN + err.message);
             return null;
         }
     },
@@ -50,7 +53,7 @@ module.exports = {
             var token = await TokenTable.create(TokenObj, {raw: true, silent: true});
             return token && token.dataValues !== null ? new TokenModel(token.dataValues) : null;
         } catch(err) {
-            console.log('error while adding new Token: ' + err.message);
+            console.log(language.en.ERRRO_ADDTOKEN + err.message);
             return null;
         }
     },

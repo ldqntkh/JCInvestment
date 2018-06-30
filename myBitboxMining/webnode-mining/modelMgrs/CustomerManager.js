@@ -6,6 +6,9 @@ const Sequelize = SequelizeConfig.getSequelizeModule();
 
 const sequelize = SequelizeConfig.init();
 
+// import const
+const language = require('../const/variableLabel');
+
 //const globalAttributes = ['id', 'email', 'fullname', 'phone', 'birthday'];
 
 const CustomerTable = sequelize.define('customer', {
@@ -38,7 +41,7 @@ module.exports = {
             });
             return customer  && customer.dataValues !== null ? new CustomerModel(customer.dataValues) : null;
         } catch(err) {
-            console.log('error while get customer by field name: ' + err.message);
+            console.log(language.en.ERROR_GETCUSTOMER + err.message);
             return null;
         }
     },
@@ -54,7 +57,7 @@ module.exports = {
             var customer = await CustomerTable.create(customerObj);
             return customer && customer.dataValues !== null ? new CustomerModel(customer.dataValues) : null;
         } catch(err) {
-            console.log('error while adding new customer: ' + err.message);
+            console.log(language.en.ERROR_ADDCUSTOMER + err.message);
             return null;
         }
     },

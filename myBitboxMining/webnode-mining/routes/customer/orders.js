@@ -11,6 +11,7 @@ const PaymentDetailsModel = require('../../models/PaymentDetails');
 
 // import const
 const varibale = require('../../const/variable');
+const language = require('../../const/variableLabel');
 
 router.get('/orders/:orderid/buysuccess', async (req, res, next) => {
     if (!req.session.customer) res.redirect('/login');
@@ -36,7 +37,7 @@ router.get('/orders/:orderid/buysuccess', async (req, res, next) => {
                 if (error) {
                     console.log(error.response);
                     res.render('share_customer/error/error', {
-                        "title": "Error Payment",
+                        "title": language.en.TITLE_CUSTOMER_ERROR_PAYMENT,
                         "fullname" : req.session.customer.fullname,
                         "menu_active" : 'not-found',
                         "error" : {
@@ -44,7 +45,7 @@ router.get('/orders/:orderid/buysuccess', async (req, res, next) => {
                             message : error.response.message,
                             callback_url : {
                                 href : '/',
-                                desc : 'Click to back dashboard page'
+                                desc : language.en.LABEL_DESC_BACK_DASHBOARD
                             }
                         }
                     });
@@ -76,15 +77,15 @@ router.get('/orders/:orderid/buysuccess', async (req, res, next) => {
                                 // create product of customer
 
                                 res.render('share_customer/error/error', {
-                                    "title": "Payment Success",
+                                    "title": language.en.TITLE_CUSTOMER_SUCCESS_PAYMENT,
                                     "fullname" : req.session.customer.fullname,
                                     "menu_active" : 'not-found',
                                     "error" : {
-                                        title : "Payment success",
-                                        message : "You've successfully paid your order",
+                                        title : language.en.TITLE_CUSTOMER_SUCCESS_PAYMENT,
+                                        message : language.en.LABEL_PAYMENT_SUCCESS,
                                         callback_url : {
                                             href : '/orders/' + req.params.orderid,
-                                            desc : 'Please click here go to order detail page.'
+                                            desc : language.en.LABEL_DESC_BACK_ORDER_DETAIL_PAGE
                                         }
                                     }
                                 });
@@ -92,14 +93,14 @@ router.get('/orders/:orderid/buysuccess', async (req, res, next) => {
                         } else {
                             // payment fail
                             res.render('share_customer/error/error', {
-                                "title": "Payment fail",
+                                "title": language.en.TITLE_CUSTOMER_ERROR_PAYMENT,
                                 "fullname" : req.session.customer.fullname,
                                 "error" : {
-                                    title : "Error",
-                                    message : "It looks like your bill has not been paid. Please contact your provider or leave requests for our check.",
+                                    title : language.en.TITLE_CUSTOMER_ERROR_PAYMENT,
+                                    message : language.en.LABEL_PAYMENT_NOT_PAID,
                                     callback_url : {
                                         href : '/report',
-                                        desc : 'Please click here go to report page.'
+                                        desc : language.en.LABEL_DESC_BACK_REPORT_PAGE
                                     }
                                 }
                             });
@@ -108,15 +109,15 @@ router.get('/orders/:orderid/buysuccess', async (req, res, next) => {
                         // cannot create payment
                         // payment fail
                         res.render('share_customer/error/error', {
-                            "title": "Error Payment",
+                            "title": language.en.TITLE_CUSTOMER_ERROR_PAYMENT,
                             "menu_active" : 'not-found',
                             "fullname" : req.session.customer.fullname,
                             "error" : {
                                 title : "Error",
-                                message : "We will check this issue. Maybe this is our fault.",
+                                message : language.en.LABEL_PAYMENT_SAVE_ERROR,
                                 callback_url : {
                                     href : '/report',
-                                    desc : 'Please click here go to report page.'
+                                    desc : language.en.LABEL_DESC_BACK_REPORT_PAGE
                                 }
                             }
                         });
@@ -126,15 +127,15 @@ router.get('/orders/:orderid/buysuccess', async (req, res, next) => {
             
         } else {
             res.render('share_customer/error/error', {
-                "title": "Error not found",
+                "title": language.en.TITLE_CUSTOMER_ORDER_NOTFOUND,
                 "fullname" : req.session.customer.fullname,
                 "menu_active" : 'not-found',
                 "error" : {
-                    title : "Error",
-                    message : "Can not find your order. Please check again",
+                    title : language.en.TITLE_CUSTOMER_ORDER_NOTFOUND,
+                    message : language.en.LABEL_ORDER_NOTFOUND,
                     callback_url : {
                         href : '/my-order',
-                        desc : 'Please click here go to my order page.'
+                        desc : language.en.LABEL_DESC_BACK_ORDER_PAGE
                     }
                 }
             });
@@ -142,15 +143,15 @@ router.get('/orders/:orderid/buysuccess', async (req, res, next) => {
     } catch (err) {
         console.log(err.message);
         res.render('share_customer/error/error', {
-            "title": "Error 404",
+            "title": language.en.TITLE_CUSTOMER_404,
             "fullname" : req.session.customer.fullname,
             "menu_active" : 'not-found',
             "error" : {
-                title : "Error 404",
+                title : language.en.TITLE_CUSTOMER_404,
                 message : err.message,
                 callback_url : {
                     href : '/orders/my-order',
-                    desc : 'Please click here go to my order page.'
+                    desc : language.en.LABEL_DESC_BACK_ORDER_PAGE
                 }
             }
         });
@@ -160,15 +161,15 @@ router.get('/orders/:orderid/buysuccess', async (req, res, next) => {
 router.get('/orders/:orderid/buycancel', (req, res, next) => {
     if (!req.session.customer) res.redirect('/login');
     res.render('share_customer/error/error', {
-        "title": "Cancel Order",
+        "title": language.en.TITLE_CUSTOMER_CANCEL_ORDER,
         "fullname" : req.session.customer.fullname,
         "menu_active" : 'not-found',
         "error" : {
-            title : "Cancel order",
-            message : "You have canceled this invoice",
+            title : language.en.TITLE_CUSTOMER_CANCEL_ORDER,
+            message : language.en.TITLE_CUSTOMER_CANCEL_ORDER,
             callback_url : {
                 href : '/orders/' + req.params.orderid,
-                desc : 'Please click here go to order detail page.'
+                desc : language.en.LABEL_DESC_BACK_ORDER_DETAIL_PAGE
             }
         }
     });

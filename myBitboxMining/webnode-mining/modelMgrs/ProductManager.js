@@ -2,6 +2,9 @@
 const ProductModel = require('../models/Product');
 const SequelizeConfig = require('./SequelizeConfig');
 
+// import const
+const language = require('../const/variableLabel');
+
 const Sequelize = SequelizeConfig.getSequelizeModule();
 
 const sequelize = SequelizeConfig.init();
@@ -47,7 +50,7 @@ module.exports = {
                 }
             }
         } catch (err) {
-            console.log('error while get list product: ' + err.message);
+            console.log(language.en.ERROR_GETLISTPRODUCT + err.message);
         }
         return results;
     },
@@ -63,7 +66,7 @@ module.exports = {
             });
             return product  && product.dataValues !== null ? new ProductModel(product.dataValues) : null;
         } catch(err) {
-            console.log('error while get product by productid: ' + err.message);
+            console.log(language.en.ERROR_GETPRODUCTBYID + err.message);
             return null;
         }
     }
