@@ -19,7 +19,7 @@ const varibale = require('../../const/variable');
 const language = require('../../const/variableLabel');
 
 router.get('/orders/:orderid/buysuccess', async (req, res, next) => {
-    if (!req.session.customer) res.redirect('/login');
+    if (!req.session.customer) return res.redirect('/login');
     let customer = req.session.customer;
     let orderid = req.params.orderid;
     try {
@@ -122,6 +122,7 @@ router.get('/orders/:orderid/buysuccess', async (req, res, next) => {
                                         message : language.en.LABEL_PAYMENT_SUCCESS,
                                         callback_url : {
                                             href : '/orders/' + req.params.orderid,
+                                            // change desc
                                             desc : language.en.LABEL_DESC_BACK_ORDER_DETAIL_PAGE
                                         }
                                     }
@@ -196,7 +197,7 @@ router.get('/orders/:orderid/buysuccess', async (req, res, next) => {
 });
 
 router.get('/orders/:orderid/buycancel', (req, res, next) => {
-    if (!req.session.customer) res.redirect('/login');
+    if (!req.session.customer) return res.redirect('/login');
     res.render('share_customer/error/error', {
         "title": language.en.TITLE_CUSTOMER_CANCEL_ORDER,
         "fullname" : req.session.customer.fullname,

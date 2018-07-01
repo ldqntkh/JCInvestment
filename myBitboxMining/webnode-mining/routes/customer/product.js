@@ -23,7 +23,7 @@ router.post('/products/:productid/buy', async (req, res, next)=> {
      * create history
      * create payment
      */
-    if (!req.session.customer) res.redirect('/login');
+    if (!req.session.customer) return res.redirect('/login');
     let customer = req.session.customer;
     /**
      * get product
