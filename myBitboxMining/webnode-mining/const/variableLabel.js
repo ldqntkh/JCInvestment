@@ -47,6 +47,11 @@ module.exports.en = {
     LABEL_ORDER_CANCEL: "You have canceled this invoice",
     LABEL_BUY_PRODUCT: "Buy {0} with price {1}",
     LABEL_BUY_PRODUCT_FAIL: 'Can not buy product. Please try again.',
+    LABEL_CREATE_ORDER: "You have create an order with order id is {0}",
+    LABEL_ORDER_APPROVE: "Your order with id {0} is approved!",
+    LABEL_CREATE_PAYMENT: "You have successfully paid the order {0} with a payment code of {1}",
+    LABEL_PRODUCTOFCUSTOMER_INSERT: 'Your product with id {0} has not been activated. Please click here {1} choose a wallet address and active it.',
+
     // web title
     TITLE_CUSTOMER_LOGIN: "Customer Login",
     TITLE_CUSTOMER_UPDATE_PROFILE: 'Customer profile',

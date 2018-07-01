@@ -9,6 +9,7 @@ const sequelize = SequelizeConfig.init();
 const OrderTable = sequelize.define('orders', {
     customerid : Sequelize.INTEGER,
     productname : Sequelize.STRING,
+    hashrate : Sequelize.FLOAT,
     quantity : Sequelize.INTEGER,
     description : Sequelize.STRING,
     state : Sequelize.STRING,

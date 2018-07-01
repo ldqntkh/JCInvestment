@@ -7,6 +7,7 @@ class Order {
          * id : number
          * customerid: number
          * productname : string
+         * hashrate : Number
          * quantity : Number
          * description : String
          * state : String
@@ -24,6 +25,13 @@ class Order {
      */
     getOrderId() {
         return this.id;
+    }
+
+    /**
+     * get product name of order
+     */
+    getProductName() {
+        return this.productname;
     }
 
     /**
@@ -48,6 +56,14 @@ class Order {
      */
     getAmount() {
         return this.amount;
+    }
+
+    /**
+     * get hashrate of product
+     * @returns {Number} hashrate
+     */
+    getHashrate() {
+        return this.hashrate;
     }
 
     /**

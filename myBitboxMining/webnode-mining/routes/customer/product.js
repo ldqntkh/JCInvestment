@@ -2,12 +2,15 @@ var express = require('express');
 var router = express.Router();
 // require module
 const moment = require('moment');
+
 // import class manager
 const ProductManager = require('../../modelMgrs/ProductManager');
 const OrderManager = require('../../modelMgrs/OrderManager');
+const CustomerHistoryManager = require('../../modelMgrs/CustomerHistoryManager');
 
 // import model
 const OrderModel = require('../../models/Order');
+const CustomerHistoryModel = require('../../models/CustomerHistory');
 
 // import const
 const varibale = require('../../const/variable');
@@ -17,7 +20,6 @@ var FileHelper = require('../../private/js/FileHelper');
 router.post('/products/:productid/buy', async (req, res, next)=> {
     /**
      * create order
-     * create order detail
      * create history
      * create payment
      */
@@ -41,6 +43,7 @@ router.post('/products/:productid/buy', async (req, res, next)=> {
         let order = new OrderModel({
             customerid : customer.id,
             productname: product.getProductName(),
+            hashrate : product.getHashrate(),
             quantity: 1,
             description : language.en.LABEL_BUY_PRODUCT.replace('{0}', product.getProductName()). replace('{1}', product.getCurrency() + (price * quantity).toString()),
             state : varibale.ORDER_CREATE,
@@ -51,9 +54,16 @@ router.post('/products/:productid/buy', async (req, res, next)=> {
         });
         let orderResult = await OrderManager.createOrder(order);
 
-        // insert history
-
         if (orderResult !== null) {
+
+            // insert history
+            let history = new CustomerHistoryModel({
+                customerId : customer.id,
+                description : language.en.LABEL_CREATE_ORDER.replace('{0}', "<a class='history' href='/orders/" + orderResult.getOrderId() + "'>" + orderResult.getOrderId() + "</a>"),
+                createAt : moment(Date.now()).format('YYYY-MM-DD HH:mm:ss')
+            });
+            CustomerHistoryManager.createHistory(history);
+
             const create_payment_json = {
                 "intent": "sale",
                 // support payment paypal
