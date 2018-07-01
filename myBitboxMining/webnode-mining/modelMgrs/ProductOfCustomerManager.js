@@ -39,5 +39,25 @@ module.exports = {
             console.log(err.message);
             return null;
         }
+    },
+
+    getListProductOfCustomer : async() => {
+        let results = [];
+        try {
+            let products = await ProductTable.findAll({
+                where: {
+                    expired : 0
+                }
+            });
+            if (products.length > 0) {
+                for(let i = 0; i < products.length; i++) {
+                    let productModel = new ProductModel(products[i].dataValues);
+                    results.push(productModel);
+                }
+            }
+        } catch (err) {
+            console.log(err);
+        }
+        return results;
     }
 }
