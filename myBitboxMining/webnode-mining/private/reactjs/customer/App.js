@@ -5,6 +5,7 @@ import ReactDOM from 'react-dom';
 import IndexEthExchangeComponent from './components/dashboard/indexEthExchangeComponent';
 import ListProductComponent from './components/products/listProductComponent';
 import ListProductCustomerComponent from './components/customer_product/listProductComponent';
+import WalletPageComponent from './components/wallet/indexComponent';
 
 import CoinCalculator from './components/calculation/coinCalculator';
 import ForgotPassword from './components/account/forgotPassword';
@@ -22,5 +23,7 @@ if (typeof pageContext !== 'undefined') {
         ReactDOM.render(<ForgotPassword />, document.getElementById('forgot-password'));
     } else if(page === 'changepassword') {
         ReactDOM.render(<ChangePassword />, document.getElementById('change-password'));
+    } else if(page === 'my-wallet') {
+        ReactDOM.render(<WalletPageComponent />, document.getElementById('my-wallet-page'));
     }
 }
