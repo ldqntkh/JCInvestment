@@ -8,25 +8,34 @@ const UserManager = require('../../modelMgrs/UserManager');
 const UserObj = require('../../models/User');
 
 router.get('/admin', (req, res) => {
-    console.log(req.session.user);
     if (!req.session.user || (req.session.user && req.session.user.userTypeId !== 1)) return res.redirect('/admin/login');
 
-    res.render('admin/account/index', {
+    res.render('admin/user/dashboard', {
         "title" : language.en.TITLE_CUSTOMER_DASHBOARD,
         "menu_active": "dashboard",
         "fullname" : req.session.user.fullname
+});
+
+router.get('/admin/user/index', function(req, res) {
+    if (!req.session.user || (req.session.user && req.session.user.userTypeId !== 1)) return res.redirect('/admin/login');
+
+    res.render('admin/user/dashboard', {
+        title : language.en.TITLE_CUSTOMER_DASHBOARD,
+        menu_active: "user",
+        fullname : req.session.user.fullname,
+        language: language
     });
 });
 
 router.get('/admin/login', function(req, res) {
     res.render('admin/account/login', {
-        "title": language.en.LABEL_LOGIN_TITLE
+        "title": language.en.LABEL_LOGIN_TITLE,
+        language: language
     });
 })
 .post('/admin/login', async (req, res) => {
     try {
         var message = null;
-        var errCode = 1;
         var user = await UserManager.getUserByField({
             email: req.body.email,
             password: FileHelper.crypto(req.body.password)
@@ -35,16 +44,18 @@ router.get('/admin/login', function(req, res) {
         if (user !== null) {
             if (user.getUserTypeId() === 1) {
                 req.session.user = user;
-                errCode = 0;
+                return res.redirect('/admin/user/index');
             } else {
                 message = language.en.ERROR_ACCOUNT_NOT_ADMIN;
             }
         } else {
             message = language.en.ERROR_INCORRECT_ACCOUNT;
         }
-        return res.send({
+        return res.render('admin/account/login', {
+            title: language.en.LABEL_LOGIN_TITLE,
+            language: language,
             message: message,
-            errCode: errCode
+            email: req.body.email
         });
     } catch(err) {
         console.log(err);
@@ -53,9 +64,10 @@ router.get('/admin/login', function(req, res) {
 });
 
 router.get('/admin/create', function(req, res, next) {
-    if (!req.session.user || (req.session.user && req.session.user.getUserTypeId() !== 1)) return res.redirect('/login');
+    if (!req.session.user || (req.session.user && req.session.user.userTypeId !== 1)) return res.redirect('/admin/login');
     res.render('admin/account/create', {
-        title: language.en.LABEL_CREATE_USER_TITLE
+        title: language.en.LABEL_CREATE_USER_TITLE,
+        menu_active: 'user'
     });
 })
 .post('/admin/create', async (req, res) => {

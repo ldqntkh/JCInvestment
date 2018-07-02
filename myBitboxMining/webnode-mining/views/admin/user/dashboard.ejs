@@ -1,0 +1,23 @@
+<%- include('../../share_admin/header'); %>
+<%- include('../../share_customer/navbar'); %>
+    <div class="container-fluid register-account-container">
+        <div class="row justify-content-md-center">
+            <div class="col-md-6 register-account-form">
+                <button type="button" class="btn btn-success"><%= language.en.LABEL_ADD_USER_BUTTON %></button>
+                <div class="card">
+                    <div class="card-header card-header-primary">
+                        <h4 class="card-title"><%= language.en.LABEL_LIST_USER %></h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-3">ID</div>
+                            <div class="col-md-3">Name</div>
+                            <div class="col-md-3">User type</div>
+                            <div class="col-md-3">Action</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<%- include('../../global/footer_UI'); %>

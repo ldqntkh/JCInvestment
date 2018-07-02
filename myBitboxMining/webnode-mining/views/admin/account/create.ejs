@@ -1,8 +1,9 @@
-<%- include('../../share_customer/login/header', {"title" : title}); %>
+<%- include('../../share_admin/header'); %>
+<%- include('../../share_customer/navbar'); %>
 <div id="create-user" class="container-fluid register-account-container"></div>
 <script>
     var pageContext = {
-        "page" : "createuser"
+        "page" : "<%- menu_active %>",
     }
 </script>
 <script src="/reactjs/admin.js"></script>

@@ -1,5 +1,5 @@
 module.exports.en = {
-    // create user
+    // user dashboard
     LABEL_CREATE_USER_TITLE: 'Create User',
     LABEL_CREATE_USER_SUCCESS_MESSAGE: 'User is created successfully!',
     LABEL_CREATE_USER_ERROR_MESSAGE: 'User is created fail!',
@@ -13,6 +13,8 @@ module.exports.en = {
     LABEL_BUTTON_CREATE: 'Create',
     LABEL_BUTTON_BACK_TO_CREATE: 'Back to create login page to continue creating new user',
     LABEL_TEXT_IS_REQUIRED: 'is required',
+    LABEL_LIST_USER: 'List User',
+    LABEL_ADD_USER_BUTTON: '+ Add new user',
     // login
     LABEL_LOGIN_TITLE: 'Sign In',
     LABEL_EMAIL: 'Email',
@@ -20,7 +22,7 @@ module.exports.en = {
     LABEL_BUTTON_LOGIN: 'Login',
     LABEL_BUTTON_FORGOT_PASSWORD: 'Forgot password',
     // dashboard
-    TITLE_CUSTOMER_DASHBOARD: 'Admin dashboard',
+    TITLE_CUSTOMER_DASHBOARD: 'User dashboard',
     ERROR_PASSWORD_CONFIRM_MESSAGE: 'The password confirm is incorrect. Please try again',
 
     // route admin
