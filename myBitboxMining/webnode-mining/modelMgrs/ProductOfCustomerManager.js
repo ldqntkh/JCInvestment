@@ -41,13 +41,11 @@ module.exports = {
         }
     },
 
-    getListProductOfCustomer : async() => {
+    getListProductOfCustomer : async(field) => {
         let results = [];
         try {
             let products = await ProductTable.findAll({
-                where: {
-                    expired : 0
-                }
+                where: field
             });
             if (products.length > 0) {
                 for(let i = 0; i < products.length; i++) {

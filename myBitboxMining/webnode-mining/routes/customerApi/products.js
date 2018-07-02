@@ -35,7 +35,10 @@ router.get('/product_of_customer', async(req, res, next) => {
                 errMessage : "Authentication failed"
             });
         } else {
-            let result = await ProductOfCustomerManager.getListProductOfCustomer();
+            let result = await ProductOfCustomerManager.getListProductOfCustomer({
+                customerId : req.session.customer.id,
+                expired : 0
+            });
             res.send({
                 status: "success",
                 data : result,

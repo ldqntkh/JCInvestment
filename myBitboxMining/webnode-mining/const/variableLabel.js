@@ -67,4 +67,8 @@ module.exports.en = {
     TITLE_CUSTOMER_404: "Error 404",
     TITLE_CUSTOMER_CANCEL_ORDER: 'Cancel Order',
     TITLE_CUSTOMER_BUY_PRODUCT: 'Buy product',
+    TITLE_CUSTOMER_WALLET: 'My wallet',
+
+    // react label
+    RC_TABLE_WALLET: 'List wallet',
 }

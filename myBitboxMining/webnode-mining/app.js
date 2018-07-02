@@ -50,15 +50,19 @@ const customerAccountRoute = require('./routes/customer/account');
 const calculation = require('./routes/customer/calculation');
 const product = require('./routes/customer/product');
 const orders = require('./routes/customer/orders');
+const wallet = require('./routes/customer/wallet');
 // router api
 const productApi = require('./routes/customerApi/products');
+const walletApi = require('./routes/customerApi/walletApi');
 // use router of customer
 app.use('/', indexRouter);
 app.use('/', customerAccountRoute);
 app.use('/', calculation);
 app.use('/', product);
 app.use('/', orders);
+app.use('/', wallet);
 app.use('/api-v1/products/', productApi);
+app.use('/api-v1/wallets/', walletApi);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
