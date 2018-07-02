@@ -70,5 +70,20 @@ module.exports.en = {
     TITLE_CUSTOMER_WALLET: 'My wallet',
 
     // react label
+    RC_ID: 'ID',
+    RC_NAME: 'Name',
+    RC_WALLET_ADDRESS: 'Wallet address',
+    RC_TOTAL_HASHRATE: 'Total hashrate',
+    RC_TOTAL_BALANCE: 'Total balance',
+    RC_ACTION: 'Action',
     RC_TABLE_WALLET: 'List wallet',
+    RC_ADDWALLET: 'Add new wallet',
+    RC_ADD_NEW_WALLET: 'Add new wallet address',
+
+    // input placeholder
+    WALLET_ADDRESS: 'Wallet address',
+    WALLET_NAME: 'Wallet name',
+
+    // button name
+    BTN_SUBMIT: 'Submit'
 }
