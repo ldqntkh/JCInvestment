@@ -53,14 +53,14 @@ const orders = require('./routes/customer/orders');
 // router api
 const productApi = require('./routes/customerApi/products');
 // router user
-const userAccountRoute = require('./routes/user/account');
+const adminAccountRoute = require('./routes/admin/account');
 // use router of customer
 app.use('/', indexRouter);
 app.use('/', customerAccountRoute);
 app.use('/', calculation);
 app.use('/', product);
 app.use('/', orders);
-app.use('/', userAccountRoute);
+app.use('/', adminAccountRoute);
 app.use('/api-v1/products/', productApi);
 
 // catch 404 and forward to error handler

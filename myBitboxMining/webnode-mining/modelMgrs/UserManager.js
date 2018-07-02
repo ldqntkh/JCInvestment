@@ -11,7 +11,7 @@ const language = require('../const/variableLabel');
 
 //const globalAttributes = ['id', 'email', 'fullname', 'phone', 'birthday'];
 
-const CustomerTable = sequelize.define('user', {
+const UserTable = sequelize.define('user', {
     email: Sequelize.STRING,
     username: Sequelize.STRING,
     password: Sequelize.STRING,
@@ -22,6 +22,9 @@ const CustomerTable = sequelize.define('user', {
     updateAt: Sequelize.DATE
 });
 
+// ignore column id
+UserTable.removeAttribute('id');
+
 // class helper
 const FileHelper = require('../private/js/FileHelper');
 
@@ -30,18 +33,18 @@ const moment = require('moment');
 
 module.exports = {
     /**
-     * get customer by field name/value
+     * get user by field name/value
      * @param {Object} field example: {fieldName: valueOfField}
-     * @return {Object} customer
+     * @return {Object} user
      */
-    getCustomerByField: async (field) => {
+    getUserByField: async (field) => {
         try {
-            var customer = await CustomerTable.findOne({
+            var user = await UserTable.findOne({
                 where: field
             });
-            return customer  && customer.dataValues !== null ? new CustomerModel(customer.dataValues) : null;
+            return user  && user.dataValues !== null ? new UserModel(user.dataValues) : null;
         } catch(err) {
-            console.log(language.en.ERROR_GETCUSTOMER + err.message);
+            console.log(language.en.ERROR_GETUSER + err.message);
             return null;
         }
     },
@@ -69,7 +72,7 @@ module.exports = {
     updateCustomer: async (customer) => {
         try {
             customer.setUpdateAt(moment(Date.now()).format('YYYY-MM-DD HH:mm:ss'));
-            var affectedRows =  await CustomerTable.update(customer, {
+            var affectedRows =  await UserTable.update(customer, {
                                     where: {id: customer.getId()}
                                 });
             return affectedRows.length > 0 ? affectedRows[0] : -1;

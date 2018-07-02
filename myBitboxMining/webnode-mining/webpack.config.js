@@ -3,10 +3,13 @@
 */
 const path = require('path');
 module.exports = {
-    entry: ['./private/reactjs/customer/App.js', './private/reactjs/user/App.js'],
+    entry: {
+        bundle: './private/reactjs/customer/App.js',
+        admin: './private/reactjs/admin/App.js'
+    },
     output: {
         path: path.resolve('public/reactjs'),
-        filename: 'bundle.js'
+        filename: '[name].js'
     },
     module: {
         rules: [{
