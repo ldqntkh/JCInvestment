@@ -14,6 +14,7 @@ router.get('/admin', (req, res) => {
         "title" : language.en.TITLE_CUSTOMER_DASHBOARD,
         "menu_active": "dashboard",
         "fullname" : req.session.user.fullname
+    });
 });
 
 router.get('/admin/user/index', function(req, res) {
