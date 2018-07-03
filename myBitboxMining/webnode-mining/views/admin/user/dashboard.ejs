@@ -1,23 +1,43 @@
 <%- include('../../share_admin/header'); %>
 <%- include('../../share_customer/navbar'); %>
-    <div class="container-fluid register-account-container">
+    <div class="container-fluid manage-user-container">
         <div class="row justify-content-md-center">
-            <div class="col-md-6 register-account-form">
-                <button type="button" class="btn btn-success"><%= language.en.LABEL_ADD_USER_BUTTON %></button>
+            <div class="col-md-8 element-center">
+                <a href="#" class="btn btn-success" data-toggle="modal" data-target="#create-user"><%= showAdminMessage('LABEL_ADD_USER_BUTTON') %></a>
                 <div class="card">
                     <div class="card-header card-header-primary">
-                        <h4 class="card-title"><%= language.en.LABEL_LIST_USER %></h4>
+                        <h4 class="card-title"><%= showAdminMessage('LABEL_LIST_USER') %></h4>
                     </div>
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-md-3">ID</div>
-                            <div class="col-md-3">Name</div>
-                            <div class="col-md-3">User type</div>
-                            <div class="col-md-3">Action</div>
+                            <div class="col-md-2 text-success"><%= showAdminMessage('LABEL_ID_TITLE') %></div>
+                            <div class="col-md-2 text-success"><%= showAdminMessage('LABEL_NAME_TITLE') %></div>
+                            <div class="col-md-4 text-success"><%= showAdminMessage('LABEL_EMAIL_TITLE') %></div>
+                            <div class="col-md-2 text-success"><%= showAdminMessage('LABEL_PHONE_TITLE') %></div>
+                            <div class="col-md-1 text-success"><%= showAdminMessage('LABEL_ACTIVE_TITLE') %></div>
+                            <div class="col-md-1 text-success"><%= showAdminMessage('LABEL_ACTION_TITLE') %></div>
                         </div>
+                        <% for(var index in userList) {%>
+                        <div class="row">
+                            <div class="col-md-2"><%= parseInt(index) + 1 %></div>
+                            <div class="col-md-2"><%= userList[index].dataValues.fullname %></div>
+                            <div class="col-md-4"><%= userList[index].dataValues.email %></div>
+                            <div class="col-md-2"><%= userList[index].dataValues.phone %></div>
+                            <div class="col-md-1"><%= userList[index].dataValues.active === 0 ? 'Disabled' : 'Enabled' %></div>
+                            <div class="col-md-1 action-container">
+                                <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-link btn-sm">
+                                    <i class="material-icons">edit</i>
+                                </button>
+                                <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-link btn-sm">
+                                    <i class="material-icons">close</i>
+                                </button>
+                            </div>
+                        </div>
+                        <% } %>
                     </div>
                 </div>
             </div>
         </div>
+        <%- include('../../../views/admin/account/create'); %>
     </div>
 <%- include('../../global/footer_UI'); %>

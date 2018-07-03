@@ -5,7 +5,7 @@
             <div class="col-md-5">
                 <div class="card">
                     <div class="card-header-product login-header">
-                        <h4 class="card-title"><strong><%= language.en.LABEL_LOGIN_TITLE %></strong></h4>
+                        <h4 class="card-title"><strong><%= showAdminMessage('LABEL_LOGIN_TITLE') %></strong></h4>
                     </div>
                     <div class="card-body">
                         <div id="login-alert" class="alert alert-danger col-sm-12"></div>
@@ -22,14 +22,14 @@
                             <div class="form-group">
                                 <p class="text-danger"><%= typeof message !== 'undefined' ? message : '' %></p>
                                 <div class="col-sm-12 controls">
-                                    <button id="btn-login" type="submit" class="btn btn-success"><%= language.en.LABEL_BUTTON_LOGIN %></button>
+                                    <button id="btn-login" type="submit" class="btn btn-success"><%= showAdminMessage('LABEL_BUTTON_LOGIN') %></button>
                                 </div>
                             </div>
                         </form>
                         <div class="card-footer">
                             <div class="stats">
                                 <a href="#" data-toggle="modal" data-target="#forgot-password">
-                                    <span><%= language.en.LABEL_BUTTON_FORGOT_PASSWORD %></span>
+                                    <span><%= showAdminMessage('LABEL_BUTTON_FORGOT_PASSWORD') %></span>
                                 </a>
                             </div>
                         </div>

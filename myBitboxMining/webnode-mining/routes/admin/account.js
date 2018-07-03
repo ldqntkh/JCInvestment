@@ -17,14 +17,16 @@ router.get('/admin', (req, res) => {
     });
 });
 
-router.get('/admin/user/index', function(req, res) {
+router.get('/admin/user/index', async (req, res) => {
     if (!req.session.user || (req.session.user && req.session.user.userTypeId !== 1)) return res.redirect('/admin/login');
 
+    let userList = await UserManager.getAllUser({attributes: ['email', 'phone', 'fullname', 'active']});
     res.render('admin/user/dashboard', {
         title : language.en.TITLE_CUSTOMER_DASHBOARD,
         menu_active: "user",
         fullname : req.session.user.fullname,
-        language: language
+        language: language,
+        userList: userList
     });
 });
 
@@ -79,7 +81,7 @@ router.get('/admin/create', function(req, res, next) {
             password: req.body.password,
             fullname: req.body.fullname,
             phone: req.body.phone,
-            userTypeId: req.body.userTypeId
+            userTypeId: 2
         };
         let result = {
             title: language.en.LABEL_CREATE_USER_TITLE,
@@ -88,10 +90,14 @@ router.get('/admin/create', function(req, res, next) {
             message: ''
         };
 
-        if (await UserManager.addUser(new UserObj(user)) !== null) {
-            result.message = language.en.LABEL_CREATE_USER_SUCCESS_MESSAGE;
+        if (await UserManager.getUserByField({username: user.username}) !== null) {
+            result.errMessage.username = 'Username is existed. Please try again';
         } else {
-            result.message = language.en.LABEL_CREATE_USER_SUCCESS_MESSAGE;
+            if (await UserManager.addUser(new UserObj(user)) !== null) {
+                result.message = language.en.LABEL_CREATE_USER_SUCCESS_MESSAGE;
+            } else {
+                result.message = language.en.LABEL_CREATE_USER_SUCCESS_MESSAGE;
+            }
         }
         res.render('admin/account/createresult', result);
     } catch(error) {

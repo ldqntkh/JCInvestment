@@ -9,8 +9,6 @@ const sequelize = SequelizeConfig.init();
 // import const
 const language = require('../const/variableLabel');
 
-//const globalAttributes = ['id', 'email', 'fullname', 'phone', 'birthday'];
-
 const UserTable = sequelize.define('user', {
     email: Sequelize.STRING,
     username: Sequelize.STRING,
@@ -18,6 +16,7 @@ const UserTable = sequelize.define('user', {
     fullname:  Sequelize.STRING,
     userTypeId: Sequelize.INTEGER,
     phone: Sequelize.STRING,
+    active: Sequelize.INTEGER,
     createAt: Sequelize.DATE,
     updateAt: Sequelize.DATE
 });
@@ -37,12 +36,31 @@ module.exports = {
      * @param {Object} field example: {fieldName: valueOfField}
      * @return {Object} user
      */
+    getAllUser: async (options) => {
+        try {
+            var users = null;
+            if (typeof options !== 'undefined' && options.length > 0) {
+                users = await UserTable.findAll({attributes: options});
+            } else {
+                users = await UserTable.findAll();
+            }
+            return users ? users : null;
+        } catch(err) {
+            console.log(language.en.ERROR_GETUSER + err.message);
+            return null;
+        }
+    },
+    /**
+     * get user by field name/value
+     * @param {Object} field example: {fieldName: valueOfField}
+     * @return {Object} user
+     */
     getUserByField: async (field) => {
         try {
             var user = await UserTable.findOne({
                 where: field
             });
-            return user  && user.dataValues !== null ? new UserModel(user.dataValues) : null;
+            return user && user.dataValues !== null ? new UserModel(user.dataValues) : null;
         } catch(err) {
             console.log(language.en.ERROR_GETUSER + err.message);
             return null;

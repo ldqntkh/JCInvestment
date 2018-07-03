@@ -15,6 +15,12 @@ module.exports.en = {
     LABEL_TEXT_IS_REQUIRED: 'is required',
     LABEL_LIST_USER: 'List User',
     LABEL_ADD_USER_BUTTON: '+ Add new user',
+    LABEL_ID_TITLE: 'ID',
+    LABEL_NAME_TITLE: 'Name',
+    LABEL_EMAIL_TITLE: 'Email',
+    LABEL_PHONE_TITLE: 'Phone',
+    LABEL_ACTION_TITLE: 'Action',
+    LABEL_ACTIVE_TITLE: 'Active',
     // login
     LABEL_LOGIN_TITLE: 'Sign In',
     LABEL_EMAIL: 'Email',
