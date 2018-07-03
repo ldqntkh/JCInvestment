@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
-
+import $ from 'jquery';
 // import const
 const language = require('../../../../../const/variableLabel');
+
+// import const
+import { API_URL } from '../../const/variable';
 
 export default class CreateWalletComponent extends Component {
 
@@ -20,25 +23,58 @@ export default class CreateWalletComponent extends Component {
 
     _handleChange(e) {
         this.setState({
-            [e.target.name] : e.target.value
+            [e.target.name] : e.target.value,
+            err : ''
         });
     }
 
     async _submit() {
-        await this.props._reloadPage()
+        if (this.state.wallet_address === '' || this.state.wallet_name === '') {
+            this.setState({
+                err : 'Please input value for all fiels'
+            })
+        } else {
+            let result = await fetch(API_URL + 'wallets/add-wallet', {
+                method : 'POST',
+                credentials: 'same-origin',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    wallet_address: this.state.wallet_address,
+                    wallet_name: this.state.wallet_name
+                })
+            });
+
+            let dataJson = await result.json();
+            if (dataJson.status !== "success") {
+                this.setState({
+                    err : dataJson.errMessage
+                })
+            } else {
+                this.props.addItemWallet(dataJson.data);
+                $('#close-modal').click();
+            }
+        }
     }
 
     render() {
         return(
             <React.Fragment>
             <div className="row">
-                <a href="#" data-toggle="modal" data-target="#forgot-password" className="btn btn-round btn-success">
+                <a href="#" data-toggle="modal" data-target="#handle-wallet" className="btn btn-round btn-success">
                     <i className="material-icons">add</i>
                     {language.en.RC_ADDWALLET}
                 </a>
             </div>
-            <div class="modal fade" id="forgot-password" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal fade" id="handle-wallet" tabindex="-1" role="dialog" aria-hidden="true">
                 <div className="modal-dialog modal-notify modal-success" role="document">
+                    <div className="modal-header">
+                        <button type="button" className="close" id="close-modal" data-dismiss="modal" aria-label="Close">
+                            <i className="material-icons">close</i>
+                        </button>
+                    </div>
                     <div className="modal-content">
                         <div className="modal-body text-center">
                             <h3><i className="fa fa-folder fa-4x"></i></h3>

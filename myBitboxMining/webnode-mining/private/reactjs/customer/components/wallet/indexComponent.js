@@ -1,25 +1,21 @@
 import React, {Component} from 'react';
 
+// import container
+import ListWalletContainer from '../../containers/wallet/listWalletContainer';
+import HandleWalletContainer from '../../containers/wallet/handleWalletContainer';
 // import component
-import ListWalletComponent from './listWalletComponent';
-import CreateWalletComponent from './createWalletComponent';
+import CreateWalletComponent from './handleWalletComponent';
 export default class MyWalletComponent extends Component {
 
     constructor(props) {
         super(props);
-
-        this._reloadPage = this._reloadPage.bind(this);
-    }
-
-    async _reloadPage() {
-        await this.refs.listWallet.reloadPage();
     }
 
     render() {
         return(
             <React.Fragment>
-                <CreateWalletComponent _reloadPage={this._reloadPage}/>
-                <ListWalletComponent  ref="listWallet"/>
+                <HandleWalletContainer />
+                <ListWalletContainer ref="listWallet"/>
             </React.Fragment>
         );
     }

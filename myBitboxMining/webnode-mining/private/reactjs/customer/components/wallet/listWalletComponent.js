@@ -12,8 +12,7 @@ export default class ListWalletComponent extends Component {
         super(props);
 
         this.state = {
-            loaded : false,
-            data : []
+            loaded : false
         }
 
         this.reloadPage = this.reloadPage.bind(this);
@@ -27,14 +26,19 @@ export default class ListWalletComponent extends Component {
         this.setState({
             loaded: false
         })
-        let result = await fetch(API_URL + 'wallets/list');
+        let result = await fetch(API_URL + 'wallets/list', {
+            method: 'GET',
+            credentials: 'same-origin'
+        });
         let dataJson = await result.json();
         if (dataJson.status !== 'success') {
             console.log(dataJson.errMessage)
         }
+        let data = dataJson.data === null ? [] : dataJson.data;
+        this.props.addListWallet(data);
+
         this.setState({
-            loaded: true,
-            data : dataJson.data === null ? [] : dataJson.data
+            loaded: true
         })
     }
 
@@ -61,11 +65,11 @@ export default class ListWalletComponent extends Component {
                                         </tr>
                                     </thead>
                                     <tbody className="text-center">
-                                        {this.state.data.map((item, index) => {
-                                            return (<tr>
+                                        {this.props.dataWallet.map((item, index) => {
+                                            return (<tr key={index}>
                                                         <td> {item.id} </td>
                                                         <td> {item.walletName} </td>
-                                                        <td> {item.walletAddress.substr(15) + '...'} </td>
+                                                        <td> {item.walletAddress.substr(0,15) + '...'} </td>
                                                         <td>
                                                             Oud-Turnhout
                                                         </td>

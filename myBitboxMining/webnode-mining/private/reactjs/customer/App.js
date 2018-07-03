@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
 
 // import component
 import IndexEthExchangeComponent from './components/dashboard/indexEthExchangeComponent';
@@ -10,6 +11,10 @@ import WalletPageComponent from './components/wallet/indexComponent';
 import CoinCalculator from './components/calculation/coinCalculator';
 import ForgotPassword from './components/account/forgotPassword';
 import ChangePassword from './components/account/changePassword';
+
+// import store
+import walletStore from './store/walletStore';
+
 
 if (typeof pageContext !== 'undefined') {
     let page = pageContext.page;
@@ -24,6 +29,10 @@ if (typeof pageContext !== 'undefined') {
     } else if(page === 'changepassword') {
         ReactDOM.render(<ChangePassword />, document.getElementById('change-password'));
     } else if(page === 'my-wallet') {
-        ReactDOM.render(<WalletPageComponent />, document.getElementById('my-wallet-page'));
+        ReactDOM.render(
+            <Provider store={walletStore}>
+                <WalletPageComponent />
+            </Provider>
+            , document.getElementById('my-wallet-page'));
     }
 }
