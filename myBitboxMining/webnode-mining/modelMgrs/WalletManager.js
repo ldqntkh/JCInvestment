@@ -33,7 +33,7 @@ module.exports = {
     getListWallet: async (field) => {
         try {
             let results = [];
-            let listWallet = await WalletTable.getAll({
+            let listWallet = await WalletTable.findAll({
                 where : field
             });
             if (listWallet.length > 0) {
@@ -43,6 +43,30 @@ module.exports = {
                 }
             }
             return results;
+        } catch (err) {
+            console.log(err.message);
+            return null;
+        }
+    },
+
+    getWalletByAddress: async (field)=> {
+        try {
+            let wallet = await WalletTable.findOne({
+                where : {
+                    walletAddress : walletObject.getWalletAddress()
+                }
+            });
+            return wallet  && wallet.dataValues !== null ? new WalletModel(wallet.dataValues) : null;
+        } catch (err) {
+            console.log(err.message);
+            return null;
+        }
+    },
+
+    addNewWallet: async (walletObject) => {
+        try {
+            let results = await WalletTable.create(walletObject);
+            return results && results.dataValues !== null ? new WalletModel(results.dataValues) : null;
         } catch (err) {
             console.log(err.message);
             return null;

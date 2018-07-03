@@ -14,6 +14,13 @@ class Wallet {
          */
     }
 
+    /**
+     * get wallet address
+     * @return {String} wallet address
+     */
+    getWalletAddress() {
+        return this.walletAddress;
+    }
 }
 
 module.exports = Wallet;
