@@ -141,4 +141,47 @@ router.get('/:walletId/delete', async(req, res, next) => {
     }
 });
 
+router.post('/:walletId/update', async(req, res, next) => {
+    if (req.session.customer === null) {
+        res.send({
+            status: "fail",
+            data : null,
+            errMessage : "Authentication failed"
+        });
+    } else {
+        try {
+            let walletItem = req.body.walletItem;
+            if (walletItem !== null) {
+                walletItem = new WalletModel(walletItem);
+                let result = await WalletManager.updateWallet(walletItem);
+                if (result > 0) {
+                    res.send({
+                        status: "success",
+                        data : walletItem,
+                        errMessage : null
+                    });
+                } else {
+                    res.send({
+                        status: "fail",
+                        data : null,
+                        errMessage : 'Can not update this wallet!'
+                    });
+                }
+            } else {
+                res.send({
+                    status: "fail",
+                    data : null,
+                    errMessage : 'Can not get wallet item'
+                });
+            }
+        } catch (err) {
+            res.send({
+                status: "fail",
+                data : null,
+                errMessage : err.message
+            });
+        }
+    }
+});
+
 module.exports = router;

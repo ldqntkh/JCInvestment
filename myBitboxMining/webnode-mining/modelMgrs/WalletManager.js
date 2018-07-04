@@ -81,7 +81,21 @@ module.exports = {
             return results;
         } catch (err) {
             console.log(err.message);
-            return null;
+            return -1;
+        }
+    },
+
+    updateWallet: async (walletObject) => {
+        try {
+            let results = await WalletTable.update(walletObject, {
+                where: {
+                    id: walletObject.getWalletId()
+                }
+            });
+            return results;
+        } catch (err) {
+            console.log(err.message);
+            return -1;
         }
     }
 }

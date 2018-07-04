@@ -15,6 +15,14 @@ class Wallet {
     }
 
     /**
+     * get wallet id
+     * @return {Number} walletId
+     */
+    getWalletId() {
+        return this.id;
+    }
+
+    /**
      * get wallet address
      * @return {String} wallet address
      */
