@@ -4,3 +4,9 @@
 @import 'account';
 
 @import 'react_alert';
+
+@media screen and(min-width: 993px) {
+    nav {
+        position: unset !important;
+    }
+}
