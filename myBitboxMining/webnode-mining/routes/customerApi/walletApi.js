@@ -101,6 +101,44 @@ router.post('/add-wallet',async (req, res, next) => {
             });
         }
     }
-})
+});
+
+router.get('/:walletId/delete', async(req, res, next) => {
+    if (req.session.customer === null) {
+        res.send({
+            status: "fail",
+            data : null,
+            errMessage : "Authentication failed"
+        });
+    } else {
+        try {
+            let walletId = req.params.walletId;
+            let result = await WalletManager.deleteWallet({
+                id : walletId,
+                customerId : req.session.customer.id
+            });
+            if (result > 0) {
+                res.send({
+                    status: "success",
+                    data : null,
+                    errMessage : null
+                });
+            } else {
+                res.send({
+                    status: "fail",
+                    data : null,
+                    errMessage : 'Can not remove this wallet!'
+                });
+            }
+            
+        } catch (err) {
+            res.send({
+                status: "fail",
+                data : null,
+                errMessage : err.message
+            });
+        }
+    }
+});
 
 module.exports = router;

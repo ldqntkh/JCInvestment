@@ -71,5 +71,17 @@ module.exports = {
             console.log(err.message);
             return null;
         }
+    },
+
+    deleteWallet: async (field) => {
+        try {
+            let results = await WalletTable.destroy({
+                where : field
+            });
+            return results;
+        } catch (err) {
+            console.log(err.message);
+            return null;
+        }
     }
 }
