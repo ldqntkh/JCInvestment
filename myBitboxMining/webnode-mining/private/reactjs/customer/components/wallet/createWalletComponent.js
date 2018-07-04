@@ -1,11 +1,21 @@
 import React, { Component } from 'react';
-import $ from 'jquery';
+import Modal from 'react-modal';
 // import const
 const language = require('../../../../../const/variableLabel');
 
 // import const
 import { API_URL } from '../../const/variable';
 
+const customStyles = {
+    content: {
+        top: '50%',
+        left: '50%',
+        right: 'auto',
+        bottom: 'auto',
+        marginRight: '-50%',
+        transform: 'translate(-50%, -50%)'
+    }
+};
 export default class CreateWalletComponent extends Component {
 
     constructor(props) {
@@ -14,11 +24,22 @@ export default class CreateWalletComponent extends Component {
         this.state = {
             wallet_address : '',
             wallet_name : '',
-            err : ''
+            err : '',
+            modalIsOpen: false
         }
 
+        this.openModal = this.openModal.bind(this);
+        this.closeModal = this.closeModal.bind(this);
         this._submit = this._submit.bind(this);
         this._handleChange = this._handleChange.bind(this);
+    }
+
+    openModal() {
+        this.setState({modalIsOpen: true});
+    }
+
+    closeModal() {
+        this.setState({modalIsOpen: false});
     }
 
     _handleChange(e) {
@@ -54,7 +75,7 @@ export default class CreateWalletComponent extends Component {
                 })
             } else {
                 this.props.addItemWallet(dataJson.data);
-                $('#close-modal').click();
+                this.closeModal();
             }
         }
     }
@@ -62,24 +83,22 @@ export default class CreateWalletComponent extends Component {
     render() {
         return(
             <React.Fragment>
-            <div className="row">
-                <a href="#" data-toggle="modal" data-target="#handle-wallet" className="btn btn-round btn-success">
-                    <i className="material-icons">add</i>
-                    {language.en.RC_ADDWALLET}
-                </a>
-            </div>
-            <div className="modal fade" id="handle-wallet" tabIndex="-1" role="dialog" aria-hidden="true">
-                <div className="modal-dialog modal-notify modal-success" role="document">
-                    <div className="modal-header">
-                        <button type="button" className="close" id="close-modal" data-dismiss="modal" aria-label="Close">
-                            <i className="material-icons">close</i>
-                        </button>
-                    </div>
+                <div className="row">
+                    <a href="#" id="showModalWallet" onClick={this.openModal} className="btn btn-round btn-success">
+                        <i className="material-icons">add</i>
+                        {language.en.RC_ADDWALLET}
+                    </a>
+                </div>
+                <Modal
+                    isOpen={this.state.modalIsOpen}
+                    onAfterOpen={this.afterOpenModal}
+                    onRequestClose={this.closeModal}
+                    style={customStyles}
+                    contentLabel="Example Modal">
                     <div className="modal-content">
                         <div className="modal-body text-center">
                             <h3><i className="fa fa-folder fa-4x"></i></h3>
                             <h2 className="text-center">{language.en.RC_ADD_NEW_WALLET}</h2>
-
                             <div className="form-group">
                                 <div className="input-group">
                                     <span className="input-group-addon"><i className="glyphicon glyphicon-envelope color-blue"></i></span>
@@ -99,8 +118,7 @@ export default class CreateWalletComponent extends Component {
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
+                </Modal>
             </React.Fragment>
         );
     }

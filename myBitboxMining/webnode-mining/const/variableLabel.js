@@ -91,5 +91,8 @@ module.exports.en = {
     AL_TITLE_CONFIRM : 'Are you sure?',
     AL_TITLE_DESC : 'You want to delete {0}',
     AL_BTN_NO : 'No',
-    AL_BTN_YES : 'Yes, Delete it!'
+    AL_BTN_YES : 'Yes, Delete it!',
+    AL_TITLE_EDIT_WALLET : 'Edit wallet',
+    AL_BTN_CANCEL : 'Cancel',
+    
 }

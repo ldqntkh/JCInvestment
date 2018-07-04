@@ -13,8 +13,8 @@ export default class MyWalletComponent extends Component {
     render() {
         return(
             <React.Fragment>
-                <CreateWalletContainer />
-                <ListWalletContainer ref="listWallet"/>
+                <CreateWalletContainer ref="CreateWallet"/>
+                <ListWalletContainer ref="listWallet" refCreateWallet={this.refs.CreateWallet}/>
             </React.Fragment>
         );
     }
