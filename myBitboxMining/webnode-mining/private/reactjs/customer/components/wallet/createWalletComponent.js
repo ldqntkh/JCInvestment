@@ -68,7 +68,7 @@ export default class CreateWalletComponent extends Component {
                     {language.en.RC_ADDWALLET}
                 </a>
             </div>
-            <div class="modal fade" id="handle-wallet" tabindex="-1" role="dialog" aria-hidden="true">
+            <div className="modal fade" id="handle-wallet" tabIndex="-1" role="dialog" aria-hidden="true">
                 <div className="modal-dialog modal-notify modal-success" role="document">
                     <div className="modal-header">
                         <button type="button" className="close" id="close-modal" data-dismiss="modal" aria-label="Close">
@@ -94,7 +94,7 @@ export default class CreateWalletComponent extends Component {
                             </div>
 
                             {this.state.err === "" ? "" : this.state.err}
-                            <div class="form-group">
+                            <div className="form-group">
                                 <button onClick={this._submit} type="button" name="recover-submit" className="btn btn-lg btn-primary btn-success" value={language.en.BTN_SUBMIT}>{language.en.BTN_SUBMIT}</button>
                             </div>
                         </div>

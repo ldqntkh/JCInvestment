@@ -1,5 +1,8 @@
 import React, { Component } from "react";
 
+// import container
+import WalletItemContainer from '../../containers/wallet/walletItemContainer';
+
 // import language
 const language = require('../../../../../const/variableLabel');
 
@@ -66,25 +69,7 @@ export default class ListWalletComponent extends Component {
                                     </thead>
                                     <tbody className="text-center">
                                         {this.props.dataWallet.map((item, index) => {
-                                            return (<tr key={index}>
-                                                        <td> {item.id} </td>
-                                                        <td> {item.walletName} </td>
-                                                        <td> {item.walletAddress.substr(0,15) + '...'} </td>
-                                                        <td>
-                                                            Oud-Turnhout
-                                                        </td>
-                                                        <td className="text-primary">
-                                                            $36,738
-                                                        </td>
-                                                        <td className="td-actions">
-                                                            <button type="button" rel="tooltip" title="" className="btn btn-primary btn-link btn-sm" data-original-title="Edit Task">
-                                                                <i className="material-icons">edit</i>
-                                                            </button>
-                                                            <button type="button" rel="tooltip" title="" className="btn btn-danger btn-link btn-sm" data-original-title="Remove">
-                                                                <i className="material-icons">close</i>
-                                                            </button>
-                                                        </td>
-                                                    </tr>)
+                                            return (<WalletItemContainer walletItem={item} key={index}/>)
                                         })}
                                     </tbody>
                                 </table>

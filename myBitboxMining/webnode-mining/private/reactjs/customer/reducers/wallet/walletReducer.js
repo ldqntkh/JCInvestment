@@ -7,7 +7,8 @@ import {
 
 export const WalletDataReducer = (walletData = [], action) =>{
     let result = null,
-        walletItem = null;
+        walletItem = null,
+        index = -1;
     switch(action.type) {
         case ADD_LIST_WALLET: 
             return action.dataWallet;
@@ -18,15 +19,15 @@ export const WalletDataReducer = (walletData = [], action) =>{
         case UPDATE_ITEM_WALLET_TO_LIST :
             result = [...walletData]; 
             walletItem = action.dataWalletItem;
-            result.map((item, index) => {
-                if (item.id === walletItem.id) item = walletItem;
-            });
+            index = result.indexOf(walletItem.id);
+            result[index] = walletItem;
             return result;
         case DELETE_ITEM_WALLET_FROM_LIST :
             walletItem = action.dataWalletItem;
-            result = walletData.map((item, index) => {
-                return item.id !== walletItem.id
-            });
+            result = [...walletData]; 
+            index = result.indexOf(walletItem.id);
+            result.splice(index, 1);
+            return result;
         default:
             return walletData
     }

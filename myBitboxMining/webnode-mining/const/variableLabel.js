@@ -85,5 +85,11 @@ module.exports.en = {
     WALLET_NAME: 'Wallet name',
 
     // button name
-    BTN_SUBMIT: 'Submit'
+    BTN_SUBMIT: 'Submit',
+
+    // alert
+    AL_TITLE_CONFIRM : 'Are you sure?',
+    AL_TITLE_DESC : 'You want to delete {0}',
+    AL_BTN_NO : 'No',
+    AL_BTN_YES : 'Yes, Delete it!'
 }

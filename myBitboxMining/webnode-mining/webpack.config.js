@@ -3,6 +3,7 @@
 */
 const path = require('path');
 module.exports = {
+    mode: 'development',
     entry: './private/reactjs/customer/App.js',
     output: {
         path: path.resolve('public/reactjs'),
