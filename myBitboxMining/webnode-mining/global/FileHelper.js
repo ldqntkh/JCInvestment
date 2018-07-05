@@ -5,8 +5,8 @@ const crypto = require('crypto'),
     password = 'd6F3Efeq';
 
 const moment = require('moment');
-const language = require('../../const/variableLabel');
-const languageAdmin = require('../../const/admin/variableLabel');
+const language = require('../const/variableLabel');
+const languageAdmin = require('../const/admin/variableLabel');
 
 var FileHelper = {
     /**

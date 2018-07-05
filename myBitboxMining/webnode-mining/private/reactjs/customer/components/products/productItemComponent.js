@@ -4,7 +4,7 @@ import React, {Component} from 'react';
 import { MAIN_URL } from '../../const/variable';
 
 // import const
-const language = require('../../../../../const/variableLabel');
+const showMessage = require('../../../../../global/FileHelper').showMessage;
 
 export default class ProductItemComponent extends Component {
 
@@ -24,14 +24,14 @@ export default class ProductItemComponent extends Component {
                 <div className="card cart-product">
                     <div className="card-header-product">
                         <h4 className="card-title">
-                            <strong>{language.en.RC_ADDON}</strong><br/>
+                            <strong>{showMessage('RC_ADDON')}</strong><br/>
                             <span>{ product.name.toUpperCase() }</span>
                         </h4>
                         <h3>
-                            <span>{language.en.RC_PRICE}</span>
+                            <span>{showMessage('RC_PRICE')}</span>
                             {product.sale_price !== null ? <React.Fragment><del>{product.symbol_currency}{product.price}</del>{product.symbol_currency}{product.sale_price}</React.Fragment> : product.symbol_currency + product.price}
                         </h3>
-                        <button className="btn-buy" onClick={() => this._onSubmit(product.id)}>{language.en.RC_BUY}</button>
+                        <button className="btn-buy" onClick={() => this._onSubmit(product.id)}>{showMessage('RC_BUY')}</button>
                     </div>
                     <div className="card-body">
                         <p className="card-category">

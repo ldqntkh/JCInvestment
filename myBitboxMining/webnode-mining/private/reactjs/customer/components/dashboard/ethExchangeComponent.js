@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 
 // import const
-const language = require('../../../../../const/variableLabel');
+const showMessage = require('../../../../../global/FileHelper').showMessage;
 
 export default class EthExchangeComponent extends Component {
 
@@ -17,7 +17,7 @@ export default class EthExchangeComponent extends Component {
                             <div className="card-icon">
                                 <i className="fa fa-usd"></i>
                             </div>
-                            <p className="card-category">{language.en.RC_ETH_PRICE}</p>
+                            <p className="card-category">{showMessage('RC_ETH_PRICE')}</p>
                             {
                                 !this.props.loaded ? <i className="fa fa-spinner fa-spin fa-icon-loading"></i>
                                 : <h3 className="card-title">${this.props.ethPrice}</h3> 
@@ -25,7 +25,7 @@ export default class EthExchangeComponent extends Component {
                         </div>
                         <div className="card-footer">
                             <div className="stats">
-                                <i className="material-icons">local_offer</i> {language.en.RC_PRICE_COINMARKET}
+                                <i className="material-icons">local_offer</i> {showMessage('RC_PRICE_COINMARKET')}
                             </div>
                         </div>
                     </div>

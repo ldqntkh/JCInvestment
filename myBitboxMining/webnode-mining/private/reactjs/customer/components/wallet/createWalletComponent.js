@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import Modal from 'react-modal';
+
 // import const
-const language = require('../../../../../const/variableLabel');
+const showMessage = require('../../../../../global/FileHelper').showMessage;
 
 // import const
 import { API_URL } from '../../const/variable';
@@ -86,7 +87,7 @@ export default class CreateWalletComponent extends Component {
                 <div className="row">
                     <a href="#" id="showModalWallet" onClick={this.openModal} className="btn btn-round btn-success">
                         <i className="material-icons">add</i>
-                        {language.en.RC_ADDWALLET}
+                        {showMessage('RC_ADDWALLET')}
                     </a>
                 </div>
                 <Modal
@@ -98,23 +99,23 @@ export default class CreateWalletComponent extends Component {
                     <div className="modal-content">
                         <div className="modal-body text-center">
                             <h3><i className="fa fa-folder fa-4x"></i></h3>
-                            <h2 className="text-center">{language.en.RC_ADD_NEW_WALLET}</h2>
+                            <h2 className="text-center">{showMessage('RC_ADD_NEW_WALLET')}</h2>
                             <div className="form-group">
                                 <div className="input-group">
                                     <span className="input-group-addon"><i className="glyphicon glyphicon-envelope color-blue"></i></span>
-                                    <input name="wallet_address" placeholder={language.en.WALLET_ADDRESS} className="form-control"  type="input" value={this.state.wallet_address} onChange={this._handleChange}/>
+                                    <input name="wallet_address" placeholder={showMessage('WALLET_ADDRESS')} className="form-control"  type="input" value={this.state.wallet_address} onChange={this._handleChange}/>
                                 </div>
                             </div>
                             <div className="form-group">
                                 <div className="input-group">
                                     <span className="input-group-addon"><i className="glyphicon glyphicon-envelope color-blue"></i></span>
-                                    <input name="wallet_name" placeholder={language.en.WALLET_NAME} className="form-control"  type="input" value={this.state.wallet_name} onChange={this._handleChange}/>
+                                    <input name="wallet_name" placeholder={showMessage('WALLET_NAME')} className="form-control"  type="input" value={this.state.wallet_name} onChange={this._handleChange}/>
                                 </div>
                             </div>
 
                             {this.state.err === "" ? "" : this.state.err}
                             <div className="form-group">
-                                <button onClick={this._submit} type="button" name="recover-submit" className="btn btn-lg btn-primary btn-success" value={language.en.BTN_SUBMIT}>{language.en.BTN_SUBMIT}</button>
+                                <button onClick={this._submit} type="button" name="recover-submit" className="btn btn-lg btn-primary btn-success" value={showMessage('BTN_SUBMIT')}>{showMessage('BTN_SUBMIT')}</button>
                             </div>
                         </div>
                     </div>

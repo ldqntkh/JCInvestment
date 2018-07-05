@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
-import { lang } from 'moment';
 
 // import const
-const language = require('../../../../../const/variableLabel');
+const showMessage = require('../../../../../global/FileHelper').showMessage;
 
 export default class ChangePassword extends Component {
     constructor (props) {
@@ -16,7 +15,7 @@ export default class ChangePassword extends Component {
         let password = document.getElementById('password').value;
         let passwordConfirm = document.getElementById('passwordconfirm').value;
         if (password !== passwordConfirm) {
-            document.getElementById('errPasswordConfirm').innerHTML = language.en.RC_ERROR_CONFIRM_PASSWORD;
+            document.getElementById('errPasswordConfirm').innerHTML = showMessage('RC_ERROR_CONFIRM_PASSWORD');
         } else {
             document.getElementById('form-change-password').submit();
         }
@@ -29,17 +28,17 @@ export default class ChangePassword extends Component {
                     <div className="col-md-6 register-account-form">
                         <div className="card">
                             <div className="card-header card-header-primary">
-                                <h4 className="card-title">{language.en.TITLE_CHANGE_PASSWORD}</h4>
+                                <h4 className="card-title">{showMessage('TITLE_CHANGE_PASSWORD')}</h4>
                             </div>
                             <div className="card-body">
                                 <div className="row">
-                                    <div className="col-md-12">(<span className="text-danger">*</span>) {language.en.TITLE_REQUIRED}</div>
+                                    <div className="col-md-12">(<span className="text-danger">*</span>) {showMessage('TITLE_REQUIRED')}</div>
                                 </div>
                                 <form id="form-change-password" method="POST" onSubmit={this.handleSubmit}>
                                     <div className="row">
                                         <div className="col-md-12">
                                             <div className="form-group">
-                                                <label className="bmd-label-floating">{language.en.TITLE_INPUT_PASSWORD} <span className="text-danger">*</span></label>
+                                                <label className="bmd-label-floating">{showMessage('TITLE_INPUT_PASSWORD')} <span className="text-danger">*</span></label>
                                                 <input id="password" type="password" name="password" className="form-control" min-length="8" maxlength="50" required
                                                     pattern="^(?=.*\d)(?=.*[a-z])(?=.*[@!#$%^&])(?=.*[A-Z]).{8,50}$" />
                                                 <p id="errPassword" className="text-danger"></p>
@@ -49,14 +48,14 @@ export default class ChangePassword extends Component {
                                     <div className="row">
                                         <div className="col-md-12">
                                             <div className="form-group">
-                                                <label className="bmd-label-floating">{language.en.TITLE_INPUT_CONFIRM_PASSWORD}</label>
+                                                <label className="bmd-label-floating">{showMessage('TITLE_INPUT_CONFIRM_PASSWORD')}</label>
                                                 <input id="passwordconfirm" type="password" name="passwordconfirm" className="form-control" maxlength="50" />
                                                 <p id="errPasswordConfirm" className="text-danger"></p>
                                             </div>
                                         </div>
                                     </div>
                                     <div className="clearfix"></div>
-                                    <button type="submit" className="btn btn-primary pull-right">{language.en.TITLE_CHANGE_PASSWORD}</button>
+                                    <button type="submit" className="btn btn-primary pull-right">{showMessage('TITLE_CHANGE_PASSWORD')}</button>
                                 </form>
                             </div>
                         </div>

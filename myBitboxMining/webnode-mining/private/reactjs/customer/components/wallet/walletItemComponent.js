@@ -1,9 +1,8 @@
 import React, { Component } from "react";
 import { confirmAlert } from 'react-confirm-alert'; 
 
-
-// import language
-const language = require('../../../../../const/variableLabel');
+// import const
+const showMessage = require('../../../../../global/FileHelper').showMessage;
 
 // import const
 import { API_URL } from '../../const/variable';
@@ -56,13 +55,13 @@ export default class WalletItemComponent extends Component {
             customUI: ({ onClose }) => {
                 return (
                     <div className='custom-ui'>
-                        <h1>{language.en.AL_TITLE_CONFIRM}</h1>
-                        <p> {language.en.AL_TITLE_DESC.replace('{0}', 'wallet name: ' + walletItem.walletName)} </p>
+                        <h1>{showMessage('AL_TITLE_CONFIRM')}</h1>
+                        <p>  {showMessage('AL_TITLE_DESC', 'wallet name: ' + walletItem.walletName)} </p>
                         <div className="form-group">
-                            <button onClick={()=> { onClose();}} type="button" name="recover-submit" className="btn btn-lg btn-primary" value={language.en.AL_BTN_NO}>{language.en.AL_BTN_NO}</button>
+                            <button onClick={()=> { onClose();}} type="button" name="recover-submit" className="btn btn-lg btn-primary" value={showMessage('AL_BTN_NO')}>{showMessage('AL_BTN_NO')}</button>
                             <button onClick={() => {
                                     this.RemoveWallet(walletItem, onClose);
-                                }} type="button" name="recover-cancel" className="btn btn-lg btn-primary btn-success" value={language.en.AL_BTN_YES}>{language.en.AL_BTN_YES}</button>
+                                }} type="button" name="recover-cancel" className="btn btn-lg btn-primary btn-success" value={showMessage('AL_BTN_YES')}>{showMessage('AL_BTN_YES')}</button>
                         </div>
                     </div>
                 )
