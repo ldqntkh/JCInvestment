@@ -6,9 +6,6 @@ const Sequelize = SequelizeConfig.getSequelizeModule();
 
 const sequelize = SequelizeConfig.init();
 
-// import const
-const language = require('../const/variableLabel');
-
 //const globalAttributes = ['id', 'email', 'fullname', 'phone', 'birthday'];
 
 const CustomerTable = sequelize.define('customer', {
@@ -23,7 +20,10 @@ const CustomerTable = sequelize.define('customer', {
 });
 
 // class helper
-const FileHelper = require('../private/js/FileHelper');
+const FileHelper = require('../global/FileHelper');
+
+// import const
+const showMessage = FileHelper.showMessage;
 
 // require module
 const moment = require('moment');
@@ -41,7 +41,7 @@ module.exports = {
             });
             return customer  && customer.dataValues !== null ? new CustomerModel(customer.dataValues) : null;
         } catch(err) {
-            console.log(language.en.ERROR_GETCUSTOMER + err.message);
+            console.log(showMessage('ERROR_GETCUSTOMER') + err.message);
             return null;
         }
     },
@@ -57,7 +57,7 @@ module.exports = {
             var customer = await CustomerTable.create(customerObj);
             return customer && customer.dataValues !== null ? new CustomerModel(customer.dataValues) : null;
         } catch(err) {
-            console.log(language.en.ERROR_ADDCUSTOMER + err.message);
+            console.log(showMessage('ERROR_ADDCUSTOMER') + err.message);
             return null;
         }
     },

@@ -3,8 +3,6 @@ const WalletModel = require('../models/Wallet');
 const SequelizeConfig = require('./SequelizeConfig');
 
 // import const
-const language = require('../const/variableLabel');
-
 const Sequelize = SequelizeConfig.getSequelizeModule();
 
 const sequelize = SequelizeConfig.init();
@@ -17,9 +15,6 @@ const WalletTable = sequelize.define('wallet', {
     createAt: Sequelize.DATE,
     updateAt: Sequelize.DATE
 });
-
-// class helper
-const FileHelper = require('../private/js/FileHelper');
 
 module.exports = {
     /**

@@ -21,9 +21,6 @@ const ProductTable = sequelize.define('productofcustomer', {
     updateAt : Sequelize.DATE
 });
 
-// class helper
-const FileHelper = require('../private/js/FileHelper');
-
 module.exports = {
 
     /**

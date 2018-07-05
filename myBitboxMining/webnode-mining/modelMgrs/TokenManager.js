@@ -3,7 +3,7 @@ const TokenModel = require('../models/Token');
 const SequelizeConfig = require('./SequelizeConfig');
 
 // import const
-const language = require('../const/variableLabel');
+const showMessage = require('../global/ResourceHelper').showMessage;
 
 const Sequelize = SequelizeConfig.getSequelizeModule();
 
@@ -18,8 +18,6 @@ const TokenTable = sequelize.define('token', {
 // ignore column id
 TokenTable.removeAttribute('id');
 
-// class helper
-const FileHelper = require('../private/js/FileHelper');
 
 // require module
 const moment = require('moment');
@@ -37,7 +35,7 @@ module.exports = {
             });
             return token && token.dataValues !== null ? new TokenModel(token.dataValues) : null;
         } catch(err) {
-            console.log(language.en.ERROR_GETTOKEN + err.message);
+            console.log(showMessage('ERROR_GETTOKEN') + err.message);
             return null;
         }
     },
@@ -53,7 +51,7 @@ module.exports = {
             var token = await TokenTable.create(TokenObj, {raw: true, silent: true});
             return token && token.dataValues !== null ? new TokenModel(token.dataValues) : null;
         } catch(err) {
-            console.log(language.en.ERRRO_ADDTOKEN + err.message);
+            console.log(showMessage('ERRRO_ADDTOKEN') + err.message);
             return null;
         }
     },

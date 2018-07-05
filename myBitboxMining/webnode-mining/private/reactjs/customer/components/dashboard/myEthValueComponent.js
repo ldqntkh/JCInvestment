@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 
 // import const
-const language = require('../../../../../const/variableLabel');
+const showMessage = require('../../../../../global/ResourceHelper').showMessage;
 
 export default class MyEthValueComponent extends Component {
 
@@ -18,7 +18,7 @@ export default class MyEthValueComponent extends Component {
                             <div className="card-icon">
                                 <i className="fa fa-usd"></i>
                             </div>
-                            <p className="card-category">{language.en.RC_ETH_VALUE}</p>
+                            <p className="card-category">{showMessage('RC_ETH_VALUE')}</p>
                             {
                                 !this.props.loaded ? <i className="fa fa-spinner fa-spin fa-icon-loading"></i>
                                 : <h3 className="card-title">${(this.props.ethPrice * this.props.unpaidBalance).toFixed(2)}</h3>

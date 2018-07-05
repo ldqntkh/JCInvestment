@@ -3,7 +3,7 @@ const ProductModel = require('../models/Product');
 const SequelizeConfig = require('./SequelizeConfig');
 
 // import const
-const language = require('../const/variableLabel');
+const showMessage = require('../global/ResourceHelper').showMessage;
 
 const Sequelize = SequelizeConfig.getSequelizeModule();
 
@@ -27,9 +27,6 @@ const ProductTable = sequelize.define('product', {
     updateAt : Sequelize.DATE
 });
 
-// class helper
-const FileHelper = require('../private/js/FileHelper');
-
 module.exports = {
 
     /**
@@ -50,7 +47,7 @@ module.exports = {
                 }
             }
         } catch (err) {
-            console.log(language.en.ERROR_GETLISTPRODUCT + err.message);
+            console.log(showMessage('ERROR_GETLISTPRODUCT') + err.message);
         }
         return results;
     },
@@ -66,7 +63,7 @@ module.exports = {
             });
             return product  && product.dataValues !== null ? new ProductModel(product.dataValues) : null;
         } catch(err) {
-            console.log(language.en.ERROR_GETPRODUCTBYID + err.message);
+            console.log(showMessage('ERROR_GETPRODUCTBYID') + err.message);
             return null;
         }
     },
@@ -81,7 +78,7 @@ module.exports = {
             let product = await ProductTable.create(productObj, {raw: true, silent: true});
             return product  && product.dataValues !== null ? new ProductModel(product.dataValues) : null;
         } catch(err) {
-            console.log(language.en.ERROR_CREATEPRODUCT + err.message);
+            console.log(showMessage('ERROR_CREATEPRODUCT') + err.message);
             return null;
         }
     }

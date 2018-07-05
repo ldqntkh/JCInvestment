@@ -3,8 +3,8 @@ import Modal from 'react-modal';
 // import container
 import WalletItemContainer from '../../containers/wallet/walletItemContainer';
 
-// import language
-const language = require('../../../../../const/variableLabel');
+// import const
+const showMessage = require('../../../../../global/ResourceHelper').showMessage;
 
 // import const
 import { API_URL } from '../../const/variable';
@@ -127,7 +127,7 @@ export default class ListWalletComponent extends PureComponent {
                     <div className="col-md-12">
                         <div className="card">
                             <div className="card-header card-header-primary">
-                                <h4 className="card-title ">{language.en.RC_TABLE_WALLET}</h4>
+                                <h4 className="card-title ">{showMessage('RC_TABLE_WALLET')}</h4>
                                 <p className="card-category"> Here is a subtitle for this table</p>
                             </div>
                             <div className="card-body">
@@ -135,12 +135,12 @@ export default class ListWalletComponent extends PureComponent {
                                     <table className="table">
                                         <thead className=" text-primary text-center">
                                             <tr>
-                                                <th> {language.en.RC_ID} </th>
-                                                <th> {language.en.RC_NAME} </th>
-                                                <th> {language.en.RC_WALLET_ADDRESS} </th>
-                                                <th> {language.en.RC_TOTAL_HASHRATE} </th>
-                                                <th> {language.en.RC_TOTAL_BALANCE} </th>
-                                                <th> {language.en.RC_ACTION} </th>
+                                                <th> {showMessage('RC_ID')} </th>
+                                                <th> {showMessage('RC_NAME')} </th>
+                                                <th> {showMessage('RC_WALLET_ADDRESS')} </th>
+                                                <th> {showMessage('RC_TOTAL_HASHRATE')} </th>
+                                                <th> {showMessage('RC_TOTAL_BALANCE')} </th>
+                                                <th> {showMessage('RC_ACTION')} </th>
                                             </tr>
                                         </thead>
                                         <tbody className="text-center">
@@ -164,24 +164,24 @@ export default class ListWalletComponent extends PureComponent {
                     <div className="modal-content">
                         <div className="modal-body text-center">
                             <h3><i className="fa fa-folder fa-4x"></i></h3>
-                            <h2 className="text-center">{language.en.AL_TITLE_EDIT_WALLET}</h2>
+                            <h2 className="text-center">{showMessage('AL_TITLE_EDIT_WALLET')}</h2>
                             <div className="form-group">
                                 <div className="input-group">
                                     <span className="input-group-addon"><i className="glyphicon glyphicon-envelope color-blue"></i></span>
-                                    <input name="wallet_address" placeholder={language.en.WALLET_ADDRESS} className="form-control"  type="input" value={this.state.wallet_address} onChange={this._handleChange}/>
+                                    <input name="wallet_address" placeholder={showMessage('WALLET_ADDRESS')} className="form-control"  type="input" value={this.state.wallet_address} onChange={this._handleChange}/>
                                 </div>
                             </div>
                             <div className="form-group">
                                 <div className="input-group">
                                     <span className="input-group-addon"><i className="glyphicon glyphicon-envelope color-blue"></i></span>
-                                    <input name="wallet_name" placeholder={language.en.WALLET_NAME} className="form-control"  type="input" value={this.state.wallet_name} onChange={this._handleChange}/>
+                                    <input name="wallet_name" placeholder={showMessage('WALLET_NAME')} className="form-control"  type="input" value={this.state.wallet_name} onChange={this._handleChange}/>
                                 </div>
                             </div>
 
                             {this.state.err === "" ? "" : this.state.err}
                             <div className="form-group">
-                                <button onClick={this._onSubmit} type="button" name="recover-submit" className="btn btn-lg btn-primary btn-success" value={language.en.BTN_SUBMIT}>{language.en.BTN_SUBMIT}</button>
-                                <button onClick={this.closeModal} type="button" name="recover-cancel" className="btn btn-lg btn-primary btn-dancer" value={language.en.AL_BTN_CANCEL}>{language.en.AL_BTN_CANCEL}</button>
+                                <button onClick={this._onSubmit} type="button" name="recover-submit" className="btn btn-lg btn-primary btn-success" value={showMessage('BTN_SUBMIT')}>{showMessage('BTN_SUBMIT')}</button>
+                                <button onClick={this.closeModal} type="button" name="recover-cancel" className="btn btn-lg btn-primary btn-dancer" value={showMessage('AL_BTN_CANCEL')}>{showMessage('AL_BTN_CANCEL')}</button>
                             </div>
                         </div>
                     </div>

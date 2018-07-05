@@ -14,8 +14,6 @@ const CustomerHistoryTable = sequelize.define('historyofcustomer', {
     updateAt : Sequelize.DATE
 });
 
-// class helper
-const FileHelper = require('../private/js/FileHelper');
 
 module.exports = {
 

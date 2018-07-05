@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 // import const
-const language = require('../../../../../const/variableLabel');
+const showMessage = require('../../../../../global/ResourceHelper').showMessage;
 
 export default class ForgotPassword extends Component {
     constructor (props) {
@@ -21,7 +21,7 @@ export default class ForgotPassword extends Component {
         
         if (email === '') {
             this.setState({
-                emailError: language.en.RC_EMAIL_RESET_PASS_REQUIRED
+                emailError: showMessage('RC_EMAIL_RESET_PASS_REQUIRED')
             });
         } else {
             try {
@@ -61,8 +61,8 @@ export default class ForgotPassword extends Component {
                 <div className="modal-content">
                     <div className="modal-body text-center">
                         <h3><i className="fa fa-lock fa-4x"></i></h3>
-                        <h2 className="text-center">{language.en.TITLE_FORGOT_PASS}</h2>
-                        <p>{language.en.TITLE_FORGOT_PASS_DESC}</p>
+                        <h2 className="text-center">{showMessage('TITLE_FORGOT_PASS')}</h2>
+                        <p>{showMessage('TITLE_FORGOT_PASS_DESC')}</p>
 
                         <div className="form-group">
                             <div className="input-group">
@@ -72,7 +72,7 @@ export default class ForgotPassword extends Component {
                         </div>
                         {errMsgSection}
                         <div class="form-group">
-                            <button type="button" name="recover-submit" className="btn btn-lg btn-primary btn-success" value={language.en.TITLE_RESET_PASSWORD} onClick={this.handleSubmit}>{language.en.TITLE_RESET_PASSWORD}</button>
+                            <button type="button" name="recover-submit" className="btn btn-lg btn-primary btn-success" value={showMessage('TITLE_RESET_PASSWORD')} onClick={this.handleSubmit}>{showMessage('TITLE_RESET_PASSWORD')}</button>
                         </div>
                     </div>
                 </div>

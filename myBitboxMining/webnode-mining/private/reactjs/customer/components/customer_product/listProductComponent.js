@@ -7,7 +7,7 @@ import ProductItemComponent from './productItemComponent';
 import { API_URL } from '../../const/variable';
 
 // import const
-const language = require('../../../../../const/variableLabel');
+const showMessage = require('../../../../../global/ResourceHelper').showMessage;
 
 export default class ListProductComponent extends Component {
 
@@ -56,19 +56,19 @@ export default class ListProductComponent extends Component {
             });
             screen = <React.Fragment>
                         <div className="card-header card-header-warning">
-                            <h4 className="card-title">{language.en.TITLE_MY_PRODUCT}</h4>
+                            <h4 className="card-title">{showMessage('TITLE_MY_PRODUCT')}</h4>
                             <p className="card-category"></p>
                         </div>
                         <div className="card-body table-responsive">
                             <table className="table table-hover">
                                 <thead className="text-warning">
-                                    <th>{language.en.RC_ID}</th>
-                                    <th>{language.en.RC_NAME}</th>
-                                    <th>{language.en.RC_HASHRATE}</th>
-                                    <th>{language.en.RC_ACTIVE}</th>
-                                    <th>{language.en.RC_PERIOD}</th>
-                                    <th>{language.en.RC_START_DATE}</th>
-                                    <th>{language.en.RC_END_DATE}</th>
+                                    <th>{showMessage('RC_ID')}</th>
+                                    <th>{showMessage('RC_NAME')}</th>
+                                    <th>{showMessage('RC_HASHRATE')}</th>
+                                    <th>{showMessage('RC_ACTIVE')}</th>
+                                    <th>{showMessage('RC_PERIOD')}</th>
+                                    <th>{showMessage('RC_START_DATE')}</th>
+                                    <th>{showMessage('RC_END_DATE')}</th>
                                 </thead>
                                 <tbody>
                                     {screen}
@@ -77,7 +77,7 @@ export default class ListProductComponent extends Component {
                         </div>
                         <div className="card-footer">
                             <div className="stats">
-                                <i className="material-icons">access_time</i> {language.en.RC_REFRESH}
+                                <i className="material-icons">access_time</i> {showMessage('RC_REFRESH')}
                             </div>
                         </div>
                     </React.Fragment>

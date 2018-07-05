@@ -24,9 +24,6 @@ const PaymentDetailsTable = sequelize.define('payment_details', {
     updateAt : Sequelize.DATE
 });
 
-// class helper
-const FileHelper = require('../private/js/FileHelper');
-
 module.exports = {
 
     /**
