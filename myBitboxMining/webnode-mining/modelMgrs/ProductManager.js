@@ -69,5 +69,20 @@ module.exports = {
             console.log(language.en.ERROR_GETPRODUCTBYID + err.message);
             return null;
         }
+    },
+
+    /**
+     * add product object
+     * @param {Object} field example: {id: 1}
+     */
+    addProduct: async (productObj) => {
+        try {
+            productObj.setCreateAt(moment(Date.now()).format('YYYY-MM-DD HH:mm:ss'));
+            let product = await ProductTable.create(productObj, {raw: true, silent: true});
+            return product  && product.dataValues !== null ? new ProductModel(product.dataValues) : null;
+        } catch(err) {
+            console.log(language.en.ERROR_CREATEPRODUCT + err.message);
+            return null;
+        }
     }
 }

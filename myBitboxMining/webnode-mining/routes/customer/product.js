@@ -134,4 +134,20 @@ router.post('/products/:productid/buy', async (req, res, next)=> {
         })
     }
 })
+.get('/product/create', async (req, res) => {
+    try {
+        if (!req.session.user) return res.redirect('/login');
+
+        let existedUser = await UserManager.getUser({email: req.session.user.email});
+        if (existedUser && existedUser.getUserTypeId === 1) {
+            let product = {
+                
+            }
+            await ProductManager.addProduct(product);
+        }
+    } catch(err) {
+        console.log('')
+    }
+    res.render()
+})
 module.exports = router;

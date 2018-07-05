@@ -1,0 +1,21 @@
+.manage-user-container {
+    .element-center {
+        @media (min-width: 768px) and (min-height: 750px) {
+            position: fixed;
+        }
+    }
+
+    .action-container {
+        button {
+            padding: 0
+        }
+    }
+
+    #create-user {
+        .modal-dialog {
+            @media (min-width: 576px) {
+                max-width: 600px;
+            }
+        }
+    }
+}

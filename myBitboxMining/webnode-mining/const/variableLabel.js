@@ -6,6 +6,10 @@ module.exports.en = {
     ERROR_GETTOKEN: "error while get Token by field name: ",
     ERRRO_ADDTOKEN: "error while adding new Token: ",
 
+    // error user page
+    ERROR_ADDUSER: 'error while adding new user: ',
+    // error product.js
+    ERROR_CREATEPRODUCT: 'error while creating product',
     // account.js
     ERROR_INCORRECT_ACCOUNT: 'Incorrect username or password',
     ERROR_UPDATE_PROFILE: 'There is something error while trying to update your profile',

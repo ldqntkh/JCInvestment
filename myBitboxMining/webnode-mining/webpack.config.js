@@ -3,12 +3,15 @@
 */
 const path = require('path');
 module.exports = {
-    mode: 'development',
-    entry: './private/reactjs/customer/App.js',
+    entry: {
+        bundle: './private/reactjs/customer/App.js',
+        admin: './private/reactjs/admin/App.js'
+    },
     output: {
         path: path.resolve('public/reactjs'),
-        filename: 'bundle.js'
+        filename: '[name].js'
     },
+    mode: 'development',
     module: {
         rules: [{
                 test: /\.css$/,

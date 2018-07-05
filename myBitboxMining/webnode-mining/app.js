@@ -11,6 +11,7 @@ var session = require('express-session');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var paypal = require('paypal-rest-sdk');
+var FileHelper = require('./private/js/FileHelper');
 
 var app = express();
 
@@ -21,6 +22,8 @@ paypal.configure({
     'client_secret': 'EMlUXVwhKm6rwtlc6-3JdLdqxoWJAFVKqgFK_KIJxj7XlW_dUi6SR19LlYXVQVFG6pH40Pd_OkeIhuLs'
 });
 app.locals.paypal = paypal;
+app.locals.showMessage = FileHelper.showMessage;
+app.locals.showAdminMessage = FileHelper.showAdminMessage;
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -53,6 +56,8 @@ const orders = require('./routes/customer/orders');
 const wallet = require('./routes/customer/wallet');
 // router api
 const productApi = require('./routes/customerApi/products');
+// router user
+const adminAccountRoute = require('./routes/admin/account');
 const walletApi = require('./routes/customerApi/walletApi');
 // use router of customer
 app.use('/', indexRouter);
@@ -63,6 +68,8 @@ app.use('/', orders);
 app.use('/', wallet);
 app.use('/api-v1/products/', productApi);
 app.use('/api-v1/wallets/', walletApi);
+
+app.use('/', adminAccountRoute);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
