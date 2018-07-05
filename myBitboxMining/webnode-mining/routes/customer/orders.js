@@ -16,7 +16,7 @@ const ProductOfCustomerModel = require('../../models/ProductOfCustomer');
 
 // import const
 const varibale = require('../../const/variable');
-const language = require('../../const/variableLabel');
+const showMessage = require('../../global/FileHelper').showMessage;
 
 router.get('/orders/:orderid/buysuccess', async (req, res, next) => {
     if (!req.session.customer) return res.redirect('/login');
@@ -42,7 +42,7 @@ router.get('/orders/:orderid/buysuccess', async (req, res, next) => {
                 if (error) {
                     console.log(error.response);
                     res.render('share_customer/error/error', {
-                        "title": language.en.TITLE_CUSTOMER_ERROR_PAYMENT,
+                        "title": showMessage('TITLE_CUSTOMER_ERROR_PAYMENT'),
                         "fullname" : req.session.customer.fullname,
                         "menu_active" : 'not-found',
                         "error" : {
@@ -50,7 +50,7 @@ router.get('/orders/:orderid/buysuccess', async (req, res, next) => {
                             message : error.response.message,
                             callback_url : {
                                 href : '/',
-                                desc : language.en.LABEL_DESC_BACK_DASHBOARD
+                                desc : showMessage('LABEL_DESC_BACK_DASHBOARD')
                             }
                         }
                     });
@@ -75,9 +75,9 @@ router.get('/orders/:orderid/buysuccess', async (req, res, next) => {
                         // insert history
                         await CustomerHistoryManager.createHistory(new CustomerHistoryModel({
                             customerId : customer.id,
-                            description : language.en.LABEL_CREATE_PAYMENT
-                                            .replace('{1}', "<a class='history' href='/payments/" + paymentDetails.getPaymentId() + "'>" + paymentDetails.getPaymentId() + "</a>")
-                                            .replace('{0}', "<a class='history' href='/orders/" + order.getOrderId() + "'>" + order.getOrderId() + "</a>"),
+                            description : showMessage('LABEL_CREATE_PAYMENT',
+                                            "<a class='history' href='/payments/" + paymentDetails.getPaymentId() + "'>" + paymentDetails.getPaymentId() + "</a>",
+                                            "<a class='history' href='/orders/" + order.getOrderId() + "'>" + order.getOrderId() + "</a>"),
                             createAt : moment(Date.now()).format('YYYY-MM-DD HH:mm:ss')
                         }));
 
@@ -90,8 +90,8 @@ router.get('/orders/:orderid/buysuccess', async (req, res, next) => {
                                 // insert history
                                 await CustomerHistoryManager.createHistory(new CustomerHistoryModel({
                                     customerId : customer.id,
-                                    description : language.en.LABEL_ORDER_APPROVE
-                                                    .replace('{0}', "<a class='history' href='/orders/" + order.getOrderId() + "'>" + order.getOrderId() + "</a>"),
+                                    description : showMessage('LABEL_ORDER_APPROVE',
+                                                    "<a class='history' href='/orders/" + order.getOrderId() + "'>" + order.getOrderId() + "</a>"),
                                     createAt : moment(Date.now()).format('YYYY-MM-DD HH:mm:ss')
                                 }));
                                 // create product of customer
@@ -107,23 +107,23 @@ router.get('/orders/:orderid/buysuccess', async (req, res, next) => {
                                     // insert history
                                     await CustomerHistoryManager.createHistory(new CustomerHistoryModel({
                                         customerId : customer.id,
-                                        description : language.en.LABEL_PRODUCTOFCUSTOMER_INSERT
+                                        description : showMessage('LABEL_PRODUCTOFCUSTOMER_INSERT')
                                                         .replace('{0}', "<a class='history' href='/product-customer/" + productofctm.getProductId() + "'>" + productofctm.getProductId() + "</a>"),
                                         createAt : moment(Date.now()).format('YYYY-MM-DD HH:mm:ss')
                                     }));
                                 }
 
                                 res.render('share_customer/error/error', {
-                                    "title": language.en.TITLE_CUSTOMER_SUCCESS_PAYMENT,
+                                    "title": showMessage('TITLE_CUSTOMER_SUCCESS_PAYMENT'),
                                     "fullname" : req.session.customer.fullname,
                                     "menu_active" : 'not-found',
                                     "error" : {
-                                        title : language.en.TITLE_CUSTOMER_SUCCESS_PAYMENT,
-                                        message : language.en.LABEL_PAYMENT_SUCCESS,
+                                        title : showMessage('TITLE_CUSTOMER_SUCCESS_PAYMENT'),
+                                        message : showMessage('LABEL_PAYMENT_SUCCESS'),
                                         callback_url : {
                                             href : '/orders/' + req.params.orderid,
                                             // change desc
-                                            desc : language.en.LABEL_DESC_BACK_ORDER_DETAIL_PAGE
+                                            desc : showMessage('LABEL_DESC_BACK_ORDER_DETAIL_PAGE')
                                         }
                                     }
                                 });
@@ -131,14 +131,14 @@ router.get('/orders/:orderid/buysuccess', async (req, res, next) => {
                         } else {
                             // payment fail
                             res.render('share_customer/error/error', {
-                                "title": language.en.TITLE_CUSTOMER_ERROR_PAYMENT,
+                                "title": showMessage('TITLE_CUSTOMER_ERROR_PAYMENT'),
                                 "fullname" : req.session.customer.fullname,
                                 "error" : {
-                                    title : language.en.TITLE_CUSTOMER_ERROR_PAYMENT,
-                                    message : language.en.LABEL_PAYMENT_NOT_PAID,
+                                    title : showMessage('TITLE_CUSTOMER_ERROR_PAYMENT'),
+                                    message : showMessage('LABEL_PAYMENT_NOT_PAID'),
                                     callback_url : {
                                         href : '/report',
-                                        desc : language.en.LABEL_DESC_BACK_REPORT_PAGE
+                                        desc : showMessage('LABEL_DESC_BACK_REPORT_PAGE')
                                     }
                                 }
                             });
@@ -147,15 +147,15 @@ router.get('/orders/:orderid/buysuccess', async (req, res, next) => {
                         // cannot create payment
                         // payment fail
                         res.render('share_customer/error/error', {
-                            "title": language.en.TITLE_CUSTOMER_ERROR_PAYMENT,
+                            "title": showMessage('TITLE_CUSTOMER_ERROR_PAYMENT'),
                             "menu_active" : 'not-found',
                             "fullname" : req.session.customer.fullname,
                             "error" : {
                                 title : "Error",
-                                message : language.en.LABEL_PAYMENT_SAVE_ERROR,
+                                message : showMessage('LABEL_PAYMENT_SAVE_ERROR'),
                                 callback_url : {
                                     href : '/report',
-                                    desc : language.en.LABEL_DESC_BACK_REPORT_PAGE
+                                    desc : showMessage('LABEL_DESC_BACK_REPORT_PAGE')
                                 }
                             }
                         });
@@ -165,15 +165,15 @@ router.get('/orders/:orderid/buysuccess', async (req, res, next) => {
             
         } else {
             res.render('share_customer/error/error', {
-                "title": language.en.TITLE_CUSTOMER_ORDER_NOTFOUND,
+                "title": showMessage('TITLE_CUSTOMER_ORDER_NOTFOUND'),
                 "fullname" : req.session.customer.fullname,
                 "menu_active" : 'not-found',
                 "error" : {
-                    title : language.en.TITLE_CUSTOMER_ORDER_NOTFOUND,
-                    message : language.en.LABEL_ORDER_NOTFOUND,
+                    title : showMessage('TITLE_CUSTOMER_ORDER_NOTFOUND'),
+                    message : showMessage('LABEL_ORDER_NOTFOUND'),
                     callback_url : {
                         href : '/my-order',
-                        desc : language.en.LABEL_DESC_BACK_ORDER_PAGE
+                        desc : showMessage('LABEL_DESC_BACK_ORDER_PAGE')
                     }
                 }
             });
@@ -181,15 +181,15 @@ router.get('/orders/:orderid/buysuccess', async (req, res, next) => {
     } catch (err) {
         console.log(err.message);
         res.render('share_customer/error/error', {
-            "title": language.en.TITLE_CUSTOMER_404,
+            "title": showMessage('TITLE_CUSTOMER_404'),
             "fullname" : req.session.customer.fullname,
             "menu_active" : 'not-found',
             "error" : {
-                title : language.en.TITLE_CUSTOMER_404,
+                title : showMessage('TITLE_CUSTOMER_404'),
                 message : err.message,
                 callback_url : {
                     href : '/orders/my-order',
-                    desc : language.en.LABEL_DESC_BACK_ORDER_PAGE
+                    desc : showMessage('LABEL_DESC_BACK_ORDER_PAGE')
                 }
             }
         });
@@ -199,15 +199,15 @@ router.get('/orders/:orderid/buysuccess', async (req, res, next) => {
 router.get('/orders/:orderid/buycancel', (req, res, next) => {
     if (!req.session.customer) return res.redirect('/login');
     res.render('share_customer/error/error', {
-        "title": language.en.TITLE_CUSTOMER_CANCEL_ORDER,
+        "title": showMessage('TITLE_CUSTOMER_CANCEL_ORDER'),
         "fullname" : req.session.customer.fullname,
         "menu_active" : 'not-found',
         "error" : {
-            title : language.en.TITLE_CUSTOMER_CANCEL_ORDER,
-            message : language.en.TITLE_CUSTOMER_CANCEL_ORDER,
+            title : showMessage('TITLE_CUSTOMER_CANCEL_ORDER'),
+            message : showMessage('TITLE_CUSTOMER_CANCEL_ORDER'),
             callback_url : {
                 href : '/orders/' + req.params.orderid,
-                desc : language.en.LABEL_DESC_BACK_ORDER_DETAIL_PAGE
+                desc : showMessage('LABEL_DESC_BACK_ORDER_DETAIL_PAGE')
             }
         }
     });

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 
 // import const
-const showMessage = require('../../../../../global/FileHelper');
+const showMessage = require('../../../../../global/FileHelper').showMessage;
 
 const urlCoinInfo = 'https://min-api.cryptocompare.com/data/top/exchanges/full?fsym={0}&tsym=USD';
 export default class CoinCalculator extends Component {
@@ -61,9 +61,29 @@ export default class CoinCalculator extends Component {
         else {
             screen = <tbody>
                 <tr>
-                    <td>{showMessage.showMessage('RC_HOUR')}</td>
+                    <td>{showMessage('RC_HOUR')}</td>
                     <td>{(this.state.totalCoin / 24).toFixed(4)}</td>
                     <td>${(this.state.balanceTotalUsd / 24).toFixed(2)}</td>
+                </tr>
+                <tr className="success">
+                    <td>{showMessage('RC_DAY')}</td>
+                    <td>{this.state.totalCoin.toFixed(4)}</td>
+                    <td>${this.state.balanceTotalUsd.toFixed(2)}</td>
+                </tr>
+                <tr>
+                    <td>{showMessage('RC_WEEK')}</td>
+                    <td>{(this.state.totalCoin * 7).toFixed(4)}</td>
+                    <td>${(this.state.balanceTotalUsd * 7).toFixed(2)}</td>
+                </tr>
+                <tr className="success">
+                    <td>{showMessage('RC_MONTH')}</td>
+                    <td>{(this.state.totalCoin * 30).toFixed(4)}</td>
+                    <td>${(this.state.balanceTotalUsd * 30).toFixed(2)}</td>
+                </tr>
+                <tr>
+                    <td>{showMessage('RC_YEAR')}</td>
+                    <td>{(this.state.totalCoin * 365).toFixed(4)}</td>
+                    <td>${(this.state.balanceTotalUsd * 365).toFixed(2)}</td>
                 </tr>
             </tbody>
         }
@@ -72,7 +92,7 @@ export default class CoinCalculator extends Component {
             <React.Fragment>
                 <div className="row">
                     <div className="col-lg-12">
-                        <p>{showMessage.showMessage('RC_MY_TOTAL_HASH')} {this.pageContext.totalHs} Mh/s</p>
+                        <p>{showMessage('RC_MY_TOTAL_HASH')} {this.pageContext.totalHs} Mh/s</p>
                     </div>
                 </div>
                 <div className="row">
@@ -85,16 +105,16 @@ export default class CoinCalculator extends Component {
                     <div className="col-lg-8 col-md-8 col-sm-6">
                         <div class="card">
                             <div class="card-header card-header-warning">
-                                <h4 class="card-title">{showMessage.showMessage('RC_MY_ESTIMATION')}</h4>
+                                <h4 class="card-title">{showMessage('RC_MY_ESTIMATION')}</h4>
                                 <p class="card-category"></p>
                             </div>
                             <div class="card-body table-responsive">
                                 <table class="table table-hover">
                                     <thead className="text-warning">
                                         <tr>
-                                            <td>{showMessage.showMessage('RC_PERIOD')}</td>
-                                            <td>{showMessage.showMessage('RC_COIN')}</td>
-                                            <td>{showMessage.showMessage('RC_USD')}</td>
+                                            <td>{showMessage('RC_PERIOD')}</td>
+                                            <td>{showMessage('RC_COIN')}</td>
+                                            <td>{showMessage('RC_USD')}</td>
                                         </tr>
                                     </thead>
                                     {

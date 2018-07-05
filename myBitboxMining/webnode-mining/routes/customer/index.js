@@ -3,13 +3,13 @@ var router = express.Router();
 var moment  = require('moment');
 
 // import const
-const language = require('../../const/variableLabel');
+const showMessage = require('../../global/FileHelper').showMessage;
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
     if (!req.session.customer) return res.redirect('/login');
     res.render('customer/index', {
-        "title" : language.en.TITLE_CUSTOMER_DASHBOARD,
+        "title" : showMessage('TITLE_CUSTOMER_DASHBOARD'),
         "menu_active": "dashboard",
         "fullname" : req.session.customer.fullname
     });
@@ -26,7 +26,7 @@ router.get('/user', async (req, res, next) => {
         console.log('error while go to user page: ' + err.message);
     }
     res.render('customer/profile', {
-        "title" : language.en.TITLE_CUSTOMER_PROFILE,
+        "title" : showMessage('TITLE_CUSTOMER_PROFILE'),
         "menu_active": "user",
         "fullname" : req.session.customer.fullname,
         "customer":  req.session.customer

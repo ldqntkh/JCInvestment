@@ -6,9 +6,6 @@ const Sequelize = SequelizeConfig.getSequelizeModule();
 
 const sequelize = SequelizeConfig.init();
 
-// import const
-const language = require('../const/variableLabel');
-
 const UserTable = sequelize.define('user', {
     email: Sequelize.STRING,
     username: Sequelize.STRING,
@@ -26,6 +23,9 @@ UserTable.removeAttribute('id');
 
 // class helper
 const FileHelper = require('../global/FileHelper');
+
+// import const
+const showMessage = FileHelper.showMessage;
 
 // require module
 const moment = require('moment');
@@ -46,7 +46,7 @@ module.exports = {
             }
             return users ? users : null;
         } catch(err) {
-            console.log(language.en.ERROR_GETUSER + err.message);
+            console.log(showMessage('ERROR_GETUSER') + err.message);
             return null;
         }
     },
@@ -62,7 +62,7 @@ module.exports = {
             });
             return user && user.dataValues !== null ? new UserModel(user.dataValues) : null;
         } catch(err) {
-            console.log(language.en.ERROR_GETUSER + err.message);
+            console.log(showMessage('ERROR_GETUSER') + err.message);
             return null;
         }
     },
@@ -78,7 +78,7 @@ module.exports = {
             var user = await UserTable.create(userObj);
             return user && user.dataValues !== null ? new UserModel(user.dataValues) : null;
         } catch(err) {
-            console.log(language.en.ERROR_ADDUSER + err.message);
+            console.log(showMessage('ERROR_ADDUSER') + err.message);
             return null;
         }
     },

@@ -14,9 +14,9 @@ const CustomerHistoryModel = require('../../models/CustomerHistory');
 
 // import const
 const varibale = require('../../const/variable');
-const language = require('../../const/variableLabel');
+const FileHelper = require('../../global/FileHelper');
+const showMessage = FileHelper.showMessage;
 
-var FileHelper = require('../../global/FileHelper');
 router.post('/products/:productid/buy', async (req, res, next)=> {
     /**
      * create order
@@ -45,7 +45,7 @@ router.post('/products/:productid/buy', async (req, res, next)=> {
             productname: product.getProductName(),
             hashrate : product.getHashrate(),
             quantity: 1,
-            description : language.en.LABEL_BUY_PRODUCT.replace('{0}', product.getProductName()). replace('{1}', product.getCurrency() + (price * quantity).toString()),
+            description : showMessage('LABEL_BUY_PRODUCT',product.getProductName(), product.getCurrency() + (price * quantity).toString()),
             state : varibale.ORDER_CREATE,
             amount : price * 1,
             currency : product.getCurrency(),
@@ -59,7 +59,7 @@ router.post('/products/:productid/buy', async (req, res, next)=> {
             // insert history
             let history = new CustomerHistoryModel({
                 customerId : customer.id,
-                description : language.en.LABEL_CREATE_ORDER.replace('{0}', "<a class='history' href='/orders/" + orderResult.getOrderId() + "'>" + orderResult.getOrderId() + "</a>"),
+                description : showMessage('LABEL_CREATE_ORDER',"<a class='history' href='/orders/" + orderResult.getOrderId() + "'>" + orderResult.getOrderId() + "</a>"),
                 createAt : moment(Date.now()).format('YYYY-MM-DD HH:mm:ss')
             });
             CustomerHistoryManager.createHistory(history);
@@ -88,7 +88,7 @@ router.post('/products/:productid/buy', async (req, res, next)=> {
                         "currency": product.getCurrency(),
                         "total": (price * quantity).toString()
                     },
-                    "description": language.en.LABEL_BUY_PRODUCT.replace('{0}', product.getProductName()). replace('{1}', product.getCurrency() + (price * quantity).toString())
+                    "description": showMessage('LABEL_BUY_PRODUCT', product.getProductName(), product.getCurrency() + (price * quantity).toString())
                 }]
             };
             req.app.locals.paypal.payment.create(create_payment_json, function (error, payment) {
@@ -105,30 +105,30 @@ router.post('/products/:productid/buy', async (req, res, next)=> {
         } else {
             // fail create order
             res.render('share_customer/error/error', {
-                "title" : language.en.TITLE_CUSTOMER_BUY_PRODUCT,
+                "title" : showMessage('TITLE_CUSTOMER_BUY_PRODUCT'),
                 "menu_active" : 'not-found',
                 "fullname" : req.session.customer.fullname,
                 "error" : {
                     title : "Error",
-                    message : language.en.LABEL_BUY_PRODUCT_FAIL,
+                    message : showMessage('LABEL_BUY_PRODUCT_FAIL'),
                     callback_url : {
                         href : '/',
-                        desc : language.en.LABEL_DESC_BACK_DASHBOARD
+                        desc : showMessage('LABEL_DESC_BACK_DASHBOARD')
                     }
                 }
             })
         }
     } else {
         res.render('share_customer/error/error', {
-            "title" : language.en.TITLE_CUSTOMER_BUY_PRODUCT,
+            "title" : showMessage('TITLE_CUSTOMER_BUY_PRODUCT'),
             "menu_active" : 'not-found',
             "fullname" : req.session.customer.fullname,
             "error" : {
-                title : language.en.TITLE_CUSTOMER_BUY_PRODUCT,
-                message : language.en.ERROR_PRODUCT_NOTFOUND,
+                title : showMessage('TITLE_CUSTOMER_BUY_PRODUCT'),
+                message : showMessage('ERROR_PRODUCT_NOTFOUND'),
                 callback_url : {
                     href : '/',
-                    desc : language.en.LABEL_DESC_BACK_DASHBOARD
+                    desc : showMessage('LABEL_DESC_BACK_DASHBOARD')
                 }
             }
         })
