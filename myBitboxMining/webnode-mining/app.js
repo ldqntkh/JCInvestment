@@ -11,7 +11,7 @@ var session = require('express-session');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var paypal = require('paypal-rest-sdk');
-var FileHelper = require('./private/js/FileHelper');
+var FileHelper = require('./global/FileHelper');
 
 var app = express();
 

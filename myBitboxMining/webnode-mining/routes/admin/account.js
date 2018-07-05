@@ -3,7 +3,7 @@ var router = express.Router();
 
 // import const
 const language = require('../../const/admin/variableLabel');
-const FileHelper = require('../../private/js/FileHelper');
+const FileHelper = require('../../global/FileHelper');
 const UserManager = require('../../modelMgrs/UserManager');
 const UserObj = require('../../models/User');
 

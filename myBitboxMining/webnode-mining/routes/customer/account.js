@@ -4,8 +4,8 @@ var CustomerManager = require('../../modelMgrs/CustomerManager');
 var CustomerObj = require('../../models/Customer');
 var TokenManager = require('../../modelMgrs/TokenManager');
 var TokenObj = require('../../models/Token');
-var EmailHelper = require('../../private/js/EmailHelper');
-var FileHelper = require('../../private/js/FileHelper');
+var EmailHelper = require('../../global/EmailHelper');
+var FileHelper = require('../../global/FileHelper');
 
 // import const
 const language = require('../../const/variableLabel');

@@ -23,7 +23,7 @@ const CustomerTable = sequelize.define('customer', {
 });
 
 // class helper
-const FileHelper = require('../private/js/FileHelper');
+const FileHelper = require('../global/FileHelper');
 
 // require module
 const moment = require('moment');

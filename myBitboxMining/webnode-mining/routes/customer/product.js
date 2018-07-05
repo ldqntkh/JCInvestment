@@ -16,7 +16,7 @@ const CustomerHistoryModel = require('../../models/CustomerHistory');
 const varibale = require('../../const/variable');
 const language = require('../../const/variableLabel');
 
-var FileHelper = require('../../private/js/FileHelper');
+var FileHelper = require('../../global/FileHelper');
 router.post('/products/:productid/buy', async (req, res, next)=> {
     /**
      * create order

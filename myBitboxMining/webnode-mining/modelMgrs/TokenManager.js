@@ -18,8 +18,6 @@ const TokenTable = sequelize.define('token', {
 // ignore column id
 TokenTable.removeAttribute('id');
 
-// class helper
-const FileHelper = require('../private/js/FileHelper');
 
 // require module
 const moment = require('moment');

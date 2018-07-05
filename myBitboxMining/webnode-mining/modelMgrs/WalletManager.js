@@ -18,9 +18,6 @@ const WalletTable = sequelize.define('wallet', {
     updateAt: Sequelize.DATE
 });
 
-// class helper
-const FileHelper = require('../private/js/FileHelper');
-
 module.exports = {
     /**
      * get list wallet of customer
