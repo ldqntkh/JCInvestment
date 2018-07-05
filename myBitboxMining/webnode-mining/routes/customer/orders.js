@@ -2,20 +2,25 @@ var express = require('express');
 var router = express.Router();
 // require module
 const moment = require('moment');
+
 // import class manager
 const OrderManager = require('../../modelMgrs/OrderManager');
-const PaymentDetailsManager = require('../../modelMgrs/PaymentDetailsManager')
+const PaymentDetailsManager = require('../../modelMgrs/PaymentDetailsManager');
+const CustomerHistoryManager = require('../../modelMgrs/CustomerHistoryManager');
+const ProductOfCustomerManager = require('../../modelMgrs/ProductOfCustomerManager');
 
 // import model
 const PaymentDetailsModel = require('../../models/PaymentDetails');
+const CustomerHistoryModel = require('../../models/CustomerHistory');
+const ProductOfCustomerModel = require('../../models/ProductOfCustomer');
 
 // import const
 const varibale = require('../../const/variable');
 const language = require('../../const/variableLabel');
 
 router.get('/orders/:orderid/buysuccess', async (req, res, next) => {
-    if (!req.session.customer) res.redirect('/login');
-
+    if (!req.session.customer) return res.redirect('/login');
+    let customer = req.session.customer;
     let orderid = req.params.orderid;
     try {
         let order = await OrderManager.getOrderById(orderid);
@@ -67,14 +72,46 @@ router.get('/orders/:orderid/buysuccess', async (req, res, next) => {
                     })
                     let paymentDetails = await PaymentDetailsManager.createPaymentDetails(paymentDetailsModel);
                     if (paymentDetails !== null) {
+                        // insert history
+                        await CustomerHistoryManager.createHistory(new CustomerHistoryModel({
+                            customerId : customer.id,
+                            description : language.en.LABEL_CREATE_PAYMENT
+                                            .replace('{1}', "<a class='history' href='/payments/" + paymentDetails.getPaymentId() + "'>" + paymentDetails.getPaymentId() + "</a>")
+                                            .replace('{0}', "<a class='history' href='/orders/" + order.getOrderId() + "'>" + order.getOrderId() + "</a>"),
+                            createAt : moment(Date.now()).format('YYYY-MM-DD HH:mm:ss')
+                        }));
+
                         if (paymentDetails.getState() === varibale.PAYMENT_APPROVED) {
                             // update order state
                             order.setState(varibale.ORDER_APPROVED);
                             order.setUpdateAt(moment(Date.now()).format('YYYY-MM-DD HH:mm:ss'));
                             let result = await OrderManager.updateOrder(order);
                             if (result !== -1) {
-                                // create history,
+                                // insert history
+                                await CustomerHistoryManager.createHistory(new CustomerHistoryModel({
+                                    customerId : customer.id,
+                                    description : language.en.LABEL_ORDER_APPROVE
+                                                    .replace('{0}', "<a class='history' href='/orders/" + order.getOrderId() + "'>" + order.getOrderId() + "</a>"),
+                                    createAt : moment(Date.now()).format('YYYY-MM-DD HH:mm:ss')
+                                }));
                                 // create product of customer
+                                let productofctm = await ProductOfCustomerManager.createProduct(new ProductOfCustomerModel({
+                                    name : order.getProductName(),
+                                    hashrate : order.getHashrate(),
+                                    customerId : customer.id,
+                                    period : order.getProductPeriod(),
+                                    createAt : moment(Date.now()).format('YYYY-MM-DD HH:mm:ss')
+                                }));
+
+                                if (productofctm !== null) {
+                                    // insert history
+                                    await CustomerHistoryManager.createHistory(new CustomerHistoryModel({
+                                        customerId : customer.id,
+                                        description : language.en.LABEL_PRODUCTOFCUSTOMER_INSERT
+                                                        .replace('{0}', "<a class='history' href='/product-customer/" + productofctm.getProductId() + "'>" + productofctm.getProductId() + "</a>"),
+                                        createAt : moment(Date.now()).format('YYYY-MM-DD HH:mm:ss')
+                                    }));
+                                }
 
                                 res.render('share_customer/error/error', {
                                     "title": language.en.TITLE_CUSTOMER_SUCCESS_PAYMENT,
@@ -85,6 +122,7 @@ router.get('/orders/:orderid/buysuccess', async (req, res, next) => {
                                         message : language.en.LABEL_PAYMENT_SUCCESS,
                                         callback_url : {
                                             href : '/orders/' + req.params.orderid,
+                                            // change desc
                                             desc : language.en.LABEL_DESC_BACK_ORDER_DETAIL_PAGE
                                         }
                                     }
@@ -159,7 +197,7 @@ router.get('/orders/:orderid/buysuccess', async (req, res, next) => {
 });
 
 router.get('/orders/:orderid/buycancel', (req, res, next) => {
-    if (!req.session.customer) res.redirect('/login');
+    if (!req.session.customer) return res.redirect('/login');
     res.render('share_customer/error/error', {
         "title": language.en.TITLE_CUSTOMER_CANCEL_ORDER,
         "fullname" : req.session.customer.fullname,

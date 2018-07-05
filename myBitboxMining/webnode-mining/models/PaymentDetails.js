@@ -20,6 +20,14 @@ class PaymentDetails {
     }
 
     /**
+     * get payment id
+     * @return {String} paymentid
+     */
+    getPaymentId() {
+        return this.id;
+    }
+
+    /**
      * get payment details state
      * @return {String} state
      */

@@ -7,7 +7,7 @@ const language = require('../../const/variableLabel');
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-    if (!req.session.customer) res.redirect('/login');
+    if (!req.session.customer) return res.redirect('/login');
     res.render('customer/index', {
         "title" : language.en.TITLE_CUSTOMER_DASHBOARD,
         "menu_active": "dashboard",
@@ -17,7 +17,7 @@ router.get('/', function (req, res, next) {
 
 router.get('/user', async (req, res, next) => {
     try {
-        if (!req.session.customer) res.redirect('/login');
+        if (!req.session.customer) return res.redirect('/login');
         // format birthday to render template
         if (req.session.customer.birthday !== null) {
             req.session.customer.birthday = moment(new Date(req.session.customer.birthday)).format('YYYY-MM-DD');

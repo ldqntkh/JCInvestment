@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 
+// import const
+const language = require('../../../../../const/variableLabel');
 
 const urlCoinInfo = 'https://min-api.cryptocompare.com/data/top/exchanges/full?fsym={0}&tsym=USD';
 export default class CoinCalculator extends Component {
@@ -59,27 +61,27 @@ export default class CoinCalculator extends Component {
         else {
             screen = <tbody>
                 <tr>
-                    <td>Hour</td>
+                    <td>{language.en.RC_HOUR}</td>
                     <td>{(this.state.totalCoin / 24).toFixed(4)}</td>
                     <td>${(this.state.balanceTotalUsd / 24).toFixed(2)}</td>
                 </tr>
                 <tr className="success">
-                    <td>Day</td>
+                    <td>{language.en.RC_DAY}</td>
                     <td>{this.state.totalCoin.toFixed(4)}</td>
                     <td>${this.state.balanceTotalUsd.toFixed(2)}</td>
                 </tr>
                 <tr>
-                    <td>Week</td>
+                    <td>{language.en.RC_WEEK}</td>
                     <td>{(this.state.totalCoin * 7).toFixed(4)}</td>
                     <td>${(this.state.balanceTotalUsd * 7).toFixed(2)}</td>
                 </tr>
                 <tr className="success">
-                    <td>Month</td>
+                    <td>{language.en.RC_MONTH}</td>
                     <td>{(this.state.totalCoin * 30).toFixed(4)}</td>
                     <td>${(this.state.balanceTotalUsd * 30).toFixed(2)}</td>
                 </tr>
                 <tr>
-                    <td>Year</td>
+                    <td>{language.en.RC_YEAR}</td>
                     <td>{(this.state.totalCoin * 365).toFixed(4)}</td>
                     <td>${(this.state.balanceTotalUsd * 365).toFixed(2)}</td>
                 </tr>
@@ -90,7 +92,7 @@ export default class CoinCalculator extends Component {
             <React.Fragment>
                 <div className="row">
                     <div className="col-lg-12">
-                        <p>My total hashing: {this.pageContext.totalHs} Mh/s</p>
+                        <p>{language.en.RC_MY_TOTAL_HASH} {this.pageContext.totalHs} Mh/s</p>
                     </div>
                 </div>
                 <div className="row">
@@ -103,16 +105,16 @@ export default class CoinCalculator extends Component {
                     <div className="col-lg-8 col-md-8 col-sm-6">
                         <div class="card">
                             <div class="card-header card-header-warning">
-                                <h4 class="card-title">My Estimation</h4>
+                                <h4 class="card-title">{language.en.RC_MY_ESTIMATION}</h4>
                                 <p class="card-category"></p>
                             </div>
                             <div class="card-body table-responsive">
                                 <table class="table table-hover">
                                     <thead className="text-warning">
                                         <tr>
-                                            <td>Perius</td>
-                                            <td>Coin (ETH)</td>
-                                            <td>USD</td>
+                                            <td>{language.en.RC_PERIOD}</td>
+                                            <td>{language.en.RC_COIN}</td>
+                                            <td>{language.en.RC_USD}</td>
                                         </tr>
                                     </thead>
                                     {
