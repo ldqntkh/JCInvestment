@@ -6,6 +6,9 @@ import ProductItemComponent from './productItemComponent';
 // import variable
 import { API_URL } from '../../const/variable';
 
+// import const
+const language = require('../../../../../const/variableLabel');
+
 export default class ListProductComponent extends Component {
 
     constructor (props) {
@@ -53,20 +56,19 @@ export default class ListProductComponent extends Component {
             });
             screen = <React.Fragment>
                         <div className="card-header card-header-warning">
-                            <h4 className="card-title">My product</h4>
+                            <h4 className="card-title">{language.en.TITLE_MY_PRODUCT}</h4>
                             <p className="card-category"></p>
                         </div>
                         <div className="card-body table-responsive">
                             <table className="table table-hover">
                                 <thead className="text-warning">
-                                    <th>ID</th>
-                                    <th>Name</th>
-                                    <th>Hashrate(Mh/s)</th>
-                                    <th>Active</th>
-                                    <th>Period</th>
-                                    <th>Start Date</th>
-                                    <th>End Date</th>
-                                    <th>Action</th>
+                                    <th>{language.en.RC_ID}</th>
+                                    <th>{language.en.RC_NAME}</th>
+                                    <th>{language.en.RC_HASHRATE}</th>
+                                    <th>{language.en.RC_ACTIVE}</th>
+                                    <th>{language.en.RC_PERIOD}</th>
+                                    <th>{language.en.RC_START_DATE}</th>
+                                    <th>{language.en.RC_END_DATE}</th>
                                 </thead>
                                 <tbody>
                                     {screen}
@@ -75,7 +77,7 @@ export default class ListProductComponent extends Component {
                         </div>
                         <div className="card-footer">
                             <div className="stats">
-                                <i className="material-icons">access_time</i> Refresh
+                                <i className="material-icons">access_time</i> {language.en.RC_REFRESH}
                             </div>
                         </div>
                     </React.Fragment>

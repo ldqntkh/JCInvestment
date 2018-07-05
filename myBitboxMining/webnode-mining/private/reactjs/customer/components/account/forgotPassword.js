@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+// import const
+const language = require('../../../../../const/variableLabel');
 
 export default class ForgotPassword extends Component {
     constructor (props) {
@@ -19,7 +21,7 @@ export default class ForgotPassword extends Component {
         
         if (email === '') {
             this.setState({
-                emailError: 'Email is required. Please input to reset your password'
+                emailError: language.en.RC_EMAIL_RESET_PASS_REQUIRED
             });
         } else {
             try {
@@ -59,8 +61,8 @@ export default class ForgotPassword extends Component {
                 <div className="modal-content">
                     <div className="modal-body text-center">
                         <h3><i className="fa fa-lock fa-4x"></i></h3>
-                        <h2 className="text-center">Forgot Password?</h2>
-                        <p>You can reset your password here.</p>
+                        <h2 className="text-center">{language.en.TITLE_FORGOT_PASS}</h2>
+                        <p>{language.en.TITLE_FORGOT_PASS_DESC}</p>
 
                         <div className="form-group">
                             <div className="input-group">
@@ -70,7 +72,7 @@ export default class ForgotPassword extends Component {
                         </div>
                         {errMsgSection}
                         <div class="form-group">
-                            <button type="button" name="recover-submit" className="btn btn-lg btn-primary btn-success" value="Reset Password" onClick={this.handleSubmit}>Reset Password</button>
+                            <button type="button" name="recover-submit" className="btn btn-lg btn-primary btn-success" value={language.en.TITLE_RESET_PASSWORD} onClick={this.handleSubmit}>{language.en.TITLE_RESET_PASSWORD}</button>
                         </div>
                     </div>
                 </div>

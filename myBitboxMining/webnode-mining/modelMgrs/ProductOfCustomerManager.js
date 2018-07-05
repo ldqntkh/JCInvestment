@@ -41,6 +41,11 @@ module.exports = {
         }
     },
 
+    /**
+     * get list products of customer
+     * @param {Object} {'customerId' : 1}
+     * @return {Object} array list product
+     */
     getListProductOfCustomer : async(field) => {
         let results = [];
         try {

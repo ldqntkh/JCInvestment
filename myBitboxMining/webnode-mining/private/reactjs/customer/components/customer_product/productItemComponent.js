@@ -25,14 +25,6 @@ export default class ProductItemComponent extends Component {
                 <td className="text-center">{product.period}</td>
                 <td className="text-center">{product.startDate === null ? "" : product.startDate}</td>
                 <td className="text-center">{product.endDate === null ? "" : product.endDate}</td>
-                <td class="td-actions text-center">
-                    <button type="button" rel="tooltip" title={product.active? "Show Product" : "Edit Product"} class="btn btn-primary btn-link btn-sm">
-                        <i class="material-icons">{product.active ? "search" : "edit"}</i>
-                    </button>
-                    <button type="button" rel="tooltip" title="Remove Product" class="btn btn-danger btn-link btn-sm">
-                        <i class="material-icons">close</i>
-                    </button>
-                </td>
             </tr>
         );
     }

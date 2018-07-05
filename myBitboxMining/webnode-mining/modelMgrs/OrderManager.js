@@ -40,6 +40,11 @@ module.exports = {
         }
     },
 
+    /**
+     * get order by order id
+     * @param {Number} orderid
+     * @return {Object} order
+     */
     getOrderById: async(orderId) => {
         try {
             let order = await OrderTable.findById(orderId);
@@ -50,6 +55,11 @@ module.exports = {
         }
     },
 
+    /**
+     * Update order
+     * @param {Object} order
+     * @return {Number} affectedRows
+     */
     updateOrder: async(order) => {
         try {
             var affectedRows =  await OrderTable.update(order, {

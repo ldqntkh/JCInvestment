@@ -7,12 +7,15 @@ const WalletManager = require('../../modelMgrs/WalletManager');
 // import model
 const WalletModel = require('../../models/Wallet');
 
+// import const
+const language = require('../../const/variableLabel');
+
 router.get('/list', async (req, res, next)=> {
     if (req.session.customer === null) {
         res.send({
             status: "fail",
             data : null,
-            errMessage : "Authentication failed"
+            errMessage : language.en.ERROR_AUTHENTICATION
         });
     } else {
         try {
@@ -41,7 +44,7 @@ router.post('/add-wallet',async (req, res, next) => {
         res.send({
             status: "fail",
             data : null,
-            errMessage : "Authentication failed"
+            errMessage : language.en.ERROR_AUTHENTICATION
         });
     } else {
         try {
@@ -52,7 +55,7 @@ router.post('/add-wallet',async (req, res, next) => {
                 res.send({
                     status: "fail",
                     data : null,
-                    errMessage : "Can not get value"
+                    errMessage : language.en.ERROR_CANNOT_GET_VALUE
                 });
             } else {
                 let checkWallet = await WalletManager.getWalletByAddress({
@@ -65,7 +68,7 @@ router.post('/add-wallet',async (req, res, next) => {
                     res.send({
                         status: "fail",
                         data : null,
-                        errMessage : "Wallet address exists"
+                        errMessage : language.en.ERROR_WALLET_NOT_EXISTS
                     });
                 } else {
                     let wallet = new WalletModel({
@@ -88,7 +91,7 @@ router.post('/add-wallet',async (req, res, next) => {
                         res.send({
                             status: "fail",
                             data : null,
-                            errMessage : "Can not create new wallet address"
+                            errMessage : language.en.ERROR_CANNOT_CREATE_WALLET
                         });
                     }
                 }
@@ -108,7 +111,7 @@ router.get('/:walletId/delete', async(req, res, next) => {
         res.send({
             status: "fail",
             data : null,
-            errMessage : "Authentication failed"
+            errMessage : language.en.ERROR_AUTHENTICATION
         });
     } else {
         try {
@@ -127,7 +130,7 @@ router.get('/:walletId/delete', async(req, res, next) => {
                 res.send({
                     status: "fail",
                     data : null,
-                    errMessage : 'Can not remove this wallet!'
+                    errMessage : language.en.ERROR_CANNOT_REMOVE_WALLET
                 });
             }
             
@@ -146,7 +149,7 @@ router.post('/:walletId/update', async(req, res, next) => {
         res.send({
             status: "fail",
             data : null,
-            errMessage : "Authentication failed"
+            errMessage : language.en.ERROR_AUTHENTICATION
         });
     } else {
         try {
@@ -164,14 +167,14 @@ router.post('/:walletId/update', async(req, res, next) => {
                     res.send({
                         status: "fail",
                         data : null,
-                        errMessage : 'Can not update this wallet!'
+                        errMessage : language.en.ERROR_CANNOT_UPDATE_WALLET
                     });
                 }
             } else {
                 res.send({
                     status: "fail",
                     data : null,
-                    errMessage : 'Can not get wallet item'
+                    errMessage : language.en.ERROR_CANNOT_GET_VALUE
                 });
             }
         } catch (err) {

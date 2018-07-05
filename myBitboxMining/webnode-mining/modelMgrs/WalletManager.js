@@ -21,13 +21,10 @@ const WalletTable = sequelize.define('wallet', {
 // class helper
 const FileHelper = require('../private/js/FileHelper');
 
-// require module
-const moment = require('moment');
-
 module.exports = {
     /**
      * get list wallet of customer
-     * @param {Object} {customerid : 1}
+     * @param {Object} field {customerid : 1}
      * @return {Object} List wallet
      */
     getListWallet: async (field) => {
@@ -49,12 +46,15 @@ module.exports = {
         }
     },
 
+    /**
+     * Get wallet by wallet address
+     * @param {Object} field {'walletAddress' : 'value'}
+     * @return {Object} Wallet
+     */
     getWalletByAddress: async (field)=> {
         try {
             let wallet = await WalletTable.findOne({
-                where : {
-                    walletAddress : walletObject.getWalletAddress()
-                }
+                where : field
             });
             return wallet  && wallet.dataValues !== null ? new WalletModel(wallet.dataValues) : null;
         } catch (err) {
@@ -63,6 +63,11 @@ module.exports = {
         }
     },
 
+    /**
+     * add new wallet
+     * @param {Object} wallet
+     * @return {Object} wallet
+     */
     addNewWallet: async (walletObject) => {
         try {
             let results = await WalletTable.create(walletObject);
@@ -73,6 +78,11 @@ module.exports = {
         }
     },
 
+    /**
+     * delete wallet by field
+     * @param {Object} field 
+     * @return {Number} results
+     */ 
     deleteWallet: async (field) => {
         try {
             let results = await WalletTable.destroy({
@@ -85,6 +95,11 @@ module.exports = {
         }
     },
 
+    /**
+     * update wallet Object
+     * @param {Object} walletObject 
+     * @return {Number} results
+     */ 
     updateWallet: async (walletObject) => {
         try {
             let results = await WalletTable.update(walletObject, {
