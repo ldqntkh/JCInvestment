@@ -8,7 +8,7 @@ var EmailHelper = require('../../global/EmailHelper');
 var FileHelper = require('../../global/FileHelper');
 
 // import const
-const showMessage = require('../../global/FileHelper').showMessage;
+const showMessage = require('../../global/ResourceHelper').showMessage;
 
 router.get('/login', function(req, res, next) {
     if (req.session.customer) return res.redirect('/');

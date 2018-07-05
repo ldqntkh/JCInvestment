@@ -16,7 +16,7 @@ const ProductOfCustomerModel = require('../../models/ProductOfCustomer');
 
 // import const
 const varibale = require('../../const/variable');
-const showMessage = require('../../global/FileHelper').showMessage;
+const showMessage = require('../../global/ResourceHelper').showMessage;
 
 router.get('/orders/:orderid/buysuccess', async (req, res, next) => {
     if (!req.session.customer) return res.redirect('/login');

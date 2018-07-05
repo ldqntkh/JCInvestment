@@ -3,8 +3,6 @@ const WalletModel = require('../models/Wallet');
 const SequelizeConfig = require('./SequelizeConfig');
 
 // import const
-const language = require('../const/variableLabel');
-
 const Sequelize = SequelizeConfig.getSequelizeModule();
 
 const sequelize = SequelizeConfig.init();

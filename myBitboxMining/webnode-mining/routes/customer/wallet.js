@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 // import const
-const showMessage = require('../../global/FileHelper').showMessage;
+const showMessage = require('../../global/ResourceHelper').showMessage;
 
 router.get('/my-wallet', (req, res, next) => {
     if ( !req.session.customer ) return res.redirect('/login');

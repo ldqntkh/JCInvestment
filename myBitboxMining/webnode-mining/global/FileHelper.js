@@ -5,8 +5,6 @@ const crypto = require('crypto'),
     password = 'd6F3Efeq';
 
 const moment = require('moment');
-const language = require('../const/variableLabel');
-const languageAdmin = require('../const/admin/variableLabel');
 
 var FileHelper = {
     /**
@@ -60,29 +58,6 @@ var FileHelper = {
 
     getRandomNumber: () => {
         return Math.floor(Math.random() * 899999 + 100000);
-    },
-
-    showMessage: (id, args) => {
-        let message = language.en[id];
-        if (typeof args !== 'undefined' && args.length > 0) {
-            return FileHelper.replaceContent(message, args);
-        }
-        return message;
-    },
-
-    showAdminMessage: (id, args) => {
-        let message = languageAdmin.en[id];
-        if (typeof args !== 'undefined' && args.length > 0) {
-            return FileHelper.replaceContent(message, args);
-        }
-        return message;
-    },
-
-    replaceContent: (message, args) => {
-        for(let i = 0; i < args.length; i++) {
-            message = message.replace('{' + i + '}', args[i]);
-        }
-        return message;
     }
 }
 

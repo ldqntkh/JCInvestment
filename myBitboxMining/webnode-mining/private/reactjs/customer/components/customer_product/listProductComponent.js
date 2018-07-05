@@ -7,7 +7,7 @@ import ProductItemComponent from './productItemComponent';
 import { API_URL } from '../../const/variable';
 
 // import const
-const showMessage = require('../../../../../global/FileHelper').showMessage;
+const showMessage = require('../../../../../global/ResourceHelper').showMessage;
 
 export default class ListProductComponent extends Component {
 

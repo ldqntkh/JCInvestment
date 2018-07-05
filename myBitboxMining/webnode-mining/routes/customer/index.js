@@ -3,7 +3,7 @@ var router = express.Router();
 var moment  = require('moment');
 
 // import const
-const showMessage = require('../../global/FileHelper').showMessage;
+const showMessage = require('../../global/ResourceHelper').showMessage;
 
 /* GET home page. */
 router.get('/', function (req, res, next) {

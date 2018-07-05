@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { confirmAlert } from 'react-confirm-alert'; 
 
 // import const
-const showMessage = require('../../../../../global/FileHelper').showMessage;
+const showMessage = require('../../../../../global/ResourceHelper').showMessage;
 
 // import const
 import { API_URL } from '../../const/variable';

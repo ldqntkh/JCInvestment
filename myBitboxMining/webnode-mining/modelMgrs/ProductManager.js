@@ -3,7 +3,7 @@ const ProductModel = require('../models/Product');
 const SequelizeConfig = require('./SequelizeConfig');
 
 // import const
-const showMessage = require('../global/FileHelper').showMessage;
+const showMessage = require('../global/ResourceHelper').showMessage;
 
 const Sequelize = SequelizeConfig.getSequelizeModule();
 

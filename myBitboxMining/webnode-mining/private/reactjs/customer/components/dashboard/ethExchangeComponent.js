@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 
 // import const
-const showMessage = require('../../../../../global/FileHelper').showMessage;
+const showMessage = require('../../../../../global/ResourceHelper').showMessage;
 
 export default class EthExchangeComponent extends Component {
 

@@ -25,15 +25,13 @@ router.get('/admin/user/index', async (req, res) => {
         title : showAdminMessage('TITLE_CUSTOMER_DASHBOARD'),
         menu_active: "user",
         fullname : req.session.user.fullname,
-        language: language,
         userList: userList
     });
 });
 
 router.get('/admin/login', function(req, res) {
     res.render('admin/account/login', {
-        "title": showAdminMessage('LABEL_LOGIN_TITLE'),
-        language: language
+        "title": showAdminMessage('LABEL_LOGIN_TITLE')
     });
 })
 .post('/admin/login', async (req, res) => {
@@ -56,7 +54,6 @@ router.get('/admin/login', function(req, res) {
         }
         return res.render('admin/account/login', {
             title: showAdminMessage('LABEL_LOGIN_TITLE'),
-            language: language,
             message: message,
             email: req.body.email
         });

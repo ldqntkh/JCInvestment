@@ -8,7 +8,7 @@ const WalletManager = require('../../modelMgrs/WalletManager');
 const WalletModel = require('../../models/Wallet');
 
 // import const
-const showMessage = require('../../global/FileHelper').showMessage;
+const showMessage = require('../../global/ResourceHelper').showMessage;
 
 router.get('/list', async (req, res, next)=> {
     if (req.session.customer === null) {

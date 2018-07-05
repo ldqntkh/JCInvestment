@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 
 // import const
-const showMessage = require('../../../../../global/FileHelper').showMessage;
+const showMessage = require('../../../../../global/ResourceHelper').showMessage;
 
 const urlCoinInfo = 'https://min-api.cryptocompare.com/data/top/exchanges/full?fsym={0}&tsym=USD';
 export default class CoinCalculator extends Component {

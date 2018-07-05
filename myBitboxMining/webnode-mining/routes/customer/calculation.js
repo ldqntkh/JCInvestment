@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 // import const
-const showMessage = require('../../global/FileHelper').showMessage;
+const showMessage = require('../../global/ResourceHelper').showMessage;
 
 /* GET calculation page. */
 router.get('/calculation', function (req, res, next) {

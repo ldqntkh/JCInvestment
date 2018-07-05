@@ -4,7 +4,7 @@ import React, {Component} from 'react';
 import { MAIN_URL } from '../../const/variable';
 
 // import const
-const showMessage = require('../../../../../global/FileHelper').showMessage;
+const showMessage = require('../../../../../global/ResourceHelper').showMessage;
 
 export default class LoginComponent extends Component {
     constructor (props) {

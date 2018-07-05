@@ -11,7 +11,7 @@ var session = require('express-session');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var paypal = require('paypal-rest-sdk');
-var FileHelper = require('./global/FileHelper');
+var ResourceHelper = require('./global/ResourceHelper');
 
 var app = express();
 
@@ -22,8 +22,8 @@ paypal.configure({
     'client_secret': 'EMlUXVwhKm6rwtlc6-3JdLdqxoWJAFVKqgFK_KIJxj7XlW_dUi6SR19LlYXVQVFG6pH40Pd_OkeIhuLs'
 });
 app.locals.paypal = paypal;
-app.locals.showMessage = FileHelper.showMessage;
-app.locals.showAdminMessage = FileHelper.showAdminMessage;
+app.locals.showMessage = ResourceHelper.showMessage;
+app.locals.showAdminMessage = ResourceHelper.showAdminMessage;
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
