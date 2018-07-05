@@ -107,5 +107,21 @@ module.exports = {
             console.log(err.message);
             return -1;
         }
+    },
+
+    getTotalHashRate: async () => {
+        try {
+            let ProductOfCustomer = await sequelize.define('productofcustomer');
+            await productOfCustomer.belongsTo(WalletTable, {foreignKey: 'id'});
+            let totalHashrate = await WalletTable.findAll({
+                attributes: [[sequelize.fn('sum', sequelize.col('productofcustomer.hashrate')), 'hashrate']],
+                include: [ProductOfCustomer],
+                group: ['wallet.id']
+            });
+            console.log(totalHashrate);
+        } catch(err) {
+            console.log(err.message);
+            return null;
+        }
     }
 }
