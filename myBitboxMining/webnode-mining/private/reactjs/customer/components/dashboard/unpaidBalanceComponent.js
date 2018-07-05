@@ -1,5 +1,8 @@
 import React, {Component} from 'react';
 
+// import const
+const language = require('../../../../../const/variableLabel');
+
 export default class UnpaipBalanceComponent extends Component {
 
     render () {
@@ -15,12 +18,12 @@ export default class UnpaipBalanceComponent extends Component {
                             <div className="card-icon">
                                 <i className="fa fa-btc"></i>
                             </div>
-                            <p className="card-category">Unpaid Balance ETH</p>
+                            <p className="card-category">{language.en.RC_UNPAID_BALANCE}</p>
                             <h3 className="card-title">{unpaidBalance} ETH</h3>
                         </div>
                         <div className="card-footer">
                             <div className="stats">
-                                <i className="material-icons">date_range</i> Last 24 Hours
+                                <i className="material-icons">date_range</i> {language.en.RC_LAST_24H}
                             </div>
                         </div>
                     </div>

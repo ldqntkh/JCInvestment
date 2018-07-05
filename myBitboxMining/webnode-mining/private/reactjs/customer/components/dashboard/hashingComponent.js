@@ -1,5 +1,8 @@
 import React, {Component} from 'react';
 
+// import const
+const language = require('../../../../../const/variableLabel');
+
 export default class HashingComponent extends Component {
 
     render () {
@@ -15,7 +18,7 @@ export default class HashingComponent extends Component {
                             <div className="card-icon">
                                 <i className="material-icons">content_copy</i>
                             </div>
-                            <p className="card-category">Hashrate (MH/S)</p>
+                            <p className="card-category">{language.en.RC_HASHRATE}</p>
                             <h3 className="card-title"> {totalHs}
                                 <small>Mh/s</small>
                             </h3>
@@ -23,7 +26,7 @@ export default class HashingComponent extends Component {
                         <div className="card-footer">
                             <div className="stats">
                                 <i className="material-icons text-danger">warning</i>
-                                <a href="#pablo">Get more hashing...</a>
+                                <a href="#pablo">{language.en.RC_GETMORE_HASHING}</a>
                             </div>
                         </div>
                     </div>

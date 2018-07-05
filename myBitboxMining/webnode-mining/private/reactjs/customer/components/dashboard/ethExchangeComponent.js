@@ -1,5 +1,8 @@
 import React, {Component} from 'react';
 
+// import const
+const language = require('../../../../../const/variableLabel');
+
 export default class EthExchangeComponent extends Component {
 
     constructor(props) {
@@ -14,7 +17,7 @@ export default class EthExchangeComponent extends Component {
                             <div className="card-icon">
                                 <i className="fa fa-usd"></i>
                             </div>
-                            <p className="card-category">ETH price</p>
+                            <p className="card-category">{language.en.RC_ETH_PRICE}</p>
                             {
                                 !this.props.loaded ? <i className="fa fa-spinner fa-spin fa-icon-loading"></i>
                                 : <h3 className="card-title">${this.props.ethPrice}</h3> 
@@ -22,7 +25,7 @@ export default class EthExchangeComponent extends Component {
                         </div>
                         <div className="card-footer">
                             <div className="stats">
-                                <i className="material-icons">local_offer</i> Price of Coinmarket
+                                <i className="material-icons">local_offer</i> {language.en.RC_PRICE_COINMARKET}
                             </div>
                         </div>
                     </div>

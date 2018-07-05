@@ -6,7 +6,7 @@ const language = require('../../const/variableLabel');
 
 /* GET calculation page. */
 router.get('/calculation', function (req, res, next) {
-    if (!req.session.customer) res.redirect('/login');
+    if (!req.session.customer) return res.redirect('/login');
     res.render('customer/calculation', {
         "title" : language.en.TITLE_CUSTOMER_CALCULATION,
         "menu_active": "calculation",

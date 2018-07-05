@@ -69,5 +69,13 @@ class Product {
     getPeriod() {
         return this.period;
     }
+
+    /**
+     * get hashrate of product
+     * @returns {Number} hashrate
+     */
+    getHashrate() {
+        return this.hashrate;
+    }
 }
 module.exports = Product;

@@ -23,7 +23,6 @@ router.get('/login', function(req, res, next) {
             password: req.body.password
         };
         var message = null;
-        var errCode = 1;
         var customer = await CustomerManager.getCustomerByField({
             email: customer.email,
             password: FileHelper.crypto(customer.password)

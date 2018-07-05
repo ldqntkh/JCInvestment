@@ -11,6 +11,7 @@ module.exports = {
         path: path.resolve('public/reactjs'),
         filename: '[name].js'
     },
+    mode: 'development',
     module: {
         rules: [{
                 test: /\.css$/,

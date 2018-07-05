@@ -24,8 +24,15 @@ module.exports.en = {
     ERROR_CHANGE_PASS: 'error while changing new password: ',
     ERROR_PASS_CONFIRM_INCORRECT: 'The password confirm is incorrect. Please try again',
     ERROR_PRODUCT_NOTFOUND: "Can not find this product",
+
     // error server
     ERROR_SV_RESET_PASS: 'error while trying to connect to reset password: ',
+    ERROR_AUTHENTICATION: 'Authentication failed',
+    ERROR_CANNOT_GET_VALUE: "Can not get value",
+    ERROR_WALLET_NOT_EXISTS: "Wallet address exists",
+    ERROR_CANNOT_CREATE_WALLET: "Can not create new wallet address",
+    ERROR_CANNOT_REMOVE_WALLET: 'Can not remove this wallet!',
+    ERROR_CANNOT_UPDATE_WALLET: 'Can not update this wallet!',
 
     WARNING_ACCOUNT_NOT_ACTIVE: 'Your account is not active. Please active before login',
     WARNING_PASS_CHANGED: 'Your password is changed. Please login to enjoy!',
@@ -51,6 +58,11 @@ module.exports.en = {
     LABEL_ORDER_CANCEL: "You have canceled this invoice",
     LABEL_BUY_PRODUCT: "Buy {0} with price {1}",
     LABEL_BUY_PRODUCT_FAIL: 'Can not buy product. Please try again.',
+    LABEL_CREATE_ORDER: "You have create an order with order id is {0}",
+    LABEL_ORDER_APPROVE: "Your order with id {0} is approved!",
+    LABEL_CREATE_PAYMENT: "You have successfully paid the order {0} with a payment code of {1}",
+    LABEL_PRODUCTOFCUSTOMER_INSERT: 'Your product with id {0} has not been activated. Please click here {1} choose a wallet address and active it.',
+
     // web title
     TITLE_CUSTOMER_LOGIN: "Customer Login",
     TITLE_CUSTOMER_UPDATE_PROFILE: 'Customer profile',
@@ -66,4 +78,70 @@ module.exports.en = {
     TITLE_CUSTOMER_404: "Error 404",
     TITLE_CUSTOMER_CANCEL_ORDER: 'Cancel Order',
     TITLE_CUSTOMER_BUY_PRODUCT: 'Buy product',
+    TITLE_CUSTOMER_WALLET: 'My wallet',
+
+    // title
+    TITLE_CHANGE_PASSWORD: 'Change password',
+    TITLE_RESET_PASSWORD: 'Reset password',
+    TITLE_REQUIRED: ' is required',
+    TITLE_INPUT_PASSWORD: 'Password',
+    TITLE_INPUT_CONFIRM_PASSWORD: 'Confirm password',
+    TITLE_FORGOT_PASS: 'Forgot Password?',
+    TITLE_FORGOT_PASS_DESC: 'You can reset your password here.',
+    TITLE_MY_PRODUCT: 'My Product',
+    
+    // react label
+    RC_ID: 'ID',
+    RC_NAME: 'Name',
+    RC_WALLET_ADDRESS: 'Wallet address',
+    RC_TOTAL_HASHRATE: 'Total hashrate',
+    RC_TOTAL_BALANCE: 'Total balance',
+    RC_ACTION: 'Action',
+    RC_TABLE_WALLET: 'List wallet',
+    RC_ADDWALLET: 'Add new wallet',
+    RC_ADD_NEW_WALLET: 'Add new wallet address',
+    RC_ERROR_CONFIRM_PASSWORD: 'Your confirm password is not match. Please try again',
+    RC_EMAIL_RESET_PASS_REQUIRED: 'Email is required. Please input to reset your password',
+    RC_HOUR : 'Hour',
+    RC_DAY : 'Day',
+    RC_WEEK : 'Week',
+    RC_MONTH : 'Month',
+    RC_YEAR : 'Year',
+    RC_MY_TOTAL_HASH: 'My total hashing:',
+    RC_MY_ESTIMATION: 'My Estimation',
+    RC_PERIOD : 'Period',
+    RC_COIN: 'Coin (ETH)',
+    RC_USD: 'USD',
+    RC_ID: 'Id',
+    RC_NAME: 'Name',
+    RC_HASHRATE: 'Hashrate(Mh/s)',
+    RC_ACTIVE: 'Active',
+    RC_START_DATE: 'Start date',
+    RC_END_DATE: 'End date',
+    RC_REFRESH: 'Refresh',
+    RC_ETH_PRICE: 'ETH price',
+    RC_PRICE_COINMARKET: 'Price of Coinmarket',
+    RC_GETMORE_HASHING: 'Get more hashing...',
+    RC_ETH_VALUE: 'My ETH Value',
+    RC_UNPAID_BALANCE : 'Unpaid Balance ETH',
+    RC_LAST_24H: 'Last 24 Hours',
+    RC_ADDON: 'Add on',
+    RC_BUY: 'Buy',
+    RC_PRICE: 'Price:',
+
+    // input placeholder
+    WALLET_ADDRESS: 'Wallet address',
+    WALLET_NAME: 'Wallet name',
+
+    // button name
+    BTN_SUBMIT: 'Submit',
+
+    // alert
+    AL_TITLE_CONFIRM : 'Are you sure?',
+    AL_TITLE_DESC : 'You want to delete {0}',
+    AL_BTN_NO : 'No',
+    AL_BTN_YES : 'Yes, Delete it!',
+    AL_TITLE_EDIT_WALLET : 'Edit wallet',
+    AL_BTN_CANCEL : 'Cancel',
+    
 }

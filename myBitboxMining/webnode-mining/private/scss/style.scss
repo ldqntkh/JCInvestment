@@ -3,3 +3,11 @@
 @import 'login';
 @import 'account';
 @import './admin/user';
+
+@import 'react_alert';
+
+@media screen and(min-width: 993px) {
+    nav {
+        position: unset !important;
+    }
+}
