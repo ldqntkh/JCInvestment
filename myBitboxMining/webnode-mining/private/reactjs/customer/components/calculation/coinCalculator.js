@@ -43,7 +43,7 @@ export default class CoinCalculator extends Component {
                 netHashesPerSecond = CoinInfo.NetHashesPerSecond,
                 blockReward = CoinInfo.BlockReward;
 
-            let totalCoin = hashing / (hashing + netHashesPerSecond) * blockNumber * blockReward * 0.7,
+            let totalCoin = hashing / (hashing + netHashesPerSecond) * blockNumber * blockReward * 0.7,// 0.7 is fee to charge customer
                 balanceTotalUsd = totalCoin * price * 0.7;
             this.setState({
                 price: price,

@@ -77,7 +77,7 @@ export default class WalletItemComponent extends Component {
                 <td> {item.walletName} </td>
                 <td> {item.walletAddress.substr(0,15) + '...'} </td>
                 <td>
-                    Oud-Turnhout
+                    {item.hashrate}
                 </td>
                 <td className="text-primary">
                     $36,738
