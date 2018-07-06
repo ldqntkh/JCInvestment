@@ -109,16 +109,40 @@ module.exports = {
         }
     },
 
-    getTotalHashRate: async () => {
+    getListWalletWithCalculation: async (field) => {
         try {
-            let ProductOfCustomer = await sequelize.define('productofcustomer');
-            await productOfCustomer.belongsTo(WalletTable, {foreignKey: 'id'});
-            let totalHashrate = await WalletTable.findAll({
-                attributes: [[sequelize.fn('sum', sequelize.col('productofcustomer.hashrate')), 'hashrate']],
-                include: [ProductOfCustomer],
+            let results = [];
+            let ProductOfCustomer = await sequelize.define('productofcustomer', {
+                hashrate: Sequelize.FLOAT,
+                walletId: Sequelize.INTEGER
+            });
+            let WalletBalance = await sequelize.define('walletbalance', {
+                balance: Sequelize.FLOAT,
+                walletId: Sequelize.INTEGER
+            });
+            
+            await WalletTable.belongsTo(ProductOfCustomer, {foreignKey: 'id', targetKey: 'walletId'});
+            await WalletTable.belongsTo(WalletBalance, {foreignKey: 'id', targetKey: 'walletId'});
+            
+            let listWallet = await WalletTable.findAll({
+                where: field,
+                attributes: {include: [[sequelize.fn('SUM', sequelize.col('productofcustomer.hashrate')), 'hashrate'],
+                                      [sequelize.col('walletbalance.balance'), 'balance']]
+                },
+                include: [{model: ProductOfCustomer}, {model: WalletBalance}],
                 group: ['wallet.id']
             });
-            console.log(totalHashrate);
+            if (listWallet.length > 0) {
+                for(let i = 0; i < listWallet.length; i++) {
+                    let walletItem = listWallet[i].dataValues;
+                    let walletModel = new WalletModel(walletItem);
+                    walletModel.hashrate = walletItem.hashrate;
+                    walletModel.balance = walletItem.balance;
+                    results.push(walletModel);
+                }
+            }
+            console.log(results);
+            return results;
         } catch(err) {
             console.log(err.message);
             return null;
