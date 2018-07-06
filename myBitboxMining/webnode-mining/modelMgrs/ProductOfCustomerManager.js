@@ -59,5 +59,32 @@ module.exports = {
             console.log(err);
         }
         return results;
+    },
+    /**
+     * get list total hashrate
+     * @param {Object} whereOptions {'customerId' : 1}
+     * @return {Array} array list total hashrate
+     */
+    getListTotalHashRate: async (whereOptions) => {
+        let results = [];
+        try {
+            let listProductOfCustomer = await ProductTable.findAll({
+                where: whereOptions,
+                attributes: {
+                    include: [[sequelize.fn('sum', sequelize.col('hashrate')), 'totalHashrate'], 'customerId'],
+                    exclude: ['id', 'name', 'hashrate', 'walletId', 'startDate', 'endDate', 'createAt', 'updateAt']
+                },
+                group: ['customerId']
+            });
+            if (listProductOfCustomer.length > 0) {
+                for(let i = 0; i < listProductOfCustomer.length; i++) {
+                    let productOfCustomerItem = listProductOfCustomer[i].dataValues;
+                    results.push(productOfCustomerItem);
+                }
+            }
+        } catch(err) {
+            console.log(err.message)
+        }
+        return results;
     }
 }
