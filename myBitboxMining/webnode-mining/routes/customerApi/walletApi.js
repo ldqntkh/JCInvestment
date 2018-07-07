@@ -19,11 +19,13 @@ router.get('/list', async (req, res, next)=> {
         });
     } else {
         try {
-            let listWallet = await WalletManager.getListWalletWithCalculation({
-                active: 1,
-                expired: 0,
+            let listWallet = await WalletManager.getListWalletWithCalculation([{
                 customerId : req.session.customer.id
-            });
+            },
+            {
+                active: 1,
+                expired: 0
+            }]);
             res.send({
                 status: "success",
                 data : listWallet,
