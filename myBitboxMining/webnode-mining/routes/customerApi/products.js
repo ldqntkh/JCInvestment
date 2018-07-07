@@ -36,8 +36,7 @@ router.get('/product_of_customer', async(req, res, next) => {
             });
         } else {
             let result = await ProductOfCustomerManager.getListProductOfCustomer({
-                customerId : req.session.customer.id,
-                expired : 0
+                customerId : req.session.customer.id
             });
             res.send({
                 status: "success",
