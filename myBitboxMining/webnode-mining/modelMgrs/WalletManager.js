@@ -16,6 +16,11 @@ const WalletTable = sequelize.define('wallet', {
     updateAt: Sequelize.DATE
 });
 
+const WalletBalance = sequelize.define('walletbalance', {
+    balance: Sequelize.FLOAT,
+    walletId: Sequelize.INTEGER
+});
+
 module.exports = {
     /**
      * get list wallet of customer
@@ -108,36 +113,42 @@ module.exports = {
             return -1;
         }
     },
-
-    getListWalletWithCalculation: async (field) => {
+    /**
+     * get list wallet by condition options
+     * @param {Array} options example: we have 3 where options for 3 table wallet, productOfCustomer and walletBalance
+     * @return {Array} results
+     */
+    getListWalletWithCalculation: async (options) => {
         try {
             let results = [];
+            let whereOptions = options ? options : [];
             let ProductOfCustomer = await sequelize.define('productofcustomer', {
                 hashrate: Sequelize.FLOAT,
                 walletId: Sequelize.INTEGER
             });
-            let WalletBalance = await sequelize.define('walletbalance', {
-                balance: Sequelize.FLOAT,
-                walletId: Sequelize.INTEGER
-            });
-            
+
             await WalletTable.belongsTo(ProductOfCustomer, {foreignKey: 'id', targetKey: 'walletId'});
             await WalletTable.belongsTo(WalletBalance, {foreignKey: 'id', targetKey: 'walletId'});
             
             let listWallet = await WalletTable.findAll({
-                where: field,
+                where: whereOptions[0],
                 attributes: {include: [[sequelize.fn('SUM', sequelize.col('productofcustomer.hashrate')), 'hashrate'],
                                       [sequelize.col('walletbalance.balance'), 'balance']]
                 },
-                include: [{model: ProductOfCustomer}, {model: WalletBalance}],
+                include: [{
+                    model: ProductOfCustomer,
+                    where: whereOptions[1]
+                },
+                {
+                    model: WalletBalance,
+                    where: whereOptions[2]
+                }],
                 group: ['wallet.id']
             });
             if (listWallet.length > 0) {
                 for(let i = 0; i < listWallet.length; i++) {
                     let walletItem = listWallet[i].dataValues;
                     let walletModel = new WalletModel(walletItem);
-                    walletModel.hashrate = walletItem.hashrate;
-                    walletModel.balance = walletItem.balance;
                     results.push(walletModel);
                 }
             }
@@ -145,7 +156,40 @@ module.exports = {
             return results;
         } catch(err) {
             console.log(err.message);
-            return null;
+            return [];
+        }
+    },
+    /**
+     * get list wallet by condition options
+     * @param {Object} whereOption
+     * @return {Array} results example: [{customerId: 1, totalBalance: 0}]
+     */
+    getTotalBalanceByCustomerId: async (whereOption) => {
+        try {
+            let results = [];
+            await WalletTable.belongsTo(WalletBalance, {foreignKey: 'id', targetKey: 'walletId'});
+            let listWallet = await WalletTable.findAll({
+                where: whereOption,
+                attributes: {
+                    include: [[sequelize.fn('SUM', sequelize.col('walletbalance.balance')), 'totalBalance']],
+                    exclude: ['id', 'walletAddress', 'walletName', 'walletTypeId', 'createAt', 'updateAt']
+                },
+                include: {
+                    model: WalletBalance
+                },
+                group: ['wallet.customerId']
+            });
+            if (listWallet.length > 0) {
+                for(let i = 0; i < listWallet.length; i++) {
+                    let walletItem = listWallet[i].dataValues;
+                    let walletModel =  new WalletModel(walletItem);
+                    results.push(walletModel);
+                }
+            }
+            return results;
+        } catch(err) {
+            console.log(err.message);
+            return [];
         }
     }
 }
