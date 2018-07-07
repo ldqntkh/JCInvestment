@@ -16,15 +16,24 @@ export default class ProductItemComponent extends Component {
 
     render() {
         let product = this.props.dataProduct;
+        let page = this.props.product_page;
         return(
             <tr>
-                <td className="text-center">{product.id}</td>
-                <td className="text-center">{product.name}</td>
-                <td className="text-center">{product.hashrate}</td>
-                <td className="text-center">{product.active === false ? "Not active" : "Active"}</td>
-                <td className="text-center">{product.period}</td>
-                <td className="text-center">{product.startDate === null ? "" : product.startDate}</td>
-                <td className="text-center">{product.endDate === null ? "" : product.endDate}</td>
+                <td>{product.id}</td>
+                <td>{product.name}</td>
+                <td>{product.hashrate}</td>
+                <td>{product.active === false ? "Not active" : "Active"}</td>
+                <td>{product.period}</td>
+                <td>{product.startDate === null ? "" : product.startDate}</td>
+                <td>{product.endDate === null ? "" : product.endDate}</td>
+                {page === "my-product" && <td className="td-actions">
+                            {!product.active && <button type="button" rel="tooltip" title="" className="btn btn-primary btn-link btn-sm" data-original-title="Edit product">
+                                <i className="material-icons">edit</i>
+                            </button>}
+                            {product.expired && <button type="button" rel="tooltip" title="" className="btn btn-danger btn-link btn-sm" data-original-title="Remove">
+                                <i className="material-icons">close</i>
+                            </button>}
+                        </td>}
             </tr>
         );
     }

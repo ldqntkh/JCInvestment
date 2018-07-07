@@ -26,7 +26,10 @@ export default class ListProductComponent extends Component {
     async _getListProduct () {
         let url = API_URL + 'products/product_of_customer';
         try {
-            let response = await fetch(url);
+            let response = await fetch(url, {
+                method: 'GET',
+                credentials: 'same-origin'
+            });
             let jsonData = await response.json();
             if (jsonData.status === 'success') {
                 this.setState({
@@ -49,10 +52,12 @@ export default class ListProductComponent extends Component {
 
     render () {
         let screen = null;
+        let page = pageContext.page;
+
         if (!this.state.loaded) screen = <i className="fa fa-spinner fa-spin fa-icon-loading"></i>
         else {
             screen = this.state.listProduct.map((item, index)=> {
-                return <ProductItemComponent dataProduct={item} key={index} />;
+                return <ProductItemComponent dataProduct={item} key={index} product_page={page}/>;
             });
             screen = <React.Fragment>
                         <div className="card-header card-header-warning">
@@ -60,7 +65,7 @@ export default class ListProductComponent extends Component {
                             <p className="card-category"></p>
                         </div>
                         <div className="card-body table-responsive">
-                            <table className="table table-hover">
+                            <table className="table table-hover text-center">
                                 <thead className="text-warning">
                                     <th>{showMessage('RC_ID')}</th>
                                     <th>{showMessage('RC_NAME')}</th>
@@ -69,6 +74,7 @@ export default class ListProductComponent extends Component {
                                     <th>{showMessage('RC_PERIOD')}</th>
                                     <th>{showMessage('RC_START_DATE')}</th>
                                     <th>{showMessage('RC_END_DATE')}</th>
+                                    {page && page === "my-product" && <th>{showMessage('RC_ACTION')}</th>}
                                 </thead>
                                 <tbody>
                                     {screen}

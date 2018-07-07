@@ -11,8 +11,8 @@ export default class EthExchangeComponent extends Component {
     render () {
         return (
             <React.Fragment>
-                <div class="col-lg-3 col-md-6 col-sm-6">
-                    <div class="card card-stats" id="eth-exchange">
+                <div className="col-lg-3 col-md-6 col-sm-6">
+                    <div className="card card-stats" id="eth-exchange">
                         <div className="card-header card-header-danger card-header-icon">
                             <div className="card-icon">
                                 <i className="fa fa-usd"></i>

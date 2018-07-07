@@ -28,6 +28,8 @@ if (typeof pageContext !== 'undefined') {
         ReactDOM.render(<ForgotPassword />, document.getElementById('forgot-password'));
     } else if(page === 'changepassword') {
         ReactDOM.render(<ChangePassword />, document.getElementById('change-password'));
+    } else if(page === 'my-product') {
+        ReactDOM.render(<ListProductCustomerComponent />, document.getElementById('my-product-page'));
     } else if(page === 'my-wallet') {
         ReactDOM.render(
             <Provider store={walletStore}>

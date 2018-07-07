@@ -56,6 +56,12 @@
                                 <p><%= showMessage('TITLE_CUSTOMER_PRODUCT') %></p>
                             </a>
                         </li>
+                        <li class="nav-item <%- menu_active === 'my-order' ? 'active' : '' %>">
+                            <a class="nav-link" href="/my-order">
+                                <i class="material-icons">reorder</i>
+                                <p><%= showMessage('TITLE_CUSTOMER_ORDER') %></p>
+                            </a>
+                        </li>
                         <li class="nav-item <%- menu_active === 'calculation' ? 'active' : '' %>">
                             <a class="nav-link" href="/calculation">
                                 <i class="fa fa-calculator"></i>

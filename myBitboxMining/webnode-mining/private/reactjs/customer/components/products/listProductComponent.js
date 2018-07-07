@@ -24,7 +24,10 @@ export default class ListProductComponent extends Component {
     async _getListProduct () {
         let url = API_URL + 'products/list';
         try {
-            let response = await fetch(url);
+            let response = await fetch(url, {
+                method: 'GET',
+                credentials: 'same-origin'
+            });
             let jsonData = await response.json();
             if (jsonData.status === 'success') {
                 this.setState({
