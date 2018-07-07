@@ -35,25 +35,31 @@
                         <li class="nav-item <%- menu_active === 'dashboard' ? 'active' : '' %>">
                             <a class="nav-link" href="/">
                                 <i class="material-icons">dashboard</i>
-                                <p>Dashboard</p>
+                                <p><%= showMessage('TITLE_CUSTOMER_DASHBOARD') %></p>
                             </a>
                         </li>
                         <li class="nav-item <%- menu_active === 'user' ? 'active' : '' %>">
                             <a class="nav-link" href="/user">
                                 <i class="material-icons">person</i>
-                                <p>User Profile</p>
+                                <p><%= showMessage('TITLE_CUSTOMER_PROFILE') %></p>
                             </a>
                         </li>
                         <li class="nav-item <%- menu_active === 'my-wallet' ? 'active' : '' %>">
                             <a class="nav-link" href="/my-wallet">
                                 <i class="material-icons">account_balance_wallet</i>
-                                <p>My wallet</p>
+                                <p><%= showMessage('TITLE_CUSTOMER_WALLET') %></p>
+                            </a>
+                        </li>
+                        <li class="nav-item <%- menu_active === 'my-product' ? 'active' : '' %>">
+                            <a class="nav-link" href="/my-product">
+                                <i class="material-icons">folder</i>
+                                <p><%= showMessage('TITLE_CUSTOMER_PRODUCT') %></p>
                             </a>
                         </li>
                         <li class="nav-item <%- menu_active === 'calculation' ? 'active' : '' %>">
                             <a class="nav-link" href="/calculation">
                                 <i class="fa fa-calculator"></i>
-                                <p>Calculation</p>
+                                <p><%= showMessage('TITLE_CUSTOMER_CALCULATION') %></p>
                             </a>
                         </li>
                     </ul>

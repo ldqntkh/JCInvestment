@@ -79,6 +79,9 @@ module.exports.en = {
     TITLE_CUSTOMER_CANCEL_ORDER: 'Cancel Order',
     TITLE_CUSTOMER_BUY_PRODUCT: 'Buy product',
     TITLE_CUSTOMER_WALLET: 'My wallet',
+    TITLE_CUSTOMER_PRODUCT: 'My products',
+    TITLE_CUSTOMER_ORDER: 'My order history',
+    TITLE_CUSTOMER_HISTORY: 'My history',
 
     // title
     TITLE_CHANGE_PASSWORD: 'Change password',

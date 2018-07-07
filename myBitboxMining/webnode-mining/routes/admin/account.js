@@ -3,7 +3,7 @@ var router = express.Router();
 
 // import const
 const FileHelper = require('../../global/FileHelper');
-const showAdminMessage = FileHelper.showAdminMessage;
+const showAdminMessage = require('../../global/ResourceHelper').showAdminMessage;
 const UserManager = require('../../modelMgrs/UserManager');
 const UserObj = require('../../models/User');
 

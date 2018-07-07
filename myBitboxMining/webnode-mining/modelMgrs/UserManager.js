@@ -25,7 +25,7 @@ UserTable.removeAttribute('id');
 const FileHelper = require('../global/FileHelper');
 
 // import const
-const showMessage = FileHelper.showMessage;
+const showMessage = require('../global/ResourceHelper').showMessage;
 
 // require module
 const moment = require('moment');
