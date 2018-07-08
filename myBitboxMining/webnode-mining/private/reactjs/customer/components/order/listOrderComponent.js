@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 
 // import component
-import ProductItemComponent from './productItemComponent';
+import OrderItemComponent from './orderItemComponent';
 
 // import variable
 import { API_URL } from '../../const/variable';
@@ -9,22 +9,22 @@ import { API_URL } from '../../const/variable';
 // import const
 const showMessage = require('../../../../../global/ResourceHelper').showMessage;
 
-export default class ListProductComponent extends Component {
-
+export default class ListOrderComponent extends Component {
+    
     constructor (props) {
         super(props);
         this.state = {
             loaded: false,
-            listProduct: []
+            listOrder: []
         }
     }
 
     componentDidMount() {
-        this._getListProduct();
+        this._getListOrder();
     }
 
-    async _getListProduct () {
-        let url = API_URL + 'products/product_of_customer';
+    async _getListOrder () {
+        let url = API_URL + 'orders/list';
         try {
             let response = await fetch(url, {
                 method: 'GET',
@@ -34,7 +34,7 @@ export default class ListProductComponent extends Component {
             if (jsonData.status === 'success') {
                 this.setState({
                     loaded: true,
-                    listProduct: jsonData.data
+                    listOrder: jsonData.data
                 });
             } else {
                 this.setState({
@@ -50,18 +50,17 @@ export default class ListProductComponent extends Component {
         }
     } 
 
-    render () {
+    render() {
         let screen = null;
-        let page = pageContext.page;
 
         if (!this.state.loaded) screen = <i className="fa fa-spinner fa-spin fa-icon-loading"></i>
         else {
-            screen = this.state.listProduct.map((item, index)=> {
-                return <ProductItemComponent dataProduct={item} key={index} product_page={page}/>;
+            screen = this.state.listOrder.map((item, index)=> {
+                return <OrderItemComponent dataOrder={item} key={index}/>;
             });
             screen = <React.Fragment>
                         <div className="card-header card-header-warning">
-                            <h4 className="card-title">{showMessage('TITLE_MY_PRODUCT')}</h4>
+                            <h4 className="card-title">{showMessage('TITLE_CUSTOMER_ORDER')}</h4>
                             <p className="card-category"></p>
                         </div>
                         <div className="card-body table-responsive">
@@ -71,11 +70,12 @@ export default class ListProductComponent extends Component {
                                         <th>{showMessage('RC_ID')}</th>
                                         <th>{showMessage('RC_NAME')}</th>
                                         <th>{showMessage('RC_HASHRATE')}</th>
-                                        <th>{showMessage('RC_ACTIVE')}</th>
+                                        <th>{showMessage('RC_QUANTITY')}</th>
+                                        <th>{showMessage('RC_DESCRIPTION')}</th>
+                                        <th>{showMessage('RC_STATE')}</th>
+                                        <th>{showMessage('RC_AMOUNT')}</th>
                                         <th>{showMessage('RC_PERIOD')}</th>
-                                        <th>{showMessage('RC_START_DATE')}</th>
-                                        <th>{showMessage('RC_END_DATE')}</th>
-                                        {page && page === "my-product" && <th>{showMessage('RC_ACTION')}</th>}
+                                        <th>{showMessage('RC_CREATE_DATE')}</th>
                                     </tr>
                                 </thead>
                                 <tbody>

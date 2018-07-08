@@ -7,6 +7,8 @@ import IndexEthExchangeComponent from './components/dashboard/indexEthExchangeCo
 import ListProductComponent from './components/products/listProductComponent';
 import ListProductCustomerComponent from './components/customer_product/listProductComponent';
 import WalletPageComponent from './components/wallet/indexComponent';
+import ListOrderComponent from './components/order/listOrderComponent';
+import ListHistoryComponent from './components/history/listHistoryComponent';
 
 import CoinCalculator from './components/calculation/coinCalculator';
 import ForgotPassword from './components/account/forgotPassword';
@@ -22,6 +24,7 @@ if (typeof pageContext !== 'undefined') {
         ReactDOM.render(<IndexEthExchangeComponent />, document.getElementById('eth-exchange'));
         ReactDOM.render(<ListProductComponent />, document.getElementById('list-product'));
         ReactDOM.render(<ListProductCustomerComponent />, document.getElementById('table-product-customer'));
+        ReactDOM.render(<ListHistoryComponent />, document.getElementById('table-history-customer'));
     } else if (page === 'calculation') {
         ReactDOM.render(<CoinCalculator />, document.getElementById('calculation_hashing'));
     } else if (page === 'forgotpassword') {
@@ -30,6 +33,10 @@ if (typeof pageContext !== 'undefined') {
         ReactDOM.render(<ChangePassword />, document.getElementById('change-password'));
     } else if(page === 'my-product') {
         ReactDOM.render(<ListProductCustomerComponent />, document.getElementById('my-product-page'));
+    } else if(page === 'my-order') {
+        ReactDOM.render(<ListOrderComponent />, document.getElementById('my-order-page'));
+    } else if(page === 'my-history') {
+        ReactDOM.render(<ListHistoryComponent />, document.getElementById('my-history-page'));
     } else if(page === 'my-wallet') {
         ReactDOM.render(
             <Provider store={walletStore}>

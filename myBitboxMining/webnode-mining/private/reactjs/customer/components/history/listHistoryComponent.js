@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 
 // import component
-import ProductItemComponent from './productItemComponent';
+import HistoryItemComponent from './HistoryItemComponent';
 
 // import variable
 import { API_URL } from '../../const/variable';
@@ -9,22 +9,22 @@ import { API_URL } from '../../const/variable';
 // import const
 const showMessage = require('../../../../../global/ResourceHelper').showMessage;
 
-export default class ListProductComponent extends Component {
+export default class ListHistoryComponent extends Component {
 
     constructor (props) {
         super(props);
         this.state = {
             loaded: false,
-            listProduct: []
+            listHistory: []
         }
     }
 
     componentDidMount() {
-        this._getListProduct();
+        this._getListHistory();
     }
 
-    async _getListProduct () {
-        let url = API_URL + 'products/product_of_customer';
+    async _getListHistory () {
+        let url = API_URL + 'customerhistories/list';
         try {
             let response = await fetch(url, {
                 method: 'GET',
@@ -34,7 +34,7 @@ export default class ListProductComponent extends Component {
             if (jsonData.status === 'success') {
                 this.setState({
                     loaded: true,
-                    listProduct: jsonData.data
+                    listHistory: jsonData.data
                 });
             } else {
                 this.setState({
@@ -46,22 +46,21 @@ export default class ListProductComponent extends Component {
             this.setState({
                 loaded: true
             })
-            console.log(err.errMessage);
+            console.log(err.message);
         }
     } 
 
-    render () {
+    render() {
         let screen = null;
-        let page = pageContext.page;
 
         if (!this.state.loaded) screen = <i className="fa fa-spinner fa-spin fa-icon-loading"></i>
         else {
-            screen = this.state.listProduct.map((item, index)=> {
-                return <ProductItemComponent dataProduct={item} key={index} product_page={page}/>;
+            screen = this.state.listHistory.map((item, index)=> {
+                return <HistoryItemComponent dataHistory={item} key={index}/>;
             });
             screen = <React.Fragment>
-                        <div className="card-header card-header-warning">
-                            <h4 className="card-title">{showMessage('TITLE_MY_PRODUCT')}</h4>
+                        <div className="card-header card-header-primary">
+                            <h4 className="card-title">{showMessage('TITLE_CUSTOMER_HISTORY')}</h4>
                             <p className="card-category"></p>
                         </div>
                         <div className="card-body table-responsive">
@@ -69,13 +68,8 @@ export default class ListProductComponent extends Component {
                                 <thead className="text-warning">
                                     <tr>
                                         <th>{showMessage('RC_ID')}</th>
-                                        <th>{showMessage('RC_NAME')}</th>
-                                        <th>{showMessage('RC_HASHRATE')}</th>
-                                        <th>{showMessage('RC_ACTIVE')}</th>
-                                        <th>{showMessage('RC_PERIOD')}</th>
-                                        <th>{showMessage('RC_START_DATE')}</th>
-                                        <th>{showMessage('RC_END_DATE')}</th>
-                                        {page && page === "my-product" && <th>{showMessage('RC_ACTION')}</th>}
+                                        <th>{showMessage('RC_DESCRIPTION')}</th>
+                                        <th>{showMessage('RC_CREATE_DATE')}</th>
                                     </tr>
                                 </thead>
                                 <tbody>

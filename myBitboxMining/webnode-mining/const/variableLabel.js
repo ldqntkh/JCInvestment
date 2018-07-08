@@ -112,7 +112,7 @@ module.exports.en = {
     RC_YEAR : 'Year',
     RC_MY_TOTAL_HASH: 'My total hashing:',
     RC_MY_ESTIMATION: 'My Estimation',
-    RC_PERIOD : 'Period',
+    RC_PERIOD : 'Period (month)',
     RC_COIN: 'Coin (ETH)',
     RC_USD: 'USD',
     RC_ID: 'Id',
@@ -131,6 +131,11 @@ module.exports.en = {
     RC_ADDON: 'Add on',
     RC_BUY: 'Buy',
     RC_PRICE: 'Price:',
+    RC_QUANTITY: 'Quantity',
+    RC_DESCRIPTION: 'Description',
+    RC_STATE: 'State',
+    RC_AMOUNT: 'Amount',
+    RC_CREATE_DATE: 'Create at',
 
     // input placeholder
     WALLET_ADDRESS: 'Wallet address',

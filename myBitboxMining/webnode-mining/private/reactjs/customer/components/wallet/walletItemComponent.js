@@ -77,10 +77,10 @@ export default class WalletItemComponent extends Component {
                 <td> {item.walletName} </td>
                 <td> {item.walletAddress.substr(0,15) + '...'} </td>
                 <td>
-                    {item.hashrate}
+                    {typeof item.hashrate !== 'undefined' && item.hashrate !== null? item.hashrate + " Mh/s" : ""} 
                 </td>
                 <td className="text-primary">
-                    $36,738
+                    {typeof item.balance !== 'undefined' && item.balance !== null? item.balance + " ETH" : ""} 
                 </td>
                 <td className="td-actions">
                     <button type="button" rel="tooltip" title="" className="btn btn-primary btn-link btn-sm" data-original-title="Edit Wallet" onClick={this.submitEditWallet}>

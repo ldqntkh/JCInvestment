@@ -140,11 +140,11 @@ export default class CoinCalculator extends Component {
                                 <table class="table table-hover text-center">
                                     <thead className="text-warning">
                                         <tr>
-                                            <td>{showMessage('RC_PERIOD')}</td>
-                                            <td>{showMessage('RC_COIN')}</td>
-                                            <td>{showMessage('RC_USD')}</td>
-                                            <td>{showMessage('RC_USD')}($1000)</td>
-                                            <td>{showMessage('RC_USD')}($2000)</td>
+                                            <th>{showMessage('RC_PERIOD')}</th>
+                                            <th>{showMessage('RC_COIN')}</th>
+                                            <th>{showMessage('RC_USD')}</th>
+                                            <th>{showMessage('RC_USD')}($1000)</th>
+                                            <th>{showMessage('RC_USD')}($2000)</th>
                                         </tr>
                                     </thead>
                                     {

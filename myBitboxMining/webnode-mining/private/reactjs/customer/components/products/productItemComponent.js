@@ -10,11 +10,14 @@ export default class ProductItemComponent extends Component {
 
     constructor(props) {
         super(props);
+
+        this._onSubmit = this._onSubmit.bind(this);
     }
 
-    _onSubmit(productId) {
+    _onSubmit() {
         // post data product to server. Not use api
-        document.getElementById("form-buy-product-" + productId).submit();
+        let product = this.props.dataProduct;
+        document.getElementById("form-buy-product-" + product.id).submit();
     }
 
     render() {
@@ -31,7 +34,7 @@ export default class ProductItemComponent extends Component {
                             <span>{showMessage('RC_PRICE')}</span>
                             {product.sale_price !== null ? <React.Fragment><del>{product.symbol_currency}{product.price}</del>{product.symbol_currency}{product.sale_price}</React.Fragment> : product.symbol_currency + product.price}
                         </h3>
-                        <button className="btn-buy" onClick={() => this._onSubmit(product.id)}>{showMessage('RC_BUY')}</button>
+                        <button className="btn-buy" onClick={this._onSubmit}>{showMessage('RC_BUY')}</button>
                     </div>
                     <div className="card-body">
                         <p className="card-category">
@@ -45,7 +48,7 @@ export default class ProductItemComponent extends Component {
                         </p> }
                     </div>
                     <div className="card-footer">
-                        <img src="http://mybitbox888.vn/wp-content/uploads/2018/06/paynow-l.png" alt="buy now" onClick={() => this._onSubmit(product.id)}/>
+                        <img src="http://mybitbox888.vn/wp-content/uploads/2018/06/paynow-l.png" alt="buy now" onClick={this._onSubmit}/>
                     </div>
                 </div>
                 <form id={"form-buy-product-" + product.id} method="POST" action={ MAIN_URL + 'products/' + product.id + '/buy' }>
