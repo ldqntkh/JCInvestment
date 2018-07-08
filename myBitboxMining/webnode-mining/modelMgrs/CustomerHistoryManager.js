@@ -30,7 +30,24 @@ module.exports = {
             console.log(err.message);
             return null;
         }
+    },
+
+    getListHistories: async(field) => {
+        let results = [];
+        try {
+            let histories = await CustomerHistoryTable.findAll({
+                where: field
+            });
+            if (histories.length > 0) {
+                for(let i = 0; i < histories.length; i++) {
+                    let history = histories[i].dataValues;
+                    let historyModel =  new CustomerHistoryModel(history);
+                    results.push(historyModel);
+                }
+            }
+        } catch (err) {
+            console.log(err.message);
+        }
+        return results;
     }
-
-
 }

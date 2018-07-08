@@ -2,30 +2,9 @@ var express = require('express');
 var router = express.Router();
 
 // import class manager
-const ProductManager = require('../../modelMgrs/ProductManager');
-const ProductOfCustomerManager = require('../../modelMgrs/ProductOfCustomerManager');
+const OrderManager = require('../../modelMgrs/OrderManager');
 
-router.get('/list', async (req, res, next)=> {
-    try {
-        let listProduct = await ProductManager.getListProduct({
-            enable: 1
-        });
-        res.send({
-            status: "success",
-            data : listProduct,
-            errMessage : ""
-        });
-    } catch (err) {
-        res.send({
-            status: "fail",
-            data : null,
-            errMessage : err.message
-        });
-    }
-});
-
-// get product of customer
-router.get('/product_of_customer', async(req, res, next) => {
+router.get('/list', async (req, res, next) => {
     try {
         // check session or token
         if (typeof req.session.customer === 'undefined' || req.session.customer === null) {
@@ -35,7 +14,7 @@ router.get('/product_of_customer', async(req, res, next) => {
                 errMessage : "Authentication failed"
             });
         } else {
-            let result = await ProductOfCustomerManager.getListProductOfCustomer({
+            let result = await OrderManager.getOrderByFields({
                 customerId : req.session.customer.id
             });
             res.send({
@@ -52,5 +31,6 @@ router.get('/product_of_customer', async(req, res, next) => {
             errMessage : err.message
         });
     }
-});
+})
+
 module.exports = router;

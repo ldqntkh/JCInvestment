@@ -6,7 +6,7 @@ import EthExchangeComponent from './ethExchangeComponent';
 import MyEthValueComponent from './myEthValueComponent';
 import UnpaidBalanceComponent from './unpaidBalanceComponent';
 
-const url = 'https://api.coinmarketcap.com/v2/ticker/?limit=2';
+const url = 'https://api.coinmarketcap.com/v2/ticker/1027/';
 export default class IndexEthExchangeComponent extends Component {
     constructor(props) {
         super(props);
@@ -26,8 +26,7 @@ export default class IndexEthExchangeComponent extends Component {
             let response = await fetch(url);
             let jsonData = await response.json();
             if (jsonData.data) {
-                let ethData = jsonData.data["1027"];
-                let price = ethData.quotes.USD.price;
+                let price = jsonData.data.quotes.USD.price;
                 this.setState({
                     EthPrice : price,
                     loaded: true

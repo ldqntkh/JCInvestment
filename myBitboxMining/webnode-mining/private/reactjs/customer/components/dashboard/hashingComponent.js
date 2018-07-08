@@ -26,7 +26,7 @@ export default class HashingComponent extends Component {
                         <div className="card-footer">
                             <div className="stats">
                                 <i className="material-icons text-danger">warning</i>
-                                <a href="#pablo">{showMessage('RC_GETMORE_HASHING')}</a>
+                                <a href="#list-product">{showMessage('RC_GETMORE_HASHING')}</a>
                             </div>
                         </div>
                     </div>

@@ -15,7 +15,7 @@ const CustomerHistoryModel = require('../../models/CustomerHistory');
 // import const
 const varibale = require('../../const/variable');
 const FileHelper = require('../../global/FileHelper');
-const showMessage = FileHelper.showMessage;
+const showMessage = require('../../global/ResourceHelper').showMessage;
 
 router.post('/products/:productid/buy', async (req, res, next)=> {
     /**
@@ -134,20 +134,12 @@ router.post('/products/:productid/buy', async (req, res, next)=> {
         })
     }
 })
-.get('/product/create', async (req, res) => {
-    try {
-        if (!req.session.user) return res.redirect('/login');
-
-        let existedUser = await UserManager.getUser({email: req.session.user.email});
-        if (existedUser && existedUser.getUserTypeId === 1) {
-            let product = {
-                
-            }
-            await ProductManager.addProduct(product);
-        }
-    } catch(err) {
-        console.log('')
-    }
-    res.render()
+.get('/my-product/', (req, res, next) => {
+    if (!req.session.customer) return res.redirect('/login');
+    res.render('customer/product/index', {
+        "title" : showMessage('TITLE_CUSTOMER_PRODUCT'),
+        "menu_active" : 'my-product',
+        "fullname" : req.session.customer.fullname
+    })
 })
 module.exports = router;

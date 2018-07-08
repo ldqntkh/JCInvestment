@@ -7,7 +7,7 @@ var ResourceHelper = {
     showMessage: (id, args) => {
         let message = language.en[id];
         if (typeof args !== 'undefined' && args.length > 0) {
-            return FileHelper.replaceContent(message, args);
+            return ResourceHelper.replaceContent(message, args);
         }
         return message;
     },
@@ -15,7 +15,7 @@ var ResourceHelper = {
     showAdminMessage: (id, args) => {
         let message = languageAdmin.en[id];
         if (typeof args !== 'undefined' && args.length > 0) {
-            return FileHelper.replaceContent(message, args);
+            return ResourceHelper.replaceContent(message, args);
         }
         return message;
     },

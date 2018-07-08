@@ -4,6 +4,7 @@ import React, {Component} from 'react';
 const showMessage = require('../../../../../global/ResourceHelper').showMessage;
 
 const urlCoinInfo = 'https://min-api.cryptocompare.com/data/top/exchanges/full?fsym={0}&tsym=USD';
+const urlETH = 'https://api.coinmarketcap.com/v2/ticker/1027/';
 export default class CoinCalculator extends Component {
     constructor (props) {
         super(props);
@@ -12,7 +13,9 @@ export default class CoinCalculator extends Component {
             coin_type : 'ETH',
             price: 0,
             totalCoin: 0,
-            balanceTotalUsd : 0
+            balanceTotalUsd : 0,
+            usd1000: 0,
+            usd2000: 0
         }
     }
 
@@ -28,6 +31,17 @@ export default class CoinCalculator extends Component {
                 let coinInfo = dataJson.Data.CoinInfo;
                 coinInfo.hashing = this.pageContext.totalHs;
                 coinInfo.price = dataJson.Data.AggregatedData.PRICE;
+
+                try {
+                    response = await fetch(urlETH);
+                    dataJson = await response.json();
+                    if (dataJson.data) {
+                        coinInfo.price = dataJson.data.quotes.USD.price;
+                    }
+                } catch (err) {
+                    console.log(err.message);
+                }
+
                 this.calCulation(coinInfo);
             }
         } catch(err) {
@@ -44,11 +58,15 @@ export default class CoinCalculator extends Component {
                 blockReward = CoinInfo.BlockReward;
 
             let totalCoin = hashing / (hashing + netHashesPerSecond) * blockNumber * blockReward * 0.7,// 0.7 is fee to charge customer
-                balanceTotalUsd = totalCoin * price * 0.7;
+                balanceTotalUsd = totalCoin * price * 0.7,
+                usd1000 = totalCoin * 1000 * 0.7,
+                usd2000 = totalCoin * 2000 * 0.7;
             this.setState({
                 price: price,
                 totalCoin: totalCoin,
-                balanceTotalUsd : balanceTotalUsd
+                balanceTotalUsd : balanceTotalUsd,
+                usd1000: usd1000,
+                usd2000 : usd2000
             });
         } catch(err) {
             console.log(err)
@@ -64,26 +82,36 @@ export default class CoinCalculator extends Component {
                     <td>{showMessage('RC_HOUR')}</td>
                     <td>{(this.state.totalCoin / 24).toFixed(4)}</td>
                     <td>${(this.state.balanceTotalUsd / 24).toFixed(2)}</td>
+                    <td>${(this.state.usd1000 / 24).toFixed(2)}</td>
+                    <td>${(this.state.usd2000 / 24).toFixed(2)}</td>
                 </tr>
                 <tr className="success">
                     <td>{showMessage('RC_DAY')}</td>
                     <td>{this.state.totalCoin.toFixed(4)}</td>
                     <td>${this.state.balanceTotalUsd.toFixed(2)}</td>
+                    <td>${this.state.usd1000.toFixed(2)}</td>
+                    <td>${this.state.usd2000.toFixed(2)}</td>
                 </tr>
                 <tr>
                     <td>{showMessage('RC_WEEK')}</td>
                     <td>{(this.state.totalCoin * 7).toFixed(4)}</td>
                     <td>${(this.state.balanceTotalUsd * 7).toFixed(2)}</td>
+                    <td>${(this.state.usd1000 * 7).toFixed(2)}</td>
+                    <td>${(this.state.usd2000 * 7).toFixed(2)}</td>
                 </tr>
                 <tr className="success">
                     <td>{showMessage('RC_MONTH')}</td>
                     <td>{(this.state.totalCoin * 30).toFixed(4)}</td>
                     <td>${(this.state.balanceTotalUsd * 30).toFixed(2)}</td>
+                    <td>${(this.state.usd1000 * 30).toFixed(2)}</td>
+                    <td>${(this.state.usd2000 * 30).toFixed(2)}</td>
                 </tr>
                 <tr>
                     <td>{showMessage('RC_YEAR')}</td>
                     <td>{(this.state.totalCoin * 365).toFixed(4)}</td>
                     <td>${(this.state.balanceTotalUsd * 365).toFixed(2)}</td>
+                    <td>${(this.state.usd1000 * 365).toFixed(2)}</td>
+                    <td>${(this.state.usd2000 * 365).toFixed(2)}</td>
                 </tr>
             </tbody>
         }
@@ -96,25 +124,27 @@ export default class CoinCalculator extends Component {
                     </div>
                 </div>
                 <div className="row">
-                    <div className="col-lg-4 col-md-4 col-sm-6">
+                    <div className="col-lg-3 col-md-3 col-sm-6">
                         <div className="coin-info">
                             <img src="/images/ethereum.png" alt={this.state.coin_type}/>
                             <span>1{this.state.coin_type} = ${this.state.price}</span>
                         </div>
                     </div>
-                    <div className="col-lg-8 col-md-8 col-sm-6">
+                    <div className="col-lg-9 col-md-9 col-sm-6">
                         <div class="card">
                             <div class="card-header card-header-warning">
                                 <h4 class="card-title">{showMessage('RC_MY_ESTIMATION')}</h4>
                                 <p class="card-category"></p>
                             </div>
                             <div class="card-body table-responsive">
-                                <table class="table table-hover">
+                                <table class="table table-hover text-center">
                                     <thead className="text-warning">
                                         <tr>
-                                            <td>{showMessage('RC_PERIOD')}</td>
-                                            <td>{showMessage('RC_COIN')}</td>
-                                            <td>{showMessage('RC_USD')}</td>
+                                            <th>{showMessage('RC_PERIOD')}</th>
+                                            <th>{showMessage('RC_COIN')}</th>
+                                            <th>{showMessage('RC_USD')}</th>
+                                            <th>{showMessage('RC_USD')}($1000)</th>
+                                            <th>{showMessage('RC_USD')}($2000)</th>
                                         </tr>
                                     </thead>
                                     {

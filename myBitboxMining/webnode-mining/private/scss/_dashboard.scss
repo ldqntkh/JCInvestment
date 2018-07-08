@@ -51,3 +51,12 @@
         transform: translate(-50%, -50%);
     }
 }
+
+#eth-chart {
+    div.tabContainer {
+        display: none;
+    }
+    div.ccc-widget >div:nth-child(1) {
+        display: none;
+    }
+}
