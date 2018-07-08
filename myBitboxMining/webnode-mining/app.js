@@ -54,11 +54,15 @@ const calculation = require('./routes/customer/calculation');
 const product = require('./routes/customer/product');
 const orders = require('./routes/customer/orders');
 const wallet = require('./routes/customer/wallet');
+const history = require('./routes/customer/history');
 // router api
 const productApi = require('./routes/customerApi/products');
+const walletApi = require('./routes/customerApi/walletApi');
+const orderApi = require('./routes/customerApi/orderApi');
+const customerHistoryApi = require('./routes/customerApi/historyApi');
 // router user
 const adminAccountRoute = require('./routes/admin/account');
-const walletApi = require('./routes/customerApi/walletApi');
+
 // use router of customer
 app.use('/', indexRouter);
 app.use('/', customerAccountRoute);
@@ -66,8 +70,11 @@ app.use('/', calculation);
 app.use('/', product);
 app.use('/', orders);
 app.use('/', wallet);
+app.use('/', history);
 app.use('/api-v1/products/', productApi);
 app.use('/api-v1/wallets/', walletApi);
+app.use('/api-v1/orders/', orderApi);
+app.use('/api-v1/customerhistories/', customerHistoryApi);
 
 app.use('/', adminAccountRoute);
 

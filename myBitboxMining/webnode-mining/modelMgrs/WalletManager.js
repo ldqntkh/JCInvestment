@@ -137,11 +137,13 @@ module.exports = {
                 },
                 include: [{
                     model: ProductOfCustomer,
-                    where: whereOptions[1]
+                    where: whereOptions[1],
+                    required: false
                 },
                 {
                     model: WalletBalance,
-                    where: whereOptions[2]
+                    where: whereOptions[2],
+                    required: false
                 }],
                 group: ['wallet.id']
             });
@@ -152,7 +154,6 @@ module.exports = {
                     results.push(walletModel);
                 }
             }
-            console.log(results);
             return results;
         } catch(err) {
             console.log(err.message);

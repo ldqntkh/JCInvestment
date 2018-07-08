@@ -11,7 +11,7 @@ const WalletModel = require('../../models/Wallet');
 const showMessage = require('../../global/ResourceHelper').showMessage;
 
 router.get('/list', async (req, res, next)=> {
-    if (req.session.customer === null) {
+    if (typeof req.session.customer === 'undefined' || req.session.customer === null) {
         res.send({
             status: "fail",
             data : null,
@@ -23,8 +23,6 @@ router.get('/list', async (req, res, next)=> {
                 customerId : req.session.customer.id
             },
             {
-                active: 1,
-                expired: 0
             }]);
             res.send({
                 status: "success",
@@ -44,7 +42,7 @@ router.get('/list', async (req, res, next)=> {
 
 
 router.post('/add-wallet',async (req, res, next) => {
-    if (req.session.customer === null) {
+    if (typeof req.session.customer === 'undefined' || req.session.customer === null) {
         res.send({
             status: "fail",
             data : null,
@@ -111,7 +109,7 @@ router.post('/add-wallet',async (req, res, next) => {
 });
 
 router.get('/:walletId/delete', async(req, res, next) => {
-    if (req.session.customer === null) {
+    if (typeof req.session.customer === 'undefined' || req.session.customer === null) {
         res.send({
             status: "fail",
             data : null,
@@ -149,7 +147,7 @@ router.get('/:walletId/delete', async(req, res, next) => {
 });
 
 router.post('/:walletId/update', async(req, res, next) => {
-    if (req.session.customer === null) {
+    if (typeof req.session.customer === 'undefined' || req.session.customer === null) {
         res.send({
             status: "fail",
             data : null,

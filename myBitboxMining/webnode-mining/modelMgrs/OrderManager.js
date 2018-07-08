@@ -53,6 +53,31 @@ module.exports = {
     },
 
     /**
+     * get order by custom fiel
+     * @param {Object} fiels {orderId : 1}
+     * @return {Object} order
+     */
+    getOrderByFields: async(fiels) => {
+        let results = [];
+        try {
+            let orders = await OrderTable.findAll({
+                where: fiels
+            });
+            if (orders.length > 0) {
+                for(let i = 0; i < orders.length; i++) {
+                    let order = orders[i].dataValues;
+                    let orderModel =  new OrderModel(order);
+                    results.push(orderModel);
+                }
+            }
+            return results;
+        } catch (err) {
+            console.log(err.message);
+            return null;
+        }
+    },
+
+    /**
      * Update order
      * @param {Object} order
      * @return {Number} affectedRows

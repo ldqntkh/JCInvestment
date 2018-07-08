@@ -62,6 +62,12 @@
                                 <p><%= showMessage('TITLE_CUSTOMER_ORDER') %></p>
                             </a>
                         </li>
+                        <li class="nav-item <%- menu_active === 'my-history' ? 'active' : '' %>">
+                            <a class="nav-link" href="/my-history">
+                                <i class="material-icons">history</i>
+                                <p><%= showMessage('TITLE_CUSTOMER_HISTORY') %></p>
+                            </a>
+                        </li>
                         <li class="nav-item <%- menu_active === 'calculation' ? 'active' : '' %>">
                             <a class="nav-link" href="/calculation">
                                 <i class="fa fa-calculator"></i>
