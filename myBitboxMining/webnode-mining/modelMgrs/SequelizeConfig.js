@@ -18,13 +18,14 @@ module.exports = {
             }
         });
     },
-    isAuthenticated: async () => {
-        try {
-            return await sequelize().authenticated();
-        } catch(err) {
-            console.log(err);
-        }
-        return false;
+    isAuthenticated: () => {
+        module.exports.init().authenticate()
+            .then(() => {
+                console.log('Connection has been established successfully.');
+            })
+            .catch(err => {
+                console.error('Unable to connect to the database:', err);
+            });
     },
     getSequelizeModule: () => {
         return Sequelize;
