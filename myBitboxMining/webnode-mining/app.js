@@ -56,7 +56,7 @@ const orders = require('./routes/customer/orders');
 const wallet = require('./routes/customer/wallet');
 const history = require('./routes/customer/history');
 // router api
-const productApi = require('./routes/customerApi/products');
+const productApi = require('./routes/customerApi/productApi');
 const walletApi = require('./routes/customerApi/walletApi');
 const orderApi = require('./routes/customerApi/orderApi');
 const customerHistoryApi = require('./routes/customerApi/historyApi');
