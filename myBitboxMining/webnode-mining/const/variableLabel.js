@@ -137,9 +137,13 @@ module.exports.en = {
     RC_AMOUNT: 'Amount',
     RC_CREATE_DATE: 'Create at',
 
+    // react label in customer product page
+    RC_UPDATE_PRODUCT: 'Update Product',
+
     // input placeholder
     WALLET_ADDRESS: 'Wallet address',
     WALLET_NAME: 'Wallet name',
+    WALLET_DEFAULT_NAME_OPTION: 'Please choose your wallet to active product',
 
     // button name
     BTN_SUBMIT: 'Submit',

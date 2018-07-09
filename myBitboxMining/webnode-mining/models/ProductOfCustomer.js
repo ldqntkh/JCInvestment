@@ -27,6 +27,20 @@ class ProductOfCustomer {
     getProductId() {
         return this.id;
     }
+    /**
+     * get product start date
+     * @returns {Date} startDate
+     */
+    getStartDate() {
+        return this.startDate;
+    }
+    /**
+     * set product start date
+     * @returns {Date} startDate
+     */
+    setStartDate(startDate) {
+        this.startDate = startDate;
+    }
 }
 
 module.exports = ProductOfCustomer;

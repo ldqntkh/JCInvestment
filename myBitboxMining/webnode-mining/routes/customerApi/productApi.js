@@ -53,4 +53,18 @@ router.get('/product_of_customer', async(req, res, next) => {
         });
     }
 });
+
+router.post('/:id/update', async (req, res) => {
+    let errMessage = '';
+    try {
+        let productId = req.params.id;
+    } catch(err) {
+        errMessage = err.message;
+    }
+    res.send({
+        status: 'fail',
+        data: null,
+        errMessage: errMessage
+    });
+});
 module.exports = router;

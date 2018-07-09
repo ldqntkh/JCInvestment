@@ -86,5 +86,21 @@ module.exports = {
             console.log(err.message)
         }
         return results;
+    },
+    /**
+     * update product
+     * @param {Object} whereOptions {'customerId' : 1}
+     * @return {Array} array list total hashrate
+     */
+    updateProduct: async(product) => {
+        let affectedRows = 0;
+        try {
+            affectedRows =  await ProductTable.update(product, {
+                where: {id: product.id}
+            });
+        } catch(err) {
+            console.log(err.message);
+        }
+        return affectedRows;
     }
 }
