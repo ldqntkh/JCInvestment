@@ -19,13 +19,13 @@ export const WalletDataReducer = (walletData = [], action) =>{
         case UPDATE_ITEM_WALLET_TO_LIST :
             result = [...walletData]; 
             walletItem = action.dataWalletItem;
-            index = result.indexOf(walletItem.id);
+            index = result.findIndex(item => item.id = walletItem.id);
             result[index] = walletItem;
             return result;
         case DELETE_ITEM_WALLET_FROM_LIST :
             walletItem = action.dataWalletItem;
             result = [...walletData]; 
-            index = result.indexOf(walletItem.id);
+            index = result.findIndex(item => item.id = walletItem.id);
             result.splice(index, 1);
             return result;
         default:

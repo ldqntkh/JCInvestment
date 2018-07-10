@@ -6,6 +6,8 @@ const Sequelize = SequelizeConfig.getSequelizeModule();
 
 const sequelize = SequelizeConfig.init();
 
+const moment = require('moment');
+
 const ProductTable = sequelize.define('productofcustomer', {
     name: Sequelize.STRING,
     hashrate: Sequelize.FLOAT,
@@ -52,6 +54,10 @@ module.exports = {
             if (products.length > 0) {
                 for(let i = 0; i < products.length; i++) {
                     let productModel = new ProductModel(products[i].dataValues);
+                    if (productModel.startDate !== null || productModel.endDate !== null) {
+                        productModel.startDate = moment(new Date(productModel.startDate)).format('DD/MM/YYYY');
+                        productModel.endDate = moment(new Date(productModel.endDate)).format('DD/MM/YYYY');
+                    }
                     results.push(productModel);
                 }
             }
@@ -92,11 +98,11 @@ module.exports = {
      * @param {Object} whereOptions {'customerId' : 1}
      * @return {Array} array list total hashrate
      */
-    updateProduct: async(product) => {
+    updateProduct: async(product, whereOption) => {
         let affectedRows = 0;
         try {
             affectedRows =  await ProductTable.update(product, {
-                where: {id: product.id}
+                where: whereOption
             });
         } catch(err) {
             console.log(err.message);

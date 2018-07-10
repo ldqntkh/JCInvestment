@@ -10,6 +10,7 @@ module.exports.en = {
     ERROR_ADDUSER: 'error while adding new user: ',
     // error product.js
     ERROR_CREATEPRODUCT: 'error while creating product',
+    ERROR_UPDATE_PRODUCT: ' error while updating product',
     // account.js
     ERROR_INCORRECT_ACCOUNT: 'Incorrect username or password',
     ERROR_UPDATE_PROFILE: 'There is something error while trying to update your profile',

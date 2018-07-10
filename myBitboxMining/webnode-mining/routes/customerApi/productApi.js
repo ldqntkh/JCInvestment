@@ -1,9 +1,13 @@
 var express = require('express');
 var router = express.Router();
 
+// import module
+const moment = require('moment');
+
 // import class manager
 const ProductManager = require('../../modelMgrs/ProductManager');
 const ProductOfCustomerManager = require('../../modelMgrs/ProductOfCustomerManager');
+const showMessage = require('../../global/ResourceHelper').showMessage;
 
 router.get('/list', async (req, res, next)=> {
     try {
@@ -54,12 +58,29 @@ router.get('/product_of_customer', async(req, res, next) => {
     }
 });
 
-router.post('/:id/update', async (req, res) => {
-    let errMessage = '';
+router.post('/update', async (req, res) => {
+    let errMessage = showMessage('ERROR_UPDATE_PRODUCT');
     try {
-        let productId = req.params.id;
+        let product = req.body.productItem;
+        let currentDate = moment(Date.now());
+
+        product.startDate = currentDate.format('YYYY-MM-DD HH:mm:ss');
+        product.endDate = currentDate.add(product.period, 'months').format('YYYY-MM-DD HH:mm:ss');
+        product.active = true;
+
+        let affectedRows = await ProductOfCustomerManager.updateProduct(product, {id: product.id});
+
+        if (affectedRows > 0) {
+            product.startDate = moment(new Date(product.startDate)).format('DD/MM/YYYY');
+            product.endDate = moment(new Date(product.endDate)).format('DD/MM/YYYY');
+            res.send({
+                status: 'success',
+                data: product,
+                errMessage: ''
+            })
+        }
     } catch(err) {
-        errMessage = err.message;
+        errMessage = errMessage + err.message;
     }
     res.send({
         status: 'fail',

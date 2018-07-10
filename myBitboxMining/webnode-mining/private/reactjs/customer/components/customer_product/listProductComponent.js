@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import Modal from 'react-modal';
 
 // import component
 import ProductItemComponent from './productItemComponent';
@@ -9,18 +10,83 @@ import { API_URL } from '../../const/variable';
 // import const
 const showMessage = require('../../../../../global/ResourceHelper').showMessage;
 
+const customStyles = {
+    content : {
+        top                   : '50%',
+        left                  : '50%',
+        right                 : 'auto',
+        bottom                : 'auto',
+        marginRight           : '-50%',
+        transform             : 'translate(-50%, -50%)'
+    }
+};
+
 export default class ListProductComponent extends Component {
 
     constructor (props) {
         super(props);
         this.state = {
             loaded: false,
-            listProduct: []
+            modalIsOpen: false,
+            walletId: '',
+            productItem: '',
+            listProduct: [],
+            listWallets: []
         }
+
+        this.openModal = this.openModal.bind(this);
+        this.closeModal = this.closeModal.bind(this);
+        this._handleChange = this._handleChange.bind(this);
+        this._handleUpdateProduct = this._handleUpdateProduct.bind(this);
     }
 
     componentDidMount() {
         this._getListProduct();
+        if (pageContext.page && pageContext.page === 'my-product') {
+            this._getListWallet();
+        }
+    }
+
+    openModal(productItem) {
+        this.setState({
+            modalIsOpen: true,
+            productItem: productItem
+        });
+    }
+
+    closeModal() {
+        this.setState({modalIsOpen: false});
+    }
+
+    _handleChange(e) {
+        this.setState({walletId: parseInt(e.target.value)});
+    }
+
+    async _handleUpdateProduct() {
+        try {
+            let url = API_URL + 'products/update';
+            let productItem = this.state.productItem;
+            productItem.walletId = this.state.walletId;
+            let response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    productItem: productItem
+                })
+            });
+            let jsonData = await response.json();
+            if (jsonData.status === 'success') {
+                this.props.updateListProduct(jsonData.data);
+            } else {
+                console.log(jsonData.errMessage);
+            }
+        } catch(err) {
+            console.log(err.message);
+        }
+        this.closeModal();
     }
 
     async _getListProduct () {
@@ -33,9 +99,9 @@ export default class ListProductComponent extends Component {
             let jsonData = await response.json();
             if (jsonData.status === 'success') {
                 this.setState({
-                    loaded: true,
-                    listProduct: jsonData.data
+                    loaded: true
                 });
+                this.props.addListProduct(jsonData.data);
             } else {
                 this.setState({
                     loaded: true
@@ -50,14 +116,31 @@ export default class ListProductComponent extends Component {
         }
     } 
 
+    async _getListWallet() {
+        let result = await fetch(API_URL + 'wallets/list', {
+            method: 'GET',
+            credentials: 'same-origin'
+        });
+        let dataJson = await result.json();
+        if (dataJson.status !== 'success') {
+            console.log(dataJson.errMessage)
+        }
+
+        let defaultData = {id: '', walletName: showMessage('WALLET_DEFAULT_NAME_OPTION')};
+        if (dataJson.data !== null) {
+            dataJson.data.unshift(defaultData);
+            this.setState({listWallets: dataJson.data});
+        }
+    }
+
     render () {
         let screen = null;
         let page = pageContext.page;
 
         if (!this.state.loaded) screen = <i className="fa fa-spinner fa-spin fa-icon-loading"></i>
         else {
-            screen = this.state.listProduct.map((item, index)=> {
-                return <ProductItemComponent dataProduct={item} key={index} product_page={page}/>;
+            screen = this.props.dataProduct.map((item, index)=> {
+                return <ProductItemComponent dataProduct={item} key={index} product_page={page} onUpdateProduct={this.openModal} />;
             });
             screen = <React.Fragment>
                         <div className="card-header card-header-warning">
@@ -88,6 +171,30 @@ export default class ListProductComponent extends Component {
                                 <i className="material-icons">access_time</i> {showMessage('RC_REFRESH')}
                             </div>
                         </div>
+                        { page && page !== "my-product" ? null :
+                            <Modal
+                                isOpen={this.state.modalIsOpen}
+                                onRequestClose={this.closeModal}
+                                style={customStyles}>
+                                <div className="modal-content update-product-container">
+                                    <div className="modal-body text-center">
+                                        <h3><i className="fa fa-folder fa-4x"></i></h3>
+                                        <h2 className="text-center">{showMessage('RC_UPDATE_PRODUCT')}</h2>
+                                        <div className="form-group">
+                                            <select className="form-control wallet-address" name="wallet-address" onChange={this._handleChange}>
+                                                {this.state.listWallets.map((item, index) =>
+                                                    <option key={index} value={item.id} >{item.walletName}</option>
+                                                )}
+                                            </select>
+                                        </div>
+                                        {this.state.err === "" ? "" : this.state.err}
+                                        <div className="form-group">
+                                            <button onClick={this._handleUpdateProduct} type="button" name="recover-submit" className="btn btn-lg btn-primary btn-success" value={showMessage('BTN_SUBMIT')}>{showMessage('BTN_SUBMIT')}</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </Modal>
+                        }
                     </React.Fragment>
         }
         
