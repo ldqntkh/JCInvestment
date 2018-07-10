@@ -10,6 +10,7 @@ module.exports.en = {
     ERROR_ADDUSER: 'error while adding new user: ',
     // error product.js
     ERROR_CREATEPRODUCT: 'error while creating product',
+    ERROR_UPDATE_PRODUCT: ' error while updating product',
     // account.js
     ERROR_INCORRECT_ACCOUNT: 'Incorrect username or password',
     ERROR_UPDATE_PROFILE: 'There is something error while trying to update your profile',
@@ -137,9 +138,13 @@ module.exports.en = {
     RC_AMOUNT: 'Amount',
     RC_CREATE_DATE: 'Create at',
 
+    // react label in customer product page
+    RC_UPDATE_PRODUCT: 'Update Product',
+
     // input placeholder
     WALLET_ADDRESS: 'Wallet address',
     WALLET_NAME: 'Wallet name',
+    WALLET_DEFAULT_NAME_OPTION: 'Please choose your wallet to active product',
 
     // button name
     BTN_SUBMIT: 'Submit',

@@ -1,18 +1,29 @@
 import React, {Component} from 'react';
 
 // import const
-import { MAIN_URL } from '../../const/variable';
+import { MAIN_URL, API_URL } from '../../const/variable';
 
+const showMessage = require('../../../../../global/ResourceHelper').showMessage;
+
+//Modal.setAppElement('#my-product-page');
 export default class ProductItemComponent extends Component {
 
     constructor(props) {
         super(props);
+
+        this.state = {
+            modalIsOpen: false,
+            listWallets: [],
+            walletAddress: ''
+        };
+
+        this.openModal = this.openModal.bind(this);
     }
 
-    _onSubmit(productId) {
-        // post data product to server. Not use api
-        document.getElementById("form-buy-product-" + productId).submit();
+    openModal () {
+        this.props.onUpdateProduct(this.props.dataProduct);
     }
+
 
     render() {
         let product = this.props.dataProduct;
@@ -27,7 +38,7 @@ export default class ProductItemComponent extends Component {
                 <td>{product.startDate === null ? "" : product.startDate}</td>
                 <td>{product.endDate === null ? "" : product.endDate}</td>
                 {page === "my-product" && <td className="td-actions">
-                            {!product.active && <button type="button" rel="tooltip" title="" className="btn btn-primary btn-link btn-sm" data-original-title="Edit product">
+                            {!product.active && <button type="button" rel="tooltip" title="" className="btn btn-primary btn-link btn-sm" data-original-title="Edit product" onClick={this.openModal}>
                                 <i className="material-icons">edit</i>
                             </button>}
                             {product.expired && <button type="button" rel="tooltip" title="" className="btn btn-danger btn-link btn-sm" data-original-title="Remove">

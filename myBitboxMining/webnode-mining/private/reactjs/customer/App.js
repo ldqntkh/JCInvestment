@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 // import component
 import IndexEthExchangeComponent from './components/dashboard/indexEthExchangeComponent';
 import ListProductComponent from './components/products/listProductComponent';
-import ListProductCustomerComponent from './components/customer_product/listProductComponent';
+import ListProductCustomerContainer from './containers/customer_product/listProductContainer';
 import WalletPageComponent from './components/wallet/indexComponent';
 import ListOrderComponent from './components/order/listOrderComponent';
 import ListHistoryComponent from './components/history/listHistoryComponent';
@@ -16,6 +16,7 @@ import ChangePassword from './components/account/changePassword';
 
 // import store
 import walletStore from './store/walletStore';
+import productStore from './store/productStore';
 
 
 if (typeof pageContext !== 'undefined') {
@@ -23,7 +24,10 @@ if (typeof pageContext !== 'undefined') {
     if (page === 'dashboard') {
         ReactDOM.render(<IndexEthExchangeComponent />, document.getElementById('eth-exchange'));
         ReactDOM.render(<ListProductComponent />, document.getElementById('list-product'));
-        ReactDOM.render(<ListProductCustomerComponent />, document.getElementById('table-product-customer'));
+        ReactDOM.render(
+            <Provider store={productStore}>
+                <ListProductCustomerContainer />
+            </Provider>, document.getElementById('table-product-customer'));
         ReactDOM.render(<ListHistoryComponent />, document.getElementById('table-history-customer'));
     } else if (page === 'calculation') {
         ReactDOM.render(<CoinCalculator />, document.getElementById('calculation_hashing'));
@@ -32,7 +36,10 @@ if (typeof pageContext !== 'undefined') {
     } else if(page === 'changepassword') {
         ReactDOM.render(<ChangePassword />, document.getElementById('change-password'));
     } else if(page === 'my-product') {
-        ReactDOM.render(<ListProductCustomerComponent />, document.getElementById('my-product-page'));
+        ReactDOM.render(
+            <Provider store={productStore}>
+                <ListProductCustomerContainer />
+            </Provider>, document.getElementById('my-product-page'));
     } else if(page === 'my-order') {
         ReactDOM.render(<ListOrderComponent />, document.getElementById('my-order-page'));
     } else if(page === 'my-history') {
