@@ -62,22 +62,25 @@ router.post('/update', async (req, res) => {
     let errMessage = showMessage('ERROR_UPDATE_PRODUCT');
     try {
         let product = req.body.productItem;
-        let currentDate = moment(Date.now());
+        if (product && product.walletId !== '') {
+            let currentDate = moment(Date.now());
 
-        product.startDate = currentDate.format('YYYY-MM-DD HH:mm:ss');
-        product.endDate = currentDate.add(product.period, 'months').format('YYYY-MM-DD HH:mm:ss');
-        product.active = true;
+            product.startDate = currentDate.format('YYYY-MM-DD HH:mm:ss');
+            product.endDate = currentDate.add(product.period, 'months').format('YYYY-MM-DD HH:mm:ss');
+            product.active = true;
+            product.updateAt = currentDate.format('YYYY-MM-DD HH:mm:ss');
 
-        let affectedRows = await ProductOfCustomerManager.updateProduct(product, {id: product.id});
+            let affectedRows = await ProductOfCustomerManager.updateProduct(product, {id: product.id});
 
-        if (affectedRows > 0) {
-            product.startDate = moment(new Date(product.startDate)).format('DD/MM/YYYY');
-            product.endDate = moment(new Date(product.endDate)).format('DD/MM/YYYY');
-            res.send({
-                status: 'success',
-                data: product,
-                errMessage: ''
-            })
+            if (affectedRows > 0) {
+                product.startDate = moment(new Date(product.startDate)).format('DD/MM/YYYY');
+                product.endDate = moment(new Date(product.endDate)).format('DD/MM/YYYY');
+                return res.send({
+                    status: 'success',
+                    data: product,
+                    errMessage: ''
+                })
+            }
         }
     } catch(err) {
         errMessage = errMessage + err.message;
