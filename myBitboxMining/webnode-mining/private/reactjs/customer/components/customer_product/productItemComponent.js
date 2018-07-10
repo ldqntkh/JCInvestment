@@ -29,7 +29,6 @@ export default class ProductItemComponent extends Component {
         let product = this.props.dataProduct;
         let page = this.props.product_page;
         return(
-            <React.Fragment>
             <tr>
                 <td>{product.id}</td>
                 <td>{product.name}</td>
@@ -47,7 +46,6 @@ export default class ProductItemComponent extends Component {
                             </button>}
                         </td>}
             </tr>
-            </React.Fragment>
         );
     }
 }

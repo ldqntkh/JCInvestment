@@ -5,7 +5,6 @@ import { Provider } from 'react-redux';
 // import component
 import IndexEthExchangeComponent from './components/dashboard/indexEthExchangeComponent';
 import ListProductComponent from './components/products/listProductComponent';
-import ListProductCustomerComponent from './components/customer_product/listProductComponent';
 import ListProductCustomerContainer from './containers/customer_product/listProductContainer';
 import WalletPageComponent from './components/wallet/indexComponent';
 import ListOrderComponent from './components/order/listOrderComponent';
