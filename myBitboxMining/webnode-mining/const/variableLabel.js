@@ -137,6 +137,7 @@ module.exports.en = {
     RC_STATE: 'State',
     RC_AMOUNT: 'Amount',
     RC_CREATE_DATE: 'Create at',
+    RC_PAYMENT_DETAIL: 'Payment detail',
 
     // react label in customer product page
     RC_UPDATE_PRODUCT: 'Update Product',

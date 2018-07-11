@@ -3,6 +3,7 @@ var router = express.Router();
 
 // import class manager
 const OrderManager = require('../../modelMgrs/OrderManager');
+const PaymentDetailManager = require('../../modelMgrs/PaymentDetailsManager');
 
 router.get('/list', async (req, res, next) => {
     try {
@@ -20,6 +21,34 @@ router.get('/list', async (req, res, next) => {
             res.send({
                 status: "success",
                 data : result,
+                errMessage : null
+            });
+        }
+    } catch(err) {
+        console.log(err.message);
+        res.send({
+            status: "fail",
+            data : null,
+            errMessage : err.message
+        });
+    }
+})
+.get('/:orderId/payment-detail', async (req, res, next) => {
+    try {
+        // check session or token
+        if (typeof req.session.customer === 'undefined' || req.session.customer === null) {
+            res.send({
+                status: "fail",
+                data : null,
+                errMessage : "Authentication failed"
+            });
+        } else {
+            let results = await PaymentDetailManager.getPaymentDetailByFields({
+                orderid : req.params.orderId
+            });
+            res.send({
+                status: "success",
+                data : results.length > 0 ? results[0] : null,
                 errMessage : null
             });
         }
