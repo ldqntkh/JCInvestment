@@ -8,11 +8,6 @@ import PaymentDetailContainer from '../../containers/payment/paymentDetailContai
 class IndexComponent extends Component {
 
     render() {
-        order: {
-            payment: {
-                
-            }
-        }
         return(
             <Router>
                 <React.Fragment>

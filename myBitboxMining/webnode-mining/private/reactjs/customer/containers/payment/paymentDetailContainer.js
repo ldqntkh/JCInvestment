@@ -1,7 +1,8 @@
 import { connect } from 'react-redux'
 import PaymentDetailComponent from '../../components/payment/PaymentDetailComponent';
 import {
-    AddPaymentDetail
+    AddPaymentDetail,
+    AddListOrder
 } from '../../actions/order/orderAction';
 
 const mapStateToProps = state => ({
@@ -9,7 +10,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    addPaymentDetail : itemPaymentDetail => dispatch(AddPaymentDetail(itemPaymentDetail))
+    addPaymentDetail : itemPaymentDetail => dispatch(AddPaymentDetail(itemPaymentDetail)),
+    addListOrder : dataOrder => dispatch(AddListOrder(dataOrder))
 });
 
 export default connect(

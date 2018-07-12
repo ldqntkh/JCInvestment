@@ -1,6 +1,9 @@
 var express = require('express');
 var router = express.Router();
 
+// import module
+const moment = require('moment');
+
 // import class manager
 const OrderManager = require('../../modelMgrs/OrderManager');
 const PaymentDetailManager = require('../../modelMgrs/PaymentDetailsManager');
@@ -46,6 +49,7 @@ router.get('/list', async (req, res, next) => {
             let results = await PaymentDetailManager.getPaymentDetailByFields({
                 orderid : req.params.orderId
             });
+            results[0].createAt = moment(new Date(results[0].createAt)).format('DD/MM/YYYY');
             res.send({
                 status: "success",
                 data : results.length > 0 ? results[0] : null,

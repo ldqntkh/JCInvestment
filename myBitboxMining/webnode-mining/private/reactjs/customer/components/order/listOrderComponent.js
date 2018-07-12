@@ -79,7 +79,7 @@ export default class ListOrderComponent extends Component {
                                         <th>{showMessage('RC_AMOUNT')}</th>
                                         <th>{showMessage('RC_PERIOD')}</th>
                                         <th>{showMessage('RC_CREATE_DATE')}</th>
-                                        <th>{showMessage('RC_PAYMENT_DETAIL')}</th>
+                                        <th>{showMessage('TITLE_CUSTOMER_PAYMENT_DETAIL')}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -96,7 +96,12 @@ export default class ListOrderComponent extends Component {
         }
         
         return (
-            screen
+            <div className="col-lg-12 col-md-12">
+                <div className="card" >
+                    {screen}
+                </div>
+            </div>
+            
         );
     }
 }
