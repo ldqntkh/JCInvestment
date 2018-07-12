@@ -44,9 +44,9 @@ router.get('/list', async (req, res, next) => {
         // check session or token
         if (typeof req.session.customer === 'undefined' || req.session.customer === null) {
             res.send({
-                status: "fail",
+                status: 'fail',
                 data : null,
-                errMessage : "Authentication failed"
+                errMessage : showMessage('ERROR_AUTHENTICATION')
             });
         } else {
             let results = await PaymentDetailManager.getPaymentDetailByFields({
@@ -54,7 +54,7 @@ router.get('/list', async (req, res, next) => {
             });
             results[0].createAt = moment(new Date(results[0].createAt)).format('DD/MM/YYYY');
             res.send({
-                status: "success",
+                status: 'success',
                 data : results.length > 0 ? results[0] : null,
                 errMessage : null
             });
@@ -62,7 +62,7 @@ router.get('/list', async (req, res, next) => {
     } catch(err) {
         console.log(err.message);
         res.send({
-            status: "fail",
+            status: 'fail',
             data : null,
             errMessage : err.message
         });
@@ -71,19 +71,27 @@ router.get('/list', async (req, res, next) => {
 .get('/:orderId/delete', async (req, res, nex) => {
     let errMessage = showMessage('ERROR_CANNOT_REMOVE_ORDER');
     try {
-        let results = await OrderManager.deleteOrder({id: req.params.orderId});
-        if (results !== '') {
-            return res.send({
-                status: 'success',
-                data: null,
-                errMessage: errMessage
-            })
+        if (typeof req.session.customer === 'undefined' || req.session.customer === null) {
+            res.send({
+                status: 'fail',
+                data : null,
+                errMessage : showMessage('ERROR_AUTHENTICATION')
+            });
+        } else {
+            let results = await OrderManager.deleteOrder({id: req.params.orderId});
+            if (results !== '') {
+                return res.send({
+                    status: 'success',
+                    data: null,
+                    errMessage: errMessage
+                })
+            }
         }
     } catch(err) {
         console.log(err.message);
     }
     res.send({
-        status: "fail",
+        status: 'fail',
         data : null,
         errMessage : errMessage
     });
