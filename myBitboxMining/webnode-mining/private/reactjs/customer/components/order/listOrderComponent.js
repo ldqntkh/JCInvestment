@@ -1,5 +1,8 @@
 import React, {Component} from 'react';
 
+// import container
+import OrderItemContainer from '../../containers/order/orderItemContainer';
+
 // import component
 import OrderItemComponent from './orderItemComponent';
 
@@ -59,7 +62,7 @@ export default class ListOrderComponent extends Component {
         if (!this.state.loaded) screen = <i className="fa fa-spinner fa-spin fa-icon-loading"></i>
         else {
             screen = this.props.dataOrder.map((item, index)=> {
-                return <OrderItemComponent dataOrder={item} key={index}/>;
+                return <OrderItemContainer dataOrder={item} key={index}/>;
             });
             screen = <React.Fragment>
                         <div className="card-header card-header-warning">

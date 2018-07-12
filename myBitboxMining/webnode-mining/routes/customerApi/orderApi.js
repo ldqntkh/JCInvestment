@@ -4,6 +4,9 @@ var router = express.Router();
 // import module
 const moment = require('moment');
 
+// import file helper
+const showMessage = require('../../global/ResourceHelper').showMessage;
+
 // import class manager
 const OrderManager = require('../../modelMgrs/OrderManager');
 const PaymentDetailManager = require('../../modelMgrs/PaymentDetailsManager');
@@ -65,5 +68,25 @@ router.get('/list', async (req, res, next) => {
         });
     }
 })
+.get('/:orderId/delete', async (req, res, nex) => {
+    let errMessage = showMessage('ERROR_CANNOT_REMOVE_ORDER');
+    try {
+        let results = await OrderManager.deleteOrder({id: req.params.orderId});
+        if (results !== '') {
+            return res.send({
+                status: 'success',
+                data: null,
+                errMessage: errMessage
+            })
+        }
+    } catch(err) {
+        console.log(err.message);
+    }
+    res.send({
+        status: "fail",
+        data : null,
+        errMessage : errMessage
+    });
+});
 
 module.exports = router;

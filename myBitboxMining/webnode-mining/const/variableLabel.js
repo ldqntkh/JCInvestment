@@ -34,6 +34,7 @@ module.exports.en = {
     ERROR_CANNOT_CREATE_WALLET: "Can not create new wallet address",
     ERROR_CANNOT_REMOVE_WALLET: 'Can not remove this wallet!',
     ERROR_CANNOT_UPDATE_WALLET: 'Can not update this wallet!',
+    ERROR_CANNOT_REMOVE_ORDER: 'Can not remove this order!',
 
     WARNING_ACCOUNT_NOT_ACTIVE: 'Your account is not active. Please active before login',
     WARNING_PASS_CHANGED: 'Your password is changed. Please login to enjoy!',

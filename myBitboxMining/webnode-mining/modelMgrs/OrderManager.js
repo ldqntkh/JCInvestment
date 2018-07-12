@@ -92,5 +92,22 @@ module.exports = {
             console.log(err.message);
             return -1;
         }
+    },
+
+    /**
+     * Delete order
+     * @param {Object} order
+     * @return {Number} affectedRows
+     */
+    deleteOrder: async (field) => {
+        try {
+            let results = await OrderTable.destroy({
+                where : field
+            });
+            return results;
+        } catch (err) {
+            console.log(err.message);
+            return '';
+        }
     }
 }

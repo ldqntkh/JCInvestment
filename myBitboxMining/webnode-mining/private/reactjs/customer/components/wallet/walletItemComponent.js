@@ -56,7 +56,7 @@ export default class WalletItemComponent extends Component {
                 return (
                     <div className='custom-ui'>
                         <h1>{showMessage('AL_TITLE_CONFIRM')}</h1>
-                        <p>  {showMessage('AL_TITLE_DESC', 'wallet name: ' + walletItem.walletName)} </p>
+                        <p>  {showMessage('AL_TITLE_DESC', ['wallet name: ' + walletItem.walletName])} </p>
                         <div className="form-group">
                             <button onClick={()=> { onClose();}} type="button" name="recover-submit" className="btn btn-lg btn-primary" value={showMessage('AL_BTN_NO')}>{showMessage('AL_BTN_NO')}</button>
                             <button onClick={() => {
