@@ -1,5 +1,8 @@
 import React, {Component} from 'react';
 
+// import container
+import OrderItemContainer from '../../containers/order/orderItemContainer';
+
 // import component
 import OrderItemComponent from './orderItemComponent';
 
@@ -14,13 +17,16 @@ export default class ListOrderComponent extends Component {
     constructor (props) {
         super(props);
         this.state = {
-            loaded: false,
-            listOrder: []
+            loaded: false
         }
     }
 
     componentDidMount() {
-        this._getListOrder();
+        if (this.props.dataOrder.length <= 0) {
+            this._getListOrder();
+        } else {
+            this.setState({loaded: true});
+        }
     }
 
     async _getListOrder () {
@@ -33,9 +39,9 @@ export default class ListOrderComponent extends Component {
             let jsonData = await response.json();
             if (jsonData.status === 'success') {
                 this.setState({
-                    loaded: true,
-                    listOrder: jsonData.data
+                    loaded: true
                 });
+                this.props.addListOrder(jsonData.data);
             } else {
                 this.setState({
                     loaded: true
@@ -55,8 +61,8 @@ export default class ListOrderComponent extends Component {
 
         if (!this.state.loaded) screen = <i className="fa fa-spinner fa-spin fa-icon-loading"></i>
         else {
-            screen = this.state.listOrder.map((item, index)=> {
-                return <OrderItemComponent dataOrder={item} key={index}/>;
+            screen = this.props.dataOrder.map((item, index)=> {
+                return <OrderItemContainer dataOrder={item} key={index}/>;
             });
             screen = <React.Fragment>
                         <div className="card-header card-header-warning">
@@ -76,6 +82,7 @@ export default class ListOrderComponent extends Component {
                                         <th>{showMessage('RC_AMOUNT')}</th>
                                         <th>{showMessage('RC_PERIOD')}</th>
                                         <th>{showMessage('RC_CREATE_DATE')}</th>
+                                        <th>{showMessage('TITLE_CUSTOMER_PAYMENT_DETAIL')}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -92,7 +99,12 @@ export default class ListOrderComponent extends Component {
         }
         
         return (
-            screen
+            <div className="col-lg-12 col-md-12">
+                <div className="card" >
+                    {screen}
+                </div>
+            </div>
+            
         );
     }
 }

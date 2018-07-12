@@ -34,6 +34,7 @@ module.exports.en = {
     ERROR_CANNOT_CREATE_WALLET: "Can not create new wallet address",
     ERROR_CANNOT_REMOVE_WALLET: 'Can not remove this wallet!',
     ERROR_CANNOT_UPDATE_WALLET: 'Can not update this wallet!',
+    ERROR_CANNOT_REMOVE_ORDER: 'Can not remove this order!',
 
     WARNING_ACCOUNT_NOT_ACTIVE: 'Your account is not active. Please active before login',
     WARNING_PASS_CHANGED: 'Your password is changed. Please login to enjoy!',
@@ -83,6 +84,7 @@ module.exports.en = {
     TITLE_CUSTOMER_PRODUCT: 'My products',
     TITLE_CUSTOMER_ORDER: 'My order history',
     TITLE_CUSTOMER_HISTORY: 'My history',
+    TITLE_CUSTOMER_PAYMENT_DETAIL: 'Payment detail',
 
     // title
     TITLE_CHANGE_PASSWORD: 'Change password',
@@ -97,6 +99,9 @@ module.exports.en = {
     // react label
     RC_ID: 'ID',
     RC_NAME: 'Name',
+    RC_EMAIL: 'Email',
+    RC_FIRST_NAME: 'First name',
+    RC_LAST_NAME: 'Last name',
     RC_WALLET_ADDRESS: 'Wallet address',
     RC_TOTAL_HASHRATE: 'Total hashrate',
     RC_TOTAL_BALANCE: 'Total balance',
@@ -117,7 +122,6 @@ module.exports.en = {
     RC_COIN: 'Coin (ETH)',
     RC_USD: 'USD',
     RC_ID: 'Id',
-    RC_NAME: 'Name',
     RC_HASHRATE: 'Hashrate(Mh/s)',
     RC_ACTIVE: 'Active',
     RC_START_DATE: 'Start date',
@@ -137,6 +141,11 @@ module.exports.en = {
     RC_STATE: 'State',
     RC_AMOUNT: 'Amount',
     RC_CREATE_DATE: 'Create at',
+    RC_ORDER_ID: 'Order ID',
+    RC_PAYMENT_METHOD: 'Payment method',
+    RC_PAYMENT_COUNTRY_CODE: 'Country code',
+    RC_PAYMENT_USER_ID: 'Payer id',
+    RC_PAYMENT_CART_NUMBER: 'Cart number',
 
     // react label in customer product page
     RC_UPDATE_PRODUCT: 'Update Product',

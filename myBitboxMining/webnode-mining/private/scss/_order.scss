@@ -1,0 +1,28 @@
+.payment-detail-container {
+    .card-header {
+        h4 {
+            display: inline-block;
+        }
+
+        button {
+            font-size: 13px;
+            margin-top: -2px;
+        }
+    }
+
+    .card-body {
+        tbody{
+            .payment-detail-content {
+                td:first-child {
+                    font-weight: bold;
+                    text-align: right;
+                    width: 25%;
+                }
+
+                td {
+                    text-align: left;
+                }
+            }
+        }
+    }
+}

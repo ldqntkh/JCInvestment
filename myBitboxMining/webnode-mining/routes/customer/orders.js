@@ -18,7 +18,7 @@ const ProductOfCustomerModel = require('../../models/ProductOfCustomer');
 const varibale = require('../../const/variable');
 const showMessage = require('../../global/ResourceHelper').showMessage;
 
-router.get('/my-order/', async(req, res, next) => {
+router.get(/^\/(my-order)/, async(req, res, next) => {
     if (!req.session.customer) return res.redirect('/login');
     res.render('customer/order/index', {
         "title" : showMessage('TITLE_CUSTOMER_ORDER'),

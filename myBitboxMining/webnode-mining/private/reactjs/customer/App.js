@@ -5,19 +5,22 @@ import { Provider } from 'react-redux';
 // import component
 import IndexEthExchangeComponent from './components/dashboard/indexEthExchangeComponent';
 import ListProductComponent from './components/products/listProductComponent';
-import ListProductCustomerContainer from './containers/customer_product/listProductContainer';
 import WalletPageComponent from './components/wallet/indexComponent';
-import ListOrderComponent from './components/order/listOrderComponent';
 import ListHistoryComponent from './components/history/listHistoryComponent';
+import IndexOrderComponent from './components/order/indexComponent';
 
 import CoinCalculator from './components/calculation/coinCalculator';
 import ForgotPassword from './components/account/forgotPassword';
 import ChangePassword from './components/account/changePassword';
 
+//import container
+import ListProductCustomerContainer from './containers/customer_product/listProductContainer';
+import ListOrderContainer from './containers/order/listOrderContainer';
+
 // import store
 import walletStore from './store/walletStore';
 import productStore from './store/productStore';
-
+import orderStore from './store/orderStore';
 
 if (typeof pageContext !== 'undefined') {
     let page = pageContext.page;
@@ -41,7 +44,10 @@ if (typeof pageContext !== 'undefined') {
                 <ListProductCustomerContainer />
             </Provider>, document.getElementById('my-product-page'));
     } else if(page === 'my-order') {
-        ReactDOM.render(<ListOrderComponent />, document.getElementById('my-order-page'));
+        ReactDOM.render(
+            <Provider store={orderStore}>
+                <IndexOrderComponent />
+            </Provider>, document.getElementById('my-order-page'));
     } else if(page === 'my-history') {
         ReactDOM.render(<ListHistoryComponent />, document.getElementById('my-history-page'));
     } else if(page === 'my-wallet') {
