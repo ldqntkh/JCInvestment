@@ -58,8 +58,8 @@ module.exports = {
      * @return {Object} order
      */
     getOrderByFields: async(fiels) => {
-        let results = [];
         try {
+            let results = [];
             let orders = await OrderTable.findAll({
                 where: fiels
             });
@@ -73,7 +73,7 @@ module.exports = {
             return results;
         } catch (err) {
             console.log(err.message);
-            return null;
+            return -1;
         }
     },
 

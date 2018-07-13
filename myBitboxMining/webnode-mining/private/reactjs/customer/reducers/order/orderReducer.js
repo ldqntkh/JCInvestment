@@ -19,8 +19,8 @@ export const OrderDataReducer = (orderData = [], action) =>{
             return result;
         case DELETE_ITEM_ORDER_FROM_LIST:
             order = action.orderItem;
-            result = [...orderData]; 
-            index = result.findIndex(item => item.id = order.id);
+            result = [...orderData];
+            index = result.findIndex(item => item.id === order.id);
             result.splice(index, 1);
             return result;
         default:

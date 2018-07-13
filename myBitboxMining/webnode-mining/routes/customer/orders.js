@@ -84,9 +84,9 @@ router.get('/orders/:orderid/buysuccess', async (req, res, next) => {
                         // insert history
                         await CustomerHistoryManager.createHistory(new CustomerHistoryModel({
                             customerId : customer.id,
-                            description : showMessage('LABEL_CREATE_PAYMENT',
-                                            "<a class='history' href='/payments/" + paymentDetails.getPaymentId() + "'>" + paymentDetails.getPaymentId() + "</a>",
-                                            "<a class='history' href='/orders/" + order.getOrderId() + "'>" + order.getOrderId() + "</a>"),
+                            description : showMessage('LABEL_CREATE_PAYMENT', [
+                                            "<a class='history' href='/my-order/" + order.getOrderId() + "/payment-detail'>" + paymentDetails.getPaymentId() + "</a>",
+                                            "<a class='history' href='/my-order/" + order.getOrderId() + "/detail'>" + order.getOrderId() + "</a>"]),
                             createAt : moment(Date.now()).format('YYYY-MM-DD HH:mm:ss')
                         }));
 
@@ -99,8 +99,7 @@ router.get('/orders/:orderid/buysuccess', async (req, res, next) => {
                                 // insert history
                                 await CustomerHistoryManager.createHistory(new CustomerHistoryModel({
                                     customerId : customer.id,
-                                    description : showMessage('LABEL_ORDER_APPROVE',
-                                                    "<a class='history' href='/orders/" + order.getOrderId() + "'>" + order.getOrderId() + "</a>"),
+                                    description : showMessage('LABEL_ORDER_APPROVE', ["<a class='history' href='/my-order/" + order.getOrderId() + "/detail'>" + order.getOrderId() + "</a>"]),
                                     createAt : moment(Date.now()).format('YYYY-MM-DD HH:mm:ss')
                                 }));
                                 // create product of customer
@@ -116,8 +115,7 @@ router.get('/orders/:orderid/buysuccess', async (req, res, next) => {
                                     // insert history
                                     await CustomerHistoryManager.createHistory(new CustomerHistoryModel({
                                         customerId : customer.id,
-                                        description : showMessage('LABEL_PRODUCTOFCUSTOMER_INSERT')
-                                                        .replace('{0}', "<a class='history' href='/product-customer/" + productofctm.getProductId() + "'>" + productofctm.getProductId() + "</a>"),
+                                        description : showMessage('LABEL_PRODUCTOFCUSTOMER_INSERT', ["<a class='history' href='/my-product/" + productofctm.getProductId() + "'>" + productofctm.getProductId() + "</a>"]),
                                         createAt : moment(Date.now()).format('YYYY-MM-DD HH:mm:ss')
                                     }));
                                 }

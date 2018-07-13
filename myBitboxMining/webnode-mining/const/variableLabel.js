@@ -35,6 +35,7 @@ module.exports.en = {
     ERROR_CANNOT_REMOVE_WALLET: 'Can not remove this wallet!',
     ERROR_CANNOT_UPDATE_WALLET: 'Can not update this wallet!',
     ERROR_CANNOT_REMOVE_ORDER: 'Can not remove this order!',
+    ERROR_CANNOT_GET_ORDER: 'Can not get this order!',
 
     WARNING_ACCOUNT_NOT_ACTIVE: 'Your account is not active. Please active before login',
     WARNING_PASS_CHANGED: 'Your password is changed. Please login to enjoy!',
@@ -85,6 +86,7 @@ module.exports.en = {
     TITLE_CUSTOMER_ORDER: 'My order history',
     TITLE_CUSTOMER_HISTORY: 'My history',
     TITLE_CUSTOMER_PAYMENT_DETAIL: 'Payment detail',
+    TITLE_CUSTOMER_ORDER_DETAIL: 'Order detail',
 
     // title
     TITLE_CHANGE_PASSWORD: 'Change password',
@@ -142,6 +144,8 @@ module.exports.en = {
     RC_AMOUNT: 'Amount',
     RC_CREATE_DATE: 'Create at',
     RC_ORDER_ID: 'Order ID',
+    RC_CURRENCY: 'Currency',
+    RC_BACK: 'Back',
     RC_PAYMENT_METHOD: 'Payment method',
     RC_PAYMENT_COUNTRY_CODE: 'Country code',
     RC_PAYMENT_USER_ID: 'Payer id',

@@ -83,7 +83,7 @@ router.get('/list', async (req, res, next) => {
                 return res.send({
                     status: 'success',
                     data: null,
-                    errMessage: errMessage
+                    errMessage: null
                 })
             }
         }

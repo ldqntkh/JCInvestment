@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 // import container
 import ListOrderContainer from '../../containers/order/listOrderContainer';
 import PaymentDetailContainer from '../../containers/payment/paymentDetailContainer';
+import OrderDetailContainer from '../../containers/order/orderDetailContainer';
 
 class IndexComponent extends Component {
 
@@ -12,7 +13,8 @@ class IndexComponent extends Component {
             <Router>
                 <React.Fragment>
                     <Route exact path="/my-order" component={ListOrderContainer}/>
-                    <Route path="/my-order/payment-detail/:orderId" component={PaymentDetailContainer} />
+                    <Route path="/my-order/:orderId/payment-detail" component={PaymentDetailContainer} />
+                    <Route path="/my-order/:orderId/detail" component={OrderDetailContainer} />
                 </React.Fragment>
             </Router>
         )

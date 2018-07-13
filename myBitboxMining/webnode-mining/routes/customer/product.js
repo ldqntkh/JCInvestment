@@ -59,7 +59,7 @@ router.post('/products/:productid/buy', async (req, res, next)=> {
             // insert history
             let history = new CustomerHistoryModel({
                 customerId : customer.id,
-                description : showMessage('LABEL_CREATE_ORDER',"<a class='history' href='/orders/" + orderResult.getOrderId() + "'>" + orderResult.getOrderId() + "</a>"),
+                description : showMessage('LABEL_CREATE_ORDER', ["<a class='history' href='/my-order/" + orderResult.getOrderId() + "/detail'>" + orderResult.getOrderId() + "</a>"]),
                 createAt : moment(Date.now()).format('YYYY-MM-DD HH:mm:ss')
             });
             CustomerHistoryManager.createHistory(history);

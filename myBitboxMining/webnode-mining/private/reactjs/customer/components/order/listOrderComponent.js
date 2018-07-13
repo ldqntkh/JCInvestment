@@ -82,7 +82,7 @@ export default class ListOrderComponent extends Component {
                                         <th>{showMessage('RC_AMOUNT')}</th>
                                         <th>{showMessage('RC_PERIOD')}</th>
                                         <th>{showMessage('RC_CREATE_DATE')}</th>
-                                        <th>{showMessage('TITLE_CUSTOMER_PAYMENT_DETAIL')}</th>
+                                        <th>{showMessage('RC_ACTION')}</th>
                                     </tr>
                                 </thead>
                                 <tbody>
