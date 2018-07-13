@@ -87,7 +87,7 @@ export default class OrderItemComponent extends Component {
                 <td>{moment(order.createAt).format('DD/MM/YYYY')}</td>
                 {orderState !== '' && <td className="td-action">
                     {orderState === 'approved' &&
-                        <Link to={"/my-order/payment-detail/" + order.id}>
+                        <Link to={"/my-order/" + order.id + "/payment-detail"}>
                             <i className="material-icons">search</i>
                         </Link>
                     }
