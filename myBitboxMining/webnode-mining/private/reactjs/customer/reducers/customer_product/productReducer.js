@@ -13,7 +13,7 @@ export const ProductDataReducer = (productData = [], action) =>{
         case UPDATE_LIST_PRODUCT:
             result = [...productData];
             productItem = action.dataProduct;
-            index = productData.findIndex(item => item.id === productItem.id);
+            index = result.findIndex(item => item.id === productItem.id);
             result[index] = productItem;
             return result;
         default:

@@ -8,6 +8,7 @@ import ListProductComponent from './components/products/listProductComponent';
 import WalletPageComponent from './components/wallet/indexComponent';
 import ListHistoryComponent from './components/history/listHistoryComponent';
 import IndexOrderComponent from './components/order/indexComponent';
+import IndexProductCustomerComponent from './components/customer_product/indexComponent';
 
 import CoinCalculator from './components/calculation/coinCalculator';
 import ForgotPassword from './components/account/forgotPassword';
@@ -41,7 +42,7 @@ if (typeof pageContext !== 'undefined') {
     } else if(page === 'my-product') {
         ReactDOM.render(
             <Provider store={productStore}>
-                <ListProductCustomerContainer />
+                <IndexProductCustomerComponent />
             </Provider>, document.getElementById('my-product-page'));
     } else if(page === 'my-order') {
         ReactDOM.render(

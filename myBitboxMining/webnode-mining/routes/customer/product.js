@@ -134,7 +134,7 @@ router.post('/products/:productid/buy', async (req, res, next)=> {
         })
     }
 })
-.get('/my-product/', (req, res, next) => {
+.get(/^\/(my-product)/, (req, res, next) => {
     if (!req.session.customer) return res.redirect('/login');
     res.render('customer/product/index', {
         "title" : showMessage('TITLE_CUSTOMER_PRODUCT'),

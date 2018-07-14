@@ -199,7 +199,11 @@ export default class ListProductComponent extends Component {
         }
         
         return (
-            screen
+            <div className="col-lg-12 col-md-12">
+                <div className="card">
+                    {screen}
+                </div>
+            </div>
         );
     }
 }
