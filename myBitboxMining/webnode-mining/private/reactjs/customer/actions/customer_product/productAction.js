@@ -1,6 +1,7 @@
 import {
     ADD_LIST_PRODUCT,
-    UPDATE_LIST_PRODUCT
+    UPDATE_LIST_PRODUCT,
+    DELETE_PRODUCT_FROM_LIST
 } from '../actionType';
 
 export const AddListProduct = dataProduct => ({
@@ -11,4 +12,9 @@ export const AddListProduct = dataProduct => ({
 export const UpdateListProduct = dataProduct => ({
     type : UPDATE_LIST_PRODUCT,
     dataProduct : dataProduct
+});
+
+export const DeleteProductFromList = dataProduct => ({
+    type : DELETE_PRODUCT_FROM_LIST,
+    productItem : dataProduct
 });

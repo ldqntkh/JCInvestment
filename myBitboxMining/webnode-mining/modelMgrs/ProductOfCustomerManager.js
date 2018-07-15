@@ -108,5 +108,21 @@ module.exports = {
             console.log(err.message);
         }
         return affectedRows;
+    },
+    /**
+     * delete product
+     * @param {Object} whereOption {'customerId' : 1}
+     * @return {Number} affectedRows
+     */
+    deleteProduct: async(whereOption) => {
+        let affectedRows = -1;
+        try {
+            affectedRows = await ProductTable.destroy({
+                where : whereOption
+            });
+        } catch (err) {
+            console.log(err.message);
+        }
+        return affectedRows;
     }
 }

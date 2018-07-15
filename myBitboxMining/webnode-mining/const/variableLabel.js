@@ -36,6 +36,7 @@ module.exports.en = {
     ERROR_CANNOT_UPDATE_WALLET: 'Can not update this wallet!',
     ERROR_CANNOT_REMOVE_ORDER: 'Can not remove this order!',
     ERROR_CANNOT_GET_ORDER: 'Can not get this order!',
+    ERROR_CANNOT_REMOVE_PRODUCT: 'Can not remove this product!',
 
     WARNING_ACCOUNT_NOT_ACTIVE: 'Your account is not active. Please active before login',
     WARNING_PASS_CHANGED: 'Your password is changed. Please login to enjoy!',
@@ -126,6 +127,7 @@ module.exports.en = {
     RC_ID: 'Id',
     RC_HASHRATE: 'Hashrate(Mh/s)',
     RC_ACTIVE: 'Active',
+    RC_NOT_ACTIVE: 'Not active',
     RC_START_DATE: 'Start date',
     RC_END_DATE: 'End date',
     RC_REFRESH: 'Refresh',

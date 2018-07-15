@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { confirmAlert } from 'react-confirm-alert'; 
 import Modal from 'react-modal';
 import { Link } from "react-router-dom";
 
@@ -35,12 +36,13 @@ class ProductDetailComponent extends Component {
         this._getListWallet = this._getListWallet.bind(this);
         this._handleChange = this._handleChange.bind(this);
         this._handleUpdateProduct = this._handleUpdateProduct.bind(this);
+        this._handleRemoveProduct = this._handleRemoveProduct.bind(this);
+        this._openConfirmationPopup = this._openConfirmationPopup.bind(this);
     }
 
     componentDidMount() {
         this._getProductDetail();
         Modal.setAppElement('#my-product-page');
-        console.log(this.props);
     }
 
     async _getListProduct () {
@@ -150,9 +152,8 @@ class ProductDetailComponent extends Component {
             });
             let jsonData = await response.json();
             if (jsonData.status === 'success') {
-                console.log(jsonData);
                 this.props.updateListProduct(jsonData.data);
-                console.log(this.props);
+                await this._getProductDetail();
             } else {
                 console.log(jsonData.errMessage);
             }
@@ -160,6 +161,51 @@ class ProductDetailComponent extends Component {
             console.log(err.message);
         }
         this._closeModal();
+    }
+
+    async _handleRemoveProduct(productItem, callback) {
+        try {
+            let result = await fetch(API_URL + 'products/' + productItem.id + '/delete',{
+                method: 'GET',
+                credentials: 'same-origin'
+            });
+            let responsejson = await result.json();
+            if (responsejson.status === 'success') {
+                this.props.deleteProductFromList(productItem);
+                this.setState({productDetail: ''});
+            } else {
+                this.setState({
+                    err : responsejson.errMessage
+                });
+            }
+            callback();
+        } catch(err) {
+            console.log(err);
+        }
+    }
+
+    _openConfirmationPopup () {
+        try {
+            let productItem = this.state.productDetail;
+            confirmAlert({
+                customUI: ({ onClose }) => {
+                    return (
+                        <div className='custom-ui'>
+                            <h1>{showMessage('AL_TITLE_CONFIRM')}</h1>
+                            <p>  {showMessage('AL_TITLE_DESC', ['product name: ' + productItem.name])} </p>
+                            <div className="form-group">
+                                <button onClick={()=> { onClose();}} type="button" name="recover-submit" className="btn btn-lg btn-primary" value={showMessage('AL_BTN_NO')}>{showMessage('AL_BTN_NO')}</button>
+                                <button onClick={() => {
+                                        this._handleRemoveProduct(productItem, onClose);
+                                    }} type="button" name="recover-cancel" className="btn btn-lg btn-primary btn-success" value={showMessage('AL_BTN_YES')}>{showMessage('AL_BTN_YES')}</button>
+                            </div>
+                        </div>
+                    )
+                }
+            });
+        } catch(err) {
+            console.log(err.message);
+        }
     }
 
     render() {
@@ -176,6 +222,7 @@ class ProductDetailComponent extends Component {
                             <p className="card-category"></p>
                         </div>
                         <div className="card-body table-responsive">
+                            {productDetail === '' ? <p>{'you do not have any product'}</p> :
                             <table className="table table-hover text-center">
                                 <tbody>
                                     <tr className="payment-detail-content">
@@ -191,8 +238,8 @@ class ProductDetailComponent extends Component {
                                         <td>{productDetail.hashrate}</td>
                                     </tr>
                                     <tr className="payment-detail-content">
-                                        <td>{showMessage('RC_ACTIVE')}</td>
-                                        <td>{productDetail.active ? 1 : 0}</td>
+                                        <td>{showMessage('RC_STATE')}</td>
+                                        <td>{productDetail.active ? showMessage('RC_ACTIVE') : showMessage('RC_NOT_ACTIVE')}</td>
                                     </tr>
                                     <tr className="payment-detail-content">
                                         <td>{showMessage('RC_PERIOD')}</td>
@@ -212,13 +259,14 @@ class ProductDetailComponent extends Component {
                                         {!productDetail.active && <button type="button" rel="tooltip" title="" className="btn btn-primary btn-link btn-sm" data-original-title="Edit product" onClick={this._openModal}>
                                             <i className="material-icons">edit</i>
                                         </button>}
-                                        {productDetail.expired && <button type="button" rel="tooltip" title="" className="btn btn-danger btn-link btn-sm" data-original-title="Remove">
+                                        {productDetail.expired && <button type="button" rel="tooltip" title="" className="btn btn-danger btn-link btn-sm" data-original-title="Remove" onClick={this._openConfirmationPopup}>
                                             <i className="material-icons">close</i>
                                         </button>}
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
+                            }
                         </div>
                         <div className="card-footer">
                             <div className="stats">

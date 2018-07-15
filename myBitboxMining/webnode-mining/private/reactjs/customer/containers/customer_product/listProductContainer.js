@@ -2,7 +2,8 @@ import { connect } from 'react-redux'
 import ListProductComponent from '../../components/customer_product/listProductComponent';
 import {
     AddListProduct,
-    UpdateListProduct
+    UpdateListProduct,
+    DeleteProductFromList
 } from '../../actions/customer_product/productAction';
 
 const mapStateToProps = state => ({
@@ -11,7 +12,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     addListProduct : dataProduct => dispatch(AddListProduct(dataProduct)),
-    updateListProduct: dataProduct => dispatch(UpdateListProduct(dataProduct))
+    updateListProduct: dataProduct => dispatch(UpdateListProduct(dataProduct)),
+    deleteProductFromList: dataProduct => dispatch(DeleteProductFromList(dataProduct))
 });
 
 export default connect(
