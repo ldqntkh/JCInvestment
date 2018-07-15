@@ -19,7 +19,7 @@ export default class UnpaipBalanceComponent extends Component {
                                 <i className="fa fa-btc"></i>
                             </div>
                             <p className="card-category">{showMessage('RC_UNPAID_BALANCE')}</p>
-                            <h3 className="card-title">{unpaidBalance} ETH</h3>
+                            <h3 className="card-title">{ unpaidBalance === "" ? 0 : parseFloat(unpaidBalance).toFixed(10) } ETH</h3>
                         </div>
                         <div className="card-footer">
                             <div className="stats">
