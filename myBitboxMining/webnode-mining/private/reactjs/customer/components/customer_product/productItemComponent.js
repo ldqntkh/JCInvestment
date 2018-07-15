@@ -18,12 +18,16 @@ export default class ProductItemComponent extends Component {
         };
 
         this.openModal = this.openModal.bind(this);
+        this._removeProductModal = this._removeProductModal.bind(this);
     }
 
     openModal () {
         this.props.onUpdateProduct(this.props.dataProduct);
     }
 
+    _removeProductModal (){
+        this.props.onDeleteProduct(this.props.dataProduct);
+    }
 
     render() {
         let product = this.props.dataProduct;
@@ -41,7 +45,7 @@ export default class ProductItemComponent extends Component {
                             {!product.active && <button type="button" rel="tooltip" title="" className="btn btn-primary btn-link btn-sm" data-original-title="Edit product" onClick={this.openModal}>
                                 <i className="material-icons">edit</i>
                             </button>}
-                            {product.expired && <button type="button" rel="tooltip" title="" className="btn btn-danger btn-link btn-sm" data-original-title="Remove">
+                            {product.expired && <button type="button" rel="tooltip" title="" className="btn btn-danger btn-link btn-sm" data-original-title="Remove" onClick={this._removeProductModal}>
                                 <i className="material-icons">close</i>
                             </button>}
                         </td>}

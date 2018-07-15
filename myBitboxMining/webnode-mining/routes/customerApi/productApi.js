@@ -91,4 +91,33 @@ router.post('/update', async (req, res) => {
         errMessage: errMessage
     });
 });
+
+router.get('/:productId/delete', async (req, res) => {
+    let errMessage = showMessage('ERROR_CANNOT_REMOVE_PRODUCT');
+    try {
+        if (typeof req.session.customer === 'undefined' || req.session.customer === null) {
+            res.send({
+                status: 'fail',
+                data : null,
+                errMessage : showMessage('ERROR_AUTHENTICATION')
+            });
+        } else {
+            let productId = req.params.productId ? req.params.productId : '';
+            if (await ProductOfCustomerManager.deleteProduct({id: productId}) > 0) {
+                return res.send({
+                    status: 'success',
+                    data: null,
+                    errMessage: null
+                })
+            }
+        }
+    } catch(err) {
+        console.log(err.message);
+    }
+    res.send({
+        status: 'fail',
+        data : null,
+        errMessage : errMessage
+    });
+});
 module.exports = router;

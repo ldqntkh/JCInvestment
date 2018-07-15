@@ -94,7 +94,7 @@ class PaymentDetailComponent extends Component {
                         <div className="card-header card-header-warning">
                             <h4 className="card-title">{showMessage('TITLE_CUSTOMER_PAYMENT_DETAIL')}</h4>
                             <Link to="/my-order">
-                                <button type="button" className="btn btn-primary btn-sm pull-right">Back</button>
+                                <button type="button" className="btn btn-primary btn-sm pull-right">{showMessage('RC_BACK')}</button>
                             </Link>
                             <p className="card-category"></p>
                         </div>
@@ -147,7 +147,7 @@ class PaymentDetailComponent extends Component {
                         <div className="card-footer">
                             <div className="stats">
                                 <Link to="/my-order">
-                                    <button type="button" className="btn btn-warning pull-left">Back</button>
+                                    <button type="button" className="btn btn-warning pull-left">{showMessage('RC_BACK')}</button>
                                 </Link>
                             </div>
                         </div>

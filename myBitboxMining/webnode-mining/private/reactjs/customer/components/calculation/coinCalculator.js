@@ -131,13 +131,13 @@ export default class CoinCalculator extends Component {
                         </div>
                     </div>
                     <div className="col-lg-9 col-md-9 col-sm-6">
-                        <div class="card">
-                            <div class="card-header card-header-warning">
-                                <h4 class="card-title">{showMessage('RC_MY_ESTIMATION')}</h4>
-                                <p class="card-category"></p>
+                        <div className="card">
+                            <div className="card-header card-header-warning">
+                                <h4 className="card-title">{showMessage('RC_MY_ESTIMATION')}</h4>
+                                <p className="card-category"></p>
                             </div>
-                            <div class="card-body table-responsive">
-                                <table class="table table-hover text-center">
+                            <div className="card-body table-responsive">
+                                <table className="table table-hover text-center">
                                     <thead className="text-warning">
                                         <tr>
                                             <th>{showMessage('RC_PERIOD')}</th>

@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import Modal from 'react-modal';
+import { confirmAlert } from 'react-confirm-alert';
 
 // import component
 import ProductItemComponent from './productItemComponent';
@@ -38,6 +39,8 @@ export default class ListProductComponent extends Component {
         this.closeModal = this.closeModal.bind(this);
         this._handleChange = this._handleChange.bind(this);
         this._handleUpdateProduct = this._handleUpdateProduct.bind(this);
+        this._openConfirmationPopup = this._openConfirmationPopup.bind(this);
+        this._handleRemoveProduct = this._handleRemoveProduct.bind(this);
     }
 
     componentDidMount() {
@@ -45,6 +48,7 @@ export default class ListProductComponent extends Component {
         if (pageContext.page && pageContext.page === 'my-product') {
             this._getListWallet();
         }
+        Modal.setAppElement('#my-product-page');
     }
 
     openModal(productItem) {
@@ -133,6 +137,49 @@ export default class ListProductComponent extends Component {
         }
     }
 
+    _openConfirmationPopup (productItem) {
+        try {
+            confirmAlert({
+                customUI: ({ onClose }) => {
+                    return (
+                        <div className='custom-ui'>
+                            <h1>{showMessage('AL_TITLE_CONFIRM')}</h1>
+                            <p>  {showMessage('AL_TITLE_DESC', ['product name: ' + productItem.name])} </p>
+                            <div className="form-group">
+                                <button onClick={()=> { onClose();}} type="button" name="recover-submit" className="btn btn-lg btn-primary" value={showMessage('AL_BTN_NO')}>{showMessage('AL_BTN_NO')}</button>
+                                <button onClick={() => {
+                                        this._handleRemoveProduct(productItem, onClose);
+                                    }} type="button" name="recover-cancel" className="btn btn-lg btn-primary btn-success" value={showMessage('AL_BTN_YES')}>{showMessage('AL_BTN_YES')}</button>
+                            </div>
+                        </div>
+                    )
+                }
+            });
+        } catch(err) {
+            console.log(err.message);
+        }
+    }
+
+    async _handleRemoveProduct(productItem, callback) {
+        try {
+            let result = await fetch(API_URL + 'products/' + productItem.id + '/delete',{
+                method: 'GET',
+                credentials: 'same-origin'
+            });
+            let responsejson = await result.json();
+            if (responsejson.status === 'success') {
+                this.props.deleteProductFromList(productItem);
+            } else {
+                this.setState({
+                    err : responsejson.errMessage
+                });
+            }
+            callback();
+        } catch(err) {
+            console.log(err);
+        }
+    }
+
     render () {
         let screen = null;
         let page = pageContext.page;
@@ -140,7 +187,7 @@ export default class ListProductComponent extends Component {
         if (!this.state.loaded) screen = <i className="fa fa-spinner fa-spin fa-icon-loading"></i>
         else {
             screen = this.props.dataProduct.map((item, index)=> {
-                return <ProductItemComponent dataProduct={item} key={index} product_page={page} onUpdateProduct={this.openModal} />;
+                return <ProductItemComponent dataProduct={item} key={index} product_page={page} onUpdateProduct={this.openModal} onDeleteProduct={this._openConfirmationPopup} />;
             });
             screen = <React.Fragment>
                         <div className="card-header card-header-warning">
@@ -199,7 +246,11 @@ export default class ListProductComponent extends Component {
         }
         
         return (
-            screen
+            <div className="col-lg-12 col-md-12">
+                <div className="card">
+                    {screen}
+                </div>
+            </div>
         );
     }
 }

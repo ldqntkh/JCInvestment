@@ -1,6 +1,7 @@
 import {
     ADD_LIST_PRODUCT,
-    UPDATE_LIST_PRODUCT
+    UPDATE_LIST_PRODUCT,
+    DELETE_PRODUCT_FROM_LIST
 } from '../../actions/actionType';
 
 export const ProductDataReducer = (productData = [], action) =>{
@@ -13,8 +14,14 @@ export const ProductDataReducer = (productData = [], action) =>{
         case UPDATE_LIST_PRODUCT:
             result = [...productData];
             productItem = action.dataProduct;
-            index = productData.findIndex(item => item.id === productItem.id);
+            index = result.findIndex(item => item.id === productItem.id);
             result[index] = productItem;
+            return result;
+        case DELETE_PRODUCT_FROM_LIST:
+            result = [...productData];
+            productItem = action.productItem;
+            index = result.findIndex(item => item.id === productItem.id);
+            result.splice(index, 1);
             return result;
         default:
             return productData;
