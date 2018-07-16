@@ -115,7 +115,7 @@ router.post('/editprofile', async (req, res) => {
                 var options = {
                     to: customer.email,
                     subject: showMessage('LABEL_SUBJECT_VERIFY_ACCOUNT'),
-                    html: showMessage('LABEL_HTML_VERIFY_ACCOUNT',verifyUrl)
+                    html: showMessage('LABEL_HTML_VERIFY_ACCOUNT', [verifyUrl])
                 }
                 if (await new EmailHelper().sendEmail(options) !== null) {
                     message = showMessage('SUCCESS_CREATE_ACCOUNT');
