@@ -1,6 +1,10 @@
 'use strict';
 const WalletModel = require('../models/Wallet');
+const WalletBalanceModel = require('../models/WalletBalance');
 const SequelizeConfig = require('./SequelizeConfig');
+
+// require module
+const moment = require('moment');
 
 // import const
 const Sequelize = SequelizeConfig.getSequelizeModule();
@@ -18,7 +22,10 @@ const WalletTable = sequelize.define('wallet', {
 
 const WalletBalance = sequelize.define('walletbalance', {
     balance: Sequelize.FLOAT,
-    walletId: Sequelize.INTEGER
+    walletId: Sequelize.INTEGER,
+    userUpdate: Sequelize.INTEGER,
+    createAt: Sequelize.DATE,
+    updateAt: Sequelize.DATE
 });
 
 module.exports = {
@@ -191,6 +198,44 @@ module.exports = {
         } catch(err) {
             console.log(err.message);
             return [];
+        }
+    },
+
+    /**
+     * update balance for wallet
+     * @param {Object} field {walletId : id, balance: bl}
+     */
+    updateBalance: async(field) => {
+        try {
+            let walletBalance = await WalletBalance.findOne({
+                where : {
+                    walletId: field.walletId
+                }
+            });
+            let walletBalanceObj =  walletBalance  && walletBalance.dataValues !== null ? new WalletBalanceModel(walletBalance.dataValues) : null;
+
+            if (walletBalanceObj !== null) {
+                walletBalanceObj.setBalance(field.balance);
+                walletBalanceObj.setTimeUpdate(moment(Date.now()).format('YYYY-MM-DD HH:mm:ss'));
+
+                await WalletBalance.update(walletBalanceObj, {
+                    where: {
+                        walletId: field.walletId
+                    }
+                });
+            } else {
+                walletBalanceObj = new WalletBalanceModel({
+                    walletId : field.walletId,
+                    balance: field.balance,
+                    createAt: moment(Date.now()).format('YYYY-MM-DD HH:mm:ss'),
+                    updateAt: moment(Date.now()).format('YYYY-MM-DD HH:mm:ss')
+                });
+                await WalletBalance.create(walletBalanceObj);
+            }
+
+            await WalletBalance.update
+        } catch (err) {
+            console.log(err.message);
         }
     }
 }

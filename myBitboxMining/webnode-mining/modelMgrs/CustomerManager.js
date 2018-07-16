@@ -45,6 +45,31 @@ module.exports = {
             return null;
         }
     },
+
+    /**
+     * @return {List} customers
+     */
+    getListCustomer: async() => {
+        let results = [];
+        try {
+            var customers = await CustomerTable.findAll({
+                where: {
+                    active: 1
+                }
+            });
+
+            if (customers.length > 0) {
+                for(let i = 0; i < customers.length; i++) {
+                    let customer = new CustomerModel(customers[i].dataValues);
+                    results.push(customers);
+                }
+            }
+        } catch(err) {
+            console.log(showMessage('ERROR_GETCUSTOMER') + err.message);
+        }
+        return results;
+    },
+
     /**
      * add new customer
      * @param {Object} customer 

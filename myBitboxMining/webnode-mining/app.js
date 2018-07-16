@@ -122,4 +122,9 @@ passport.deserializeUser(async function (id, done) {
     // }
 });
 
+
+// execute jobs
+const JobUpdateBalance = require('./jobs/updateWalletBalance');
+JobUpdateBalance.execute();
+
 module.exports = app;
