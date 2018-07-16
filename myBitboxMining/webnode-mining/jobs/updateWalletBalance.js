@@ -5,7 +5,7 @@ const WalletManager = require('../modelMgrs/WalletManager');
 const CustomerManager = require('../modelMgrs/CustomerManager');
 
 const rule = new schedule.RecurrenceRule();
-rule.hour = 17;
+rule.hour = 0;
 rule.minute = 0;
 rule.second = 0;
 
