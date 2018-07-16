@@ -45,7 +45,7 @@ router.post('/products/:productid/buy', async (req, res, next)=> {
             productname: product.getProductName(),
             hashrate : product.getHashrate(),
             quantity: 1,
-            description : showMessage('LABEL_BUY_PRODUCT',product.getProductName(), product.getCurrency() + (price * quantity).toString()),
+            description : showMessage('LABEL_BUY_PRODUCT', [product.getProductName(), product.getCurrency() + (price * quantity).toString()]),
             state : varibale.ORDER_CREATE,
             amount : price * 1,
             currency : product.getCurrency(),
@@ -88,7 +88,7 @@ router.post('/products/:productid/buy', async (req, res, next)=> {
                         "currency": product.getCurrency(),
                         "total": (price * quantity).toString()
                     },
-                    "description": showMessage('LABEL_BUY_PRODUCT', product.getProductName(), product.getCurrency() + (price * quantity).toString())
+                    "description": showMessage('LABEL_BUY_PRODUCT', [product.getProductName(), product.getCurrency() + (price * quantity).toString()])
                 }]
             };
             req.app.locals.paypal.payment.create(create_payment_json, function (error, payment) {

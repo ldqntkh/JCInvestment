@@ -115,7 +115,7 @@ router.post('/editprofile', async (req, res) => {
                 var options = {
                     to: customer.email,
                     subject: showMessage('LABEL_SUBJECT_VERIFY_ACCOUNT'),
-                    html: showMessage('LABEL_HTML_VERIFY_ACCOUNT',verifyUrl)
+                    html: showMessage('LABEL_HTML_VERIFY_ACCOUNT', [verifyUrl])
                 }
                 if (await new EmailHelper().sendEmail(options) !== null) {
                     message = showMessage('SUCCESS_CREATE_ACCOUNT');
@@ -175,7 +175,7 @@ router.post('/resetpassword', async (req, res) => {
         } else {
             let tokenServer = FileHelper.encrypt(FileHelper.getRandomNumber().toString() + email);
             let subjectMail = showMessage('LABEL_SUBJECT_RESET_PASS');
-            let html = showMessage('LABEL_HTML_RESET_PASS',FileHelper.getUrl(req, 'changepassword/' + tokenServer));
+            let html = showMessage('LABEL_HTML_RESET_PASS', [FileHelper.getUrl(req, 'changepassword/' + tokenServer)]);
             let mailOptions = FileHelper.getEmailOptions(email, subjectMail, html);
             let existedToken = await TokenManager.getTokenByField({email: email});
 
