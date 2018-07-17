@@ -46,9 +46,9 @@ export default class ListProductComponent extends Component {
     componentDidMount() {
         this._getListProduct();
         if (pageContext.page && pageContext.page === 'my-product') {
+            Modal.setAppElement('#my-product-page');
             this._getListWallet();
         }
-        Modal.setAppElement('#my-product-page');
     }
 
     openModal(productItem) {
