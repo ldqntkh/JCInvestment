@@ -60,7 +60,7 @@ module.exports = {
 
             if (customers.length > 0) {
                 for(let i = 0; i < customers.length; i++) {
-                    let customer = new CustomerModel(customers[i].dataValues);
+                    let customer = new CustomerModel(customers[i].customer.dataValues);
                     results.push(customers);
                 }
             }
