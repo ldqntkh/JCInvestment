@@ -154,7 +154,7 @@ module.exports = {
                     where: whereOptions[2],
                     required: false
                 }],
-                group: ['wallet.id']
+                group: ['id']
             });
             if (listWallet.length > 0) {
                 for(let i = 0; i < listWallet.length; i++) {

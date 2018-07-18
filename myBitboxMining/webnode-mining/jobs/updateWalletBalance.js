@@ -45,9 +45,9 @@ var JobUpdateBalance = {
     },
 
     updateBalanceForCustomer: async(customerId) => {
-        let wallets = await WalletManager.getListWalletWithCalculation({
+        let wallets = await WalletManager.getListWalletWithCalculation([{
             customerId : customerId
-        });
+        }]);
 
         // mỗi wallet sẽ lấy được hashrate
         // tính ra được số coin
@@ -60,7 +60,8 @@ var JobUpdateBalance = {
                     //console.log(wallet.hashrate);
                     WalletManager.updateBalance({
                         walletId: wallet.id,
-                        balance: totalCoin
+                        balance: totalCoin,
+                        customerId: customerId
                     });
                     //console.log('Update balance:' + wallet.id)
                 }
@@ -76,7 +77,7 @@ var JobUpdateBalance = {
         
             if(customers !== null && customers.length > 0) {
                 for(let index = 0; index < customers.length; index ++) {
-                    //console.log('Update customer:' + customers[index].id)
+                   //console.log('Update customer:' + customers[index].id)
                     JobUpdateBalance.updateBalanceForCustomer(customers[index].id);
                 }
             }
