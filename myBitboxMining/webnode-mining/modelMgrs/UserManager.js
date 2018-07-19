@@ -13,7 +13,6 @@ const UserTable = sequelize.define('user', {
     fullname:  Sequelize.STRING,
     userTypeId: Sequelize.INTEGER,
     phone: Sequelize.STRING,
-    active: Sequelize.INTEGER,
     createAt: Sequelize.DATE,
     updateAt: Sequelize.DATE
 });

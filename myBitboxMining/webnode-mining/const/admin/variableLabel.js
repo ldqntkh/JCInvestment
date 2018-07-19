@@ -21,20 +21,42 @@ module.exports.en = {
     LABEL_PHONE_TITLE: 'Phone',
     LABEL_ACTION_TITLE: 'Action',
     LABEL_ACTIVE_TITLE: 'Active',
+    LABEL_START_DATE: 'Start date',
+    LABEL_END_DATE: 'End date',
+    LABEL_SKU: 'SKU',
+    LABEL_HASHRATE: 'Hashrate',
+    LABEL_USER_UPDATE: 'User update',
+    LABEL_PRICE: 'Price',
+    LABEL_SALE_PRICE: 'Sale price',
+    LABEL_CURRENCY: 'Currency',
+    LABEL_DESC_FIRST: 'Description 1',
+    LABEL_DESC_SECOND: 'Description 2',
+    LABEL_DESC_THIRD: 'Description 3',
+    LABEL_PERIOD: 'Period',
+    LABEL_STATE: 'State',
     // login
     LABEL_LOGIN_TITLE: 'Sign In',
     LABEL_EMAIL: 'Email',
     LABEL_PASSWORD: 'Password',
     LABEL_BUTTON_LOGIN: 'Login',
     LABEL_BUTTON_FORGOT_PASSWORD: 'Forgot password',
+
+    // label product
+    LABEL_MANAGE_PRODUCT: 'Manage product',
     // dashboard
     TITLE_CUSTOMER_DASHBOARD: 'User dashboard',
+    TITLE_LIST_PRODUCT: 'List products',
     ERROR_PASSWORD_CONFIRM_MESSAGE: 'The password confirm is incorrect. Please try again',
 
-    // route admin
+    // error message from server
     ERROR_CREATE_USER_MESSAGE: 'Error while creating user',
     ERROR_GETUSER: 'Error while geting user',
+    ERROR_AUTHENTICATION: 'Authentication failed',
+    ERROR_GET_LIST_PRODUCT: 'Error while getting list of product',
+    ERROR_NOT_FOUND_PRODUCT: 'There is no product been found',
+
     //login
     ERROR_INCORRECT_ACCOUNT: 'Incorrect email or password. Please try again',
-    ERROR_ACCOUNT_NOT_ADMIN: 'You do not have permission to login'
+    ERROR_ACCOUNT_NOT_ADMIN: 'You do not have permission to login',
+
 }

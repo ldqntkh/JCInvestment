@@ -1,5 +1,6 @@
 'use strict';
 const ProductModel = require('../models/Product');
+const PricebookModel = require('../models/Pricebook');
 const SequelizeConfig = require('./SequelizeConfig');
 
 // import const
@@ -10,9 +11,21 @@ const Sequelize = SequelizeConfig.getSequelizeModule();
 const sequelize = SequelizeConfig.init();
 
 const ProductTable = sequelize.define('product', {
-    name : Sequelize.STRING,
     sku : Sequelize.STRING,
     hashrate : Sequelize.FLOAT,
+    userUpdate : Sequelize.INTEGER,
+    createAt : Sequelize.DATE,
+    updateAt : Sequelize.DATE
+});
+
+const LocaleTable = sequelize.define('locale', {
+    name: Sequelize.STRING
+});
+
+const PricebookTable = sequelize.define('pricebook', {
+    productId: Sequelize.INTEGER,
+    localeId: Sequelize.STRING,
+    name : Sequelize.STRING,
     price : Sequelize.FLOAT,
     sale_price : Sequelize.FLOAT,
     currency : Sequelize.STRING,
@@ -21,29 +34,35 @@ const ProductTable = sequelize.define('product', {
     desc2 : Sequelize.STRING,
     desc3 : Sequelize.STRING,
     period : Sequelize.INTEGER,
-    enable : Sequelize.BOOLEAN,
-    userUpdate : Sequelize.INTEGER,
-    createAt : Sequelize.DATE,
-    updateAt : Sequelize.DATE
+    enable : Sequelize.BOOLEAN
 });
 
 module.exports = {
 
     /**
      * get list product enable
-     * @param {Object} field example: {enable: 1}
-     * @return {Object} List<ProductModel>
+     * @param {Array} options only use in where condition
+     * @return {Array} List of Product
      */
-    getListProduct: async (field) => {
+    getListProduct: async (options) => {
         let results = [];
+        let whereOptions = options ? options : [];
         try {
-            let products = await ProductTable.findAll({
-                where : field
+            await PricebookTable.belongsTo(ProductTable);
+            
+            let products = await PricebookTable.findAll({
+                where: whereOptions[0],
+                include: [
+                {
+                    model: ProductTable,
+                    where: whereOptions[1],
+                    required: false
+                }],
+                group: ['id']
             });
             if (products.length > 0) {
                 for(let i = 0; i < products.length; i++) {
-                    let productModel = new ProductModel(products[i].dataValues);
-                    results.push(productModel);
+                    results.push(products[i].dataValues);
                 }
             }
         } catch (err) {
