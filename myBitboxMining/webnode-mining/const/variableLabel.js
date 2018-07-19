@@ -160,6 +160,7 @@ module.exports.en = {
     WALLET_ADDRESS: 'Wallet address',
     WALLET_NAME: 'Wallet name',
     WALLET_DEFAULT_NAME_OPTION: 'Please choose your wallet to active product',
+    UPDATE_NEW_WALLET_BALANCE: 'Your wallet balance is changed to {0} ETH',
 
     // button name
     BTN_SUBMIT: 'Submit',

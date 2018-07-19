@@ -1,8 +1,10 @@
 'use strict';
 const WalletModel = require('../models/Wallet');
 const WalletBalanceModel = require('../models/WalletBalance');
+const CustomerHistoryModel = require('../models/CustomerHistory');
+const CustomerHistoryManager = require('../modelMgrs/CustomerHistoryManager');
 const SequelizeConfig = require('./SequelizeConfig');
-
+const showMessage = require('../global/ResourceHelper').showMessage;
 // require module
 const moment = require('moment');
 
@@ -152,7 +154,7 @@ module.exports = {
                     where: whereOptions[2],
                     required: false
                 }],
-                group: ['wallet.id']
+                group: ['id']
             });
             if (listWallet.length > 0) {
                 for(let i = 0; i < listWallet.length; i++) {
@@ -233,7 +235,11 @@ module.exports = {
                 await WalletBalance.create(walletBalanceObj);
             }
 
-            await WalletBalance.update
+            await CustomerHistoryManager.createHistory(new CustomerHistoryModel({
+                customerId: field.customerId,
+                description : showMessage('UPDATE_NEW_WALLET_BALANCE', [walletBalanceObj.getBalance()]),
+                createAt : moment(Date.now()).format('YYYY-MM-DD HH:mm:ss')
+            }));
         } catch (err) {
             console.log(err.message);
         }

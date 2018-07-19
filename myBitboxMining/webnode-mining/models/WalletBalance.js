@@ -29,6 +29,10 @@ class WalletBalance {
         this.balance = this.balance + balance;
     }
 
+    getBalance() {
+        return this.balance;
+    }
+
     setTimeUpdate(time) {
         this.updateAt = time;
     }
