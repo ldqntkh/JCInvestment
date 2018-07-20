@@ -174,67 +174,64 @@ export default class ListProductComponent extends Component {
         if (!this.state.loaded) screen = <i className="fa fa-spinner fa-spin fa-icon-loading"></i>
         else {
             screen = this.state.listProduct.map((item, index)=> {
-                return  <ProductItemComponent dataPriceBook={item} dataProduct={item.product} key={index} />;
+                return  <ProductItemComponent dataPriceBook={item.pricebooks} dataProduct={item} key={index} />;
             });
             screen = <React.Fragment>
-                        <div className="card-header card-header-warning">
-                            <h4 className="card-title">{showMessage('TITLE_LIST_PRODUCT')}</h4>
-                            <p className="card-category"></p>
-                        </div>
-                        <div className="card-body table-responsive">
-                            <table className="table table-hover text-center">
-                                <thead className="text-warning">
-                                    <tr>
-                                        <th>{showMessage('LABEL_ID_TITLE')}</th>
-                                        <th>{showMessage('LABEL_NAME_TITLE')}</th>
-                                        <th>{showMessage('LABEL_SKU')}</th>
-                                        <th>{showMessage('LABEL_PERIOD')}</th>
-                                        <th>{showMessage('LABEL_STATE')}</th>
-                                        <th>{showMessage('LABEL_ACTION_TITLE')}</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {screen}
-                                </tbody>
-                            </table>
-                        </div>
-                        <div className="card-footer">
-                            <div className="stats">
-                                <i className="material-icons">access_time</i> {showMessage('RC_REFRESH')}
+                        <div className="card">
+                            <div className="card-header card-header-warning">
+                                <h4 className="card-title">{showMessage('TITLE_LIST_PRODUCT')}</h4>
+                                <p className="card-category"></p>
+                            </div>
+                            <div className="card-body table-responsive">
+                                <table className="table table-hover text-center">
+                                    <thead className="text-warning">
+                                        <tr>
+                                            <th>{showMessage('LABEL_ID_TITLE')}</th>
+                                            <th>{showMessage('LABEL_NAME_TITLE')}</th>
+                                            <th>{showMessage('LABEL_SKU')}</th>
+                                            <th>{showMessage('LABEL_PERIOD')}</th>
+                                            <th>{showMessage('LABEL_STATE')}</th>
+                                            <th>{showMessage('LABEL_ACTION_TITLE')}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {screen}
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div className="card-footer">
+                                <div className="stats">
+                                    <i className="material-icons">access_time</i> {showMessage('RC_REFRESH')}
+                                </div>
                             </div>
                         </div>
-                        { page && page !== "my-product" ? null :
-                            <Modal
-                                isOpen={this.state.modalIsOpen}
-                                onRequestClose={this.closeModal}
-                                style={customStyles}>
-                                <div className="modal-content update-product-container">
-                                    <div className="modal-body text-center">
-                                        <h3><i className="fa fa-folder fa-4x"></i></h3>
-                                        <h2 className="text-center">{showMessage('RC_UPDATE_PRODUCT')}</h2>
-                                        <div className="form-group">
-                                            <select className="form-control wallet-address" name="wallet-address" onChange={this._handleChange}>
-                                                {this.state.listWallets.map((item, index) =>
-                                                    <option key={index} value={item.id} >{item.walletName}</option>
-                                                )}
-                                            </select>
-                                        </div>
-                                        {this.state.err === "" ? "" : this.state.err}
-                                        <div className="form-group">
-                                            <button onClick={this._handleUpdateProduct} type="button" name="recover-submit" className="btn btn-lg btn-primary btn-success" value={showMessage('BTN_SUBMIT')}>{showMessage('BTN_SUBMIT')}</button>
-                                        </div>
+                        <Modal
+                            isOpen={this.state.modalIsOpen}
+                            onRequestClose={this.closeModal}
+                            style={customStyles}>
+                            <div className="modal-content update-product-container">
+                                <div className="modal-body text-center">
+                                    <h3><i className="fa fa-folder fa-4x"></i></h3>
+                                    <h2 className="text-center">{showMessage('RC_UPDATE_PRODUCT')}</h2>
+                                    <div className="form-group">
+                                        <select className="form-control wallet-address" name="wallet-address" onChange={this._handleChange}>
+                                            <option>Default Option</option>
+                                        </select>
+                                    </div>
+                                    {this.state.err === "" ? "" : this.state.err}
+                                    <div className="form-group">
+                                        <button onClick={this._handleUpdateProduct} type="button" name="recover-submit" className="btn btn-lg btn-primary btn-success" value={showMessage('BTN_SUBMIT')}>{showMessage('BTN_SUBMIT')}</button>
                                     </div>
                                 </div>
-                            </Modal>
-                        }
+                            </div>
+                        </Modal>
                     </React.Fragment>
         }
         
         return (
             <div className="col-lg-12 col-md-12">
-                <div className="card">
+                <a href="/admin-product/add" className="btn btn-success">{showMessage('LABEL_ADD_NEW_PRODUCT')}</a>
                     {screen}
-                </div>
             </div>
         );
     }

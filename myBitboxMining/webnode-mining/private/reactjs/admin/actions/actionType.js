@@ -1,2 +1,2 @@
 export const ADD_LIST_PRODUCT = 'ADD_LIST_PRODUCT';
-
+export const ADD_PRODUCT_ITEM = 'ADD_PRODUCT_ITEM';

@@ -7,6 +7,9 @@ const moment = require('moment');
 // import class manager
 const ProductManager = require('../../modelMgrs/ProductManager');
 const ProductOfCustomerManager = require('../../modelMgrs/ProductOfCustomerManager');
+const LocaleManager = require('../../modelMgrs/LocaleManager');
+
+// import resource helper
 const showAdminMessage = require('../../global/ResourceHelper').showAdminMessage;
 
 router.get('/list', async (req, res, next)=> {
@@ -16,12 +19,7 @@ router.get('/list', async (req, res, next)=> {
         if (typeof req.session.user === 'undefined' || req.session.user === null) {
             errMessage = showAdminMessage('ERROR_AUTHENTICATION');
         } else {
-            let listProduct = await ProductManager.getListProduct([
-                {
-                    localeId: 'en'
-                }
-            ]);
-            console.log(listProduct);
+            let listProduct = await ProductManager.getListProduct();
             if (listProduct.length > 0) {
                 res.send({
                     status: "success",
@@ -134,5 +132,32 @@ router.get('/:productId/delete', async (req, res) => {
         data : null,
         errMessage : errMessage
     });
+});
+
+router.get('/locale/list', async(req, res) => {
+    let errMessage = '';
+    try {
+        if (!req.session.user) return res.redirect('/admin/login');
+
+        let listLocale = await LocaleManager.getListLocale();
+        if (listLocale.length > 0) {
+            res.send({
+                status: 'success',
+                data: listLocale,
+                errMessage: ''
+            });
+            return;
+        } else {
+            errMessage = showMessage('ERROR_NOT_FOUND_LOCALE');
+        }
+    } catch(err) {
+        console.log(err.message);
+        errMessage =  showMessage('ERROR_GET_LIST_LOCALE') + err.message;
+    }
+    res.send({
+        status: 'fail',
+        data: '',
+        errMessage: errMessage
+    })
 });
 module.exports = router;

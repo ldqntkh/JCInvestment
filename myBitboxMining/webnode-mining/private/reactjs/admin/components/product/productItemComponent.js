@@ -12,8 +12,8 @@ export default class ProductItemComponent extends Component {
 
         this.state = {
             modalIsOpen: false,
-            listWallets: [],
-            walletAddress: ''
+            productItem: '',
+            pricesBooks: []
         };
 
         this.openModal = this.openModal.bind(this);
@@ -30,20 +30,24 @@ export default class ProductItemComponent extends Component {
 
     render() {
         let product = this.props.dataProduct;
-        let priceBook = this.props.dataPriceBook;
+        let priceBook = '';
+        if (this.props.dataPriceBook.length > 0) {
+            priceBook = this.props.dataPriceBook.sort()[0];
+            console.log(priceBook);
+        }
         return(
             <tr>
                 <td>{product.id}</td>
-                <td>{priceBook.name}</td>
+                <td>{priceBook !== '' ? priceBook.name : ''}</td>
                 <td>{product.sku}</td>
-                <td>{priceBook.period}</td>
-                <td>{priceBook.enable === false ? "Not active" : "Active"}</td>
+                <td>{priceBook !== '' ? priceBook.period : ''}</td>
+                <td>{priceBook !== '' && priceBook.enable ? "Active" : "Not active"}</td>
                 <td className="td-actions">
                     <i className="material-icons product-detail">search</i>
-                    {!priceBook.enable && <button type="button" rel="tooltip" title="" className="btn btn-primary btn-link btn-sm" data-original-title="Edit product" onClick={this.openModal}>
+                    {priceBook !== '' && !priceBook.enable && <button type="button" rel="tooltip" title="" className="btn btn-primary btn-link btn-sm" data-original-title="Edit product" onClick={this.openModal}>
                         <i className="material-icons">edit</i>
                     </button>}
-                    {priceBook.expired && <button type="button" rel="tooltip" title="" className="btn btn-danger btn-link btn-sm" data-original-title="Remove" onClick={this._removeProductModal}>
+                    {priceBook !== '' && priceBook.expired && <button type="button" rel="tooltip" title="" className="btn btn-danger btn-link btn-sm" data-original-title="Remove" onClick={this._removeProductModal}>
                         <i className="material-icons">close</i>
                     </button>}
                 </td>

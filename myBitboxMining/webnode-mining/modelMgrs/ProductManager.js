@@ -48,17 +48,16 @@ module.exports = {
         let results = [];
         let whereOptions = options ? options : [];
         try {
-            await PricebookTable.belongsTo(ProductTable);
+            await ProductTable.hasMany(PricebookTable, {foreignKey: 'productId', targetKey: 'id'});
             
-            let products = await PricebookTable.findAll({
+            let products = await ProductTable.findAll({
                 where: whereOptions[0],
                 include: [
                 {
-                    model: ProductTable,
+                    model: PricebookTable,
                     where: whereOptions[1],
-                    required: false
-                }],
-                group: ['id']
+                    require: false
+                }]
             });
             if (products.length > 0) {
                 for(let i = 0; i < products.length; i++) {

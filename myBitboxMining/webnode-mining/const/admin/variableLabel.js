@@ -29,11 +29,15 @@ module.exports.en = {
     LABEL_PRICE: 'Price',
     LABEL_SALE_PRICE: 'Sale price',
     LABEL_CURRENCY: 'Currency',
+    LABEL_CURRENCY_SYMBOL: 'Symbol currency',
     LABEL_DESC_FIRST: 'Description 1',
     LABEL_DESC_SECOND: 'Description 2',
     LABEL_DESC_THIRD: 'Description 3',
     LABEL_PERIOD: 'Period',
     LABEL_STATE: 'State',
+    LABEL_LOCALE: 'Locale',
+    LABEL_DEFAULT: 'Default',
+    LABEL_APPLY: 'Apply',
     // login
     LABEL_LOGIN_TITLE: 'Sign In',
     LABEL_EMAIL: 'Email',
@@ -43,6 +47,8 @@ module.exports.en = {
 
     // label product
     LABEL_MANAGE_PRODUCT: 'Manage product',
+    LABEL_ADD_NEW_PRODUCT: 'Add new product',
+    LABEL_ADD_OR_UPDATE_PRODUCT: 'Add or update product',
     // dashboard
     TITLE_CUSTOMER_DASHBOARD: 'User dashboard',
     TITLE_LIST_PRODUCT: 'List products',
@@ -54,6 +60,8 @@ module.exports.en = {
     ERROR_AUTHENTICATION: 'Authentication failed',
     ERROR_GET_LIST_PRODUCT: 'Error while getting list of product',
     ERROR_NOT_FOUND_PRODUCT: 'There is no product been found',
+    ERROR_GET_LIST_LOCALE: 'Error while getting list of locale',
+    ERROR_NOT_FOUND_LOCALE: 'There is no locale been found',
 
     //login
     ERROR_INCORRECT_ACCOUNT: 'Incorrect email or password. Please try again',
