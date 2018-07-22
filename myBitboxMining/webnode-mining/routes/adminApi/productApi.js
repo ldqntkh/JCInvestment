@@ -241,8 +241,9 @@ router.post('/product/update/:productId', async(req, res) => {
             localeId: data.localeId
         });
 
-        if (existedProduct === null && existedPriceBook === null) {
+        if (existedProduct.getId() !== null && existedPriceBook.getLocaleId() === data.localeId) {
             product.setId(productId);
+            product.localeId = data.localeId;
             let affectedRows = await ProductManager.updateProduct(product);
             if (affectedRows > 0) {
                 res.send({

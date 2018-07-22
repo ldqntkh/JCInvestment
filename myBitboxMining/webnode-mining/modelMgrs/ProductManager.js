@@ -151,7 +151,10 @@ module.exports = {
             });
             if (affectedRows.length > 0) {
                 affectedRows = await PricebookTable.update(productObj, {
-                    where: {productId: productObj.getId()}
+                    where: {
+                        productId: productObj.getId(),
+                        localeId: productObj.localeId
+                    }
                 });
             }
             return affectedRows.length > 0 ? affectedRows[0] : -1;

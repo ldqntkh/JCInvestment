@@ -45,6 +45,14 @@ class Pricebook {
     }
 
     /**
+     * get localeId
+     * @returns {String} localeId
+     */
+    getLocaleId() {
+        return this.localeId;
+    }
+
+    /**
      * get product name
      * @returns {String} product nanme
      */
