@@ -7,9 +7,8 @@ import ProductItemComponent from '../../../admin/components/product/productItemC
 
 // import variable
 import { API_ADMIN_URL } from '../../const/variable';
-
 // import const
-const showMessage = require('../../../../../global/ResourceHelper').showAdminMessage;
+const {showMessage, showAdminMessage} = require('../../../../../global/ResourceHelper');
 
 const customStyles = {
     content : {
@@ -139,7 +138,7 @@ export default class ListProductComponent extends Component {
                     return (
                         <div className='custom-ui'>
                             <h1>{showMessage('AL_TITLE_CONFIRM')}</h1>
-                            <p>  {showMessage('AL_TITLE_DESC', ['product name: ' + productItem.name])} </p>
+                            <p>  {showMessage('AL_TITLE_DESC')} </p>
                             <div className="form-group">
                                 <button onClick={()=> { onClose();}} type="button" name="recover-submit" className="btn btn-lg btn-primary" value={showMessage('AL_BTN_NO')}>{showMessage('AL_BTN_NO')}</button>
                                 <button onClick={() => {
@@ -157,7 +156,7 @@ export default class ListProductComponent extends Component {
 
     async _handleRemoveProduct(productItem, callback) {
         try {
-            let result = await fetch(API_URL + 'products/' + productItem.id + '/delete',{
+            let result = await fetch(API_ADMIN_URL + 'products/' + productItem.id + '/delete',{
                 method: 'GET',
                 credentials: 'same-origin'
             });
@@ -181,24 +180,24 @@ export default class ListProductComponent extends Component {
         if (!this.state.loaded) screen = <i className="fa fa-spinner fa-spin fa-icon-loading"></i>
         else {
             screen = this.props.dataProduct.map((item, index)=> {
-                return  <ProductItemComponent dataPriceBook={item.pricebooks} dataProduct={item} key={index} />;
+                return  <ProductItemComponent dataPriceBook={item.pricebooks} dataProduct={item} key={index} _openConfirmationPopup={this._openConfirmationPopup}/>;
             });
             screen = <React.Fragment>
                         <div className="card">
                             <div className="card-header card-header-warning">
-                                <h4 className="card-title">{showMessage('TITLE_LIST_PRODUCT')}</h4>
+                                <h4 className="card-title">{showAdminMessage('TITLE_LIST_PRODUCT')}</h4>
                                 <p className="card-category"></p>
                             </div>
                             <div className="card-body table-responsive">
                                 <table className="table table-hover text-center">
                                     <thead className="text-warning">
                                         <tr>
-                                            <th>{showMessage('LABEL_ID_TITLE')}</th>
-                                            <th>{showMessage('LABEL_NAME_TITLE')}</th>
-                                            <th>{showMessage('LABEL_SKU')}</th>
-                                            <th>{showMessage('LABEL_PERIOD')}</th>
-                                            <th>{showMessage('LABEL_STATE')}</th>
-                                            <th>{showMessage('LABEL_ACTION_TITLE')}</th>
+                                            <th>{showAdminMessage('LABEL_ID_TITLE')}</th>
+                                            <th>{showAdminMessage('LABEL_NAME_TITLE')}</th>
+                                            <th>{showAdminMessage('LABEL_SKU')}</th>
+                                            <th>{showAdminMessage('LABEL_PERIOD')}</th>
+                                            <th>{showAdminMessage('LABEL_STATE')}</th>
+                                            <th>{showAdminMessage('LABEL_ACTION_TITLE')}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -208,7 +207,7 @@ export default class ListProductComponent extends Component {
                             </div>
                             <div className="card-footer">
                                 <div className="stats">
-                                    <i className="material-icons">access_time</i> {showMessage('RC_REFRESH')}
+                                    <i className="material-icons">access_time</i> {showAdminMessage('RC_REFRESH')}
                                 </div>
                             </div>
                         </div>
@@ -219,7 +218,7 @@ export default class ListProductComponent extends Component {
                             <div className="modal-content update-product-container">
                                 <div className="modal-body text-center">
                                     <h3><i className="fa fa-folder fa-4x"></i></h3>
-                                    <h2 className="text-center">{showMessage('RC_UPDATE_PRODUCT')}</h2>
+                                    <h2 className="text-center">{showAdminMessage('RC_UPDATE_PRODUCT')}</h2>
                                     <div className="form-group">
                                         <select className="form-control wallet-address" name="wallet-address" onChange={this._handleChange}>
                                             <option>Default Option</option>
@@ -227,7 +226,7 @@ export default class ListProductComponent extends Component {
                                     </div>
                                     {this.state.err === "" ? "" : this.state.err}
                                     <div className="form-group">
-                                        <button onClick={this._handleUpdateProduct} type="button" name="recover-submit" className="btn btn-lg btn-primary btn-success" value={showMessage('BTN_SUBMIT')}>{showMessage('BTN_SUBMIT')}</button>
+                                        <button onClick={this._handleUpdateProduct} type="button" name="recover-submit" className="btn btn-lg btn-primary btn-success" value={showAdminMessage('BTN_SUBMIT')}>{showAdminMessage('BTN_SUBMIT')}</button>
                                     </div>
                                 </div>
                             </div>
@@ -237,7 +236,7 @@ export default class ListProductComponent extends Component {
         
         return (
             <div className="col-lg-12 col-md-12">
-                <a href="/admin-product/add" className="btn btn-success">{showMessage('LABEL_ADD_NEW_PRODUCT')}</a>
+                <a href="/admin-product/add" className="btn btn-success">{showAdminMessage('LABEL_ADD_NEW_PRODUCT')}</a>
                     {screen}
             </div>
         );

@@ -1,11 +1,6 @@
 import React, {Component} from 'react';
 import { Link } from "react-router-dom";
 
-// import const
-import { MAIN_URL, API_URL } from '../../const/variable';
-
-const showMessage = require('../../../../../global/ResourceHelper').showMessage;
-
 export default class ProductItemComponent extends Component {
 
     constructor(props) {
@@ -26,7 +21,7 @@ export default class ProductItemComponent extends Component {
     }
 
     _removeProductModal (){
-        this.props.onDeleteProduct(this.props.dataProduct);
+        this.props._openConfirmationPopup(this.props.dataProduct);
     }
 
     render() {
@@ -44,12 +39,9 @@ export default class ProductItemComponent extends Component {
                 <td>{priceBook !== '' && priceBook.enable ? "Active" : "Not active"}</td>
                 <td className="td-actions">
                     <Link to={'/admin-product/detail/' + product.id}><i className="material-icons product-detail">search</i></Link>
-                    {priceBook !== '' && !priceBook.enable && <button type="button" rel="tooltip" title="" className="btn btn-primary btn-link btn-sm" data-original-title="Edit product">
-                        <i className="material-icons">edit</i>
-                        </button>}
-                    {priceBook !== '' && priceBook.expired && <button type="button" rel="tooltip" title="" className="btn btn-danger btn-link btn-sm" data-original-title="Remove" onClick={this._removeProductModal}>
+                    <button type="button" rel="tooltip" title="" className="btn btn-danger btn-link btn-sm" data-original-title="Remove" onClick={this._removeProductModal}>
                         <i className="material-icons">close</i>
-                    </button>}
+                    </button>
                 </td>
             </tr>
         );

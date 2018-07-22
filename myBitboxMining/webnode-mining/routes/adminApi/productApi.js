@@ -6,14 +6,14 @@ const moment = require('moment');
 
 // import class manager
 const ProductManager = require('../../modelMgrs/ProductManager');
-const ProductOfCustomerManager = require('../../modelMgrs/ProductOfCustomerManager');
 const LocaleManager = require('../../modelMgrs/LocaleManager');
 const PriceBookManager = require('../../modelMgrs/PriceBookManager');
 
 const ProductModel = require('../../models/Product');
 // import resource helper
-const showAdminMessage = require('../../global/ResourceHelper').showAdminMessage;
+const {showAdminMessage, showMessage} = require('../../global/ResourceHelper');
 
+// get list product ADMIN
 router.get('/list', async (req, res, next)=> {
     let errMessage = '';
     try {
@@ -43,74 +43,11 @@ router.get('/list', async (req, res, next)=> {
     });
 });
 
-// get product of customer
-router.get('/product_of_customer', async(req, res, next) => {
-    try {
-        // check session or token
-        if (typeof req.session.customer === 'undefined' || req.session.customer === null) {
-            res.send({
-                status: "fail",
-                data : null,
-                errMessage : "Authentication failed"
-            });
-        } else {
-            let result = await ProductOfCustomerManager.getListProductOfCustomer({
-                customerId : req.session.customer.id
-            });
-            res.send({
-                status: "success",
-                data : result,
-                errMessage : null
-            });
-        }
-    } catch(err) {
-        console.log(err.message);
-        res.send({
-            status: "fail",
-            data : null,
-            errMessage : err.message
-        });
-    }
-});
-
-router.post('/update', async (req, res) => {
-    let errMessage = showMessage('ERROR_UPDATE_PRODUCT');
-    try {
-        let product = req.body.productItem;
-        if (product && product.walletId !== '') {
-            let currentDate = moment(Date.now());
-
-            product.startDate = currentDate.format('YYYY-MM-DD HH:mm:ss');
-            product.endDate = currentDate.add(product.period, 'months').format('YYYY-MM-DD HH:mm:ss');
-            product.active = true;
-            product.updateAt = currentDate.format('YYYY-MM-DD HH:mm:ss');
-
-            let affectedRows = await ProductOfCustomerManager.updateProduct(product, {id: product.id});
-
-            if (affectedRows > 0) {
-                product.startDate = moment(new Date(product.startDate)).format('DD/MM/YYYY');
-                product.endDate = moment(new Date(product.endDate)).format('DD/MM/YYYY');
-                return res.send({
-                    status: 'success',
-                    data: product,
-                    errMessage: ''
-                })
-            }
-        }
-    } catch(err) {
-        errMessage = errMessage + err.message;
-    }
-    res.send({
-        status: 'fail',
-        data: null,
-        errMessage: errMessage
-    });
-});
-
+// delete product by productId
 router.get('/:productId/delete', async (req, res) => {
     let errMessage = showMessage('ERROR_CANNOT_REMOVE_PRODUCT');
     try {
-        if (typeof req.session.customer === 'undefined' || req.session.customer === null) {
+        if (typeof req.session.user === 'undefined' || req.session.user === null) {
             res.send({
                 status: 'fail',
                 data : null,
@@ -118,7 +55,7 @@ router.get('/:productId/delete', async (req, res) => {
             });
         } else {
             let productId = req.params.productId ? req.params.productId : '';
-            if (await ProductOfCustomerManager.deleteProduct({id: productId}) > 0) {
+            if (await ProductManager.deleteProduct({id: productId}) > 0) {
                 return res.send({
                     status: 'success',
                     data: null,
@@ -136,6 +73,7 @@ router.get('/:productId/delete', async (req, res) => {
     });
 });
 
+// get list locale ?? tại sao lại để chung trong productApi
 router.get('/locale/list', async(req, res) => {
     let errMessage = '';
     try {
@@ -175,6 +113,7 @@ router.post('/product/add', async(req, res) => {
         let product = await ProductManager.addProduct(new ProductModel(data));
         if (product !== null) {
             product.productId = product.getId();
+            delete product.id;
             if (await PriceBookManager.addPriceBook(product) !== null) {
                 res.send({
                     status: 'success',
@@ -195,6 +134,7 @@ router.post('/product/add', async(req, res) => {
     });
 });
 
+// get product detail by productId
 router.get('/product/detail/:productId', async(req, res) => {
     let errMessage = '';
     try {
@@ -241,7 +181,7 @@ router.post('/product/update/:productId', async(req, res) => {
             localeId: data.localeId
         });
 
-        if (existedProduct.getId() !== null && existedPriceBook.getLocaleId() === data.localeId) {
+        if (existedProduct.getId() !== null && existedPriceBook !== null && existedPriceBook.getLocaleId() === data.localeId) {
             product.setId(productId);
             product.localeId = data.localeId;
             let affectedRows = await ProductManager.updateProduct(product);

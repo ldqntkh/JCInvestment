@@ -162,5 +162,22 @@ module.exports = {
             console.log(showMessage('ERROR_UPDATE_PRODUCT') + err.message);
             return null;
         }
+    },
+
+    /**
+     * delete product 
+     * @param {Object} {id : id}
+     * @return {Number} affectedRows
+     */
+    deleteProduct: async(whereOption) => {
+        let affectedRows = -1;
+        try {
+            affectedRows = await ProductTable.destroy({
+                where : whereOption
+            });
+        } catch (err) {
+            console.log(err.message);
+        }
+        return affectedRows;
     }
 }

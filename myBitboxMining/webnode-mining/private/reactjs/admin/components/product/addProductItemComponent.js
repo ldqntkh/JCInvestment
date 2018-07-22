@@ -16,7 +16,7 @@ export default class ProductItemComponent extends Component {
             productItem: '',
             listLocale: [],
             productId: '',
-            localeId: '',
+            localeId: 'en',
             name: '',
             sku: '',
             hashrate: '',
@@ -140,8 +140,6 @@ export default class ProductItemComponent extends Component {
                 if (typeof product.pricebooks !== 'undefined' && product.pricebooks.length > 0) {
                     let priceBook = product.pricebooks[0];
                     this.setState({
-                        hashrate: product.hashrate,
-                        sku: product.sku,
                         name: priceBook.name,
                         period: priceBook.period,
                         localeId: priceBook.localeId,
@@ -156,8 +154,6 @@ export default class ProductItemComponent extends Component {
                     });
                 } else {
                     this.setState({
-                        hashrate: '',
-                        sku: '',
                         name: '',
                         period: '',
                         localeId: localeId,
