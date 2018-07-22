@@ -39,8 +39,6 @@ const PricebookTable = sequelize.define('pricebook', {
     enable : Sequelize.BOOLEAN
 });
 
-// ignore column id
-PricebookTable.removeAttribute('id');
 module.exports = {
 
     /**
@@ -53,13 +51,13 @@ module.exports = {
         let whereOptions = options ? options : [];
         try {
             await ProductTable.hasMany(PricebookTable, {foreignKey: 'productId', targetKey: 'id'});
-            
+
             let products = await ProductTable.findAll({
-                where: whereOptions[0],
+                where: whereOptions.length > 0 ? whereOptions[0] : whereOptions,
                 include: [
                 {
                     model: PricebookTable,
-                    where: whereOptions[1],
+                    where: whereOptions.length > 0 ? whereOptions[1] : whereOptions,
                     require: false
                 }]
             });

@@ -22,28 +22,29 @@ export default class ProductItemComponent extends Component {
 
     render() {
         let product = this.props.dataProduct;
+        let priceBook = this.props.dataPriceBook;
         return(
             <div className="col-lg-3 col-md-6 col-sm-6">
                 <div className="card cart-product">
                     <div className="card-header-product">
                         <h4 className="card-title">
                             <strong>{showMessage('RC_ADDON')}</strong><br/>
-                            <span>{ product.name.toUpperCase() }</span>
+                            <span>{ priceBook.name.toUpperCase() }</span>
                         </h4>
                         <h3>
                             <span>{showMessage('RC_PRICE')}</span>
-                            {product.sale_price !== null ? <React.Fragment><del>{product.symbol_currency}{product.price}</del>{product.symbol_currency}{product.sale_price}</React.Fragment> : product.symbol_currency + product.price}
+                            {priceBook.sale_price !== null ? <React.Fragment><del>{priceBook.symbol_currency}{priceBook.price}</del>{priceBook.symbol_currency}{priceBook.sale_price}</React.Fragment> : priceBook.symbol_currency + priceBook.price}
                         </h3>
                         <button className="btn-buy" onClick={this._onSubmit}>{showMessage('RC_BUY')}</button>
                     </div>
                     <div className="card-body">
                         <p className="card-category">
-                            { product.desc1 }
+                            { priceBook.desc1 }
                         </p>
-                        { product.desc2 && <p className="card-category">
-                            {product.desc2}
+                        { priceBook.desc2 && <p className="card-category">
+                            {priceBook.desc2}
                         </p> }
-                        { product.desc3 && <p className="card-category">
+                        { priceBook.desc3 && <p className="card-category">
                             {product.desc3}
                         </p> }
                     </div>

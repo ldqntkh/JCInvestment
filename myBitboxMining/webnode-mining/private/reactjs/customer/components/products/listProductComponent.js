@@ -13,7 +13,8 @@ export default class ListProductComponent extends Component {
         super(props);
         this.state = {
             loaded: false,
-            listProduct: []
+            listProduct: [],
+            localeId: 'en'
         }
     }
 
@@ -53,7 +54,11 @@ export default class ListProductComponent extends Component {
         if (!this.state.loaded) screen = <i className="fa fa-spinner fa-spin fa-icon-loading"></i>
         else {
             screen = this.state.listProduct.map((item, index)=> {
-                return <ProductItemComponent dataProduct={item} key={index} />;
+                let indexOfPriceBook = item.pricebooks.findIndex(item => item.localeId === this.state.localeId); // return -1 if not match condition
+                let priceBook = item.pricebooks[indexOfPriceBook];
+                if (typeof priceBook !== 'undefined') {
+                    return <ProductItemComponent dataPriceBook={priceBook} dataProduct={item} key={index} />;
+                }
             });
         }
         return (
