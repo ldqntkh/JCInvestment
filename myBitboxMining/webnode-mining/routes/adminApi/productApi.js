@@ -8,7 +8,9 @@ const moment = require('moment');
 const ProductManager = require('../../modelMgrs/ProductManager');
 const ProductOfCustomerManager = require('../../modelMgrs/ProductOfCustomerManager');
 const LocaleManager = require('../../modelMgrs/LocaleManager');
+const PriceBookManager = require('../../modelMgrs/PriceBookManager');
 
+const ProductModel = require('../../models/Product');
 // import resource helper
 const showAdminMessage = require('../../global/ResourceHelper').showAdminMessage;
 
@@ -159,5 +161,144 @@ router.get('/locale/list', async(req, res) => {
         data: '',
         errMessage: errMessage
     })
+});
+
+router.post('/product/add', async(req, res) => {
+    let errMessage = '';
+    try {
+        if (!req.session.user) return res.redirect('/admin/login');
+
+        let data = req.body.product ? req.body.product : '';
+
+        // add userUpdate into product table
+        data.userUpdate = req.session.user.id;
+        let product = await ProductManager.addProduct(new ProductModel(data));
+        if (product !== null) {
+            product.productId = product.getId();
+            if (await PriceBookManager.addPriceBook(product) !== null) {
+                res.send({
+                    status: 'success',
+                    data: '',
+                    errMessage: errMessage
+                });
+                return;
+            }
+        }
+        errMessage = showAdminMessage('ERROR_CREATE_PRODUCT');
+    } catch(err) {
+        console.log(err.message);
+    }
+    res.send({
+        status: 'fail',
+        data: '',
+        errMessage: errMessage
+    });
+});
+
+router.get('/product/detail/:productId', async(req, res) => {
+    let errMessage = '';
+    try {
+        if (!req.session.user) return res.redirect('/admin/login');
+
+        let product = await ProductManager.getProductByField([{id: req.params.productId}]);
+        if (product !== null) {
+            res.send({
+                status: 'success',
+                data: product,
+                errMessage: errMessage
+            });
+            return;
+        } else {
+            errMessage = 'Can not get product detail';
+        }
+    } catch(err) {
+        console.log(err.message);
+    }
+    res.send({
+        status: 'fail',
+        data: '',
+        errMessage: errMessage
+    });
+});
+
+router.post('/product/update/:productId', async(req, res) => {
+    let errMessage = '';
+    try {
+        if (!req.session.user) return res.redirect('/admin/login');
+
+        let data = req.body.product ? req.body.product : '';
+        let productId = req.params.productId ? req.params.productId : '';
+        let product = new ProductModel(data);
+        let priceBooks = data.pricebooks;
+        // add userUpdate into product table
+        data.userUpdate = req.session.user.id;
+
+        let existedProduct = await ProductManager.getProductByField([
+            {id: productId},
+        ]);
+
+        let existedPriceBook = await PriceBookManager.getPriceBook({
+            localeId: data.localeId
+        });
+
+        if (existedProduct === null && existedPriceBook === null) {
+            product.setId(productId);
+            let affectedRows = await ProductManager.updateProduct(product);
+            if (affectedRows > 0) {
+                res.send({
+                    status: 'success',
+                    data: '',
+                    errMessage: errMessage
+                });
+                return;
+            }
+        } else {
+            data.productId = productId;
+            if (await PriceBookManager.addPriceBook(data) !== null) {
+                res.send({
+                    status: 'success',
+                    data: '',
+                    errMessage: errMessage
+                });
+                return;
+            }
+        }
+
+        errMessage = showAdminMessage('ERROR_CANNOT_UPDATE_PRODUCT');
+    } catch(err) {
+        console.log(err.message);
+    }
+    res.send({
+        status: 'fail',
+        data: '',
+        errMessage: errMessage
+    });
+});
+
+router.get('/product/:productId/locale/:localeId', async(req, res) => {
+    let errMessage = '';
+    try {
+        if (!req.session.user) return res.redirect('/admin/login');
+
+        let localeId = req.params.localeId === '' ? 'en' : req.params.localeId;
+        let product = await ProductManager.getProductByField([{id: req.params.productId}, {localeId: localeId}]);
+        if (product !== null) {
+            res.send({
+                status: 'success',
+                data: product,
+                errMessage: errMessage
+            });
+            return;
+        } else {
+            errMessage = 'Can not get product detail';
+        }
+    } catch(err) {
+        console.log(err.message);
+    }
+    res.send({
+        status: 'fail',
+        data: '',
+        errMessage: errMessage
+    });
 });
 module.exports = router;

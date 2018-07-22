@@ -14,11 +14,19 @@ class Product {
     }
 
     /**
-     * get product sku
-     * @returns {String} product sku
+     * get product id
+     * @returns {Number} product id
      */
-    getSku() {
-        return this.sku;
+    getId() {
+        return this.id;
+    }
+
+    /**
+     * set product id
+     * @param {Number} product id
+     */
+    setId(id) {
+        this.id = id;
     }
 
     /**
@@ -43,6 +51,30 @@ class Product {
      */
     getHashrate() {
         return this.hashrate;
+    }
+
+    /**
+     * set createAt of product
+     * @param {Date} createAt
+     */
+    setCreateAt(createAt) {
+        this.createAt = createAt;
+    }
+
+    /**
+     * get createAt of product
+     * @param {Date} createAt
+     */
+    getCreateAt() {
+        return this.createAt;
+    }
+
+    /**
+     * set updateAt of product
+     * @param {Date} updateAt
+     */
+    setUpdateAt(updateAt) {
+        this.updateAt = updateAt;
     }
 }
 module.exports = Product;

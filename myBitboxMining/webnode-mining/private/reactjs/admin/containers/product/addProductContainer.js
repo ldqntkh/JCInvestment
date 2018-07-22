@@ -5,6 +5,7 @@ import {
 } from '../../actions/product/productAction';
 
 const mapStateToProps = state => ({
+    dataProduct: state.ProductDataReducer
 });
 
 const mapDispatchToProps = dispatch => ({

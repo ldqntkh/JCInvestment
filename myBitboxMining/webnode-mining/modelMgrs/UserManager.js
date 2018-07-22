@@ -17,9 +17,6 @@ const UserTable = sequelize.define('user', {
     updateAt: Sequelize.DATE
 });
 
-// ignore column id
-UserTable.removeAttribute('id');
-
 // class helper
 const FileHelper = require('../global/FileHelper');
 

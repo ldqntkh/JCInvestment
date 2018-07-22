@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { Link } from "react-router-dom";
 
 // import const
 import { MAIN_URL, API_URL } from '../../const/variable';
@@ -33,7 +34,6 @@ export default class ProductItemComponent extends Component {
         let priceBook = '';
         if (this.props.dataPriceBook.length > 0) {
             priceBook = this.props.dataPriceBook.sort()[0];
-            console.log(priceBook);
         }
         return(
             <tr>
@@ -43,10 +43,10 @@ export default class ProductItemComponent extends Component {
                 <td>{priceBook !== '' ? priceBook.period : ''}</td>
                 <td>{priceBook !== '' && priceBook.enable ? "Active" : "Not active"}</td>
                 <td className="td-actions">
-                    <i className="material-icons product-detail">search</i>
-                    {priceBook !== '' && !priceBook.enable && <button type="button" rel="tooltip" title="" className="btn btn-primary btn-link btn-sm" data-original-title="Edit product" onClick={this.openModal}>
+                    <Link to={'/admin-product/detail/' + product.id}><i className="material-icons product-detail">search</i></Link>
+                    {priceBook !== '' && !priceBook.enable && <button type="button" rel="tooltip" title="" className="btn btn-primary btn-link btn-sm" data-original-title="Edit product">
                         <i className="material-icons">edit</i>
-                    </button>}
+                        </button>}
                     {priceBook !== '' && priceBook.expired && <button type="button" rel="tooltip" title="" className="btn btn-danger btn-link btn-sm" data-original-title="Remove" onClick={this._removeProductModal}>
                         <i className="material-icons">close</i>
                     </button>}

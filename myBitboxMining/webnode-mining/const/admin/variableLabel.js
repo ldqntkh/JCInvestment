@@ -35,9 +35,11 @@ module.exports.en = {
     LABEL_DESC_THIRD: 'Description 3',
     LABEL_PERIOD: 'Period',
     LABEL_STATE: 'State',
-    LABEL_LOCALE: 'Locale',
+    LABEL_CHOOSE_LANGUAGE: 'Please choose language',
     LABEL_DEFAULT: 'Default',
     LABEL_APPLY: 'Apply',
+    LABEL_UNACTIVE: 'Unactive',
+    LABEL_BACK: 'BACK',
     // login
     LABEL_LOGIN_TITLE: 'Sign In',
     LABEL_EMAIL: 'Email',
@@ -60,8 +62,13 @@ module.exports.en = {
     ERROR_AUTHENTICATION: 'Authentication failed',
     ERROR_GET_LIST_PRODUCT: 'Error while getting list of product',
     ERROR_NOT_FOUND_PRODUCT: 'There is no product been found',
+    ERROR_CREATE_PRODUCT: 'Please input all valid data to create product',
+    ERROR_UPDATE_PRODUCT: 'Error while updating product ',
+    ERROR_CANNOT_UPDATE_PRODUCT: 'Can not update product. Please input valid data',
     ERROR_GET_LIST_LOCALE: 'Error while getting list of locale',
     ERROR_NOT_FOUND_LOCALE: 'There is no locale been found',
+    ERROR_CREATE_PRICEBOOK: 'Error while creating price book',
+    ERROR_EXISTING_SKU: 'The sku is existed. Please try to another sku',
 
     //login
     ERROR_INCORRECT_ACCOUNT: 'Incorrect email or password. Please try again',

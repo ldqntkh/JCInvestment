@@ -2,10 +2,10 @@
 -- version 4.7.9
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Jul 20, 2018 at 01:09 PM
--- Server version: 10.1.31-MariaDB
--- PHP Version: 7.2.3
+-- Host: 127.0.0.1:3306
+-- Generation Time: Jul 22, 2018 at 09:01 AM
+-- Server version: 5.7.21
+-- PHP Version: 5.6.35
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -28,12 +28,16 @@ SET time_zone = "+00:00";
 -- Table structure for table `accessfunction`
 --
 
-CREATE TABLE `accessfunction` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `accessfunction`;
+CREATE TABLE IF NOT EXISTS `accessfunction` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `funcName` varchar(100) NOT NULL,
   `funcType` int(11) NOT NULL COMMENT 'có quyền access vào nguyên page hoặc chỉ 1 func nào đó',
   `createAt` datetime NOT NULL,
-  `updateAt` datetime NOT NULL
+  `updateAt` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id` (`id`),
+  KEY `id_2` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -42,8 +46,9 @@ CREATE TABLE `accessfunction` (
 -- Table structure for table `customer`
 --
 
-CREATE TABLE `customer` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `customer`;
+CREATE TABLE IF NOT EXISTS `customer` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `email` varchar(100) NOT NULL,
   `password` varchar(250) NOT NULL,
   `phone` varchar(12) DEFAULT NULL,
@@ -52,8 +57,12 @@ CREATE TABLE `customer` (
   `active` int(11) NOT NULL COMMENT '1: active, 0 : deactivate',
   `userActive` int(11) DEFAULT NULL,
   `createAt` datetime NOT NULL,
-  `updateAt` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `updateAt` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id` (`id`),
+  KEY `id_2` (`id`),
+  KEY `userActive` (`userActive`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `customer`
@@ -70,13 +79,18 @@ INSERT INTO `customer` (`id`, `email`, `password`, `phone`, `fullname`, `birthda
 -- Table structure for table `historyofadmin`
 --
 
-CREATE TABLE `historyofadmin` (
-  `id` double NOT NULL,
+DROP TABLE IF EXISTS `historyofadmin`;
+CREATE TABLE IF NOT EXISTS `historyofadmin` (
+  `id` double NOT NULL AUTO_INCREMENT,
   `historyTypeId` varchar(100) NOT NULL,
   `userId` int(11) NOT NULL,
   `description` text NOT NULL,
   `createAt` datetime NOT NULL,
-  `updateAt` datetime NOT NULL
+  `updateAt` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `userId` (`userId`),
+  KEY `historyTypeId` (`historyTypeId`),
+  KEY `id` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -85,14 +99,20 @@ CREATE TABLE `historyofadmin` (
 -- Table structure for table `historyofcustomer`
 --
 
-CREATE TABLE `historyofcustomer` (
-  `id` double NOT NULL,
+DROP TABLE IF EXISTS `historyofcustomer`;
+CREATE TABLE IF NOT EXISTS `historyofcustomer` (
+  `id` double NOT NULL AUTO_INCREMENT,
   `customerId` int(11) NOT NULL,
   `userId` int(11) DEFAULT NULL,
   `description` text NOT NULL,
   `createAt` datetime NOT NULL,
-  `updateAt` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `updateAt` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_2` (`id`),
+  KEY `id` (`id`),
+  KEY `customerId` (`customerId`),
+  KEY `userId` (`userId`)
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `historyofcustomer`
@@ -113,9 +133,11 @@ INSERT INTO `historyofcustomer` (`id`, `customerId`, `userId`, `description`, `c
 -- Table structure for table `locale`
 --
 
-CREATE TABLE `locale` (
+DROP TABLE IF EXISTS `locale`;
+CREATE TABLE IF NOT EXISTS `locale` (
   `id` varchar(50) NOT NULL,
-  `name` varchar(255) NOT NULL
+  `name` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -133,8 +155,9 @@ INSERT INTO `locale` (`id`, `name`) VALUES
 -- Table structure for table `orders`
 --
 
-CREATE TABLE `orders` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `orders`;
+CREATE TABLE IF NOT EXISTS `orders` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `customerid` int(11) NOT NULL,
   `productname` varchar(200) NOT NULL,
   `hashrate` float NOT NULL DEFAULT '0',
@@ -145,8 +168,11 @@ CREATE TABLE `orders` (
   `currency` varchar(10) NOT NULL,
   `product_period` int(11) NOT NULL,
   `createAt` datetime NOT NULL,
-  `updateAt` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `updateAt` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id` (`id`),
+  KEY `customerid` (`customerid`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `orders`
@@ -162,7 +188,8 @@ INSERT INTO `orders` (`id`, `customerid`, `productname`, `hashrate`, `quantity`,
 -- Table structure for table `payment_details`
 --
 
-CREATE TABLE `payment_details` (
+DROP TABLE IF EXISTS `payment_details`;
+CREATE TABLE IF NOT EXISTS `payment_details` (
   `id` varchar(100) NOT NULL,
   `orderid` int(11) NOT NULL,
   `payment_method` varchar(100) DEFAULT NULL,
@@ -174,7 +201,10 @@ CREATE TABLE `payment_details` (
   `state` varchar(20) NOT NULL,
   `cart` varchar(100) NOT NULL,
   `createAt` datetime NOT NULL,
-  `updateAt` datetime NOT NULL
+  `updateAt` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `orderid` (`orderid`),
+  KEY `id` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -191,8 +221,9 @@ INSERT INTO `payment_details` (`id`, `orderid`, `payment_method`, `email`, `firs
 -- Table structure for table `pricebook`
 --
 
-CREATE TABLE `pricebook` (
-  `id` int(50) NOT NULL,
+DROP TABLE IF EXISTS `pricebook`;
+CREATE TABLE IF NOT EXISTS `pricebook` (
+  `id` int(50) NOT NULL AUTO_INCREMENT,
   `localeId` varchar(50) NOT NULL,
   `productId` int(50) NOT NULL,
   `name` varchar(255) NOT NULL,
@@ -204,16 +235,30 @@ CREATE TABLE `pricebook` (
   `desc2` text NOT NULL,
   `desc3` text NOT NULL,
   `period` int(11) NOT NULL DEFAULT '6' COMMENT 'số tháng, mặc định là 6	',
-  `enable` tinyint(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `enable` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `to_tb_locale` (`localeId`),
+  KEY `to_tb_product` (`productId`)
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `pricebook`
 --
 
 INSERT INTO `pricebook` (`id`, `localeId`, `productId`, `name`, `price`, `sale_price`, `currency`, `symbol_currency`, `desc1`, `desc2`, `desc3`, `period`, `enable`) VALUES
-(1, 'en', 1, 'Product 1', 250, 200, '', 'USD', 'This is description 1 about product 1', 'This is description 2 about product 2', 'This is description 3 about product 3', 6, 0),
-(2, 'vi', 1, 'Product 2', 200, 0, 'USD', '$', 'This is description 1 for product 2', 'This is description 2 for product 2', 'This is description 3 for product 2', 6, 0);
+(1, 'en', 1, 'Product 1 update second times', 250, 200, '', 'USD', 'This is description 1 about product 1', 'This is description 2 about product 2', 'This is description 3 about product 3', 6, 0),
+(2, 'en', 1, 'Product 1 update second times', 250, 200, '', 'USD', 'This is description 1 about product 1', 'This is description 2 about product 2', 'This is description 3 about product 3', 6, 0),
+(6, 'vi', 6, 'Sản phẩm 6', 250, 200, 'VNĐ', 'VNĐ', 'desc 1', 'desc 2', 'desc 3', 6, 1),
+(7, 'en', 7, 'Product One', 250, 200, 'USD', '$', 'desc 1', 'desc 2', 'desc 3', 6, 0),
+(8, 'vi', 8, 'mining', 250, 200, 'VND', 'VND', 'desc 1', 'desc 2', 'desc 3', 6, 0),
+(9, 'vi', 9, 'mining', 250, 200, 'VND', 'VND', 'desc 1', 'desc 2', 'desc 3', 6, 0),
+(10, 'vi', 10, 'mining', 250, 200, 'VNĐ', 'VNĐ', 'desc 1', 'desc 2', 'desc 3', 6, 0),
+(11, 'vi', 11, 'mining', 250, 200, 'VNĐ', 'VNĐ', 'desc 1', 'desc 2', 'desc 3', 6, 0),
+(12, 'en', 12, 'mining', 250, 200, 'VNĐ', 'VNĐ', 'desc 1', 'desc 2', 'desc 3', 6, 0),
+(13, 'en', 13, 'mining', 250, 200, 'VNĐ', 'VNĐ', 'desc 1', 'desc 2', ' desc 3', 6, 0),
+(14, 'vi', 14, 'Product 1', 250, 200, 'VND', 'VND', 'desc 1', 'desc 2', 'desc 3', 6, 0),
+(15, 'en', 6, 'Product 6', 250, 200, 'VNĐ', 'VNĐ', 'desc 1', 'desc 2', 'desc 3', 6, 1),
+(16, 'en', 6, 'Product 6 update', 250, 200, 'VNĐ', 'VNĐ', 'desc 1', 'desc 2', 'desc 3', 6, 1);
 
 -- --------------------------------------------------------
 
@@ -221,24 +266,37 @@ INSERT INTO `pricebook` (`id`, `localeId`, `productId`, `name`, `price`, `sale_p
 -- Table structure for table `product`
 --
 
-CREATE TABLE `product` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `product`;
+CREATE TABLE IF NOT EXISTS `product` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `sku` varchar(50) NOT NULL,
   `hashrate` float NOT NULL,
   `userUpdate` int(11) NOT NULL,
   `createAt` datetime NOT NULL,
-  `updateAt` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `updateAt` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `userUpdate` (`userUpdate`),
+  KEY `id` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `product`
 --
 
 INSERT INTO `product` (`id`, `sku`, `hashrate`, `userUpdate`, `createAt`, `updateAt`) VALUES
-(1, '001', 1, 1, '2018-06-27 00:00:00', '2018-06-27 00:00:00'),
-(2, '002', 5, 1, '2018-06-27 00:00:00', '2018-06-27 00:00:00'),
+(1, '001', 50, 1, '2018-06-27 00:00:00', '2018-07-22 07:06:00'),
+(2, '002', 5, 1, '2018-06-27 00:00:00', '2018-07-22 07:04:15'),
 (3, '003', 10, 1, '2018-06-27 00:00:00', '2018-06-27 00:00:00'),
-(4, '004', 20, 1, '2018-06-27 00:00:00', '2018-06-27 00:00:00');
+(4, '004', 20, 1, '2018-06-27 00:00:00', '2018-06-27 00:00:00'),
+(6, '001', 150, 1, '2018-07-21 03:20:53', '2018-07-22 07:23:32'),
+(7, '001', 150, 1, '2018-07-21 03:28:45', NULL),
+(8, '001', 210, 1, '2018-07-21 04:06:24', NULL),
+(9, '002', 100, 1, '2018-07-21 04:20:46', NULL),
+(10, '002', 250, 1, '2018-07-21 04:28:11', NULL),
+(11, '211', 150, 1, '2018-07-21 04:29:58', NULL),
+(12, '122', 150, 1, '2018-07-21 04:31:36', NULL),
+(13, '122', 150, 1, '2018-07-21 04:33:01', NULL),
+(14, '113', 150, 1, '2018-07-21 07:42:24', NULL);
 
 -- --------------------------------------------------------
 
@@ -246,8 +304,9 @@ INSERT INTO `product` (`id`, `sku`, `hashrate`, `userUpdate`, `createAt`, `updat
 -- Table structure for table `productofcustomer`
 --
 
-CREATE TABLE `productofcustomer` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `productofcustomer`;
+CREATE TABLE IF NOT EXISTS `productofcustomer` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
   `hashrate` float NOT NULL,
   `customerId` int(11) DEFAULT NULL,
@@ -259,8 +318,14 @@ CREATE TABLE `productofcustomer` (
   `startDate` datetime DEFAULT NULL,
   `endDate` datetime DEFAULT NULL,
   `createAt` datetime NOT NULL,
-  `updateAt` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `updateAt` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_2` (`id`),
+  KEY `id` (`id`),
+  KEY `customerId` (`customerId`),
+  KEY `walletId` (`walletId`),
+  KEY `userUpdate` (`userUpdate`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `productofcustomer`
@@ -275,8 +340,9 @@ INSERT INTO `productofcustomer` (`id`, `name`, `hashrate`, `customerId`, `wallet
 -- Table structure for table `user`
 --
 
-CREATE TABLE `user` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `user`;
+CREATE TABLE IF NOT EXISTS `user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(100) NOT NULL COMMENT 'user name',
   `password` varchar(250) NOT NULL,
   `fullname` varchar(100) NOT NULL,
@@ -284,8 +350,12 @@ CREATE TABLE `user` (
   `email` varchar(100) NOT NULL,
   `phone` varchar(11) DEFAULT NULL,
   `createAt` datetime NOT NULL,
-  `updateAt` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `updateAt` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id` (`id`),
+  KEY `userTypeId` (`userTypeId`),
+  KEY `id_2` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `user`
@@ -300,12 +370,16 @@ INSERT INTO `user` (`id`, `username`, `password`, `fullname`, `userTypeId`, `ema
 -- Table structure for table `useraccessfunction`
 --
 
-CREATE TABLE `useraccessfunction` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `useraccessfunction`;
+CREATE TABLE IF NOT EXISTS `useraccessfunction` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `userTypeId` int(11) NOT NULL,
   `accessFuncId` int(11) NOT NULL,
   `createAt` datetime NOT NULL,
-  `updateAt` datetime NOT NULL
+  `updateAt` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `userTypeId` (`userTypeId`),
+  KEY `accessFuncId` (`accessFuncId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -314,13 +388,17 @@ CREATE TABLE `useraccessfunction` (
 -- Table structure for table `usertype`
 --
 
-CREATE TABLE `usertype` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `usertype`;
+CREATE TABLE IF NOT EXISTS `usertype` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
   `description` varchar(250) DEFAULT NULL,
   `createAt` datetime NOT NULL,
-  `updateAt` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `updateAt` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_2` (`id`),
+  KEY `id` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `usertype`
@@ -335,15 +413,21 @@ INSERT INTO `usertype` (`id`, `name`, `description`, `createAt`, `updateAt`) VAL
 -- Table structure for table `wallet`
 --
 
-CREATE TABLE `wallet` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `wallet`;
+CREATE TABLE IF NOT EXISTS `wallet` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `walletAddress` varchar(250) NOT NULL,
   `walletName` varchar(250) NOT NULL,
   `walletTypeId` int(11) NOT NULL,
   `CustomerId` int(11) NOT NULL,
   `createAt` datetime NOT NULL,
-  `updateAt` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `updateAt` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `walletAddress` (`walletAddress`),
+  KEY `id` (`id`),
+  KEY `CustomerId` (`CustomerId`),
+  KEY `walletTypeId` (`walletTypeId`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `wallet`
@@ -360,14 +444,20 @@ INSERT INTO `wallet` (`id`, `walletAddress`, `walletName`, `walletTypeId`, `Cust
 -- Table structure for table `walletbalance`
 --
 
-CREATE TABLE `walletbalance` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `walletbalance`;
+CREATE TABLE IF NOT EXISTS `walletbalance` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `walletId` int(11) NOT NULL,
   `balance` float NOT NULL DEFAULT '0',
   `userUpdate` int(11) DEFAULT NULL,
   `createAt` datetime NOT NULL,
-  `updateAt` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `updateAt` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id` (`id`),
+  UNIQUE KEY `walletAddress_2` (`walletId`),
+  KEY `id_2` (`id`),
+  KEY `userUpdate` (`userUpdate`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `walletbalance`
@@ -382,14 +472,20 @@ INSERT INTO `walletbalance` (`id`, `walletId`, `balance`, `userUpdate`, `createA
 -- Table structure for table `wallettype`
 --
 
-CREATE TABLE `wallettype` (
-  `id` int(11) NOT NULL,
+DROP TABLE IF EXISTS `wallettype`;
+CREATE TABLE IF NOT EXISTS `wallettype` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `type` varchar(100) NOT NULL,
   `name` varchar(100) NOT NULL,
   `userUpdate` int(11) DEFAULT NULL,
   `createAt` datetime NOT NULL,
-  `updateAt` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `updateAt` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_2` (`id`),
+  KEY `id` (`id`),
+  KEY `userUpdate` (`userUpdate`),
+  KEY `id_3` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `wallettype`
@@ -397,238 +493,6 @@ CREATE TABLE `wallettype` (
 
 INSERT INTO `wallettype` (`id`, `type`, `name`, `userUpdate`, `createAt`, `updateAt`) VALUES
 (1, 'eth', 'Ethereum', 1, '2018-07-03 00:00:00', '2018-07-03 00:00:00');
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `accessfunction`
---
-ALTER TABLE `accessfunction`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `id` (`id`),
-  ADD KEY `id_2` (`id`);
-
---
--- Indexes for table `customer`
---
-ALTER TABLE `customer`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `id` (`id`),
-  ADD KEY `id_2` (`id`),
-  ADD KEY `userActive` (`userActive`);
-
---
--- Indexes for table `historyofadmin`
---
-ALTER TABLE `historyofadmin`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `userId` (`userId`),
-  ADD KEY `historyTypeId` (`historyTypeId`),
-  ADD KEY `id` (`id`);
-
---
--- Indexes for table `historyofcustomer`
---
-ALTER TABLE `historyofcustomer`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `id_2` (`id`),
-  ADD KEY `id` (`id`),
-  ADD KEY `customerId` (`customerId`),
-  ADD KEY `userId` (`userId`);
-
---
--- Indexes for table `locale`
---
-ALTER TABLE `locale`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `orders`
---
-ALTER TABLE `orders`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id` (`id`),
-  ADD KEY `customerid` (`customerid`);
-
---
--- Indexes for table `payment_details`
---
-ALTER TABLE `payment_details`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `orderid` (`orderid`),
-  ADD KEY `id` (`id`);
-
---
--- Indexes for table `pricebook`
---
-ALTER TABLE `pricebook`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `to_tb_locale` (`localeId`),
-  ADD KEY `to_tb_product` (`productId`);
-
---
--- Indexes for table `product`
---
-ALTER TABLE `product`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `userUpdate` (`userUpdate`),
-  ADD KEY `id` (`id`);
-
---
--- Indexes for table `productofcustomer`
---
-ALTER TABLE `productofcustomer`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `id_2` (`id`),
-  ADD KEY `id` (`id`),
-  ADD KEY `customerId` (`customerId`),
-  ADD KEY `walletId` (`walletId`),
-  ADD KEY `userUpdate` (`userUpdate`);
-
---
--- Indexes for table `user`
---
-ALTER TABLE `user`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `id` (`id`),
-  ADD KEY `userTypeId` (`userTypeId`),
-  ADD KEY `id_2` (`id`);
-
---
--- Indexes for table `useraccessfunction`
---
-ALTER TABLE `useraccessfunction`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `userTypeId` (`userTypeId`),
-  ADD KEY `accessFuncId` (`accessFuncId`);
-
---
--- Indexes for table `usertype`
---
-ALTER TABLE `usertype`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `id_2` (`id`),
-  ADD KEY `id` (`id`);
-
---
--- Indexes for table `wallet`
---
-ALTER TABLE `wallet`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `walletAddress` (`walletAddress`),
-  ADD KEY `id` (`id`),
-  ADD KEY `CustomerId` (`CustomerId`),
-  ADD KEY `walletTypeId` (`walletTypeId`);
-
---
--- Indexes for table `walletbalance`
---
-ALTER TABLE `walletbalance`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `id` (`id`),
-  ADD UNIQUE KEY `walletAddress_2` (`walletId`),
-  ADD KEY `id_2` (`id`),
-  ADD KEY `userUpdate` (`userUpdate`);
-
---
--- Indexes for table `wallettype`
---
-ALTER TABLE `wallettype`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `id_2` (`id`),
-  ADD KEY `id` (`id`),
-  ADD KEY `userUpdate` (`userUpdate`),
-  ADD KEY `id_3` (`id`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `accessfunction`
---
-ALTER TABLE `accessfunction`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `customer`
---
-ALTER TABLE `customer`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- AUTO_INCREMENT for table `historyofadmin`
---
-ALTER TABLE `historyofadmin`
-  MODIFY `id` double NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `historyofcustomer`
---
-ALTER TABLE `historyofcustomer`
-  MODIFY `id` double NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
-
---
--- AUTO_INCREMENT for table `orders`
---
-ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
-
---
--- AUTO_INCREMENT for table `pricebook`
---
-ALTER TABLE `pricebook`
-  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `product`
---
-ALTER TABLE `product`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- AUTO_INCREMENT for table `productofcustomer`
---
-ALTER TABLE `productofcustomer`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `user`
---
-ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `useraccessfunction`
---
-ALTER TABLE `useraccessfunction`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `usertype`
---
-ALTER TABLE `usertype`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `wallet`
---
-ALTER TABLE `wallet`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- AUTO_INCREMENT for table `walletbalance`
---
-ALTER TABLE `walletbalance`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `wallettype`
---
-ALTER TABLE `wallettype`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Constraints for dumped tables

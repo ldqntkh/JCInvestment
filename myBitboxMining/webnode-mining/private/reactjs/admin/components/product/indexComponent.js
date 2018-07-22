@@ -12,6 +12,7 @@ class IndexComponent extends Component {
                 <React.Fragment>
                     <Route exact path="/admin-product" component={ListProductContainer}/>
                     <Route path="/admin-product/add" component={AddProductContainer} />
+                    <Route path="/admin-product/detail/:productId" component={AddProductContainer} />
                 </React.Fragment>
             </Router>
         )

@@ -6,6 +6,8 @@ const SequelizeConfig = require('./SequelizeConfig');
 // import const
 const showMessage = require('../global/ResourceHelper').showMessage;
 
+const moment = require('moment');
+
 const Sequelize = SequelizeConfig.getSequelizeModule();
 
 const sequelize = SequelizeConfig.init();
@@ -37,6 +39,8 @@ const PricebookTable = sequelize.define('pricebook', {
     enable : Sequelize.BOOLEAN
 });
 
+// ignore column id
+PricebookTable.removeAttribute('id');
 module.exports = {
 
     /**
@@ -87,6 +91,40 @@ module.exports = {
     },
 
     /**
+     * get product object by product id
+     * @param {Object} field example: {id: 1}
+     */
+    getProductByField: async (options)=> {
+        try {
+            let results = [];
+            let whereOptions = options ? options : [];
+            try {
+                await ProductTable.hasMany(PricebookTable, {foreignKey: 'productId', targetKey: 'id'});
+                
+                let product = await ProductTable.findOne({
+                    where: whereOptions[0],
+                    include: [
+                    {
+                        model: PricebookTable,
+                        where: whereOptions[1],
+                        require: false
+                    }]
+                });
+
+                if (product !== null) {
+                    results = new ProductModel(product.dataValues);
+                }
+            } catch (err) {
+                console.log(showMessage('ERROR_GETLISTPRODUCT') + err.message);
+            }
+            return results;
+        } catch(err) {
+            console.log(showMessage('ERROR_GETPRODUCTBYID') + err.message);
+            return null;
+        }
+    },
+
+    /**
      * add product object
      * @param {Object} field example: {id: 1}
      */
@@ -97,6 +135,28 @@ module.exports = {
             return product  && product.dataValues !== null ? new ProductModel(product.dataValues) : null;
         } catch(err) {
             console.log(showMessage('ERROR_CREATEPRODUCT') + err.message);
+            return null;
+        }
+    },
+
+    /**
+     * update product object
+     * @param {Object} field example: {id: 1}
+     */
+    updateProduct: async (productObj) => {
+        try {
+            productObj.setUpdateAt(moment(Date.now()).format('YYYY-MM-DD HH:mm:ss'));
+            let affectedRows =  await ProductTable.update(productObj, {
+                where: {id: productObj.getId()}
+            });
+            if (affectedRows.length > 0) {
+                affectedRows = await PricebookTable.update(productObj, {
+                    where: {productId: productObj.getId()}
+                });
+            }
+            return affectedRows.length > 0 ? affectedRows[0] : -1;
+        } catch(err) {
+            console.log(showMessage('ERROR_UPDATE_PRODUCT') + err.message);
             return null;
         }
     }

@@ -43,7 +43,14 @@ export default class ListProductComponent extends Component {
     }
 
     componentDidMount() {
-        this._getListProduct();
+        if (this.props.dataProduct.length === 0) {
+            this._getListProduct();
+        } else {
+            this.setState({
+                loaded: true
+            });
+        }
+
         if (pageContext.page && pageContext.page === 'my-product') {
             Modal.setAppElement('#my-product-page');
         }
@@ -173,7 +180,7 @@ export default class ListProductComponent extends Component {
         let page = pageContext.page;
         if (!this.state.loaded) screen = <i className="fa fa-spinner fa-spin fa-icon-loading"></i>
         else {
-            screen = this.state.listProduct.map((item, index)=> {
+            screen = this.props.dataProduct.map((item, index)=> {
                 return  <ProductItemComponent dataPriceBook={item.pricebooks} dataProduct={item} key={index} />;
             });
             screen = <React.Fragment>
