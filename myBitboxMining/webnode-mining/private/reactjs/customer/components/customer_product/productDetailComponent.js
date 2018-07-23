@@ -27,7 +27,8 @@ class ProductDetailComponent extends Component {
             loaded: false,
             productDetail: '',
             modalIsOpen: false,
-            listWallets: []
+            listWallets: [],
+            walletId: ''
         }
         this._getProductDetail = this._getProductDetail.bind(this);
         this._getListProduct = this._getListProduct.bind(this);
@@ -140,6 +141,7 @@ class ProductDetailComponent extends Component {
         try {
             let url = API_URL + 'products/update';
             let productItem = this.state.productDetail;
+            productItem.walletId = this.state.walletId;
             let response = await fetch(url, {
                 method: 'POST',
                 headers: {

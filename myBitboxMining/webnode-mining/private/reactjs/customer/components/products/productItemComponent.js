@@ -37,14 +37,26 @@ export default class ProductItemComponent extends Component {
                         <h4 className="card-category">
                             <span className="product-price-label">{showMessage('RC_PERIOD_LABEL')}</span><span> {product.period} {product.period > 1 ? showMessage('RC_MONTHS') : showMessage('RC_MONTH')}</span>
                         </h4>
-                        <h4 className="card-category">
-                            <span className="product-price-label">{showMessage('RC_PRICE')}</span>
-                            <del>{priceBook.symbol_currency}{priceBook.price}</del>
-                        </h4>
-                        <h4 className="card-category">
-                            <span className="product-price-label">{showMessage('RC_SALE_PRICE')}</span>
-                            {priceBook.symbol_currency + priceBook.price}
-                        </h4>
+                        {priceBook.price !== priceBook.sale_price ? 
+                            <React.Fragment>
+                                <h4 className="card-category">
+                                    <span className="product-price-label">{showMessage('RC_PRICE')}</span>
+                                    <del>{priceBook.symbol_currency}{priceBook.price}</del>
+                                </h4>
+                                <h4 className="card-category">
+                                    <span className="product-price-label">{showMessage('RC_SALE_PRICE')}</span>
+                                    {priceBook.symbol_currency + priceBook.sale_price}
+                                </h4>
+                            </React.Fragment>
+                        : 
+                            <React.Fragment>
+                                <h4 className="card-category">
+                                    <span className="product-price-label">{showMessage('RC_PRICE')}</span>
+                                    {priceBook.symbol_currency + priceBook.price}
+                                </h4>
+                                <h4></h4>
+                            </React.Fragment>
+                        }
                     </div>
                     <div className="card-body">
                         {(priceBook.desc1 && priceBook.desc1 !== '') && <p className="card-category">

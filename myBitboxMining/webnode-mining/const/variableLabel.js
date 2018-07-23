@@ -65,7 +65,7 @@ module.exports.en = {
     LABEL_CREATE_ORDER: "You have create an order with order id is {0}",
     LABEL_ORDER_APPROVE: "Your order with id {0} is approved!",
     LABEL_CREATE_PAYMENT: "You have successfully paid the order {0} with a payment code of {1}",
-    LABEL_PRODUCTOFCUSTOMER_INSERT: 'Your product with id {0} has not been activated. Please click here {1} choose a wallet address and active it.',
+    LABEL_PRODUCTOFCUSTOMER_INSERT: 'Your product with id {0} has not been activated. Please click {1} choose a wallet address and active it.',
 
     // web title
     TITLE_CUSTOMER_LOGIN: "Customer Login",
@@ -98,6 +98,7 @@ module.exports.en = {
     TITLE_FORGOT_PASS: 'Forgot Password?',
     TITLE_FORGOT_PASS_DESC: 'You can reset your password here.',
     TITLE_MY_PRODUCT: 'My Product',
+    TITLE_HERE: 'here',
     
     // react label
     RC_ID: 'ID',

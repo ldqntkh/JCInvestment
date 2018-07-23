@@ -7,10 +7,12 @@ const moment = require('moment');
 const ProductManager = require('../../modelMgrs/ProductManager');
 const OrderManager = require('../../modelMgrs/OrderManager');
 const CustomerHistoryManager = require('../../modelMgrs/CustomerHistoryManager');
+const PriceBookManager = require('../../modelMgrs/PriceBookManager');
 
 // import model
 const OrderModel = require('../../models/Order');
 const CustomerHistoryModel = require('../../models/CustomerHistory');
+const PriceBookModel = require('../../models/Pricebook');
 
 // import const
 const varibale = require('../../const/variable');
@@ -31,24 +33,27 @@ router.post('/products/:productid/buy', async (req, res, next)=> {
      * create order
      */
     let productId = req.params.productid;
-    let product = await ProductManager.getProductById({
+    let product = await ProductManager.getProductByField([{
         id: productId
-    });
+    }]);
     let quantity = 1;
     if (product !== null) {
-        let price = product.getSalePrice() !== null ? product.getSalePrice() : product.getPrice();
-
+        let priceBook = await PriceBookManager.getPriceBook({
+            localeId: 'en',
+            productId: product.getId()
+        });
+        let price = priceBook.getSalePrice() !== null ? priceBook.getSalePrice() : priceBook.getPrice();
         // create order
         console.log("Create Order");
         let order = new OrderModel({
             customerid : customer.id,
-            productname: product.getProductName(),
+            productname: priceBook.getProductName(),
             hashrate : product.getHashrate(),
             quantity: 1,
-            description : showMessage('LABEL_BUY_PRODUCT', [product.getProductName(), product.getCurrency() + (price * quantity).toString()]),
+            description : showMessage('LABEL_BUY_PRODUCT', [priceBook.getProductName(), priceBook.getCurrency() + (price * quantity).toString()]),
             state : varibale.ORDER_CREATE,
             amount : price * 1,
-            currency : product.getCurrency(),
+            currency : priceBook.getCurrency(),
             product_period : product.getPeriod(),
             createAt : moment(Date.now()).format('YYYY-MM-DD HH:mm:ss')
         });
@@ -77,18 +82,18 @@ router.post('/products/:productid/buy', async (req, res, next)=> {
                 "transactions": [{
                     "item_list": {
                         "items": [{
-                            "name": product.getProductName(),
+                            "name": priceBook.getProductName(),
                             "sku": product.getSku(),
                             "price": price.toString(),
-                            "currency": product.getCurrency(),
+                            "currency": priceBook.getCurrency(),
                             "quantity": quantity
                         }]
                     },
                     "amount": {
-                        "currency": product.getCurrency(),
+                        "currency": priceBook.getCurrency(),
                         "total": (price * quantity).toString()
                     },
-                    "description": showMessage('LABEL_BUY_PRODUCT', [product.getProductName(), product.getCurrency() + (price * quantity).toString()])
+                    "description": showMessage('LABEL_BUY_PRODUCT', [priceBook.getProductName(), priceBook.getCurrency() + (price * quantity).toString()])
                 }]
             };
             req.app.locals.paypal.payment.create(create_payment_json, function (error, payment) {
