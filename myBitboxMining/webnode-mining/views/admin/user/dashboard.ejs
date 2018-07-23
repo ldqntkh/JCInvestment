@@ -1,8 +1,8 @@
 <%- include('../../share_admin/header'); %>
-<%- include('../../share_customer/navbar'); %>
+    <div class="content">
     <div class="container-fluid manage-user-container">
-        <div class="row justify-content-md-center">
-            <div class="col-md-8 element-center">
+        <div class="row">
+            <div class="col-md-12">
                 <a href="#" class="btn btn-success" data-toggle="modal" data-target="#create-user"><%= showAdminMessage('LABEL_ADD_USER_BUTTON') %></a>
                 <div class="card">
                     <div class="card-header card-header-primary">
@@ -40,4 +40,5 @@
         </div>
         <%- include('../../../views/admin/account/create'); %>
     </div>
-<%- include('../../global/footer_UI'); %>
+    </div>
+<%- include('../../share_admin/footer.ejs'); %>

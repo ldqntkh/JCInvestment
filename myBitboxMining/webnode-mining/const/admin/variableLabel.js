@@ -21,20 +21,57 @@ module.exports.en = {
     LABEL_PHONE_TITLE: 'Phone',
     LABEL_ACTION_TITLE: 'Action',
     LABEL_ACTIVE_TITLE: 'Active',
+    LABEL_START_DATE: 'Start date',
+    LABEL_END_DATE: 'End date',
+    LABEL_SKU: 'SKU',
+    LABEL_HASHRATE: 'Hashrate',
+    LABEL_USER_UPDATE: 'User update',
+    LABEL_PRICE: 'Price',
+    LABEL_SALE_PRICE: 'Sale price',
+    LABEL_CURRENCY: 'Currency',
+    LABEL_CURRENCY_SYMBOL: 'Symbol currency',
+    LABEL_DESC_FIRST: 'Description 1',
+    LABEL_DESC_SECOND: 'Description 2',
+    LABEL_DESC_THIRD: 'Description 3',
+    LABEL_PERIOD: 'Period',
+    LABEL_STATE: 'State',
+    LABEL_CHOOSE_LANGUAGE: 'Please choose language',
+    LABEL_DEFAULT: 'Default',
+    LABEL_APPLY: 'Apply',
+    LABEL_UNACTIVE: 'Unactive',
+    LABEL_BACK: 'BACK',
     // login
     LABEL_LOGIN_TITLE: 'Sign In',
     LABEL_EMAIL: 'Email',
     LABEL_PASSWORD: 'Password',
     LABEL_BUTTON_LOGIN: 'Login',
     LABEL_BUTTON_FORGOT_PASSWORD: 'Forgot password',
+
+    // label product
+    LABEL_MANAGE_PRODUCT: 'Manage product',
+    LABEL_ADD_NEW_PRODUCT: 'Add new product',
+    LABEL_ADD_OR_UPDATE_PRODUCT: 'Add or update product',
     // dashboard
     TITLE_CUSTOMER_DASHBOARD: 'User dashboard',
+    TITLE_LIST_PRODUCT: 'List products',
     ERROR_PASSWORD_CONFIRM_MESSAGE: 'The password confirm is incorrect. Please try again',
 
-    // route admin
+    // error message from server
     ERROR_CREATE_USER_MESSAGE: 'Error while creating user',
     ERROR_GETUSER: 'Error while geting user',
+    ERROR_AUTHENTICATION: 'Authentication failed',
+    ERROR_GET_LIST_PRODUCT: 'Error while getting list of product',
+    ERROR_NOT_FOUND_PRODUCT: 'There is no product been found',
+    ERROR_CREATE_PRODUCT: 'Please input all valid data to create product',
+    ERROR_UPDATE_PRODUCT: 'Error while updating product ',
+    ERROR_CANNOT_UPDATE_PRODUCT: 'Can not update product. Please input valid data',
+    ERROR_GET_LIST_LOCALE: 'Error while getting list of locale',
+    ERROR_NOT_FOUND_LOCALE: 'There is no locale been found',
+    ERROR_CREATE_PRICEBOOK: 'Error while creating price book',
+    ERROR_EXISTING_SKU: 'The sku is existed. Please try to another sku',
+
     //login
     ERROR_INCORRECT_ACCOUNT: 'Incorrect email or password. Please try again',
-    ERROR_ACCOUNT_NOT_ADMIN: 'You do not have permission to login'
+    ERROR_ACCOUNT_NOT_ADMIN: 'You do not have permission to login',
+
 }

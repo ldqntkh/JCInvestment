@@ -5,7 +5,6 @@ import { MAIN_URL, API_URL } from '../../const/variable';
 
 const showMessage = require('../../../../../global/ResourceHelper').showMessage;
 
-//Modal.setAppElement('#my-product-page');
 export default class ProductItemComponent extends Component {
 
     constructor(props) {

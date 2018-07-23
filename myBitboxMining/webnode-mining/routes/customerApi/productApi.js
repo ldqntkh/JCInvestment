@@ -11,9 +11,10 @@ const showMessage = require('../../global/ResourceHelper').showMessage;
 
 router.get('/list', async (req, res, next)=> {
     try {
-        let listProduct = await ProductManager.getListProduct({
-            enable: 1
-        });
+        let listProduct = await ProductManager.getListProduct([
+            {},
+            {enable: 1}
+        ]);
         res.send({
             status: "success",
             data : listProduct,

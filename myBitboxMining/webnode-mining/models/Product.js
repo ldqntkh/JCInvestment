@@ -5,61 +5,53 @@ class Product {
         ProductObject && Object.assign(this, ProductObject);
         /**
          * id : Number
-         * name : String
          * sku : String
          * hashrate : float
-         * price : float
-         * sale_price : float
-         * currency : String
-         * symbol_currency: String
-         * desc1 : String
-         * desc2 : String
-         * desc3 : String
-         * period : Number
-         * enable : bool
+         * period: Number
          * userUpdate : Number
          * createAt : datetime
          * updateAt : datetime
          */
     }
+
     /**
-     * get product name
-     * @returns {String} product nanme
+     * get product id
+     * @returns {Number} product id
      */
-    getProductName() {
-        return this.name;
+    getId() {
+        return this.id;
     }
 
     /**
-     * get product sku
-     * @returns {String} product sku
+     * set product id
+     * @param {Number} product id
      */
-    getSku() {
-        return this.sku;
+    setId(id) {
+        this.id = id;
     }
 
     /**
-     * get currency
-     * @return {String} currency
+     * get period
+     * @returns {Number} period
      */
-    getCurrency() {
-        return this.currency;
+    getPeriod() {
+        return this.period;
+    }
+
+     /**
+     * get userUpdate
+     * @returns {Number} userUpdate
+     */
+    getUserUpdate() {
+        return this.userUpdate;
     }
 
     /**
-     * get product price
-     * @returns {Number} product price
+     * get hashrate of product
+     * @returns {Number} hashrate
      */
-    getPrice() {
-        return this.price;
-    }
-
-    /**
-     * get product sale price
-     * @returns {Number} product sale price
-     */
-    getSalePrice() {
-        return this.sale_price;
+    getHashrate() {
+        return this.hashrate;
     }
 
     /**
@@ -71,11 +63,27 @@ class Product {
     }
 
     /**
-     * get hashrate of product
-     * @returns {Number} hashrate
+     * set createAt of product
+     * @param {Date} createAt
      */
-    getHashrate() {
-        return this.hashrate;
+    setCreateAt(createAt) {
+        this.createAt = createAt;
+    }
+
+    /**
+     * get createAt of product
+     * @param {Date} createAt
+     */
+    getCreateAt() {
+        return this.createAt;
+    }
+
+    /**
+     * set updateAt of product
+     * @param {Date} updateAt
+     */
+    setUpdateAt(updateAt) {
+        this.updateAt = updateAt;
     }
 }
 module.exports = Product;

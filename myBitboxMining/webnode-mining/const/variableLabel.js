@@ -139,7 +139,8 @@ module.exports.en = {
     RC_LAST_24H: 'Last 24 Hours',
     RC_ADDON: 'Add on',
     RC_BUY: 'Buy',
-    RC_PRICE: 'Price:',
+    RC_PRICE: 'Price: ',
+    RC_SALE_PRICE: 'Sale Price: ',
     RC_QUANTITY: 'Quantity',
     RC_DESCRIPTION: 'Description',
     RC_STATE: 'State',
@@ -152,6 +153,9 @@ module.exports.en = {
     RC_PAYMENT_COUNTRY_CODE: 'Country code',
     RC_PAYMENT_USER_ID: 'Payer id',
     RC_PAYMENT_CART_NUMBER: 'Cart number',
+    RC_MONTH: 'Month',
+    RC_MONTHS: 'Months',
+    RC_PERIOD_LABEL: 'Period: ',
 
     // react label in customer product page
     RC_UPDATE_PRODUCT: 'Update Product',
