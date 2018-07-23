@@ -85,7 +85,7 @@ router.get('/orders/:orderid/buysuccess', async (req, res, next) => {
                         await CustomerHistoryManager.createHistory(new CustomerHistoryModel({
                             customerId : customer.id,
                             description : showMessage('LABEL_CREATE_PAYMENT', [
-                                            "<a class='history' href='/my-order/" + order.getOrderId() + "/payment-detail'>" + paymentDetails.getPaymentId() + "</a>",
+                                            "<a class='history' href='/my-order/" + order.getOrderId() + "/detail'>" + paymentDetails.getPaymentId() + "</a>",
                                             "<a class='history' href='/my-order/" + order.getOrderId() + "/detail'>" + order.getOrderId() + "</a>"]),
                             createAt : moment(Date.now()).format('YYYY-MM-DD HH:mm:ss')
                         }));
@@ -115,7 +115,10 @@ router.get('/orders/:orderid/buysuccess', async (req, res, next) => {
                                     // insert history
                                     await CustomerHistoryManager.createHistory(new CustomerHistoryModel({
                                         customerId : customer.id,
-                                        description : showMessage('LABEL_PRODUCTOFCUSTOMER_INSERT', ["<a class='history' href='/my-product/" + productofctm.getProductId() + "'>" + productofctm.getProductId() + "</a>"]),
+                                        description : showMessage('LABEL_PRODUCTOFCUSTOMER_INSERT', [
+                                            "<a class='history' href='/my-product/" + productofctm.getProductId() + "'>" + productofctm.getProductId() + "</a>",
+                                            "<a class='history' href='/my-product/" + productofctm.getProductId() + "'>" + showMessage('TITLE_HERE') + "</a>"
+                                        ]),
                                         createAt : moment(Date.now()).format('YYYY-MM-DD HH:mm:ss')
                                     }));
                                 }
@@ -128,7 +131,7 @@ router.get('/orders/:orderid/buysuccess', async (req, res, next) => {
                                         title : showMessage('TITLE_CUSTOMER_SUCCESS_PAYMENT'),
                                         message : showMessage('LABEL_PAYMENT_SUCCESS'),
                                         callback_url : {
-                                            href : '/orders/' + req.params.orderid,
+                                            href : '/my-order/' + req.params.orderid + '/detail',
                                             // change desc
                                             desc : showMessage('LABEL_DESC_BACK_ORDER_DETAIL_PAGE')
                                         }
@@ -213,7 +216,7 @@ router.get('/orders/:orderid/buycancel', (req, res, next) => {
             title : showMessage('TITLE_CUSTOMER_CANCEL_ORDER'),
             message : showMessage('TITLE_CUSTOMER_CANCEL_ORDER'),
             callback_url : {
-                href : '/orders/' + req.params.orderid,
+                href : '/my-order/' + req.params.orderid + '/detail',
                 desc : showMessage('LABEL_DESC_BACK_ORDER_DETAIL_PAGE')
             }
         }

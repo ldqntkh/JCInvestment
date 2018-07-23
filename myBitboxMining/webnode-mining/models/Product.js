@@ -63,6 +63,14 @@ class Product {
     }
 
     /**
+     * get SKU
+     * @returns {String} sku
+     */
+    getSku() {
+        return this.sku;
+    }
+
+    /**
      * set createAt of product
      * @param {Date} createAt
      */

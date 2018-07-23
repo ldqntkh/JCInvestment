@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jul 22, 2018 at 09:01 AM
+-- Generation Time: Jul 23, 2018 at 03:48 PM
 -- Server version: 5.7.21
 -- PHP Version: 5.6.35
 
@@ -106,26 +106,13 @@ CREATE TABLE IF NOT EXISTS `historyofcustomer` (
   `userId` int(11) DEFAULT NULL,
   `description` text NOT NULL,
   `createAt` datetime NOT NULL,
-  `updateAt` datetime NOT NULL,
+  `updateAt` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_2` (`id`),
   KEY `id` (`id`),
   KEY `customerId` (`customerId`),
   KEY `userId` (`userId`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `historyofcustomer`
---
-
-INSERT INTO `historyofcustomer` (`id`, `customerId`, `userId`, `description`, `createAt`, `updateAt`) VALUES
-(1, 1, NULL, 'You have create an order with order id is <a class=\'history\' href=\'/my-order/13/detail\'>12</a>', '2018-07-01 07:01:07', '0000-00-00 00:00:00'),
-(2, 1, NULL, 'You have successfully paid the order <a class=\'history\' href=\'/my-order/10\'>12</a> with a payment code of <a class=\'history\' href=\'/my-order/10/payment-detail\'>PAY-9KM64010YA588982DLM4HYNQ</a>', '2018-07-01 07:05:30', '0000-00-00 00:00:00'),
-(3, 1, NULL, 'Your order with id <a class=\'history\' href=\'/orders/12\'>12</a> is approved!', '2018-07-01 07:05:30', '0000-00-00 00:00:00'),
-(4, 1, NULL, 'You have create an order with order id is <a class=\'history\' href=\'/orders/13\'>13</a>', '2018-07-01 07:55:41', '0000-00-00 00:00:00'),
-(5, 1, NULL, 'You have successfully paid the order <a class=\'history\' href=\'/orders/13\'>13</a> with a payment code of <a class=\'history\' href=\'/payments/PAY-3KK482022H263372MLM4IR7Y\'>PAY-3KK482022H263372MLM4IR7Y</a>', '2018-07-01 07:56:24', '0000-00-00 00:00:00'),
-(6, 1, NULL, 'Your order with id <a class=\'history\' href=\'/orders/13\'>13</a> is approved!', '2018-07-01 07:56:24', '0000-00-00 00:00:00'),
-(7, 1, NULL, 'Your product with id <a class=\'history\' href=\'/product-customer/1\'>1</a> has not been activated. Please click here {1} choose a wallet address and active it.', '2018-07-01 07:56:24', '0000-00-00 00:00:00');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -168,19 +155,11 @@ CREATE TABLE IF NOT EXISTS `orders` (
   `currency` varchar(10) NOT NULL,
   `product_period` int(11) NOT NULL,
   `createAt` datetime NOT NULL,
-  `updateAt` datetime NOT NULL,
+  `updateAt` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `id` (`id`),
   KEY `customerid` (`customerid`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `orders`
---
-
-INSERT INTO `orders` (`id`, `customerid`, `productname`, `hashrate`, `quantity`, `description`, `state`, `amount`, `currency`, `product_period`, `createAt`, `updateAt`) VALUES
-(10, 1, '1 Mh/s', 0, 1, 'Buy 1 Mh/s with price USD25', 'approved', 25, 'USD', 6, '2018-06-30 14:08:56', '2018-06-30 14:09:20'),
-(11, 1, '1 Mh/s', 0, 1, 'Buy 1 Mh/s with price USD25', 'not approved', 25, 'USD', 6, '2018-06-30 14:11:44', '2018-06-30 14:12:02');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -201,19 +180,11 @@ CREATE TABLE IF NOT EXISTS `payment_details` (
   `state` varchar(20) NOT NULL,
   `cart` varchar(100) NOT NULL,
   `createAt` datetime NOT NULL,
-  `updateAt` datetime NOT NULL,
+  `updateAt` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `orderid` (`orderid`),
   KEY `id` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `payment_details`
---
-
-INSERT INTO `payment_details` (`id`, `orderid`, `payment_method`, `email`, `firstname`, `lastname`, `payerid`, `countrycode`, `state`, `cart`, `createAt`, `updateAt`) VALUES
-('PAY-5PW31021N93391406LM3Y7JA', 11, 'paypal', 'ldqpersonal@gmail.com', 'Quang', 'Personal', '33PVS9JYXHMXJ', 'US', 'approved', '1Y850279PW274101G', '2018-06-30 14:12:02', '0000-00-00 00:00:00'),
-('PAY-82609808TX975034NLM3Y56Y', 10, 'paypal', 'ldqpersonal@gmail.com', 'Quang', 'Personal', '33PVS9JYXHMXJ', 'US', 'approved', '95978403XN3329504', '2018-06-30 14:09:20', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -238,7 +209,17 @@ CREATE TABLE IF NOT EXISTS `pricebook` (
   PRIMARY KEY (`id`),
   KEY `to_tb_locale` (`localeId`),
   KEY `to_tb_product` (`productId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `pricebook`
+--
+
+INSERT INTO `pricebook` (`id`, `localeId`, `productId`, `name`, `price`, `sale_price`, `currency`, `symbol_currency`, `desc1`, `desc2`, `desc3`, `enable`) VALUES
+(1, 'en', 1, '10 Mh/s', 50, 40, 'USD', '$', 'Product with 10 Mh/s', 'Product with 10 Mh/s', 'Product with 10 Mh/s', 1),
+(2, 'en', 2, '20 Mh/s', 100, 70, 'USD', '$', 'Product with 20 Mh/s', 'Product with 20 Mh/s', 'Product with 20 Mh/s', 1),
+(3, 'en', 3, '40 Mh/s', 200, 200, 'USD', '$', 'Product with 40 Mh/s', 'Product with 40 Mh/s', 'Product with 40 Mh/s', 1),
+(4, 'en', 4, '150 Mh/s', 200, 190, 'USD', '$', 'Product with 150 Mh/s', 'Product with 150 Mh/s', 'Product with 150 Mh/s', 1);
 
 -- --------------------------------------------------------
 
@@ -258,7 +239,17 @@ CREATE TABLE IF NOT EXISTS `product` (
   PRIMARY KEY (`id`),
   KEY `userUpdate` (`userUpdate`),
   KEY `id` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `product`
+--
+
+INSERT INTO `product` (`id`, `sku`, `hashrate`, `period`, `userUpdate`, `createAt`, `updateAt`) VALUES
+(1, '1532353550', 10, 6, 1, '2018-07-23 13:46:35', NULL),
+(2, '1532353597', 20, 6, 1, '2018-07-23 13:47:14', NULL),
+(3, '1532353638', 40, 10, 1, '2018-07-23 13:47:47', NULL),
+(4, '1532353668', 150, 12, 1, '2018-07-23 13:48:18', NULL);
 
 -- --------------------------------------------------------
 
@@ -280,21 +271,14 @@ CREATE TABLE IF NOT EXISTS `productofcustomer` (
   `startDate` datetime DEFAULT NULL,
   `endDate` datetime DEFAULT NULL,
   `createAt` datetime NOT NULL,
-  `updateAt` datetime NOT NULL,
+  `updateAt` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_2` (`id`),
   KEY `id` (`id`),
   KEY `customerId` (`customerId`),
   KEY `walletId` (`walletId`),
   KEY `userUpdate` (`userUpdate`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `productofcustomer`
---
-
-INSERT INTO `productofcustomer` (`id`, `name`, `hashrate`, `customerId`, `walletId`, `active`, `expired`, `period`, `userUpdate`, `startDate`, `endDate`, `createAt`, `updateAt`) VALUES
-(1, '1 Mh/s', 1, 1, 1, 1, 0, 6, NULL, NULL, NULL, '2018-07-01 07:56:24', '0000-00-00 00:00:00');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -389,16 +373,14 @@ CREATE TABLE IF NOT EXISTS `wallet` (
   KEY `id` (`id`),
   KEY `CustomerId` (`CustomerId`),
   KEY `walletTypeId` (`walletTypeId`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `wallet`
 --
 
 INSERT INTO `wallet` (`id`, `walletAddress`, `walletName`, `walletTypeId`, `CustomerId`, `createAt`, `updateAt`) VALUES
-(1, '0xf8C10041AA116d60358af0a76712efF0FE642455', 'test', 1, 1, '2018-07-03 00:00:00', '2018-07-03 00:00:00'),
-(2, 'bla bla bla bla', 'ahuahuahua', 1, 1, '2018-07-03 16:14:15', '2018-07-03 16:14:15'),
-(4, 'address01', 'test01', 1, 1, '2018-07-03 16:15:35', '2018-07-03 16:15:35');
+(5, 'wallet 1', 'wallet 1', 1, 1, '2018-07-23 14:32:12', '2018-07-23 14:32:12');
 
 -- --------------------------------------------------------
 
@@ -420,13 +402,6 @@ CREATE TABLE IF NOT EXISTS `walletbalance` (
   KEY `id_2` (`id`),
   KEY `userUpdate` (`userUpdate`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `walletbalance`
---
-
-INSERT INTO `walletbalance` (`id`, `walletId`, `balance`, `userUpdate`, `createAt`, `updateAt`) VALUES
-(1, 1, 10.5, NULL, '2018-07-07 00:00:00', '2018-07-18 11:15:58');
 
 -- --------------------------------------------------------
 
@@ -495,8 +470,8 @@ ALTER TABLE `payment_details`
 -- Constraints for table `pricebook`
 --
 ALTER TABLE `pricebook`
-  ADD CONSTRAINT `to_tb_locale` FOREIGN KEY (`localeId`) REFERENCES `locale` (`id`),
-  ADD CONSTRAINT `to_tb_product` FOREIGN KEY (`productId`) REFERENCES `product` (`id`);
+  ADD CONSTRAINT `to_tb_locale` FOREIGN KEY (`localeId`) REFERENCES `locale` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `to_tb_product` FOREIGN KEY (`productId`) REFERENCES `product` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `product`
