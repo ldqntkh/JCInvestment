@@ -113,6 +113,9 @@ router.post('/product/add', async(req, res) => {
         let product = await ProductManager.addProduct(new ProductModel(data));
         if (product !== null) {
             product.productId = product.getId();
+            // update locale id when user choosing default locale option
+            product.localeId = product.localeId === '' ? 'en' : product.localeId;
+            // remove id attribute to avoid update pricebook id
             delete product.id;
             if (await PriceBookManager.addPriceBook(product) !== null) {
                 res.send({
