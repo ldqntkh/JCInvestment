@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 
 // import const
-const showMessage = require('../../../../../global/ResourceHelper').showMessage;
+const showMessage = require('../../../../../global/ResourceHelper').showAdminMessage;
 
 export default class CreateUserComponent extends Component {
     constructor (props) {
