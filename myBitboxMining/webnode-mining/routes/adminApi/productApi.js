@@ -169,21 +169,23 @@ router.post('/product/update/:productId', async(req, res) => {
         let data = req.body.product ? req.body.product : '';
         let productId = req.params.productId ? req.params.productId : '';
         let product = new ProductModel(data);
-        let priceBooks = data.pricebooks;
         // add userUpdate into product table
         data.userUpdate = req.session.user.id;
 
+        // update attribute localeId when user choosing default language option
+        data.localeId = data.localeId === '' ? 'en' : data.localeId;
         let existedProduct = await ProductManager.getProductByField([
             {id: productId},
         ]);
 
         let existedPriceBook = await PriceBookManager.getPriceBook({
-            localeId: data.localeId
+            localeId: data.localeId,
+            productId: productId
         });
 
         if (existedProduct.getId() !== null && existedPriceBook !== null && existedPriceBook.getLocaleId() === data.localeId) {
-            product.setId(productId);
             product.localeId = data.localeId;
+            product.productId = productId;
             let affectedRows = await ProductManager.updateProduct(product);
             if (affectedRows > 0) {
                 res.send({

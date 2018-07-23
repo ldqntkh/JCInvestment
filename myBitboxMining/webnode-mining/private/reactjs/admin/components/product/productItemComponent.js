@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { Link } from "react-router-dom";
 
+const showMessage = require('../../../../../global/ResourceHelper').showAdminMessage;
 export default class ProductItemComponent extends Component {
 
     constructor(props) {
@@ -35,8 +36,8 @@ export default class ProductItemComponent extends Component {
                 <td>{product.id}</td>
                 <td>{priceBook !== '' ? priceBook.name : ''}</td>
                 <td>{product.sku}</td>
-                <td>{priceBook !== '' ? priceBook.period : ''}</td>
-                <td>{priceBook !== '' && priceBook.enable ? "Active" : "Not active"}</td>
+                <td>{product.period}</td>
+                <td>{priceBook !== '' && priceBook.enable ? showMessage('LABEL_ACTIVE_TITLE') : showMessage('LABEL_UNACTIVE')}</td>
                 <td className="td-actions">
                     <Link to={'/admin-product/detail/' + product.id}><i className="material-icons product-detail">search</i></Link>
                     <button type="button" rel="tooltip" title="" className="btn btn-danger btn-link btn-sm" data-original-title="Remove" onClick={this._removeProductModal}>

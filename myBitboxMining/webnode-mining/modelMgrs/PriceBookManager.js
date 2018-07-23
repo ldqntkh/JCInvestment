@@ -20,7 +20,6 @@ const PricebookTable = sequelize.define('pricebook', {
     desc1 : Sequelize.STRING,
     desc2 : Sequelize.STRING,
     desc3 : Sequelize.STRING,
-    period : Sequelize.INTEGER,
     enable : Sequelize.BOOLEAN
 });
 

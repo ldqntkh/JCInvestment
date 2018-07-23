@@ -234,31 +234,11 @@ CREATE TABLE IF NOT EXISTS `pricebook` (
   `desc1` text NOT NULL,
   `desc2` text NOT NULL,
   `desc3` text NOT NULL,
-  `period` int(11) NOT NULL DEFAULT '6' COMMENT 'số tháng, mặc định là 6	',
   `enable` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `to_tb_locale` (`localeId`),
   KEY `to_tb_product` (`productId`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `pricebook`
---
-
-INSERT INTO `pricebook` (`id`, `localeId`, `productId`, `name`, `price`, `sale_price`, `currency`, `symbol_currency`, `desc1`, `desc2`, `desc3`, `period`, `enable`) VALUES
-(1, 'en', 1, 'Product 1 update second times', 250, 200, '', 'USD', 'This is description 1 about product 1', 'This is description 2 about product 2', 'This is description 3 about product 3', 6, 0),
-(2, 'en', 1, 'Product 1 update second times', 250, 200, '', 'USD', 'This is description 1 about product 1', 'This is description 2 about product 2', 'This is description 3 about product 3', 6, 0),
-(6, 'vi', 6, 'Sản phẩm 6', 250, 200, 'VNĐ', 'VNĐ', 'desc 1', 'desc 2', 'desc 3', 6, 1),
-(7, 'en', 7, 'Product One', 250, 200, 'USD', '$', 'desc 1', 'desc 2', 'desc 3', 6, 0),
-(8, 'vi', 8, 'mining', 250, 200, 'VND', 'VND', 'desc 1', 'desc 2', 'desc 3', 6, 0),
-(9, 'vi', 9, 'mining', 250, 200, 'VND', 'VND', 'desc 1', 'desc 2', 'desc 3', 6, 0),
-(10, 'vi', 10, 'mining', 250, 200, 'VNĐ', 'VNĐ', 'desc 1', 'desc 2', 'desc 3', 6, 0),
-(11, 'vi', 11, 'mining', 250, 200, 'VNĐ', 'VNĐ', 'desc 1', 'desc 2', 'desc 3', 6, 0),
-(12, 'en', 12, 'mining', 250, 200, 'VNĐ', 'VNĐ', 'desc 1', 'desc 2', 'desc 3', 6, 0),
-(13, 'en', 13, 'mining', 250, 200, 'VNĐ', 'VNĐ', 'desc 1', 'desc 2', ' desc 3', 6, 0),
-(14, 'vi', 14, 'Product 1', 250, 200, 'VND', 'VND', 'desc 1', 'desc 2', 'desc 3', 6, 0),
-(15, 'en', 6, 'Product 6', 250, 200, 'VNĐ', 'VNĐ', 'desc 1', 'desc 2', 'desc 3', 6, 1),
-(16, 'en', 6, 'Product 6 update', 250, 200, 'VNĐ', 'VNĐ', 'desc 1', 'desc 2', 'desc 3', 6, 1);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -271,32 +251,14 @@ CREATE TABLE IF NOT EXISTS `product` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `sku` varchar(50) NOT NULL,
   `hashrate` float NOT NULL,
+  `period` int(11) NOT NULL DEFAULT '6' COMMENT 'số tháng, mặc định là 6	',
   `userUpdate` int(11) NOT NULL,
   `createAt` datetime NOT NULL,
   `updateAt` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `userUpdate` (`userUpdate`),
   KEY `id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `product`
---
-
-INSERT INTO `product` (`id`, `sku`, `hashrate`, `userUpdate`, `createAt`, `updateAt`) VALUES
-(1, '001', 50, 1, '2018-06-27 00:00:00', '2018-07-22 07:06:00'),
-(2, '002', 5, 1, '2018-06-27 00:00:00', '2018-07-22 07:04:15'),
-(3, '003', 10, 1, '2018-06-27 00:00:00', '2018-06-27 00:00:00'),
-(4, '004', 20, 1, '2018-06-27 00:00:00', '2018-06-27 00:00:00'),
-(6, '001', 150, 1, '2018-07-21 03:20:53', '2018-07-22 07:23:32'),
-(7, '001', 150, 1, '2018-07-21 03:28:45', NULL),
-(8, '001', 210, 1, '2018-07-21 04:06:24', NULL),
-(9, '002', 100, 1, '2018-07-21 04:20:46', NULL),
-(10, '002', 250, 1, '2018-07-21 04:28:11', NULL),
-(11, '211', 150, 1, '2018-07-21 04:29:58', NULL),
-(12, '122', 150, 1, '2018-07-21 04:31:36', NULL),
-(13, '122', 150, 1, '2018-07-21 04:33:01', NULL),
-(14, '113', 150, 1, '2018-07-21 07:42:24', NULL);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 

@@ -15,6 +15,7 @@ const sequelize = SequelizeConfig.init();
 const ProductTable = sequelize.define('product', {
     sku : Sequelize.STRING,
     hashrate : Sequelize.FLOAT,
+    period : Sequelize.INTEGER,
     userUpdate : Sequelize.INTEGER,
     createAt : Sequelize.DATE,
     updateAt : Sequelize.DATE
@@ -35,7 +36,6 @@ const PricebookTable = sequelize.define('pricebook', {
     desc1 : Sequelize.STRING,
     desc2 : Sequelize.STRING,
     desc3 : Sequelize.STRING,
-    period : Sequelize.INTEGER,
     enable : Sequelize.BOOLEAN
 });
 
@@ -145,12 +145,13 @@ module.exports = {
         try {
             productObj.setUpdateAt(moment(Date.now()).format('YYYY-MM-DD HH:mm:ss'));
             let affectedRows =  await ProductTable.update(productObj, {
-                where: {id: productObj.getId()}
+                where: {id: productObj.productId}
             });
             if (affectedRows.length > 0) {
+                delete productObj.id;
                 affectedRows = await PricebookTable.update(productObj, {
                     where: {
-                        productId: productObj.getId(),
+                        productId: productObj.productId,
                         localeId: productObj.localeId
                     }
                 });

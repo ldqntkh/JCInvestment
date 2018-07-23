@@ -16,13 +16,13 @@ export default class ProductItemComponent extends Component {
             productItem: '',
             listLocale: [],
             productId: '',
-            localeId: 'en',
+            localeId: '',
             name: '',
             sku: '',
             hashrate: '',
-            period: 0,
-            price: 0,
-            sale_price: 0,
+            period: '',
+            price: '',
+            sale_price: '',
             currency: '',
             symbol_currency: '',
             enable: 0,
@@ -47,9 +47,13 @@ export default class ProductItemComponent extends Component {
         if (typeof this.props.match.params.productId !== 'undefined') {
             this.setState({productId: this.props.match.params.productId});
             document.getElementsByClassName('sku')[0].disabled = true;
+            document.getElementsByClassName('hashrate')[0].disabled = true;
+            document.getElementsByClassName('period')[0].disabled = true;
             this._getProductDetail(this.props.match.params.productId);
         } else {
             document.getElementsByClassName('sku')[0].disabled = false;
+            document.getElementsByClassName('hashrate')[0].disabled = false;
+            document.getElementsByClassName('period')[0].disabled = false;
         }
     }
 
@@ -66,13 +70,13 @@ export default class ProductItemComponent extends Component {
                 this.props.addProduct(jsonData.data);
                 this.setState({
                     sku: product.sku,
-                    hashrate: product.hashrate
+                    hashrate: product.hashrate,
+                    period: product.period
                 });
                 if (product.pricebooks.length > 0) {
                     let pricebook = product.pricebooks[0];
                     this.setState({
                         name: pricebook.name,
-                        period: pricebook.period,
                         localeId: pricebook.localeId,
                         price: pricebook.price,
                         sale_price: pricebook.sale_price,
@@ -127,7 +131,8 @@ export default class ProductItemComponent extends Component {
 
     async _getProductByLocale(productId, localeId) {
         try {
-            let url = API_ADMIN_URL + 'products/product/' + productId + '/locale/' + localeId;
+            let locale = localeId === '' ? 'en' : localeId;
+            let url = API_ADMIN_URL + 'products/product/' + productId + '/locale/' + locale;
             let response = await fetch(url, {
                 method: 'GET',
                 credentials: 'same-origin'
@@ -135,14 +140,11 @@ export default class ProductItemComponent extends Component {
             let jsonData = await response.json();
             if (jsonData.status === 'success') {
                 let product = jsonData.data;
-                console.log(product);
-
                 if (typeof product.pricebooks !== 'undefined' && product.pricebooks.length > 0) {
                     let priceBook = product.pricebooks[0];
                     this.setState({
                         name: priceBook.name,
-                        period: priceBook.period,
-                        localeId: priceBook.localeId,
+                        localeId: localeId,
                         price: priceBook.price,
                         sale_price: priceBook.sale_price,
                         currency: priceBook.currency,
@@ -155,7 +157,6 @@ export default class ProductItemComponent extends Component {
                 } else {
                     this.setState({
                         name: '',
-                        period: '',
                         localeId: localeId,
                         price: '',
                         sale_price: '',
@@ -292,13 +293,13 @@ export default class ProductItemComponent extends Component {
                             <div className="col-md-6">
                                 <div className="form-group">
                                     <label className="bmd-label-floating">{showMessage('LABEL_HASHRATE')}</label>
-                                    <input name="hashrate" className="form-control" type="text" required maxLength="100" onChange={this._handleChange} value={this.state.hashrate} />
+                                    <input name="hashrate" className="form-control hashrate" type="text" required maxLength="100" onChange={this._handleChange} value={this.state.hashrate} />
                                 </div>
                             </div>
                             <div className="col-md-6">
                                 <div className="form-group">
                                     <label className="bmd-label-floating">{showMessage('LABEL_PERIOD')}</label>
-                                    <input name="period" className="form-control" type="number" required maxLength="10" onChange={this._handleChange} value={this.state.period} />
+                                    <input name="period" className="form-control period" type="number" required maxLength="10" onChange={this._handleChange} value={this.state.period} />
                                 </div>
                             </div>
                         </div>
@@ -374,7 +375,7 @@ export default class ProductItemComponent extends Component {
                             }
                         </div>
                         <div className="row">
-                            <div className="col-md-3">
+                            <div className="col-md-12">
                             {(this.state.productId !== '') && <Link to={'/admin-product'}>
                                 <button type="submit" className="btn btn-primary pull-left btn-back">{showMessage('LABEL_BACK')}
                                 </button>

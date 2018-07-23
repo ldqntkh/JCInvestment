@@ -7,6 +7,7 @@ class Product {
          * id : Number
          * sku : String
          * hashrate : float
+         * period: Number
          * userUpdate : Number
          * createAt : datetime
          * updateAt : datetime
@@ -51,6 +52,14 @@ class Product {
      */
     getHashrate() {
         return this.hashrate;
+    }
+
+    /**
+     * get period
+     * @returns {Number} period
+     */
+    getPeriod() {
+        return this.period;
     }
 
     /**

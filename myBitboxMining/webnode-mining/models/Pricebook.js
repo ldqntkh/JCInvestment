@@ -15,7 +15,6 @@ class Pricebook {
          * desc1 : String
          * desc2 : String
          * desc3 : String
-         * period : Number
          * enable : bool
          */
     }
@@ -90,14 +89,6 @@ class Pricebook {
      */
     getSalePrice() {
         return this.sale_price;
-    }
-
-    /**
-     * get period
-     * @returns {Number} period
-     */
-    getPeriod() {
-        return this.period;
     }
 
     /**
