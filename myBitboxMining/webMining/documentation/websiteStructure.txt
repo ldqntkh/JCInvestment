@@ -1,0 +1,34 @@
+1/ Header:
+ - Menu: 
+  + Vào trang wordpress admin -> Appearance -> Menus -> Select a menu to edit -> Chọn Menu 1
+ - Slider:
+  + Vào trang wordpress admin -> Appearance -> Customize -> Header area -> Header Slider
+
+2/ Content in body
+ - OUR SERVICES section:
+  + Muốn thêm service: Vào trang wordpress admin -> Services -> Add New Service
+  + Muốn sửa nội dung service: Vào trang wordpress admin -> Services -> Chọn services nào muốn hiện
+    rồi gán categories Type A.
+  + Muốn hiện tất cả service: Vào trang wordpress admin -> Pages -> All pages -> Chọn My front page -> Edit Sydney FP:Services type A -> để trống chỗ input
+     Enter the slug for your category or leave empty to show all services.
+  + Muốn chỉnh icon: Vào trang wordpress admin -> Services -> Chọn Service bất kỳ -> Service icon
+
+ - WHAT ELSE WE PROVIDE? section:
+  + Muốn sửa nội dung service: Vào trang wordpress admin -> Services -> Chọn services nào muốn hiện
+    rồi gán categories Type B.
+  + Muốn hiện tất cả service: Vào trang wordpress admin -> Pages -> All pages -> Chọn My front page -> Edit Sydney FP:Services type B -> để trống chỗ input
+     Enter the slug for your category or leave empty to show all services.
+  + Muốn chỉnh icon: Vào trang wordpress admin -> Services -> Chọn Service bất kỳ -> Service icon
+ - DO YOU WANT TO… section: 
+  + Muốn sửa nội dung: Vào trang wordpress admin -> Pages -> All pages -> Chọn My front page -> Edit Layout Builder
+ - OUR TEAM section:
+  + Muốn giới hạn hiển thị nội dung: Vào trang wordpress admin -> Employees -> Chọn employees nào muốn hiện rồi gán categories gì muốn hiện -> điền vào chỗ input
+    Enter the slug for your category or leave empty to show all services.
+  + Muốn hiện hết: Vào trang wordpress admin -> Employees -> Chọn employees nào muốn hiện rồi gán categories gì muốn hiện -> để trống chỗ input
+    Enter the slug for your category or leave empty to show all services.
+ - Anylize Projects, Coffee cups, Customers and Awards section:
+  + Vào trang wordpress admin -> Pages -> All pages -> Chọn My front page -> Edit Sydney FP:Facts
+ - OUR WORK section:
+  + Vào trang wordpress admin -> Pages -> All pages -> Chọn My front page -> Edit Sydney FP:Portfolio
+  + Có 2 option chính là: 
+   . Enter the slugs (comma separated) for your categories or leave empty to show all projects: điền vào mấy cái category slug mà mình muốn hiện hoặc để trống nếu muốn hiện hết

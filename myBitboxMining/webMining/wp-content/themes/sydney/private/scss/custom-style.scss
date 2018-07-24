@@ -28,24 +28,6 @@
             p {
                 margin-bottom: 10px;
             }
-
-            .button_container {
-                margin-top: 20px;
-            }
-
-            .theme_button {
-                color: white;
-                border-radius: 30px;
-                background-color: #bf3654;
-                font-weight: bold;
-                padding: 15px;
-                letter-spacing: 0.2em;
-                text-transform: uppercase;
-            }
-
-            .theme_button:hover {
-                background-color: #bdb76b;
-            }
         }
     }
 }
@@ -86,4 +68,36 @@
             margin-bottom: 15px;
         }
     }
+}
+
+.button_container {
+    margin-top: 40px;
+}
+
+.highlight_button {
+    border-radius: 30px;
+    background-color: #bf3654;
+    color: white;
+    font-weight: bold;
+    padding: 15px;
+    margin-top: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+}
+
+.highlight_button:hover {
+    background-color: #bdb76b;
+}
+
+.highlight {
+    border-color: #bf3654;
+    color: #bf3654;
+}
+
+.small-text {
+    font-weight: 700;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    margin-bottom: 0;
 }
