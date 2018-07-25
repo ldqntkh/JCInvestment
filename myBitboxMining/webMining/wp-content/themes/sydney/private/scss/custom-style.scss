@@ -34,6 +34,11 @@
 
 .etherum-mining-hashrate-row {
     .hashrate_container {
+
+        .col-md-4 {
+            background-color: #e5e5e5;
+        }
+
         p {
             margin-bottom: 0;
         }
@@ -55,10 +60,6 @@
             font-weight: bold;
             margin-top: 20px;
             text-transform: uppercase;
-
-            .number::before {
-                content: '\0024';
-            }
         }
 
         .hashrate_content {
@@ -66,6 +67,15 @@
             font-size:16px;
             line-height:30px;
             margin-bottom: 15px;
+        }
+
+        .number {
+            margin: 0 5px;
+        }
+
+        
+        del {
+            color: #e10531;
         }
     }
 }
