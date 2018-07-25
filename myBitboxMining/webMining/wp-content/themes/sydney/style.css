@@ -888,7 +888,6 @@ Mobile navigation
 		position: absolute;
 		top:28px;
 		background-color: #1c1c1c;
-		margin-top: 15px;
 		z-index: 1000;
 	}
 	#mainnav-mobi ul {
@@ -3388,10 +3387,7 @@ div[class*="elementor-widget-wp-widget-sydney"] h5 {
 		    clear: left;
 		}  				
 	}
-	@media only screen and (max-width: 1024px) {
-		.site-header.fixed {
-			position: static !important;
-		}		
+	@media only screen and (max-width: 1024px) {	
 		.slides-container .slide-item,
 		.panel-row-style {
 			background-attachment: scroll !important;
@@ -3531,14 +3527,11 @@ div[class*="elementor-widget-wp-widget-sydney"] h5 {
 			font-size: 42px;
 		}
 		.btn-menu {
-			float: none;
-			margin: 15px auto 0;
+			float: right;
+			margin: 2% 15px;
 		}
 		.header-wrap {
 			text-align: center;
-		}
-		#mainnav-mobi {
-			top: auto;
 		}
 		.site-header.float-header {
 			padding-top: 20px;
