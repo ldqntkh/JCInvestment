@@ -15,6 +15,7 @@ router.get('/list', async (req, res, next)=> {
             {},
             {enable: 1}
         ]);
+        res.header("Access-Control-Allow-Origin", "*");
         res.send({
             status: "success",
             data : listProduct,

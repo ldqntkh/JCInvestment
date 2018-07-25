@@ -1,0 +1,74 @@
+1/ Header:
+ - Menu: 
+  + Vào trang wordpress admin -> Appearance -> Menus -> Select a menu to edit -> Chọn Menu 1
+ - Slider:
+  + Vào trang wordpress admin -> Appearance -> Customize -> Header area -> Header Slider
+
+2/ Content in body
+ - OUR SERVICES section:
+  + Muốn thêm service: Vào trang wordpress admin -> Services -> Add New Service
+  + Muốn sửa nội dung service: Vào trang wordpress admin -> Services -> Chọn services nào muốn hiện
+    rồi gán categories Type A.
+  + Muốn hiện tất cả service: Vào trang wordpress admin -> Pages -> All pages -> Chọn My front page -> Edit Sydney FP:Services type A -> để trống chỗ input
+     Enter the slug for your category or leave empty to show all services.
+  + Muốn chỉnh icon: Vào trang wordpress admin -> Services -> Chọn Service bất kỳ -> Service icon
+
+ - WHAT ELSE WE PROVIDE? section:
+  + Muốn sửa nội dung service: Vào trang wordpress admin -> Services -> Chọn services nào muốn hiện
+    rồi gán categories Type B.
+  + Muốn hiện tất cả service: Vào trang wordpress admin -> Pages -> All pages -> Chọn My front page -> Edit Sydney FP:Services type B -> để trống chỗ input
+     Enter the slug for your category or leave empty to show all services.
+  + Muốn chỉnh icon: Vào trang wordpress admin -> Services -> Chọn Service bất kỳ -> Service icon
+ - KHAI THÁC ETHREUM và HỆ THỐNG KHAI THÁC ETHREUM TẦM CỠ section:
+  + Sử dụng Arbitrary text widget để chỉnh sửa nội dung
+  + Sử dụng chức năng background image của Row trong mục Row -> Design -> Background Image
+ - An toàn & Bảo mật. section:
+  + Sử dụng Layout Builder để phân chia cột và dòng rõ ràng
+  + Sử dụng chức năng background image của Row trong mục Edit Row -> Design -> Background Image
+  + Chỉnh background image hiện hết 1 row: trong mục Edit Row -> Layout -> Row Layout -> Chọn Full Width Stretched
+  + Tắt background image trên mobile: trong mục Edit Row -> Attributes -> Mobile CSS styles
+  + Thiết lập padding style cho từng row: trong mục Edit Row -> Layout -> Top/bottom padding
+ - OUR TEAM section:
+  + Muốn giới hạn hiển thị nội dung: Vào trang wordpress admin -> Employees -> Chọn employees nào muốn hiện rồi gán categories gì muốn hiện -> điền vào chỗ input
+    Enter the slug for your category or leave empty to show all services.
+  + Muốn hiện hết: Vào trang wordpress admin -> Employees -> Chọn employees nào muốn hiện rồi gán categories gì muốn hiện -> để trống chỗ input
+    Enter the slug for your category or leave empty to show all services.
+ - Anylize Projects, Coffee cups, Customers and Awards section:
+  + Vào trang wordpress admin -> Pages -> All pages -> Chọn My front page -> Edit Sydney FP:Facts
+ - OUR WORK section:
+  + Vào trang wordpress admin -> Pages -> All pages -> Chọn My front page -> Edit Sydney FP:Portfolio
+  + Có 2 option chính là: 
+   . Enter the slugs (comma separated) for your categories or leave empty to show all projects: điền vào mấy cái category slug mà mình muốn hiện hoặc để trống nếu muốn hiện hết
+ - Who we are? section:
+  + Sử dụng Sydney FP:List widget:
+   . Add a bit of text here. It will be displayed.: Dùng để hiện text theo kiểu thông thường <p></p>
+   . Add your list items here. One item per row, start each row with: Dùng để hiện text list theo kiểu <li></li>
+  + Sydney FP:Skills widget:
+   . First skill name: Đoạn text 
+   . First skill value: Số phần trăm muốn hiện
+ - WANT TO KNOW MORE section:
+  + Sử dụng Sydney FP:Call to action widget
+  + Enter your call to action.: Điền vào đoạn text muốn hiện
+  + Link for the button: Dùng để hiện link và hiện nút button cần click
+  + Title for the button: Đoạn text của button
+ - About us section:
+  + Sử dụng Arbitrary text widget để chỉnh sửa nội dung
+  + Sydney: Video widget để hiện ra video
+ - Clients logo section:
+  + Sử dụng Sydney FP: Clients widget
+  + Để cấu hình hiển thị logo và link: Vào trang wordpress admin -> Chọn Clients -> All Clients -> Thiết lập link và image trong mục Client link và Featured Image
+ - Latest News section:
+  + Sử dụng Sydney FP: Latest News widget
+  + Dùng để hiển thị các tin tức mới nhất
+ - What our clients say section:
+  + Sử dụng Sydney FP: Testimonials widget
+  + Testimonials được dùng để hiển thị được lấy trong: wordpress admin -> Testimonials -> All Testimonials
+ - Product section:
+  + Sử dụng Custom HTML widget
+  + Dùng đoạn script để gọi ajax lên server và hiển thị sản phẩm
+ - Social section:
+  + Sử dụng Sydney FP:Social Profile widget
+  + Để hiển thị social menu: Edit row in Sydney FP:Social Profile widget -> Select your social menu -> Menu mà mình muốn hiển thị
+  + Social menu được cấu hình trong: Wordpress admin -> Appearance -> Menus -> Select social hoặc nếu chưa có thì tự tạo
+ - Footer section:
+  + Wordpress admin -> Appearance -> Widgets -> Footer 1, Footer 2, Footer 3
