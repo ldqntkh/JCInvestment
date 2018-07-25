@@ -39,10 +39,6 @@
             background-color: #e5e5e5;
         }
 
-        p {
-            margin-bottom: 0;
-        }
-
         .title {
             font-size: 24px;
             font-weight: bold;
@@ -76,6 +72,21 @@
         
         del {
             color: #e10531;
+        }
+
+        .product-content {
+            background-color: #e5e5e5;
+            margin: 10px 0;
+            padding: 15px;
+
+            .period-label {
+                color: #bf3654;
+                font-weight: bold;
+            }
+
+            .month-text {
+                margin-left: 2px;
+            }
         }
     }
 }
