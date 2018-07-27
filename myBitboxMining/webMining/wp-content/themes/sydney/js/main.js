@@ -149,6 +149,7 @@
 
 		$('.btn-menu').on('click', function() {
 			$('#mainnav-mobi').slideToggle(300);
+			$('#mainnav-mobi').css('top', $(this).parents('.header-wrap').height());
 			$(this).toggleClass('active');
 		});
 

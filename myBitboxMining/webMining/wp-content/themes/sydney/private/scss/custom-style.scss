@@ -132,14 +132,12 @@
 }
 
 @media only screen and (max-width: 1024px) {
-    .admin-bar {
-        .site-header {
-            padding: 0;
+    .site-header {
+        padding: 0;
 
-            &.float-header {
-                padding: 0;
-                top: 0;
-            }
+        &.float-header {
+            padding: 0;
+            top: 0;
         }
     }
 }
