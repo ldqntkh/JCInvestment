@@ -87,13 +87,31 @@
 					$('html, body').stop().animate({
 					     'scrollTop': $target.offset().top - 70
 					}, 900, 'swing');
-			        
+					$('.mainnav a').parent().removeClass('active');
+			        $(this).parent().addClass('active');
 			        if($('#mainnav-mobi').length) $('#mainnav-mobi').hide();
 			        return false;
 				}
 			});
-		});
 
+			$(document).on("scroll", function() {
+				var menuElement = $('.mainnav').find('.our-menu');
+				var scrollPos = $(document).scrollTop();
+				menuElement.each(function () {
+					var currentElement = $(this);
+					var activeElement = $(currentElement.find('a').attr("href"));
+					if ((activeElement.position().top - scrollPos >= 70 && activeElement.position().top - scrollPos < 110) ||
+						(activeElement.position().top <= scrollPos && activeElement.position().top + activeElement.height() > scrollPos)) {
+						menuElement.removeClass("active");
+						currentElement.addClass("active");
+					}
+					else{
+						currentElement.removeClass("active");
+					}
+				});
+			});
+		});
+		
 	};
 
 	var responsiveMenu = function() {
@@ -461,45 +479,8 @@
 
   }
 
-  var addClassActiveMenu = function() {
-	var ourServiceElement = $('#our-services');
-	var ourTeamElement = $('#our-team');
-	var aboutUsElement = $('#about-us');
-	var mainNav = $('#mainnav');
-	var homeMenu = mainNav.find('li:first');
-	var ourServiceMenu = mainNav.find('.our-service-menu');
-	var ourTeamMenu = mainNav.find('.our-team-menu');
-	var ourServiceOffsetTop = ourServiceElement.offset().top;
-	var ourTeamOffsetTop = ourTeamElement.offset().top;
-
-	$(window).on('load scroll', function() {
-		var windowScrollTop = $(this).scrollTop();
-		if (windowScrollTop === 0) {
-			homeMenu.addClass('active');
-			ourServiceMenu.removeClass('active');
-			ourTeamMenu.removeClass('active');
-		} else if ((ourServiceOffsetTop - windowScrollTop === 70 && ourServiceOffsetTop - windowScrollTop < 100) || windowScrollTop - ourServiceOffsetTop < ourServiceElement.height()) {
-			ourServiceMenu.addClass('active');
-			homeMenu.removeClass('active');
-			ourTeamMenu.removeClass('active');
-		} else if ( (ourTeamOffsetTop- windowScrollTop === 70 && ourTeamOffsetTop- windowScrollTop < 100) || windowScrollTop - ourTeamOffsetTop < ourTeamElement.height()) {
-			ourTeamMenu.addClass('active');
-			homeMenu.removeClass('active');
-			ourServiceMenu.removeClass('active');
-		} else {
-			ourTeamMenu.removeClass('active');
-			homeMenu.removeClass('active');
-			ourServiceMenu.removeClass('active');
-		}
-		console.log(ourServiceElement.offset().top);
-		console.log(ourServiceElement.height());
-		console.log(windowScrollTop);
-	});
-};
-
 	// Dom Ready
 	$(function() {
-		addClassActiveMenu();
 		sliderFix();
 		heroSection();
 		headerFixed();
@@ -514,7 +495,7 @@
 		rollAnimation();
 		checkipad();
 		panelsStyling();
-		scrolls();
+		//scrolls(); no need to add paralax yet
 		projectEffect();
 		socialMenu();
 		goTop();
