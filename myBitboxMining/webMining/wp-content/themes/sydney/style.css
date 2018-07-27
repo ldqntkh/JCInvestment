@@ -422,9 +422,9 @@ Repeatable Patterns
 				box-sizing: border-box;
 	}
 	body {
-		font: 14px/1.7 "Source Sans Pro", sans-serif;
 		background: #fff;
 		color: #767676;
+		font-family: "Segoe UI",Roboto,"Helvetica Neue", Arial, sans-serif;
 	}
 	a {
 		text-decoration: none;
@@ -467,12 +467,6 @@ Repeatable Patterns
 	strong {
 		font-weight: 600;
 	}
-	h1 { font: 52px/1.1 "Raleway", sans-serif;}
-	h2 { font: 42px/1.1 "Raleway", sans-serif;}
-	h3 { font: 32px/1.1 "Raleway", sans-serif;}
-	h4 { font: 25px/1.1 "Raleway", sans-serif;}
-	h5 { font: 20px/1.1 "Raleway", sans-serif;}
-	h6 { font: 18px/1.1 "Raleway", sans-serif;}
 	h1, h2, h3, h4, h5, h6 {
 		color: #443f3f;
 		font-weight: 600;
@@ -486,7 +480,6 @@ Repeatable Patterns
 	input[type="submit"] {
 		position: relative;
 		display: inline-block;
-		font-family: "Raleway", sans-serif;
 		font-size: 13px;
 		line-height: 24px;
 		font-weight: 700;
@@ -763,7 +756,6 @@ Header
 		position: relative;
 		display: block;
 		font-size: 14px;
-		font-family: "Raleway", sans-serif;
 		color: #fff;
 		font-weight: 500;
 		text-decoration: none;
@@ -1702,7 +1694,6 @@ Portfolio single
 		background-color: #f7f7f7;
 		border: 1px solid #eee;
 		padding: 25px 25px 40px;
-		font-family: "Raleway", sans-serif;
 	}
 	.portfolio-info h5 {
 		margin: 0 0 15px;
@@ -1978,7 +1969,6 @@ Panels
 	}
 	.panel-row-style[data-hasbg="hasbg"] {
 		background-size: cover;
-		background-attachment: fixed;
 		background-repeat: no-repeat;
 		position: relative;
 		z-index: 11;
@@ -2003,10 +1993,6 @@ Panels
 	}
 	.roll-counter i {
 		font-size: 30px;
-	}
-	.roll-counter .name-count,
-	.roll-counter .numb-count {
-		font-family: "Raleway", sans-serif;
 	}
 	.roll-counter .name-count {
 		font-size: 14px;
@@ -2187,7 +2173,6 @@ Panels
 	.roll-button {
 		position: relative;
 		display: inline-block;
-		font-family: "Raleway", sans-serif;
 		font-size: 13px;
 		line-height: 24px;
 		font-weight: 700;
@@ -2304,7 +2289,6 @@ Panels
 	.project-filter li a {
 	    color: #767676;
 	    display: block;
-	    font-family: "Raleway",sans-serif;
 	    font-size: 13px;
 	    font-weight: 600;
 	    outline: 0;
@@ -2489,7 +2473,6 @@ Panels
 		color: inherit;
 	}	
 	.roll-testimonials .name {
-		font-family: "Raleway", sans-serif;
 		font-size: 18px;
 		font-weight: 500;
 	}
@@ -2718,7 +2701,6 @@ Panels
 		margin-right: 2px;
 	}
 	.roll-tabs .menu-tab li a {
-		font-family: "Raleway", sans-serif;
 		font-size: 14px;
 		font-weight: 500;
 		display: block;
@@ -2805,7 +2787,6 @@ Panels
 		text-align: center;
 	}
 	.roll-team .team-item .team-pop .name {
-		font-family: "Raleway", sans-serif;
 		font-size: 16px;
 		font-weight: 600;
 		color: #fff;
@@ -2907,7 +2888,6 @@ Panels
 		text-align: center;
 	}
 	.roll-team .team-content .name {
-		font-family: "Raleway", sans-serif;
 		font-size: 16px;
 		font-weight: 600;
 		padding: 12px 0 2px;
@@ -3066,7 +3046,6 @@ Panels
 		background-color: #d65050;
 	}
 	.roll-testimonials .name {
-		font-family: "Raleway", sans-serif;
 		font-size: 18px;
 		font-weight: 500;
 		color: #d65050;

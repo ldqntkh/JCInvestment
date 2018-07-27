@@ -106,7 +106,7 @@ function sydney_slider_button() {
     }
 
     if ($slider_button) {
-        return '<a href="' . esc_url($slider_button_url) . '" class="roll-button button-slider">' . esc_html($slider_button) . '</a>';
+        return '<a target="_blank" href="' . esc_url($slider_button_url) . '" class="roll-button button-slider">' . esc_html($slider_button) . '</a>';
     }
 
 }

@@ -123,6 +123,14 @@
     margin-bottom: 0;
 }
 
+#mainnav {
+    .active {
+        a {
+            color: #bf3654;
+        }
+    }
+}
+
 @media only screen and (max-width: 1024px) {
     .admin-bar {
         .site-header {

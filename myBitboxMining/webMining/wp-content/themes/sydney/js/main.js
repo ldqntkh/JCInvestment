@@ -87,13 +87,33 @@
 					$('html, body').stop().animate({
 					     'scrollTop': $target.offset().top - 70
 					}, 900, 'swing');
-			        
+					// add class active in menu when clicking on menu
+					$('.mainnav a').parent().removeClass('active');
+					$(this).parent().addClass('active');
 			        if($('#mainnav-mobi').length) $('#mainnav-mobi').hide();
 			        return false;
 				}
 			});
-		});
 
+			// handle add class active in menu when scrolling on specific element
+			$(document).on("scroll", function() {
+				var menuElement = $('.mainnav').find('.our-menu');
+				var scrollPos = $(document).scrollTop();
+				menuElement.each(function () {
+					var currentElement = $(this);
+					var activeElement = $(currentElement.find('a').attr("href"));
+					if ((activeElement.position().top - scrollPos >= 70 && activeElement.position().top - scrollPos < 110) ||
+						(activeElement.position().top <= scrollPos && activeElement.position().top + activeElement.height() > scrollPos)) {
+						menuElement.removeClass("active");
+						currentElement.addClass("active");
+					}
+					else{
+						currentElement.removeClass("active");
+					}
+				});
+			});
+		});
+		
 	};
 
 	var responsiveMenu = function() {
@@ -477,7 +497,7 @@
 		rollAnimation();
 		checkipad();
 		panelsStyling();
-		scrolls();
+		//scrolls(); no need to add paralax yet
 		projectEffect();
 		socialMenu();
 		goTop();
