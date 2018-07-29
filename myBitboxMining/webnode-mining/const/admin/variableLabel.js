@@ -51,6 +51,7 @@ module.exports.en = {
     LABEL_MANAGE_PRODUCT: 'Manage product',
     LABEL_ADD_NEW_PRODUCT: 'Add new product',
     LABEL_ADD_OR_UPDATE_PRODUCT: 'Add or update product',
+    LABEL_MAINTENANCE_FEE: 'Maintenance fee',
     // dashboard
     TITLE_CUSTOMER_DASHBOARD: 'User dashboard',
     TITLE_LIST_PRODUCT: 'List products',
