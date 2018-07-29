@@ -163,6 +163,7 @@ module.exports.en = {
 
     // react label in customer product page
     RC_UPDATE_PRODUCT: 'Update Product',
+    RC_MAINTENANCE_FEE: 'Maintenance fee (month)',
 
     // input placeholder
     WALLET_ADDRESS: 'Wallet address',

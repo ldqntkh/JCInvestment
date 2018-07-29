@@ -5,3 +5,11 @@
         padding: 10px;
     }
 }
+
+.payment-detail-content {
+    .symbol-currency {
+        &:before {
+            content: "\0024"
+        }
+    }
+}

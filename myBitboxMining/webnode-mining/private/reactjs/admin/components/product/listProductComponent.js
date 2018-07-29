@@ -133,12 +133,15 @@ export default class ListProductComponent extends Component {
 
     _openConfirmationPopup (productItem) {
         try {
+            let priceBooks = productItem.pricebooks !== '' ? productItem.pricebooks : [];
+            let indexOfPriceBooks = priceBooks.length > 0 ? priceBooks.findIndex(item => item.localeId === 'en') : -1;
+            let priceBook = indexOfPriceBooks >= 0 ? priceBooks[indexOfPriceBooks] : '';
             confirmAlert({
                 customUI: ({ onClose }) => {
                     return (
                         <div className='custom-ui'>
                             <h1>{showMessage('AL_TITLE_CONFIRM')}</h1>
-                            <p>  {showMessage('AL_TITLE_DESC')} </p>
+                            <p>  {showMessage('AL_TITLE_DESC', ['product name: ' + (priceBook !== '' ? priceBook.name : '')])} </p>
                             <div className="form-group">
                                 <button onClick={()=> { onClose();}} type="button" name="recover-submit" className="btn btn-lg btn-primary" value={showMessage('AL_BTN_NO')}>{showMessage('AL_BTN_NO')}</button>
                                 <button onClick={() => {

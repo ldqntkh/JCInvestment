@@ -16,6 +16,7 @@ const ProductTable = sequelize.define('productofcustomer', {
     active : Sequelize.BOOLEAN,
     expired : Sequelize.BOOLEAN,
     period : Sequelize.INTEGER,
+    maintenance_fee: Sequelize.FLOAT,
     userUpdate : Sequelize.INTEGER,
     startDate : Sequelize.DATE,
     endDate : Sequelize.DATE,

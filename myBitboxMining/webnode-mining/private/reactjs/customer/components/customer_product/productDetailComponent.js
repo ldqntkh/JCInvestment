@@ -213,6 +213,7 @@ class ProductDetailComponent extends Component {
     render() {
         let screen = null;
         let productDetail = this.state.productDetail;
+        console.log(productDetail);
         if (!this.state.loaded) screen = <i className="fa fa-spinner fa-spin fa-icon-loading"></i>
         else {
             screen = <div className="payment-detail-container">
@@ -247,6 +248,10 @@ class ProductDetailComponent extends Component {
                                         <td>{showMessage('RC_PERIOD')}</td>
                                         <td>{productDetail.period}</td>
                                     </tr>
+                                    {productDetail.maintenance_fee > 0 && <tr className="payment-detail-content">
+                                        <td>{showMessage('RC_MAINTENANCE_FEE')}</td>
+                                        <td className="symbol-currency">{productDetail.maintenance_fee}</td>
+                                    </tr>}
                                     <tr className="payment-detail-content">
                                         <td>{showMessage('RC_START_DATE')}</td>
                                         <td>{productDetail.startDate}</td>
