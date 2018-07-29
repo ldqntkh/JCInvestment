@@ -90,6 +90,7 @@ module.exports.en = {
     TITLE_CUSTOMER_HISTORY: 'My history',
     TITLE_CUSTOMER_PAYMENT_DETAIL: 'Payment detail',
     TITLE_CUSTOMER_ORDER_DETAIL: 'Order detail',
+    TITLE_CUSTOMER_MAINTAINCE_FEE: 'Maintenance Fee',
 
     // title
     TITLE_CHANGE_PASSWORD: 'Change password',
@@ -101,7 +102,7 @@ module.exports.en = {
     TITLE_FORGOT_PASS_DESC: 'You can reset your password here.',
     TITLE_MY_PRODUCT: 'My Product',
     TITLE_HERE: 'here',
-    
+
     // react label
     RC_ID: 'ID',
     RC_NAME: 'Name',

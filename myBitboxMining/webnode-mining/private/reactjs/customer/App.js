@@ -14,6 +14,7 @@ import CoinCalculator from './components/calculation/coinCalculator';
 import ForgotPassword from './components/account/forgotPassword';
 import ChangePassword from './components/account/changePassword';
 
+import MaintenanceFee from './components/MaintenanceFee/maintenanceFeeComponent';
 //import container
 import ListProductCustomerContainer from './containers/customer_product/listProductContainer';
 import ListOrderContainer from './containers/order/listOrderContainer';
@@ -44,6 +45,8 @@ if (typeof pageContext !== 'undefined') {
             <Provider store={productStore}>
                 <IndexProductCustomerComponent />
             </Provider>, document.getElementById('my-product-page'));
+    } else if(page === 'maintenance-fee') {
+        ReactDOM.render(<MaintenanceFee />, document.getElementById('maintenance-fee-page'));
     } else if(page === 'my-order') {
         ReactDOM.render(
             <Provider store={orderStore}>

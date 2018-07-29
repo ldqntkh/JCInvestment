@@ -56,6 +56,12 @@
                                 <p><%= showMessage('TITLE_CUSTOMER_PRODUCT') %></p>
                             </a>
                         </li>
+                        <li class="nav-item <%- menu_active === 'maintenance-fee' ? 'active' : '' %>">
+                            <a class="nav-link" href="/maintenance-fee">
+                                <i class="material-icons">account_balance_wallet</i>
+                                <p><%= showMessage('TITLE_CUSTOMER_MAINTAINCE_FEE') %></p>
+                            </a>
+                        </li>
                         <li class="nav-item <%- menu_active === 'my-order' ? 'active' : '' %>">
                             <a class="nav-link" href="/my-order">
                                 <i class="material-icons">reorder</i>

@@ -56,6 +56,8 @@ const orders = require('./routes/customer/orders');
 const wallet = require('./routes/customer/wallet');
 const history = require('./routes/customer/history');
 const adminProduct = require('./routes/admin/product');
+const maintenanceFee = require('./routes/customer/maintenanceFee');
+
 // router api
 const productApi = require('./routes/customerApi/productApi');
 const walletApi = require('./routes/customerApi/walletApi');
@@ -74,6 +76,7 @@ app.use('/', orders);
 app.use('/', wallet);
 app.use('/', history);
 app.use('/', adminProduct);
+app.use('/', maintenanceFee);
 app.use('/api-v1/products/', productApi);
 app.use('/api-v1/wallets/', walletApi);
 app.use('/api-v1/orders/', orderApi);
