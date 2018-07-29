@@ -66,7 +66,9 @@ module.exports.en = {
     LABEL_ORDER_APPROVE: "Your order with id {0} is approved!",
     LABEL_CREATE_PAYMENT: "You have successfully paid the order {0} with a payment code of {1}",
     LABEL_PRODUCTOFCUSTOMER_INSERT: 'Your product with id {0} has not been activated. Please click {1} choose a wallet address and active it.',
-
+    LABEL_PRODUCT_INCLUDED_MAINTAINCE_FEE: 'Product is included maintaince fee',
+    LABEL_PRODUCT_WITHOUT_MAINTAINCE_FEE: 'Product is not include maintaince fee',
+    LABEL_MAINTENANCE_FEE: 'Maintenance Fee: ',
     // web title
     TITLE_CUSTOMER_LOGIN: "Customer Login",
     TITLE_CUSTOMER_UPDATE_PROFILE: 'Customer profile',
@@ -157,6 +159,7 @@ module.exports.en = {
     RC_MONTH: 'Month',
     RC_MONTHS: 'Months',
     RC_PERIOD_LABEL: 'Period: ',
+    RC_OUR_SERVICES: 'Our services',
 
     // react label in customer product page
     RC_UPDATE_PRODUCT: 'Update Product',

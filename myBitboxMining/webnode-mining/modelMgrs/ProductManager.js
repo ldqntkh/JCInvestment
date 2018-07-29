@@ -16,6 +16,7 @@ const ProductTable = sequelize.define('product', {
     sku : Sequelize.STRING,
     hashrate : Sequelize.FLOAT,
     period : Sequelize.INTEGER,
+    maintenance_fee: Sequelize.FLOAT,
     userUpdate : Sequelize.INTEGER,
     createAt : Sequelize.DATE,
     updateAt : Sequelize.DATE
