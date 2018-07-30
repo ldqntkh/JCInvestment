@@ -12,7 +12,6 @@ const PriceBookManager = require('../../modelMgrs/PriceBookManager');
 // import model
 const OrderModel = require('../../models/Order');
 const CustomerHistoryModel = require('../../models/CustomerHistory');
-const PriceBookModel = require('../../models/Pricebook');
 
 // import const
 const varibale = require('../../const/variable');
@@ -44,7 +43,7 @@ router.post('/products/:productid/buy', async (req, res, next)=> {
         });
         let price = priceBook.getSalePrice() !== null ? priceBook.getSalePrice() : priceBook.getPrice();
         // create order
-        console.log("Create Order");
+        //console.log("Create Order");
         let order = new OrderModel({
             customerid : customer.id,
             productname: priceBook.getProductName(),
@@ -76,7 +75,7 @@ router.post('/products/:productid/buy', async (req, res, next)=> {
                     "payment_method": "paypal"
                 },
                 "redirect_urls": {
-                    "return_url": FileHelper.getUrl(req, "orders/" + orderResult.getOrderId() + "/buysuccess"),
+                    "return_url": FileHelper.getUrl(req, "orders/" + orderResult.getOrderId() + "/buysuccess/" + productId),
                     "cancel_url": FileHelper.getUrl(req, "orders/" + orderResult.getOrderId() + "/buycancel"),
                 },
                 "transactions": [{

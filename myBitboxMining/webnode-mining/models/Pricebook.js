@@ -122,5 +122,13 @@ class Pricebook {
     getHashrate() {
         return this.hashrate;
     }
+
+    /**
+     * get maintenance fee
+     * @returns {Number} maintenance free
+     */
+    getMaintenanceFee() {
+        return this.maintenance_fee;
+    }
 }
 module.exports = Pricebook;

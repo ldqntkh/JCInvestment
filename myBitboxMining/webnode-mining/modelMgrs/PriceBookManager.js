@@ -16,6 +16,7 @@ const PricebookTable = sequelize.define('pricebook', {
     price : Sequelize.FLOAT,
     sale_price : Sequelize.FLOAT,
     currency : Sequelize.STRING,
+    maintenance_fee: Sequelize.FLOAT,
     symbol_currency : Sequelize.STRING,
     desc1 : Sequelize.STRING,
     desc2 : Sequelize.STRING,
@@ -47,7 +48,6 @@ module.exports = {
             let result = await PricebookTable.findOne({
                 where: options
             });
-            console.log(result);
             return result  && result.dataValues !== null ? new PricebookModel(result.dataValues) : null;
         } catch(err) {
             console.log(showMessage('ERROR_CREATE_PRICEBOOK') + err.message);

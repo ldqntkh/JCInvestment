@@ -57,9 +57,9 @@ export default class ProductItemComponent extends Component {
                                 <h4></h4>
                             </React.Fragment>
                         }
-                        {product.maintenance_fee > 0 && <h4 className="card-category maintenance-fee">
+                        {priceBook.maintenance_fee > 0 && <h4 className="card-category maintenance-fee">
                             <span className="text-primary">{showMessage('LABEL_MAINTENANCE_FEE')}</span>
-                            <span className="maintenance-fee-value">{priceBook.symbol_currency + product.maintenance_fee + '/' + showMessage('RC_MONTH')}</span>
+                            <span className="maintenance-fee-value">{priceBook.symbol_currency + priceBook.maintenance_fee + '/' + showMessage('RC_MONTH')}</span>
                         </h4>}
                     </div>
                     <div className="card-body">

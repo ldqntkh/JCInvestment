@@ -12,6 +12,7 @@ class ProductOfCustomer {
          * active : bool
          * expired : bool
          * period : Number
+         * maintenance_fee : Number
          * userUpdate : Number
          * startDate : date
          * endDate : date
