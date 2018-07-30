@@ -17,7 +17,7 @@ var JobUpdateBalance = {
         blockNumber: 0,
         netHashesPerSecond: 0,
         blockReward: 0,
-        percent: 0.7
+        percent: 1
     },
 
     getCoinInfo: async() => {
@@ -30,7 +30,7 @@ var JobUpdateBalance = {
                     blockNumber: jsonData.Data.CoinInfo.BlockNumber,
                     netHashesPerSecond: jsonData.Data.CoinInfo.NetHashesPerSecond,
                     blockReward: jsonData.Data.CoinInfo.BlockReward,
-                    percent: 0.7
+                    percent: 1
                 }
                 //console.log(JobUpdateBalance.CoinInfo)
             }
