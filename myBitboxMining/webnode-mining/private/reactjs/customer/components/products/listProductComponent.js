@@ -60,7 +60,9 @@ export default class ListProductComponent extends Component {
         let screenProductNotMaintenanceFee = null;
         for (var index in listProduct) {
             product = listProduct[index];
-            if (product.maintenance_fee === 0) {
+            let indexOfPriceBook = product.pricebooks.findIndex(item => item.localeId === this.state.localeId); // return -1 if not match condition
+            let priceBook = product.pricebooks[indexOfPriceBook];
+            if (priceBook.maintenance_fee === 0) {
                 productsWithMaintenanceFee.push(product);
             } else {
                 productsNotMaintenanceFee.push(product);
