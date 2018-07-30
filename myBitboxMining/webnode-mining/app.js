@@ -64,7 +64,7 @@ const walletApi = require('./routes/customerApi/walletApi');
 const orderApi = require('./routes/customerApi/orderApi');
 const customerHistoryApi = require('./routes/customerApi/historyApi');
 const adminProductApi = require('./routes/adminApi/productApi');
-const totalPaymentApi = require('./routes/customerApi/totalPaymentApi');
+const maintenanceFeeApi = require('./routes/customerApi/maintenanceFeeApi');
 // router user
 const adminAccountRoute = require('./routes/admin/account');
 
@@ -81,7 +81,7 @@ app.use('/', maintenanceFee);
 app.use('/api-v1/products/', productApi);
 app.use('/api-v1/wallets/', walletApi);
 app.use('/api-v1/orders/', orderApi);
-app.use('/api-v1/payment/', totalPaymentApi);
+app.use('/api-v1/maintenance/', maintenanceFeeApi);
 app.use('/api-v1/customerhistories/', customerHistoryApi);
 app.use('/api-v1/admin/products/', adminProductApi);
 

@@ -55,10 +55,8 @@ module.exports = {
             if (products.length > 0) {
                 for(let i = 0; i < products.length; i++) {
                     let productModel = new ProductModel(products[i].dataValues);
-                    if (productModel.startDate !== null || productModel.endDate !== null) {
-                        productModel.startDate = moment(new Date(productModel.startDate)).format('DD/MM/YYYY');
-                        productModel.endDate = moment(new Date(productModel.endDate)).format('DD/MM/YYYY');
-                    }
+                    productModel.startDate !== null && (productModel.startDate = moment(new Date(productModel.startDate)).format('DD/MM/YYYY'));
+                    productModel.endDate !== null && (productModel.endDate = moment(new Date(productModel.endDate)).format('DD/MM/YYYY'));
                     results.push(productModel);
                 }
             }
