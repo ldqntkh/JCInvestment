@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jul 23, 2018 at 03:48 PM
+-- Generation Time: Jul 30, 2018 at 12:50 AM
 -- Server version: 5.7.21
 -- PHP Version: 5.6.35
 
@@ -209,17 +209,20 @@ CREATE TABLE IF NOT EXISTS `pricebook` (
   PRIMARY KEY (`id`),
   KEY `to_tb_locale` (`localeId`),
   KEY `to_tb_product` (`productId`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `pricebook`
 --
 
 INSERT INTO `pricebook` (`id`, `localeId`, `productId`, `name`, `price`, `sale_price`, `currency`, `symbol_currency`, `desc1`, `desc2`, `desc3`, `enable`) VALUES
-(1, 'en', 1, '10 Mh/s', 50, 40, 'USD', '$', 'Product with 10 Mh/s', 'Product with 10 Mh/s', 'Product with 10 Mh/s', 1),
-(2, 'en', 2, '20 Mh/s', 100, 70, 'USD', '$', 'Product with 20 Mh/s', 'Product with 20 Mh/s', 'Product with 20 Mh/s', 1),
-(3, 'en', 3, '40 Mh/s', 200, 200, 'USD', '$', 'Product with 40 Mh/s', 'Product with 40 Mh/s', 'Product with 40 Mh/s', 1),
-(4, 'en', 4, '150 Mh/s', 200, 190, 'USD', '$', 'Product with 150 Mh/s', 'Product with 150 Mh/s', 'Product with 150 Mh/s', 1);
+(1, 'en', 1, '10 Mh/s', 350, 330, 'USD', '$', 'Để bắt đầu khai thác Ethereum.', 'Thu về lợi nhuận về từng ngày\r\n', 'Đã bao gồm chi phí quản lý', 1),
+(2, 'en', 2, '50 Mh/s', 1700, 1600, 'USD', '$', 'Product with 50 Mh/s', 'Product with 50 Mh/s', 'Product with 50 Mh/s', 1),
+(3, 'en', 3, '100 Mh/s', 3200, 3000, 'USD', '$', 'Product with 100 Mh/s', 'Product with 100 Mh/s', 'Product with 100 Mh/s', 1),
+(4, 'en', 4, '10 Mh/s', 200, 190, 'USD', '$', 'Product with 10 Mh/s', 'Product with 10 Mh/s', 'Product with 10 Mh/s', 1),
+(5, 'en', 5, '50 Mh/s', 1000, 900, 'USD', '$', 'Product with 50 Mh/s', 'Product with 50 Mh/s', 'Product with 50 Mh/s', 1),
+(6, 'en', 6, '100 Mh/s', 1700, 1600, 'USD', '$', 'Product with 100 Mh/s', 'Product with 100 Mh/s', 'Product with 100 Mh/s', 1),
+(7, 'en', 7, 'test product', 2500, 2400, 'USD', '$', 'desc 1', 'desc 2', 'desc 3', 1);
 
 -- --------------------------------------------------------
 
@@ -232,24 +235,28 @@ CREATE TABLE IF NOT EXISTS `product` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `sku` varchar(50) NOT NULL,
   `hashrate` float NOT NULL,
-  `period` int(11) NOT NULL DEFAULT '6' COMMENT 'số tháng, mặc định là 6	',
+  `period` int(11) NOT NULL DEFAULT '24' COMMENT 'số tháng, mặc định là 24',
+  `maintenance_fee` float NOT NULL,
   `userUpdate` int(11) NOT NULL,
   `createAt` datetime NOT NULL,
   `updateAt` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `userUpdate` (`userUpdate`),
   KEY `id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `product`
 --
 
-INSERT INTO `product` (`id`, `sku`, `hashrate`, `period`, `userUpdate`, `createAt`, `updateAt`) VALUES
-(1, '1532353550', 10, 6, 1, '2018-07-23 13:46:35', NULL),
-(2, '1532353597', 20, 6, 1, '2018-07-23 13:47:14', NULL),
-(3, '1532353638', 40, 10, 1, '2018-07-23 13:47:47', NULL),
-(4, '1532353668', 150, 12, 1, '2018-07-23 13:48:18', NULL);
+INSERT INTO `product` (`id`, `sku`, `hashrate`, `period`, `maintenance_fee`, `userUpdate`, `createAt`, `updateAt`) VALUES
+(1, '1532353550', 10, 24, 0, 1, '2018-07-23 13:46:35', NULL),
+(2, '1532353597', 50, 24, 0, 1, '2018-07-23 13:47:14', NULL),
+(3, '1532353638', 100, 24, 0, 1, '2018-07-23 13:47:47', NULL),
+(4, '1532353668', 10, 24, 7.5, 1, '2018-07-23 13:48:18', NULL),
+(5, 'sku005', 50, 24, 35, 1, '2018-07-29 00:00:00', NULL),
+(6, 'sku006', 100, 24, 65, 1, '2018-07-29 00:00:00', NULL),
+(7, '1532837251', 150, 24, 0, 1, '2018-07-29 04:08:09', NULL);
 
 -- --------------------------------------------------------
 
@@ -267,6 +274,7 @@ CREATE TABLE IF NOT EXISTS `productofcustomer` (
   `active` tinyint(1) NOT NULL DEFAULT '0',
   `expired` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'tính thời gian hết hạn của product, nếu hết hạn thì customer có thể xóa',
   `period` int(11) NOT NULL,
+  `maintenance_fee` float NOT NULL,
   `userUpdate` int(11) DEFAULT NULL,
   `startDate` datetime DEFAULT NULL,
   `endDate` datetime DEFAULT NULL,
@@ -278,6 +286,35 @@ CREATE TABLE IF NOT EXISTS `productofcustomer` (
   KEY `customerId` (`customerId`),
   KEY `walletId` (`walletId`),
   KEY `userUpdate` (`userUpdate`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `productofcustomer`
+--
+
+INSERT INTO `productofcustomer` (`id`, `name`, `hashrate`, `customerId`, `walletId`, `active`, `expired`, `period`, `maintenance_fee`, `userUpdate`, `startDate`, `endDate`, `createAt`, `updateAt`) VALUES
+(1, '10 Mh/s', 10, 1, 5, 1, 0, 24, 0, NULL, '2018-07-15 00:00:00', NULL, '2018-07-29 00:00:00', NULL),
+(2, '50 Mh/s', 50, 1, 5, 1, 0, 24, 35, 1, '2018-07-15 00:00:00', NULL, '2018-07-29 00:00:00', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `totalpayment`
+--
+
+DROP TABLE IF EXISTS `totalpayment`;
+CREATE TABLE IF NOT EXISTS `totalpayment` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `customerId` int(11) NOT NULL,
+  `settlementDate` datetime NOT NULL,
+  `paymentDate` datetime NOT NULL,
+  `paymentMethod` varchar(255) NOT NULL,
+  `paymentStatus` int(11) NOT NULL,
+  `totalPayment` float NOT NULL,
+  `createAt` datetime DEFAULT NULL,
+  `updateAt` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `to_tb_customer` (`customerId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -401,7 +438,7 @@ CREATE TABLE IF NOT EXISTS `walletbalance` (
   UNIQUE KEY `walletAddress_2` (`walletId`),
   KEY `id_2` (`id`),
   KEY `userUpdate` (`userUpdate`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -486,6 +523,12 @@ ALTER TABLE `productofcustomer`
   ADD CONSTRAINT `productofcustomer_ibfk_1` FOREIGN KEY (`walletId`) REFERENCES `wallet` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `productofcustomer_ibfk_2` FOREIGN KEY (`userUpdate`) REFERENCES `user` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
   ADD CONSTRAINT `productofcustomer_ibfk_3` FOREIGN KEY (`customerId`) REFERENCES `customer` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `totalpayment`
+--
+ALTER TABLE `totalpayment`
+  ADD CONSTRAINT `to_tb_customer` FOREIGN KEY (`customerId`) REFERENCES `customer` (`id`);
 
 --
 -- Constraints for table `user`
