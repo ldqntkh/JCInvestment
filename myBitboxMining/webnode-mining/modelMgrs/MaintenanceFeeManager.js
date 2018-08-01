@@ -1,32 +1,13 @@
 'use strict';
 const MaintenanceFee = require('../models/MaintenanceFee');
-const SequelizeConfig = require('./SequelizeConfig');
-
-const Sequelize = SequelizeConfig.getSequelizeModule();
-
-const sequelize = SequelizeConfig.init();
 
 //const globalAttributes = ['id', 'email', 'fullname', 'phone', 'birthday'];
 
-const MaintenanceFeeTable = sequelize.define('maintenance_fee', {
-    customerId: Sequelize.INTEGER,
-    settlementDate: Sequelize.DATE,
-    paymentDate:  Sequelize.DATE,
-    paymentMethod: Sequelize.STRING,
-    paymentStatus: Sequelize.INTEGER,
-    totalPayment: Sequelize.FLOAT,
-    createAt: Sequelize.DATE,
-    updateAt: Sequelize.DATE
-});
-
-// class helper
-const FileHelper = require('../global/FileHelper');
+const MaintenanceFeeTable = require('./TableDefine').MaintenanceFeeTable;
 
 // import const
 const showMessage = require('../global/ResourceHelper').showMessage;
 
-// require module
-const moment = require('moment');
 
 module.exports = {
     /**

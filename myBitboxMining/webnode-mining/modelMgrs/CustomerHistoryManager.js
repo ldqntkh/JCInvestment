@@ -1,19 +1,7 @@
 'use strict';
 const CustomerHistoryModel = require('../models/CustomerHistory');
-const SequelizeConfig = require('./SequelizeConfig');
 
-const Sequelize = SequelizeConfig.getSequelizeModule();
-
-const sequelize = SequelizeConfig.init();
-
-const CustomerHistoryTable = sequelize.define('historyofcustomer', {
-    customerId: Sequelize.INTEGER,
-    userId: Sequelize.INTEGER,
-    description: Sequelize.STRING,
-    createAt : Sequelize.DATE,
-    updateAt : Sequelize.DATE
-});
-
+const CustomerHistoryTable = require('./TableDefine').CustomerHistoryTable;
 
 module.exports = {
 

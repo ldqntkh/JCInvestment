@@ -1,44 +1,12 @@
 'use strict';
 const ProductModel = require('../models/Product');
-const PricebookModel = require('../models/Pricebook');
-const SequelizeConfig = require('./SequelizeConfig');
-
 // import const
 const showMessage = require('../global/ResourceHelper').showMessage;
 
 const moment = require('moment');
 
-const Sequelize = SequelizeConfig.getSequelizeModule();
-
-const sequelize = SequelizeConfig.init();
-
-const ProductTable = sequelize.define('product', {
-    sku : Sequelize.STRING,
-    hashrate : Sequelize.FLOAT,
-    period : Sequelize.INTEGER,
-    userUpdate : Sequelize.INTEGER,
-    createAt : Sequelize.DATE,
-    updateAt : Sequelize.DATE
-});
-
-const LocaleTable = sequelize.define('locale', {
-    name: Sequelize.STRING
-});
-
-const PricebookTable = sequelize.define('pricebook', {
-    productId: Sequelize.INTEGER,
-    localeId: Sequelize.STRING,
-    name : Sequelize.STRING,
-    price : Sequelize.FLOAT,
-    sale_price : Sequelize.FLOAT,
-    maintenance_fee: Sequelize.FLOAT,
-    currency : Sequelize.STRING,
-    symbol_currency : Sequelize.STRING,
-    desc1 : Sequelize.STRING,
-    desc2 : Sequelize.STRING,
-    desc3 : Sequelize.STRING,
-    enable : Sequelize.BOOLEAN
-});
+const ProductTable = require('./TableDefine').ProductTable;
+const PricebookTable = require('./TableDefine').PricebookTable;
 
 module.exports = {
 

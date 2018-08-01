@@ -1,18 +1,7 @@
 'use strict';
 const LocaleModel = require('../models/Locale');
-const SequelizeConfig = require('./SequelizeConfig');
-const showMessage = require('../global/ResourceHelper').showMessage;
-// require module
-const moment = require('moment');
 
-// import const
-const Sequelize = SequelizeConfig.getSequelizeModule();
-
-const sequelize = SequelizeConfig.init();
-
-const LocaleTable = sequelize.define('locale', {
-    name: Sequelize.STRING
-});
+const LocaleTable = require('./TableDefine').LocaleTable;
 
 module.exports = {
     /**

@@ -1,28 +1,13 @@
 'use strict';
 const ProductModel = require('../models/ProductOfCustomer');
-const SequelizeConfig = require('./SequelizeConfig');
-
-const Sequelize = SequelizeConfig.getSequelizeModule();
-
-const sequelize = SequelizeConfig.init();
 
 const moment = require('moment');
 
-const ProductTable = sequelize.define('productofcustomer', {
-    name: Sequelize.STRING,
-    hashrate: Sequelize.FLOAT,
-    customerId: Sequelize.INTEGER,
-    walletId : Sequelize.INTEGER,
-    active : Sequelize.BOOLEAN,
-    expired : Sequelize.BOOLEAN,
-    period : Sequelize.INTEGER,
-    maintenance_fee: Sequelize.FLOAT,
-    userUpdate : Sequelize.INTEGER,
-    startDate : Sequelize.DATE,
-    endDate : Sequelize.DATE,
-    createAt : Sequelize.DATE,
-    updateAt : Sequelize.DATE
-});
+const ProductTable = require('./TableDefine').ProductTableCustomer;
+
+const SequelizeConfig = require('./SequelizeConfig');
+
+const sequelize = SequelizeConfig.init();
 
 module.exports = {
 

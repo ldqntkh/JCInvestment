@@ -1,23 +1,9 @@
 'use strict';
 const CustomerModel = require('../models/Customer');
-const SequelizeConfig = require('./SequelizeConfig');
-
-const Sequelize = SequelizeConfig.getSequelizeModule();
-
-const sequelize = SequelizeConfig.init();
 
 //const globalAttributes = ['id', 'email', 'fullname', 'phone', 'birthday'];
 
-const CustomerTable = sequelize.define('customer', {
-    email: Sequelize.STRING,
-    password: Sequelize.STRING,
-    fullname:  Sequelize.STRING,
-    active: Sequelize.INTEGER,
-    phone: Sequelize.STRING,
-    birthday: Sequelize.DATE,
-    createAt: Sequelize.DATE,
-    updateAt: Sequelize.DATE
-});
+const CustomerTable = require('./TableDefine').CustomerTable;
 
 // class helper
 const FileHelper = require('../global/FileHelper');

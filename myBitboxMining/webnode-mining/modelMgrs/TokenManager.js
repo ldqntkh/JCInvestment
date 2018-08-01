@@ -1,20 +1,10 @@
 'use strict';
 const TokenModel = require('../models/Token');
-const SequelizeConfig = require('./SequelizeConfig');
-
 // import const
 const showMessage = require('../global/ResourceHelper').showMessage;
 
-const Sequelize = SequelizeConfig.getSequelizeModule();
+const TokenTable = require('./TableDefine').TokenTable;
 
-const sequelize = SequelizeConfig.init();
-
-const TokenTable = sequelize.define('token', {
-    email: Sequelize.STRING,
-    name: Sequelize.STRING,
-    createAt: Sequelize.DATE,
-    updateAt: Sequelize.DATE
-});
 // ignore column id
 TokenTable.removeAttribute('id');
 

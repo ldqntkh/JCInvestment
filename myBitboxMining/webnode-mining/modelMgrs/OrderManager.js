@@ -1,24 +1,7 @@
 'use strict';
 const OrderModel = require('../models/Order');
-const SequelizeConfig = require('./SequelizeConfig');
 
-const Sequelize = SequelizeConfig.getSequelizeModule();
-
-const sequelize = SequelizeConfig.init();
-
-const OrderTable = sequelize.define('orders', {
-    customerid : Sequelize.INTEGER,
-    productname : Sequelize.STRING,
-    hashrate : Sequelize.FLOAT,
-    quantity : Sequelize.INTEGER,
-    description : Sequelize.STRING,
-    state : Sequelize.STRING,
-    amount: Sequelize.FLOAT,
-    currency : Sequelize.STRING,
-    product_period : Sequelize.INTEGER,
-    createAt : Sequelize.DATE,
-    updateAt : Sequelize.DATE
-});
+const OrderTable = require('./TableDefine').OrderTable;
 
 module.exports = {
 
