@@ -15,7 +15,6 @@ const showAdminMessage = require('../../global/ResourceHelper').showAdminMessage
 
 router.get(/^\/(admin-product)/, (req, res, next) => {
     if (!req.session.user) return res.redirect('/admin/login');
-    console.log('admin-product');
     res.render('admin/product/index', {
         "title" : showAdminMessage('TITLE_LIST_PRODUCT'),
         "menu_active" : 'admin-product',

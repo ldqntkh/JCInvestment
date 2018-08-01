@@ -1,54 +1,41 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.9
+-- version 4.7.7
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1:3306
--- Generation Time: Jul 23, 2018 at 03:48 PM
--- Server version: 5.7.21
--- PHP Version: 5.6.35
+-- Máy chủ: localhost:8889
+-- Thời gian đã tạo: Th7 31, 2018 lúc 10:46 PM
+-- Phiên bản máy phục vụ: 5.6.35
+-- Phiên bản PHP: 7.1.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-
 --
--- Database: `db_mybitboxmining`
+-- Cơ sở dữ liệu: `db_mybitboxmining`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `accessfunction`
+-- Cấu trúc bảng cho bảng `accessfunction`
 --
 
-DROP TABLE IF EXISTS `accessfunction`;
-CREATE TABLE IF NOT EXISTS `accessfunction` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `accessfunction` (
+  `id` int(11) NOT NULL,
   `funcName` varchar(100) NOT NULL,
   `funcType` int(11) NOT NULL COMMENT 'có quyền access vào nguyên page hoặc chỉ 1 func nào đó',
   `createAt` datetime NOT NULL,
-  `updateAt` datetime NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `id` (`id`),
-  KEY `id_2` (`id`)
+  `updateAt` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `customer`
+-- Cấu trúc bảng cho bảng `customer`
 --
 
-DROP TABLE IF EXISTS `customer`;
-CREATE TABLE IF NOT EXISTS `customer` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `customer` (
+  `id` int(11) NOT NULL,
   `email` varchar(100) NOT NULL,
   `password` varchar(250) NOT NULL,
   `phone` varchar(12) DEFAULT NULL,
@@ -57,15 +44,11 @@ CREATE TABLE IF NOT EXISTS `customer` (
   `active` int(11) NOT NULL COMMENT '1: active, 0 : deactivate',
   `userActive` int(11) DEFAULT NULL,
   `createAt` datetime NOT NULL,
-  `updateAt` datetime NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `id` (`id`),
-  KEY `id_2` (`id`),
-  KEY `userActive` (`userActive`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+  `updateAt` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `customer`
+-- Đang đổ dữ liệu cho bảng `customer`
 --
 
 INSERT INTO `customer` (`id`, `email`, `password`, `phone`, `fullname`, `birthday`, `active`, `userActive`, `createAt`, `updateAt`) VALUES
@@ -76,59 +59,53 @@ INSERT INTO `customer` (`id`, `email`, `password`, `phone`, `fullname`, `birthda
 -- --------------------------------------------------------
 
 --
--- Table structure for table `historyofadmin`
+-- Cấu trúc bảng cho bảng `historyofadmin`
 --
 
-DROP TABLE IF EXISTS `historyofadmin`;
-CREATE TABLE IF NOT EXISTS `historyofadmin` (
-  `id` double NOT NULL AUTO_INCREMENT,
+CREATE TABLE `historyofadmin` (
+  `id` double NOT NULL,
   `historyTypeId` varchar(100) NOT NULL,
   `userId` int(11) NOT NULL,
   `description` text NOT NULL,
   `createAt` datetime NOT NULL,
-  `updateAt` datetime NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `userId` (`userId`),
-  KEY `historyTypeId` (`historyTypeId`),
-  KEY `id` (`id`)
+  `updateAt` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `historyofcustomer`
+-- Cấu trúc bảng cho bảng `historyofcustomer`
 --
 
-DROP TABLE IF EXISTS `historyofcustomer`;
-CREATE TABLE IF NOT EXISTS `historyofcustomer` (
-  `id` double NOT NULL AUTO_INCREMENT,
+CREATE TABLE `historyofcustomer` (
+  `id` double NOT NULL,
   `customerId` int(11) NOT NULL,
   `userId` int(11) DEFAULT NULL,
   `description` text NOT NULL,
   `createAt` datetime NOT NULL,
-  `updateAt` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `id_2` (`id`),
-  KEY `id` (`id`),
-  KEY `customerId` (`customerId`),
-  KEY `userId` (`userId`)
+  `updateAt` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Đang đổ dữ liệu cho bảng `historyofcustomer`
+--
+
+INSERT INTO `historyofcustomer` (`id`, `customerId`, `userId`, `description`, `createAt`, `updateAt`) VALUES
+(1, 1, NULL, 'Your wallet balance is changed to 0.004077125262721613 ETH', '2018-07-30 17:00:01', NULL);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `locale`
+-- Cấu trúc bảng cho bảng `locale`
 --
 
-DROP TABLE IF EXISTS `locale`;
-CREATE TABLE IF NOT EXISTS `locale` (
+CREATE TABLE `locale` (
   `id` varchar(50) NOT NULL,
-  `name` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`)
+  `name` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `locale`
+-- Đang đổ dữ liệu cho bảng `locale`
 --
 
 INSERT INTO `locale` (`id`, `name`) VALUES
@@ -139,12 +116,11 @@ INSERT INTO `locale` (`id`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `orders`
+-- Cấu trúc bảng cho bảng `orders`
 --
 
-DROP TABLE IF EXISTS `orders`;
-CREATE TABLE IF NOT EXISTS `orders` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `orders` (
+  `id` int(11) NOT NULL,
   `customerid` int(11) NOT NULL,
   `productname` varchar(200) NOT NULL,
   `hashrate` float NOT NULL DEFAULT '0',
@@ -155,20 +131,16 @@ CREATE TABLE IF NOT EXISTS `orders` (
   `currency` varchar(10) NOT NULL,
   `product_period` int(11) NOT NULL,
   `createAt` datetime NOT NULL,
-  `updateAt` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `id` (`id`),
-  KEY `customerid` (`customerid`)
+  `updateAt` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `payment_details`
+-- Cấu trúc bảng cho bảng `payment_details`
 --
 
-DROP TABLE IF EXISTS `payment_details`;
-CREATE TABLE IF NOT EXISTS `payment_details` (
+CREATE TABLE `payment_details` (
   `id` varchar(100) NOT NULL,
   `orderid` int(11) NOT NULL,
   `payment_method` varchar(100) DEFAULT NULL,
@@ -180,86 +152,79 @@ CREATE TABLE IF NOT EXISTS `payment_details` (
   `state` varchar(20) NOT NULL,
   `cart` varchar(100) NOT NULL,
   `createAt` datetime NOT NULL,
-  `updateAt` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `orderid` (`orderid`),
-  KEY `id` (`id`)
+  `updateAt` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pricebook`
+-- Cấu trúc bảng cho bảng `pricebook`
 --
 
-DROP TABLE IF EXISTS `pricebook`;
-CREATE TABLE IF NOT EXISTS `pricebook` (
-  `id` int(50) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `pricebook` (
+  `id` int(50) NOT NULL,
   `localeId` varchar(50) NOT NULL,
   `productId` int(50) NOT NULL,
   `name` varchar(255) NOT NULL,
   `price` float NOT NULL,
   `sale_price` float NOT NULL,
+  `maintenance_fee` float NOT NULL DEFAULT '0',
   `currency` varchar(255) NOT NULL,
   `symbol_currency` varchar(10) NOT NULL,
   `desc1` text NOT NULL,
   `desc2` text NOT NULL,
   `desc3` text NOT NULL,
-  `enable` tinyint(1) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `to_tb_locale` (`localeId`),
-  KEY `to_tb_product` (`productId`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+  `enable` tinyint(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `pricebook`
+-- Đang đổ dữ liệu cho bảng `pricebook`
 --
 
-INSERT INTO `pricebook` (`id`, `localeId`, `productId`, `name`, `price`, `sale_price`, `currency`, `symbol_currency`, `desc1`, `desc2`, `desc3`, `enable`) VALUES
-(1, 'en', 1, '10 Mh/s', 50, 40, 'USD', '$', 'Product with 10 Mh/s', 'Product with 10 Mh/s', 'Product with 10 Mh/s', 1),
-(2, 'en', 2, '20 Mh/s', 100, 70, 'USD', '$', 'Product with 20 Mh/s', 'Product with 20 Mh/s', 'Product with 20 Mh/s', 1),
-(3, 'en', 3, '40 Mh/s', 200, 200, 'USD', '$', 'Product with 40 Mh/s', 'Product with 40 Mh/s', 'Product with 40 Mh/s', 1),
-(4, 'en', 4, '150 Mh/s', 200, 190, 'USD', '$', 'Product with 150 Mh/s', 'Product with 150 Mh/s', 'Product with 150 Mh/s', 1);
+INSERT INTO `pricebook` (`id`, `localeId`, `productId`, `name`, `price`, `sale_price`, `maintenance_fee`, `currency`, `symbol_currency`, `desc1`, `desc2`, `desc3`, `enable`) VALUES
+(1, 'en', 1, '10 Mh/s', 350, 330, 0, 'USD', '$', 'To start mining Ethereum.', 'Earn your profit per day.', 'Included maintenance fee.', 1),
+(2, 'en', 2, '50 Mh/s', 1700, 1600, 0, 'USD', '$', 'To start mining Ethereum.', 'Earn your profit per day.', 'Included maintenance fee.', 1),
+(3, 'en', 3, '100 Mh/s', 3200, 3000, 0, 'USD', '$', 'To start mining Ethereum.', 'Earn your profit per day.', 'Included maintenance fee.', 1),
+(4, 'en', 4, '10 Mh/s', 200, 190, 7.5, 'USD', '$', 'To start mining Ethereum.', 'Earn your profit per day.', 'Not included maintenance fee.', 1),
+(5, 'en', 5, '50 Mh/s', 1000, 900, 35, 'USD', '$', 'To start mining Ethereum.', 'Earn your profit per day.', 'Not included maintenance fee.', 1),
+(6, 'en', 6, '100 Mh/s', 1700, 1600, 65, 'USD', '$', 'To start mining Ethereum.', 'Earn your profit per day.', 'Not included maintenance fee.', 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `product`
+-- Cấu trúc bảng cho bảng `product`
 --
 
-DROP TABLE IF EXISTS `product`;
-CREATE TABLE IF NOT EXISTS `product` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `product` (
+  `id` int(11) NOT NULL,
   `sku` varchar(50) NOT NULL,
   `hashrate` float NOT NULL,
-  `period` int(11) NOT NULL DEFAULT '6' COMMENT 'số tháng, mặc định là 6	',
+  `period` int(11) NOT NULL DEFAULT '24' COMMENT 'số tháng, mặc định là 24',
   `userUpdate` int(11) NOT NULL,
   `createAt` datetime NOT NULL,
-  `updateAt` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `userUpdate` (`userUpdate`),
-  KEY `id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+  `updateAt` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `product`
+-- Đang đổ dữ liệu cho bảng `product`
 --
 
 INSERT INTO `product` (`id`, `sku`, `hashrate`, `period`, `userUpdate`, `createAt`, `updateAt`) VALUES
-(1, '1532353550', 10, 6, 1, '2018-07-23 13:46:35', NULL),
-(2, '1532353597', 20, 6, 1, '2018-07-23 13:47:14', NULL),
-(3, '1532353638', 40, 10, 1, '2018-07-23 13:47:47', NULL),
-(4, '1532353668', 150, 12, 1, '2018-07-23 13:48:18', NULL);
+(1, '1532353550', 10, 24, 1, '2018-07-23 13:46:35', NULL),
+(2, '1532353597', 50, 24, 1, '2018-07-23 13:47:14', '2018-07-30 03:55:56'),
+(3, '1532353638', 100, 24, 1, '2018-07-23 13:47:47', '2018-07-30 03:56:48'),
+(4, '1532353668', 10, 24, 1, '2018-07-23 13:48:18', '2018-07-30 03:57:39'),
+(5, 'sku005', 50, 24, 1, '2018-07-29 00:00:00', '2018-07-30 03:58:20'),
+(6, 'sku006', 100, 24, 1, '2018-07-29 00:00:00', NULL);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `productofcustomer`
+-- Cấu trúc bảng cho bảng `productofcustomer`
 --
 
-DROP TABLE IF EXISTS `productofcustomer`;
-CREATE TABLE IF NOT EXISTS `productofcustomer` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `productofcustomer` (
+  `id` int(11) NOT NULL,
   `name` varchar(100) NOT NULL,
   `hashrate` float NOT NULL,
   `customerId` int(11) DEFAULT NULL,
@@ -267,28 +232,48 @@ CREATE TABLE IF NOT EXISTS `productofcustomer` (
   `active` tinyint(1) NOT NULL DEFAULT '0',
   `expired` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'tính thời gian hết hạn của product, nếu hết hạn thì customer có thể xóa',
   `period` int(11) NOT NULL,
+  `maintenance_fee` float NOT NULL,
   `userUpdate` int(11) DEFAULT NULL,
   `startDate` datetime DEFAULT NULL,
   `endDate` datetime DEFAULT NULL,
   `createAt` datetime NOT NULL,
-  `updateAt` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `id_2` (`id`),
-  KEY `id` (`id`),
-  KEY `customerId` (`customerId`),
-  KEY `walletId` (`walletId`),
-  KEY `userUpdate` (`userUpdate`)
+  `updateAt` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Đang đổ dữ liệu cho bảng `productofcustomer`
+--
+
+INSERT INTO `productofcustomer` (`id`, `name`, `hashrate`, `customerId`, `walletId`, `active`, `expired`, `period`, `maintenance_fee`, `userUpdate`, `startDate`, `endDate`, `createAt`, `updateAt`) VALUES
+(1, '10 Mh/s', 10, 1, 5, 1, 0, 24, 0, NULL, '2018-07-15 00:00:00', NULL, '2018-07-29 00:00:00', NULL),
+(2, '50 Mh/s', 50, 1, 5, 1, 0, 24, 35, 1, '2018-07-15 00:00:00', NULL, '2018-07-29 00:00:00', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `totalpayment`
+--
+
+CREATE TABLE `totalpayment` (
+  `id` int(11) NOT NULL,
+  `customerId` int(11) NOT NULL,
+  `settlementDate` datetime NOT NULL,
+  `paymentDate` datetime NOT NULL,
+  `paymentMethod` varchar(255) NOT NULL,
+  `paymentStatus` int(11) NOT NULL,
+  `totalPayment` float NOT NULL,
+  `createAt` datetime DEFAULT NULL,
+  `updateAt` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user`
+-- Cấu trúc bảng cho bảng `user`
 --
 
-DROP TABLE IF EXISTS `user`;
-CREATE TABLE IF NOT EXISTS `user` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `user` (
+  `id` int(11) NOT NULL,
   `username` varchar(100) NOT NULL COMMENT 'user name',
   `password` varchar(250) NOT NULL,
   `fullname` varchar(100) NOT NULL,
@@ -296,15 +281,11 @@ CREATE TABLE IF NOT EXISTS `user` (
   `email` varchar(100) NOT NULL,
   `phone` varchar(11) DEFAULT NULL,
   `createAt` datetime NOT NULL,
-  `updateAt` datetime NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `id` (`id`),
-  KEY `userTypeId` (`userTypeId`),
-  KEY `id_2` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+  `updateAt` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `user`
+-- Đang đổ dữ liệu cho bảng `user`
 --
 
 INSERT INTO `user` (`id`, `username`, `password`, `fullname`, `userTypeId`, `email`, `phone`, `createAt`, `updateAt`) VALUES
@@ -313,41 +294,33 @@ INSERT INTO `user` (`id`, `username`, `password`, `fullname`, `userTypeId`, `ema
 -- --------------------------------------------------------
 
 --
--- Table structure for table `useraccessfunction`
+-- Cấu trúc bảng cho bảng `useraccessfunction`
 --
 
-DROP TABLE IF EXISTS `useraccessfunction`;
-CREATE TABLE IF NOT EXISTS `useraccessfunction` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `useraccessfunction` (
+  `id` int(11) NOT NULL,
   `userTypeId` int(11) NOT NULL,
   `accessFuncId` int(11) NOT NULL,
   `createAt` datetime NOT NULL,
-  `updateAt` datetime NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `userTypeId` (`userTypeId`),
-  KEY `accessFuncId` (`accessFuncId`)
+  `updateAt` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `usertype`
+-- Cấu trúc bảng cho bảng `usertype`
 --
 
-DROP TABLE IF EXISTS `usertype`;
-CREATE TABLE IF NOT EXISTS `usertype` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `usertype` (
+  `id` int(11) NOT NULL,
   `name` varchar(100) NOT NULL,
   `description` varchar(250) DEFAULT NULL,
   `createAt` datetime NOT NULL,
-  `updateAt` datetime NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `id_2` (`id`),
-  KEY `id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+  `updateAt` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `usertype`
+-- Đang đổ dữ liệu cho bảng `usertype`
 --
 
 INSERT INTO `usertype` (`id`, `name`, `description`, `createAt`, `updateAt`) VALUES
@@ -356,27 +329,21 @@ INSERT INTO `usertype` (`id`, `name`, `description`, `createAt`, `updateAt`) VAL
 -- --------------------------------------------------------
 
 --
--- Table structure for table `wallet`
+-- Cấu trúc bảng cho bảng `wallet`
 --
 
-DROP TABLE IF EXISTS `wallet`;
-CREATE TABLE IF NOT EXISTS `wallet` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `wallet` (
+  `id` int(11) NOT NULL,
   `walletAddress` varchar(250) NOT NULL,
   `walletName` varchar(250) NOT NULL,
   `walletTypeId` int(11) NOT NULL,
   `CustomerId` int(11) NOT NULL,
   `createAt` datetime NOT NULL,
-  `updateAt` datetime NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `walletAddress` (`walletAddress`),
-  KEY `id` (`id`),
-  KEY `CustomerId` (`CustomerId`),
-  KEY `walletTypeId` (`walletTypeId`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+  `updateAt` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `wallet`
+-- Đang đổ dữ liệu cho bảng `wallet`
 --
 
 INSERT INTO `wallet` (`id`, `walletAddress`, `walletName`, `walletTypeId`, `CustomerId`, `createAt`, `updateAt`) VALUES
@@ -385,102 +352,342 @@ INSERT INTO `wallet` (`id`, `walletAddress`, `walletName`, `walletTypeId`, `Cust
 -- --------------------------------------------------------
 
 --
--- Table structure for table `walletbalance`
+-- Cấu trúc bảng cho bảng `walletbalance`
 --
 
-DROP TABLE IF EXISTS `walletbalance`;
-CREATE TABLE IF NOT EXISTS `walletbalance` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `walletbalance` (
+  `id` int(11) NOT NULL,
   `walletId` int(11) NOT NULL,
   `balance` float NOT NULL DEFAULT '0',
   `userUpdate` int(11) DEFAULT NULL,
   `createAt` datetime NOT NULL,
-  `updateAt` datetime NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `id` (`id`),
-  UNIQUE KEY `walletAddress_2` (`walletId`),
-  KEY `id_2` (`id`),
-  KEY `userUpdate` (`userUpdate`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+  `updateAt` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Đang đổ dữ liệu cho bảng `walletbalance`
+--
+
+INSERT INTO `walletbalance` (`id`, `walletId`, `balance`, `userUpdate`, `createAt`, `updateAt`) VALUES
+(1, 5, 0.00407713, NULL, '2018-07-30 17:00:01', '2018-07-30 17:00:01');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `wallettype`
+-- Cấu trúc bảng cho bảng `wallettype`
 --
 
-DROP TABLE IF EXISTS `wallettype`;
-CREATE TABLE IF NOT EXISTS `wallettype` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `wallettype` (
+  `id` int(11) NOT NULL,
   `type` varchar(100) NOT NULL,
   `name` varchar(100) NOT NULL,
   `userUpdate` int(11) DEFAULT NULL,
   `createAt` datetime NOT NULL,
-  `updateAt` datetime NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `id_2` (`id`),
-  KEY `id` (`id`),
-  KEY `userUpdate` (`userUpdate`),
-  KEY `id_3` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+  `updateAt` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `wallettype`
+-- Đang đổ dữ liệu cho bảng `wallettype`
 --
 
 INSERT INTO `wallettype` (`id`, `type`, `name`, `userUpdate`, `createAt`, `updateAt`) VALUES
 (1, 'eth', 'Ethereum', 1, '2018-07-03 00:00:00', '2018-07-03 00:00:00');
 
 --
--- Constraints for dumped tables
+-- Chỉ mục cho các bảng đã đổ
 --
 
 --
--- Constraints for table `customer`
+-- Chỉ mục cho bảng `accessfunction`
+--
+ALTER TABLE `accessfunction`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `id` (`id`),
+  ADD KEY `id_2` (`id`);
+
+--
+-- Chỉ mục cho bảng `customer`
+--
+ALTER TABLE `customer`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `id` (`id`),
+  ADD KEY `id_2` (`id`),
+  ADD KEY `userActive` (`userActive`);
+
+--
+-- Chỉ mục cho bảng `historyofadmin`
+--
+ALTER TABLE `historyofadmin`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `userId` (`userId`),
+  ADD KEY `historyTypeId` (`historyTypeId`),
+  ADD KEY `id` (`id`);
+
+--
+-- Chỉ mục cho bảng `historyofcustomer`
+--
+ALTER TABLE `historyofcustomer`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `id_2` (`id`),
+  ADD KEY `id` (`id`),
+  ADD KEY `customerId` (`customerId`),
+  ADD KEY `userId` (`userId`);
+
+--
+-- Chỉ mục cho bảng `locale`
+--
+ALTER TABLE `locale`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Chỉ mục cho bảng `orders`
+--
+ALTER TABLE `orders`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id` (`id`),
+  ADD KEY `customerid` (`customerid`);
+
+--
+-- Chỉ mục cho bảng `payment_details`
+--
+ALTER TABLE `payment_details`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `orderid` (`orderid`),
+  ADD KEY `id` (`id`);
+
+--
+-- Chỉ mục cho bảng `pricebook`
+--
+ALTER TABLE `pricebook`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `to_tb_locale` (`localeId`),
+  ADD KEY `to_tb_product` (`productId`);
+
+--
+-- Chỉ mục cho bảng `product`
+--
+ALTER TABLE `product`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `userUpdate` (`userUpdate`),
+  ADD KEY `id` (`id`);
+
+--
+-- Chỉ mục cho bảng `productofcustomer`
+--
+ALTER TABLE `productofcustomer`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `id_2` (`id`),
+  ADD KEY `id` (`id`),
+  ADD KEY `customerId` (`customerId`),
+  ADD KEY `walletId` (`walletId`),
+  ADD KEY `userUpdate` (`userUpdate`);
+
+--
+-- Chỉ mục cho bảng `totalpayment`
+--
+ALTER TABLE `totalpayment`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `to_tb_customer` (`customerId`);
+
+--
+-- Chỉ mục cho bảng `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `id` (`id`),
+  ADD KEY `userTypeId` (`userTypeId`),
+  ADD KEY `id_2` (`id`);
+
+--
+-- Chỉ mục cho bảng `useraccessfunction`
+--
+ALTER TABLE `useraccessfunction`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `userTypeId` (`userTypeId`),
+  ADD KEY `accessFuncId` (`accessFuncId`);
+
+--
+-- Chỉ mục cho bảng `usertype`
+--
+ALTER TABLE `usertype`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `id_2` (`id`),
+  ADD KEY `id` (`id`);
+
+--
+-- Chỉ mục cho bảng `wallet`
+--
+ALTER TABLE `wallet`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `walletAddress` (`walletAddress`),
+  ADD KEY `id` (`id`),
+  ADD KEY `CustomerId` (`CustomerId`),
+  ADD KEY `walletTypeId` (`walletTypeId`);
+
+--
+-- Chỉ mục cho bảng `walletbalance`
+--
+ALTER TABLE `walletbalance`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `id` (`id`),
+  ADD UNIQUE KEY `walletAddress_2` (`walletId`),
+  ADD KEY `id_2` (`id`),
+  ADD KEY `userUpdate` (`userUpdate`);
+
+--
+-- Chỉ mục cho bảng `wallettype`
+--
+ALTER TABLE `wallettype`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `id_2` (`id`),
+  ADD KEY `id` (`id`),
+  ADD KEY `userUpdate` (`userUpdate`),
+  ADD KEY `id_3` (`id`);
+
+--
+-- AUTO_INCREMENT cho các bảng đã đổ
+--
+
+--
+-- AUTO_INCREMENT cho bảng `accessfunction`
+--
+ALTER TABLE `accessfunction`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT cho bảng `customer`
+--
+ALTER TABLE `customer`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT cho bảng `historyofadmin`
+--
+ALTER TABLE `historyofadmin`
+  MODIFY `id` double NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT cho bảng `historyofcustomer`
+--
+ALTER TABLE `historyofcustomer`
+  MODIFY `id` double NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT cho bảng `orders`
+--
+ALTER TABLE `orders`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT cho bảng `pricebook`
+--
+ALTER TABLE `pricebook`
+  MODIFY `id` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT cho bảng `product`
+--
+ALTER TABLE `product`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT cho bảng `productofcustomer`
+--
+ALTER TABLE `productofcustomer`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT cho bảng `totalpayment`
+--
+ALTER TABLE `totalpayment`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT cho bảng `user`
+--
+ALTER TABLE `user`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT cho bảng `useraccessfunction`
+--
+ALTER TABLE `useraccessfunction`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT cho bảng `usertype`
+--
+ALTER TABLE `usertype`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT cho bảng `wallet`
+--
+ALTER TABLE `wallet`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT cho bảng `walletbalance`
+--
+ALTER TABLE `walletbalance`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT cho bảng `wallettype`
+--
+ALTER TABLE `wallettype`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- Các ràng buộc cho các bảng đã đổ
+--
+
+--
+-- Các ràng buộc cho bảng `customer`
 --
 ALTER TABLE `customer`
   ADD CONSTRAINT `customer_ibfk_1` FOREIGN KEY (`userActive`) REFERENCES `user` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
--- Constraints for table `historyofadmin`
+-- Các ràng buộc cho bảng `historyofadmin`
 --
 ALTER TABLE `historyofadmin`
   ADD CONSTRAINT `historyofadmin_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `historyofcustomer`
+-- Các ràng buộc cho bảng `historyofcustomer`
 --
 ALTER TABLE `historyofcustomer`
   ADD CONSTRAINT `historyofcustomer_ibfk_1` FOREIGN KEY (`customerId`) REFERENCES `customer` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `historyofcustomer_ibfk_3` FOREIGN KEY (`userId`) REFERENCES `user` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
--- Constraints for table `orders`
+-- Các ràng buộc cho bảng `orders`
 --
 ALTER TABLE `orders`
   ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`customerid`) REFERENCES `customer` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `payment_details`
+-- Các ràng buộc cho bảng `payment_details`
 --
 ALTER TABLE `payment_details`
   ADD CONSTRAINT `payment_details_ibfk_1` FOREIGN KEY (`orderid`) REFERENCES `orders` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `pricebook`
+-- Các ràng buộc cho bảng `pricebook`
 --
 ALTER TABLE `pricebook`
   ADD CONSTRAINT `to_tb_locale` FOREIGN KEY (`localeId`) REFERENCES `locale` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `to_tb_product` FOREIGN KEY (`productId`) REFERENCES `product` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `product`
+-- Các ràng buộc cho bảng `product`
 --
 ALTER TABLE `product`
   ADD CONSTRAINT `to_tb_user` FOREIGN KEY (`userUpdate`) REFERENCES `user` (`id`);
 
 --
--- Constraints for table `productofcustomer`
+-- Các ràng buộc cho bảng `productofcustomer`
 --
 ALTER TABLE `productofcustomer`
   ADD CONSTRAINT `productofcustomer_ibfk_1` FOREIGN KEY (`walletId`) REFERENCES `wallet` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -488,39 +695,40 @@ ALTER TABLE `productofcustomer`
   ADD CONSTRAINT `productofcustomer_ibfk_3` FOREIGN KEY (`customerId`) REFERENCES `customer` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `user`
+-- Các ràng buộc cho bảng `totalpayment`
+--
+ALTER TABLE `totalpayment`
+  ADD CONSTRAINT `to_tb_customer` FOREIGN KEY (`customerId`) REFERENCES `customer` (`id`);
+
+--
+-- Các ràng buộc cho bảng `user`
 --
 ALTER TABLE `user`
   ADD CONSTRAINT `user_ibfk_1` FOREIGN KEY (`userTypeId`) REFERENCES `usertype` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `useraccessfunction`
+-- Các ràng buộc cho bảng `useraccessfunction`
 --
 ALTER TABLE `useraccessfunction`
   ADD CONSTRAINT `useraccessfunction_ibfk_1` FOREIGN KEY (`userTypeId`) REFERENCES `usertype` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `useraccessfunction_ibfk_2` FOREIGN KEY (`accessFuncId`) REFERENCES `accessfunction` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `wallet`
+-- Các ràng buộc cho bảng `wallet`
 --
 ALTER TABLE `wallet`
   ADD CONSTRAINT `wallet_ibfk_1` FOREIGN KEY (`CustomerId`) REFERENCES `customer` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `wallet_ibfk_2` FOREIGN KEY (`walletTypeId`) REFERENCES `wallettype` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `walletbalance`
+-- Các ràng buộc cho bảng `walletbalance`
 --
 ALTER TABLE `walletbalance`
   ADD CONSTRAINT `walletbalance_ibfk_1` FOREIGN KEY (`walletId`) REFERENCES `wallet` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `walletbalance_ibfk_2` FOREIGN KEY (`userUpdate`) REFERENCES `user` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
--- Constraints for table `wallettype`
+-- Các ràng buộc cho bảng `wallettype`
 --
 ALTER TABLE `wallettype`
   ADD CONSTRAINT `wallettype_ibfk_1` FOREIGN KEY (`userUpdate`) REFERENCES `user` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
-COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

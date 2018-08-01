@@ -40,6 +40,7 @@ export default class ProductItemComponent extends Component {
                 <td>{product.period}</td>
                 <td>{product.startDate === null ? "" : product.startDate}</td>
                 <td>{product.endDate === null ? "" : product.endDate}</td>
+                {page === 'maintenance-fee' && product.maintenance_fee > 0 && <td className="maintenance-fee symbol-currency">{product.maintenance_fee}</td>}
                 {page === "my-product" && <td className="td-actions">
                             {!product.active && <button type="button" rel="tooltip" title="" className="btn btn-primary btn-link btn-sm" data-original-title="Edit product" onClick={this.openModal}>
                                 <i className="material-icons">edit</i>

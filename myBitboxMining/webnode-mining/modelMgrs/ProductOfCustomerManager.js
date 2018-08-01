@@ -1,27 +1,13 @@
 'use strict';
 const ProductModel = require('../models/ProductOfCustomer');
-const SequelizeConfig = require('./SequelizeConfig');
-
-const Sequelize = SequelizeConfig.getSequelizeModule();
-
-const sequelize = SequelizeConfig.init();
 
 const moment = require('moment');
 
-const ProductTable = sequelize.define('productofcustomer', {
-    name: Sequelize.STRING,
-    hashrate: Sequelize.FLOAT,
-    customerId: Sequelize.INTEGER,
-    walletId : Sequelize.INTEGER,
-    active : Sequelize.BOOLEAN,
-    expired : Sequelize.BOOLEAN,
-    period : Sequelize.INTEGER,
-    userUpdate : Sequelize.INTEGER,
-    startDate : Sequelize.DATE,
-    endDate : Sequelize.DATE,
-    createAt : Sequelize.DATE,
-    updateAt : Sequelize.DATE
-});
+const ProductTable = require('./TableDefine').ProductTableCustomer;
+
+const SequelizeConfig = require('./SequelizeConfig');
+
+const sequelize = SequelizeConfig.init();
 
 module.exports = {
 
@@ -54,10 +40,8 @@ module.exports = {
             if (products.length > 0) {
                 for(let i = 0; i < products.length; i++) {
                     let productModel = new ProductModel(products[i].dataValues);
-                    if (productModel.startDate !== null || productModel.endDate !== null) {
-                        productModel.startDate = moment(new Date(productModel.startDate)).format('DD/MM/YYYY');
-                        productModel.endDate = moment(new Date(productModel.endDate)).format('DD/MM/YYYY');
-                    }
+                    productModel.startDate !== null && (productModel.startDate = moment(new Date(productModel.startDate)).format('DD/MM/YYYY'));
+                    productModel.endDate !== null && (productModel.endDate = moment(new Date(productModel.endDate)).format('DD/MM/YYYY'));
                     results.push(productModel);
                 }
             }

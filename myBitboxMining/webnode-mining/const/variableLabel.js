@@ -66,7 +66,9 @@ module.exports.en = {
     LABEL_ORDER_APPROVE: "Your order with id {0} is approved!",
     LABEL_CREATE_PAYMENT: "You have successfully paid the order {0} with a payment code of {1}",
     LABEL_PRODUCTOFCUSTOMER_INSERT: 'Your product with id {0} has not been activated. Please click {1} choose a wallet address and active it.',
-
+    LABEL_PRODUCT_INCLUDED_MAINTAINCE_FEE: 'Product is included maintaince fee',
+    LABEL_PRODUCT_WITHOUT_MAINTAINCE_FEE: 'Product is not include maintaince fee',
+    LABEL_MAINTENANCE_FEE: 'Maintenance Fee: ',
     // web title
     TITLE_CUSTOMER_LOGIN: "Customer Login",
     TITLE_CUSTOMER_UPDATE_PROFILE: 'Customer profile',
@@ -88,6 +90,7 @@ module.exports.en = {
     TITLE_CUSTOMER_HISTORY: 'My history',
     TITLE_CUSTOMER_PAYMENT_DETAIL: 'Payment detail',
     TITLE_CUSTOMER_ORDER_DETAIL: 'Order detail',
+    TITLE_CUSTOMER_MAINTAINCE_FEE: 'Maintenance Fee',
 
     // title
     TITLE_CHANGE_PASSWORD: 'Change password',
@@ -99,7 +102,7 @@ module.exports.en = {
     TITLE_FORGOT_PASS_DESC: 'You can reset your password here.',
     TITLE_MY_PRODUCT: 'My Product',
     TITLE_HERE: 'here',
-    
+
     // react label
     RC_ID: 'ID',
     RC_NAME: 'Name',
@@ -157,9 +160,11 @@ module.exports.en = {
     RC_MONTH: 'Month',
     RC_MONTHS: 'Months',
     RC_PERIOD_LABEL: 'Period: ',
+    RC_OUR_SERVICES: 'Our services',
 
     // react label in customer product page
     RC_UPDATE_PRODUCT: 'Update Product',
+    RC_MAINTENANCE_FEE: 'Maintenance fee (month)',
 
     // input placeholder
     WALLET_ADDRESS: 'Wallet address',

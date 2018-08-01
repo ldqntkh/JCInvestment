@@ -95,3 +95,9 @@
         overflow-y: auto;
     }
 }
+
+.maintenance-fee {
+    .maintenance-fee-value {
+        text-transform: lowercase;
+    }
+}

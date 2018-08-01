@@ -1,21 +1,7 @@
 'use strict';
 const UserModel = require('../models/User');
-const SequelizeConfig = require('./SequelizeConfig');
 
-const Sequelize = SequelizeConfig.getSequelizeModule();
-
-const sequelize = SequelizeConfig.init();
-
-const UserTable = sequelize.define('user', {
-    email: Sequelize.STRING,
-    username: Sequelize.STRING,
-    password: Sequelize.STRING,
-    fullname:  Sequelize.STRING,
-    userTypeId: Sequelize.INTEGER,
-    phone: Sequelize.STRING,
-    createAt: Sequelize.DATE,
-    updateAt: Sequelize.DATE
-});
+const UserTable = require('./TableDefine').UserTable;
 
 // class helper
 const FileHelper = require('../global/FileHelper');

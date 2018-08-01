@@ -247,6 +247,10 @@ class ProductDetailComponent extends Component {
                                         <td>{showMessage('RC_PERIOD')}</td>
                                         <td>{productDetail.period}</td>
                                     </tr>
+                                    {productDetail.maintenance_fee > 0 && <tr className="payment-detail-content">
+                                        <td>{showMessage('RC_MAINTENANCE_FEE')}</td>
+                                        <td className="symbol-currency">{productDetail.maintenance_fee}</td>
+                                    </tr>}
                                     <tr className="payment-detail-content">
                                         <td>{showMessage('RC_START_DATE')}</td>
                                         <td>{productDetail.startDate}</td>

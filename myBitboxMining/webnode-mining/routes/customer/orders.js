@@ -8,6 +8,7 @@ const OrderManager = require('../../modelMgrs/OrderManager');
 const PaymentDetailsManager = require('../../modelMgrs/PaymentDetailsManager');
 const CustomerHistoryManager = require('../../modelMgrs/CustomerHistoryManager');
 const ProductOfCustomerManager = require('../../modelMgrs/ProductOfCustomerManager');
+const PriceBookManager = require('../../modelMgrs/PriceBookManager');
 
 // import model
 const PaymentDetailsModel = require('../../models/PaymentDetails');
@@ -27,7 +28,7 @@ router.get(/^\/(my-order)/, async(req, res, next) => {
     })
 })
 
-router.get('/orders/:orderid/buysuccess', async (req, res, next) => {
+router.get('/orders/:orderid/buysuccess/:productId', async (req, res, next) => {
     if (!req.session.customer) return res.redirect('/login');
     let customer = req.session.customer;
     let orderid = req.params.orderid;
@@ -103,11 +104,22 @@ router.get('/orders/:orderid/buysuccess', async (req, res, next) => {
                                     createAt : moment(Date.now()).format('YYYY-MM-DD HH:mm:ss')
                                 }));
                                 // create product of customer
+                                let productId = req.params.productId;
+                                let priceBook = await PriceBookManager.getPriceBook({
+                                    localeId: 'en',
+                                    productId: productId
+                                });
+
+                                var fee = 0;
+                                if (priceBook !== null) {
+                                    fee = priceBook.getMaintenanceFee();
+                                }
                                 let productofctm = await ProductOfCustomerManager.createProduct(new ProductOfCustomerModel({
                                     name : order.getProductName(),
                                     hashrate : order.getHashrate(),
                                     customerId : customer.id,
                                     period : order.getProductPeriod(),
+                                    maintenance_fee : fee,
                                     createAt : moment(Date.now()).format('YYYY-MM-DD HH:mm:ss')
                                 }));
 

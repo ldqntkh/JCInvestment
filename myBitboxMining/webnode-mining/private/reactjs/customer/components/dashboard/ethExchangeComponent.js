@@ -12,7 +12,7 @@ export default class EthExchangeComponent extends Component {
         return (
             <React.Fragment>
                 <div className="col-lg-3 col-md-6 col-sm-6">
-                    <div className="card card-stats" id="eth-exchange">
+                    <div className="card card-stats">
                         <div className="card-header card-header-danger card-header-icon">
                             <div className="card-icon">
                                 <i className="fa fa-usd"></i>
@@ -20,7 +20,7 @@ export default class EthExchangeComponent extends Component {
                             <p className="card-category">{showMessage('RC_ETH_PRICE')}</p>
                             {
                                 !this.props.loaded ? <i className="fa fa-spinner fa-spin fa-icon-loading"></i>
-                                : <h3 className="card-title">${this.props.ethPrice}</h3> 
+                                : <h3 className="card-title">${this.props.ethPrice.toFixed(2)}</h3> 
                             }
                         </div>
                         <div className="card-footer">

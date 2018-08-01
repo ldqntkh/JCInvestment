@@ -3,32 +3,13 @@ const WalletModel = require('../models/Wallet');
 const WalletBalanceModel = require('../models/WalletBalance');
 const CustomerHistoryModel = require('../models/CustomerHistory');
 const CustomerHistoryManager = require('../modelMgrs/CustomerHistoryManager');
-const SequelizeConfig = require('./SequelizeConfig');
 const showMessage = require('../global/ResourceHelper').showMessage;
 // require module
 const moment = require('moment');
-
-// import const
-const Sequelize = SequelizeConfig.getSequelizeModule();
-
+const SequelizeConfig = require('./SequelizeConfig');
 const sequelize = SequelizeConfig.init();
 
-const WalletTable = sequelize.define('wallet', {
-    walletAddress: Sequelize.STRING,
-    walletName: Sequelize.STRING,
-    walletTypeId : Sequelize.INTEGER,
-    customerId : Sequelize.INTEGER,
-    createAt: Sequelize.DATE,
-    updateAt: Sequelize.DATE
-});
-
-const WalletBalance = sequelize.define('walletbalance', {
-    balance: Sequelize.FLOAT,
-    walletId: Sequelize.INTEGER,
-    userUpdate: Sequelize.INTEGER,
-    createAt: Sequelize.DATE,
-    updateAt: Sequelize.DATE
-});
+const {WalletTable, WalletBalance} = require('./TableDefine');
 
 module.exports = {
     /**
@@ -131,10 +112,7 @@ module.exports = {
         try {
             let results = [];
             let whereOptions = options ? options : [];
-            let ProductOfCustomer = await sequelize.define('productofcustomer', {
-                hashrate: Sequelize.FLOAT,
-                walletId: Sequelize.INTEGER
-            });
+            let ProductOfCustomer = require('./TableDefine').ProductTableCustomer;
 
             await WalletTable.belongsTo(ProductOfCustomer, {foreignKey: 'id', targetKey: 'walletId'});
             await WalletTable.belongsTo(WalletBalance, {foreignKey: 'id', targetKey: 'walletId'});

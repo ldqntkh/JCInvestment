@@ -20,7 +20,7 @@ export default class ProductItemComponent extends Component {
             name: '',
             sku: '',
             hashrate: '',
-            period: '',
+            period: 24,
             price: '',
             sale_price: '',
             currency: '',
@@ -29,6 +29,7 @@ export default class ProductItemComponent extends Component {
             desc1: '',
             desc2: '',
             desc3: '',
+            maintenance_fee: '',
             errMessage: ''
         };
 
@@ -48,12 +49,10 @@ export default class ProductItemComponent extends Component {
             this.setState({productId: this.props.match.params.productId});
             document.getElementsByClassName('sku')[0].disabled = true;
             document.getElementsByClassName('hashrate')[0].disabled = true;
-            document.getElementsByClassName('period')[0].disabled = true;
             this._getProductDetail(this.props.match.params.productId);
         } else {
             document.getElementsByClassName('sku')[0].disabled = false;
             document.getElementsByClassName('hashrate')[0].disabled = false;
-            document.getElementsByClassName('period')[0].disabled = false;
         }
     }
 
@@ -71,7 +70,7 @@ export default class ProductItemComponent extends Component {
                 this.setState({
                     sku: product.sku,
                     hashrate: product.hashrate,
-                    period: product.period
+                    maintenance_fee: product.maintenance_fee
                 });
                 if (product.pricebooks.length > 0) {
                     let pricebook = product.pricebooks[0];
@@ -191,6 +190,7 @@ export default class ProductItemComponent extends Component {
                 sale_price: this.state.sale_price,
                 currency: this.state.currency,
                 symbol_currency: this.state.symbol_currency,
+                maintenance_fee: this.state.maintenance_fee,
                 enable: this.state.enable,
                 desc1: this.state.desc1,
                 desc2: this.state.desc2,
@@ -299,7 +299,7 @@ export default class ProductItemComponent extends Component {
                             <div className="col-md-6">
                                 <div className="form-group">
                                     <label className="bmd-label-floating">{showMessage('LABEL_PERIOD')}</label>
-                                    <input name="period" className="form-control period" type="number" required maxLength="10" onChange={this._handleChange} value={this.state.period} />
+                                    <input name="period" className="form-control period" type="number" required disabled maxLength="10" onChange={this._handleChange} value={this.state.period} />
                                 </div>
                             </div>
                         </div>
@@ -338,6 +338,10 @@ export default class ProductItemComponent extends Component {
                                     <option value="1">{showMessage('LABEL_ACTIVE_TITLE')}</option>
                                     <option value="0">{showMessage('LABEL_UNACTIVE')}</option>
                                 </select>
+                            </div>
+                            <div className="col-md-6 form-group">
+                                <label className="bmd-label-floating">{showMessage('LABEL_MAINTENANCE_FEE')}</label>
+                                <input name="maintenance_fee" className="form-control" type="text" required maxLength="100" onChange={this._handleChange} value={this.state.maintenance_fee} />
                             </div>
                         </div>
                         <div className="row">

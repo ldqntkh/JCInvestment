@@ -35,7 +35,7 @@ export default class ProductItemComponent extends Component {
                     </div>
                     <div className="produt-price-container">
                         <h4 className="card-category">
-                            <span className="product-price-label">{showMessage('RC_PERIOD_LABEL')}</span><span> {product.period} {product.period > 1 ? showMessage('RC_MONTHS') : showMessage('RC_MONTH')}</span>
+                            <span className="text-primary">{showMessage('RC_PERIOD_LABEL')}</span><span> {product.period} {product.period > 1 ? showMessage('RC_MONTHS') : showMessage('RC_MONTH')}</span>
                         </h4>
                         {priceBook.price !== priceBook.sale_price ? 
                             <React.Fragment>
@@ -57,6 +57,10 @@ export default class ProductItemComponent extends Component {
                                 <h4></h4>
                             </React.Fragment>
                         }
+                        {priceBook.maintenance_fee > 0 && <h4 className="card-category maintenance-fee">
+                            <span className="text-primary">{showMessage('LABEL_MAINTENANCE_FEE')}</span>
+                            <span className="maintenance-fee-value">{priceBook.symbol_currency + priceBook.maintenance_fee + '/' + showMessage('RC_MONTH')}</span>
+                        </h4>}
                     </div>
                     <div className="card-body">
                         {(priceBook.desc1 && priceBook.desc1 !== '') && <p className="card-category">
