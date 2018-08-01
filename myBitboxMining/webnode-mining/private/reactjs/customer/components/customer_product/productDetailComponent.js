@@ -213,7 +213,6 @@ class ProductDetailComponent extends Component {
     render() {
         let screen = null;
         let productDetail = this.state.productDetail;
-        console.log(productDetail);
         if (!this.state.loaded) screen = <i className="fa fa-spinner fa-spin fa-icon-loading"></i>
         else {
             screen = <div className="payment-detail-container">
