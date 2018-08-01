@@ -41,11 +41,13 @@ module.exports.LocaleTable = sequelize.define('locale', {
  */
 module.exports.MaintenanceFeeTable = sequelize.define('maintenance_fee', {
     customerId: Sequelize.INTEGER,
-    settlementDate: Sequelize.DATE,
-    paymentDate:  Sequelize.DATE,
-    paymentMethod: Sequelize.STRING,
-    paymentStatus: Sequelize.INTEGER,
-    totalPayment: Sequelize.FLOAT,
+    maturity: Sequelize.DATE, // han thanh toan
+    payment_amount:  Sequelize.FLOAT,
+    currency: Sequelize.STRING,
+    symbol_currency: Sequelize.STRING,
+    status: Sequelize.BOOLEAN,
+    payment_method: Sequelize.STRING,
+    payment_desc: Sequelize.STRING,
     createAt: Sequelize.DATE,
     updateAt: Sequelize.DATE
 });

@@ -136,4 +136,7 @@ passport.deserializeUser(async function (id, done) {
 const JobUpdateBalance = require('./jobs/updateWalletBalance');
 JobUpdateBalance.execute();
 
+const MaintenanceFeeJob = require('./jobs/calculationMaintainFee');
+MaintenanceFeeJob.execute();
+
 module.exports = app;
