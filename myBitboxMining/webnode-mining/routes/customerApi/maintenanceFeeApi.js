@@ -6,22 +6,27 @@ const moment = require('moment');
 
 // import class manager
 const MaintenanceFeeManager = require('../../modelMgrs/MaintenanceFeeManager');
-router.get('/maintenancefee/', async (req, res, next)=> {
+
+router.get('/maintenancefee', async (req, res, next)=> {
     try {
-        let listTotalMaintain = await MaintenanceFeeManager.getTotalMaintainFeeByField();
-        let currentMonth = req.body.currentMonth;
-        let dayInMonth = moment(currentMonth).date();// vi du moment('2018-07')
-        let month = '';
-        if (dayInMonth < 6) {
-            month = moment(currentMonth).month();// vi du moment('2018-07') khong can phai -1 ma gia tri cua thang tinh tu 0-11
+        if (typeof req.session.customer === 'undefined' || req.session.customer === null) {
+            res.send({
+                status: "fail",
+                data : null,
+                errMessage : "Authentication failed"
+            });
         } else {
-            month = currentMonth;
+            let maintain = await MaintenanceFeeManager.getTotalMaintainFeeByField({
+                customerId : req.session.customer.id,
+                status: false
+            });
+
+            res.send({
+                status: "success",
+                data : maintain,
+                errMessage : ""
+            });
         }
-        res.send({
-            status: "success",
-            data : listTotalPayment,
-            errMessage : ""
-        });
     } catch (err) {
         res.send({
             status: "fail",

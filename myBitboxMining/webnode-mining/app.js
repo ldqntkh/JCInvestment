@@ -81,7 +81,7 @@ app.use('/', maintenanceFee);
 app.use('/api-v1/products/', productApi);
 app.use('/api-v1/wallets/', walletApi);
 app.use('/api-v1/orders/', orderApi);
-app.use('/api-v1/maintenance/', maintenanceFeeApi);
+app.use('/api-v1/maintenances/', maintenanceFeeApi);
 app.use('/api-v1/customerhistories/', customerHistoryApi);
 app.use('/api-v1/admin/products/', adminProductApi);
 
