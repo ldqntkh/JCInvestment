@@ -91,6 +91,8 @@ module.exports.en = {
     TITLE_CUSTOMER_PAYMENT_DETAIL: 'Payment detail',
     TITLE_CUSTOMER_ORDER_DETAIL: 'Order detail',
     TITLE_CUSTOMER_MAINTAINCE_FEE: 'Maintenance Fee',
+    TITLE_AMOUNT_PAIR: 'Amount to be paid:',
+    TITLE_PAYMENT_TERN: 'Payment tern:',
 
     // title
     TITLE_CHANGE_PASSWORD: 'Change password',
@@ -174,6 +176,8 @@ module.exports.en = {
 
     // button name
     BTN_SUBMIT: 'Submit',
+    BTN_DETAILS: 'Detail',
+    BTN_CLOSE: 'Close',
 
     // alert
     AL_TITLE_CONFIRM : 'Are you sure?',
@@ -183,4 +187,5 @@ module.exports.en = {
     AL_TITLE_EDIT_WALLET : 'Edit wallet',
     AL_BTN_CANCEL : 'Cancel',
     
+    NOTE_MAINTAIN_FEE: 'If overdue but you still unpaid expenses. We will automatically convert into ETH under current rates and subtract directly from your balance.',
 }
