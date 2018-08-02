@@ -3,16 +3,10 @@ const Sequelize = require('sequelize');
 
 module.exports = {
     init: () => {
-        return new Sequelize('db_mybitboxmining', 'admin', 'Admin@1234', {
+        return new Sequelize('db_mybitboxmining', 'root', '', {
             host: 'localhost',
-            port: 9999,
             dialect: 'mysql',
             operatorsAliases: false,
-            dialectOptions : {
-                socketPath: '/Applications/MAMP/tmp/mysql/mysql.sock',
-                requestTimeout: 30000,
-                encrypt: true
-            },
             pool: {
                 max: 5,
                 min: 0,

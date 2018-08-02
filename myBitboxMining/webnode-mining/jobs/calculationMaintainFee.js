@@ -2,7 +2,7 @@ const schedule = require('node-schedule');
 const moment = require('moment');
 // import class manager
 const CustomerManager = require('../modelMgrs/CustomerManager');
-const ProductOfCustomerManager = require('../../modelMgrs/ProductOfCustomerManager');
+const ProductOfCustomerManager = require('../modelMgrs/ProductOfCustomerManager');
 const MaintenanceFeeManager = require('../modelMgrs/MaintenanceFeeManager');
 
 // import model
@@ -15,40 +15,41 @@ rule.minute = 0;
 rule.second = 0;
 
 var CalculationMaintainFee = {
-
+    ScheduleMaintainFee : null,
     updateMaintainFee: async(customerId) => {
         try {
             let productOfCustomers = await ProductOfCustomerManager.getListProductOfCustomer({
-                customerId : req.session.customer.id
+                customerId : customerId
             });
             if (productOfCustomers.length > 0) {
                 // get total fee;
                 var totalfee = 0;
                 for(let i = 0; i < productOfCustomers.length; i++) {
                     let item = productOfCustomers[i];
-                    if (item.active && item.maintenance_fee > 0) {
-                        if (item.startDate === null || item.endDate === null)
+                    if (item.active && item.maintenance_fee > 0 && !item.expired) {
+                        if (item.startDate === null)
                             totalfee += item.maintenance_fee;
                         else {
-                            let fee;
-                            let start = moment(item.startDate, "MM/DD/YYYY").toDate();
-                            let now = momemt(Date.now(), "DD/MM/YYYY").toDate();
-                            let diff = (now - start) / 86400000;
+                            var fee;
+                            let start = moment(item.startDate, "DD/MM/YYYY").toDate();
+                            let now = Date.now();
+                            let diff = Math.ceil((now - start) / 86400000);
                             if (diff >= 30) diff = 30;
-
-                            totalfee = (item.maintenance_fee / 30) * diff;
+                            fee = (item.maintenance_fee / 30) * diff;
+                            fee = Math.round(fee * 100)/100;
+                            totalfee += fee;
                         }
                     }
                 }
                 // insert maintain table
                 let maintainObj = new MaintenanceFeeModel({
                     customerId : customerId,
-                    maturity : moment(Date.now(), "DD/MM/YYYY").add(7, 'days'),
+                    maturity : moment(Date.now()).add(7, 'days').format('YYYY-MM-DD'),
                     payment_amount: totalfee,
                     currency: 'USD',
                     symbol_currency: '$',
                     status: false,
-                    createAt: momemt(Date.now(), "DD/MM/YYYY")
+                    createAt: moment(Date.now()).format('YYYY-MM-DD HH:mm:ss')
                 });
                 MaintenanceFeeManager.insertRecord(maintainObj);
             }
@@ -58,12 +59,11 @@ var CalculationMaintainFee = {
     },
 
     execute: async ()=> {
-        JobUpdateBalance.UpdateWalletBalance = schedule.scheduleJob(rule, async function(){
+        CalculationMaintainFee.ScheduleMaintainFee = schedule.scheduleJob(rule, async function(){
             let customers = await CustomerManager.getListCustomer();
-        
             if(customers !== null && customers.length > 0) {
                 for(let index = 0; index < customers.length; index ++) {
-                    CalculationMaintainFee.updateBalanceForCustomer(customers[index].id);
+                    CalculationMaintainFee.updateMaintainFee(customers[index].id);
                 }
             }
         });
