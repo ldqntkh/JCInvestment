@@ -18,6 +18,9 @@ const varibale = require('../../const/variable');
 const FileHelper = require('../../global/FileHelper');
 const showMessage = require('../../global/ResourceHelper').showMessage;
 
+// import library
+const PaypalManager = require('../../library/PaymentPaypal');
+
 router.post('/products/:productid/buy', async (req, res, next)=> {
     /**
      * create order
@@ -68,44 +71,23 @@ router.post('/products/:productid/buy', async (req, res, next)=> {
             });
             CustomerHistoryManager.createHistory(history);
 
-            const create_payment_json = {
-                "intent": "sale",
-                // support payment paypal
-                "payer": {
-                    "payment_method": "paypal"
-                },
-                "redirect_urls": {
-                    "return_url": FileHelper.getUrl(req, "orders/" + orderResult.getOrderId() + "/buysuccess/" + productId),
-                    "cancel_url": FileHelper.getUrl(req, "orders/" + orderResult.getOrderId() + "/buycancel"),
-                },
-                "transactions": [{
-                    "item_list": {
-                        "items": [{
-                            "name": priceBook.getProductName(),
-                            "sku": product.getSku(),
-                            "price": price.toString(),
-                            "currency": priceBook.getCurrency(),
-                            "quantity": quantity
-                        }]
-                    },
-                    "amount": {
-                        "currency": priceBook.getCurrency(),
-                        "total": (price * quantity).toString()
-                    },
-                    "description": showMessage('LABEL_BUY_PRODUCT', [priceBook.getProductName(), priceBook.getCurrency() + (price * quantity).toString()])
-                }]
-            };
-            req.app.locals.paypal.payment.create(create_payment_json, function (error, payment) {
-                if (error) {
-                    throw error;
-                } else {
-                    for(let i = 0; i < payment.links.length; i++ ) {
-                        if (payment.links[i].rel === 'approval_url') {
-                            res.redirect(payment.links[i].href)
-                        }
-                    }
-                }
-            });
+            // create payment paypal
+            PaypalManager.CreatePaymentJson(
+                returnUrl = FileHelper.getUrl(req, "orders/" + orderResult.getOrderId() + "/buysuccess/" + productId),
+                cancelUrl = FileHelper.getUrl(req, "orders/" + orderResult.getOrderId() + "/buycancel"),
+                itemList = [{
+                    "name": priceBook.getProductName(),
+                    "sku": product.getSku(),
+                    "price": price.toString(),
+                    "currency": priceBook.getCurrency(),
+                    "quantity": quantity
+                }],
+                currency = priceBook.getCurrency(),
+                amount = quantity * price,
+                description = showMessage('LABEL_BUY_PRODUCT', [priceBook.getProductName(), priceBook.getCurrency() + (price * quantity).toString()])
+            )
+            PaypalManager.CreatePayment(res);
+            
         } else {
             // fail create order
             res.render('share_customer/error/error', {

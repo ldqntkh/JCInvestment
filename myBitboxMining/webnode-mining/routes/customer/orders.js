@@ -19,6 +19,9 @@ const ProductOfCustomerModel = require('../../models/ProductOfCustomer');
 const varibale = require('../../const/variable');
 const showMessage = require('../../global/ResourceHelper').showMessage;
 
+// import library
+const PaypalManager = require('../../library/PaymentPaypal');
+
 router.get(/^\/(my-order)/, async(req, res, next) => {
     if (!req.session.customer) return res.redirect('/login');
     res.render('customer/order/index', {
@@ -38,17 +41,13 @@ router.get('/orders/:orderid/buysuccess/:productId', async (req, res, next) => {
             const payerId = req.query.PayerID;
             const paymentId = req.query.paymentId;
 
-            const execute_payment_json = {
-                "payer_id": payerId,
-                "transactions": [{
-                    "amount": {
-                        "currency": order.getCurrency(),
-                        "total": order.getAmount().toString()
-                    }
-                }]
-            };
+            PaypalManager.CreateExecutePaymentJson(
+                payerId,
+                order.getCurrency(),
+                order.getAmount()
+            );
 
-            req.app.locals.paypal.payment.execute(paymentId, execute_payment_json, async function (error, payment) {
+            PaypalManager.getPaypalPayment().execute(paymentId, PaypalManager.getPaypalExecuteJson(), async function (error, payment) {
                 if (error) {
                     console.log(error.response);
                     res.render('share_customer/error/error', {
@@ -65,7 +64,7 @@ router.get('/orders/:orderid/buysuccess/:productId', async (req, res, next) => {
                         }
                     });
                 } else {
-                    console.log("Get Payment Response");
+                    //console.log("Get Payment Response");
                     // create payment detail
                     let paymentDetailsModel = new PaymentDetailsModel({
                         id : payment.id,

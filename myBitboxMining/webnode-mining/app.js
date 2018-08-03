@@ -10,18 +10,10 @@ var bodyParser = require('body-parser');
 var session = require('express-session');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
-var paypal = require('paypal-rest-sdk');
 var ResourceHelper = require('./global/ResourceHelper');
 
 var app = express();
 
-// config paypal
-paypal.configure({
-    'mode': 'sandbox', //sandbox or live
-    'client_id': 'ASLnhIT9I40_D0Qi1XcnV0vPqdmzytHF2lO5Gd3TIQTfbdweddTJ6NVmhIvQUM6ZXo7C1vcDfg00idZP',
-    'client_secret': 'EMlUXVwhKm6rwtlc6-3JdLdqxoWJAFVKqgFK_KIJxj7XlW_dUi6SR19LlYXVQVFG6pH40Pd_OkeIhuLs'
-});
-app.locals.paypal = paypal;
 app.locals.showMessage = ResourceHelper.showMessage;
 app.locals.showAdminMessage = ResourceHelper.showAdminMessage;
 
