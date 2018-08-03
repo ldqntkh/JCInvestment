@@ -58,6 +58,38 @@ class MaintenanceFee {
         this.updateAt = updateAt;
     }
 
+    /**
+     * get amount fee
+     * @returns {Number}
+     */
+    getAmount() {
+        return this.payment_amount;
+    }
+
+    /**
+     * get currency
+     * @returns {String}
+     */
+    getCurrency() {
+        return this.currency;
+    }
+
+    /**
+     * get symbol currency
+     * @returns {String}
+     */
+    getSymbolCurrency() {
+        return this.symbol_currency;
+    }
+
+    /**
+     * get payment description
+     * @returns {String}
+     */
+    getDescription() {
+        return this.payment_desc;
+    }
+
 }
 
 module.exports = MaintenanceFee;
