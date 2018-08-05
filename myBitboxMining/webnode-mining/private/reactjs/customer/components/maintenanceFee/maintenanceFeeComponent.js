@@ -9,6 +9,7 @@ import { API_URL } from '../../const/variable';
 // import const
 const showMessage = require('../../../../../global/ResourceHelper').showMessage;
 const moment = require('moment');
+const url = 'https://api.coinmarketcap.com/v2/ticker/1027/';
 
 export default class ListProductComponent extends Component {
 
@@ -18,12 +19,31 @@ export default class ListProductComponent extends Component {
             loaded: false,
             productItem: '',
             maintainfee: '',
+            EthPrice: 0,
             listProduct: []
         }
+        this.getEthExchange = this.getEthExchange.bind(this);
+        this._paid = this._paid.bind(this);
     }
 
     componentDidMount() {
+        this.getEthExchange();
         this._getListProduct();
+    }
+
+    async getEthExchange () {
+        try {
+            let response = await fetch(url);
+            let jsonData = await response.json();
+            if (jsonData.data) {
+                let price = jsonData.data.quotes.USD.price;
+                this.setState({
+                    EthPrice : price
+                })
+            }
+        } catch (err) {
+            console.log(err);
+        }
     }
 
     async _getListProduct () {
@@ -48,7 +68,6 @@ export default class ListProductComponent extends Component {
                 credentials: 'same-origin'
             });
             let jsonMaintain = await responseMaintain.json();
-            console.log(jsonMaintain);
             if(jsonMaintain.status === 'success') {
                 dataMaintainFee = jsonMaintain.data;
             } else {
@@ -75,6 +94,10 @@ export default class ListProductComponent extends Component {
         }
     } 
 
+    async _paid(ethvalue) {
+        console.log(ethvalue);
+    }
+
     render () {
         let screen = null;
         let maintain = null;
@@ -99,6 +122,36 @@ export default class ListProductComponent extends Component {
                                                 <td>{showMessage('TITLE_PAYMENT_TERN').toUpperCase()}</td>
                                                 <td>{momemt(maintainfee.maturity).format('DD/MM/YYYY')}</td>
                                             </tr>
+                                            <tr className="payment-detail-content">
+                                                <td>{showMessage('MAINTAIN_FEE_STATUS').toUpperCase()}</td>
+                                                <td>
+                                                    {maintainfee.status ? showMessage('MAINTAIN_PAID') : showMessage('MAINTAIN_NOT_PAID')}
+                                                </td>
+                                            </tr>
+                                            {!maintainfee.status && 
+                                                <React.Fragment>
+                                                    <tr className="payment-detail-content">
+                                                        <td>{showMessage('RC_AMOUNT').toUpperCase()}</td>
+                                                        <td>
+                                                            { maintainfee.symbol_currency + maintainfee.payment_amount}
+                                                        </td>
+                                                    </tr>
+                                                    <tr className="payment-detail-content">
+                                                        <td>{showMessage('MAINTAIN_PAID_ETH').toUpperCase()}</td>
+                                                        <td>
+                                                            { maintainfee.payment_amount / this.state.EthPrice } {showMessage('MAINTAIN_ETH')}
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td></td>
+                                                        <td>
+                                                            <button onClick={()=> this._paid(maintainfee.payment_amount / this.state.EthPrice)} 
+                                                            style={{float:'left'}} className="btn btn-lg btn-primary btn-success">
+                                                            {showMessage('MAINTAIN_PAID')}</button>
+                                                        </td>
+                                                    </tr>
+                                                </React.Fragment>
+                                            }
                                         </tbody>
                                     </table>
                                 </div>

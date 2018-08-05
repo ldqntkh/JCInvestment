@@ -189,4 +189,9 @@ module.exports.en = {
     AL_BTN_CANCEL : 'Cancel',
     
     NOTE_MAINTAIN_FEE: 'If overdue but you still unpaid expenses. We will automatically convert into ETH under current rates and subtract directly from your balance.',
+    MAINTAIN_FEE_STATUS: 'Status',
+    MAINTAIN_PAID: 'Paid',
+    MAINTAIN_NOT_PAID: 'Not paid',
+    MAINTAIN_PAID_ETH: "Payment by eth",
+    MAINTAIN_ETH: 'ETH',
 }
