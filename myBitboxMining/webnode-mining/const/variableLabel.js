@@ -69,6 +69,7 @@ module.exports.en = {
     LABEL_PRODUCT_INCLUDED_MAINTAINCE_FEE: 'Product is included maintaince fee',
     LABEL_PRODUCT_WITHOUT_MAINTAINCE_FEE: 'Product is not include maintaince fee',
     LABEL_MAINTENANCE_FEE: 'Maintenance Fee: ',
+    LABEL_MAINTENANCE_FEE_PAID: "You have paid this month's maintenance fee of {0}",
     // web title
     TITLE_CUSTOMER_LOGIN: "Customer Login",
     TITLE_CUSTOMER_UPDATE_PROFILE: 'Customer profile',

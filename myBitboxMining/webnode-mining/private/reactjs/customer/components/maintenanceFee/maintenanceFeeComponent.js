@@ -95,7 +95,24 @@ export default class ListProductComponent extends Component {
     } 
 
     async _paid(ethvalue) {
-        console.log(ethvalue);
+        let result = await fetch(API_URL + 'maintenances/maintainpaid', {
+            method : 'POST',
+            credentials: 'same-origin',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                fee: ethvalue
+            })
+        });
+
+        let dataJson = await result.json();
+        if (dataJson.status === 'success') {
+            window.location.reload();
+        } else {
+            console.log(dataJson.errMessage);
+        }
     }
 
     render () {
@@ -123,7 +140,7 @@ export default class ListProductComponent extends Component {
                                                 <td>{momemt(maintainfee.maturity).format('DD/MM/YYYY')}</td>
                                             </tr>
                                             <tr className="payment-detail-content">
-                                                <td>{showMessage('MAINTAIN_FEE_STATUS').toUpperCase()}</td>
+                                                <td>{(showMessage('MAINTAIN_FEE_STATUS') + ':').toUpperCase()}</td>
                                                 <td>
                                                     {maintainfee.status ? showMessage('MAINTAIN_PAID') : showMessage('MAINTAIN_NOT_PAID')}
                                                 </td>
@@ -131,13 +148,13 @@ export default class ListProductComponent extends Component {
                                             {!maintainfee.status && 
                                                 <React.Fragment>
                                                     <tr className="payment-detail-content">
-                                                        <td>{showMessage('RC_AMOUNT').toUpperCase()}</td>
+                                                        <td>{(showMessage('RC_AMOUNT') + ':').toUpperCase()}</td>
                                                         <td>
                                                             { maintainfee.symbol_currency + maintainfee.payment_amount}
                                                         </td>
                                                     </tr>
                                                     <tr className="payment-detail-content">
-                                                        <td>{showMessage('MAINTAIN_PAID_ETH').toUpperCase()}</td>
+                                                        <td>{(showMessage('MAINTAIN_PAID_ETH') + ':').toUpperCase()}</td>
                                                         <td>
                                                             { maintainfee.payment_amount / this.state.EthPrice } {showMessage('MAINTAIN_ETH')}
                                                         </td>

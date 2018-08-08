@@ -187,6 +187,7 @@ module.exports = {
      */
     updateBalance: async(field) => {
         try {
+            var results = false;
             let walletBalance = await WalletBalance.findOne({
                 where : {
                     walletId: field.walletId
@@ -198,11 +199,12 @@ module.exports = {
                 walletBalanceObj.setBalance(field.balance);
                 walletBalanceObj.setTimeUpdate(moment(Date.now()).format('YYYY-MM-DD HH:mm:ss'));
 
-                await WalletBalance.update(walletBalanceObj, {
+                let rs = await WalletBalance.update(walletBalanceObj, {
                     where: {
                         walletId: field.walletId
                     }
                 });
+                results = rs && rs.dataValues !== null ? true : false;
             } else {
                 walletBalanceObj = new WalletBalanceModel({
                     walletId : field.walletId,
@@ -210,7 +212,8 @@ module.exports = {
                     createAt: moment(Date.now()).format('YYYY-MM-DD HH:mm:ss'),
                     updateAt: moment(Date.now()).format('YYYY-MM-DD HH:mm:ss')
                 });
-                await WalletBalance.create(walletBalanceObj);
+                let rs = await WalletBalance.create(walletBalanceObj);
+                results = rs && rs.dataValues !== null ? true : false;
             }
 
             await CustomerHistoryManager.createHistory(new CustomerHistoryModel({
@@ -218,8 +221,10 @@ module.exports = {
                 description : showMessage('UPDATE_NEW_WALLET_BALANCE', [walletBalanceObj.getBalance()]),
                 createAt : moment(Date.now()).format('YYYY-MM-DD HH:mm:ss')
             }));
+            return results;
         } catch (err) {
             console.log(err.message);
+            return false;
         }
     }
 }

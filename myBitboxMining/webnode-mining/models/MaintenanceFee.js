@@ -90,6 +90,21 @@ class MaintenanceFee {
         return this.payment_desc;
     }
 
+    /**
+     * 
+     * @param {boolean} status 
+     */
+    setStatus(status) {
+        this.status = status;
+    }
+
+    /**
+     * 
+     * @param {String} payment 
+     */
+    setPaymentMethod(payment) {
+        this.payment_method = payment;
+    }
 }
 
 module.exports = MaintenanceFee;

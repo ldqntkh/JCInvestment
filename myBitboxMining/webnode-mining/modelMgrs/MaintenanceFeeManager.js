@@ -53,5 +53,17 @@ module.exports = {
             console.log(err.message);
             return null;
         }
+    },
+
+    updateRecord: async (MaintainFeeObj) => {
+        try {
+            var affectedRows =  await MaintenanceFeeTable.update(MaintainFeeObj, {
+                where: {id: MaintainFeeObj.getId()}
+            });
+            return affectedRows.length > 0 ? affectedRows[0] : -1;
+        } catch (err) {
+            console.log(err.message);
+            return -1;
+        }
     }
 }
