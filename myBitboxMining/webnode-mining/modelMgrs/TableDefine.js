@@ -186,3 +186,16 @@ module.exports.WalletBalance = sequelize.define('walletbalance', {
     createAt: Sequelize.DATE,
     updateAt: Sequelize.DATE
 });
+
+/**
+ * table withdraw_eth
+ */
+module.exports.WithdrawEthTable = sequelize.define('withdraw_eth', {
+    customerId: Sequelize.INTEGER,
+    walletId: Sequelize.INTEGER,
+    total_eth: Sequelize.FLOAT,
+    description: Sequelize.STRING,
+    status: Sequelize.INTEGER,
+    createAt: Sequelize.DATE,
+    updateAt: Sequelize.DATE
+});

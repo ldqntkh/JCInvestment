@@ -95,6 +95,7 @@ module.exports.en = {
     TITLE_AMOUNT_PAIR: 'Amount to be paid:',
     TITLE_PAYMENT_TERN: 'Payment tern:',
     TITLE_PAID_MAINTAIN_FEE: 'Payment of maintenance fee',
+    TITLE_WITHDRAW_ETH: 'Withdraw ETH',
 
     // title
     TITLE_CHANGE_PASSWORD: 'Change password',
