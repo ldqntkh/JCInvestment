@@ -9,7 +9,7 @@ import WalletPageComponent from './components/wallet/indexComponent';
 import ListHistoryComponent from './components/history/listHistoryComponent';
 import IndexOrderComponent from './components/order/indexComponent';
 import IndexProductCustomerComponent from './components/customer_product/indexComponent';
-
+import MaintenanceFeeComponent from './components/account/maintenanceFee';
 import CoinCalculator from './components/calculation/coinCalculator';
 import ForgotPassword from './components/account/forgotPassword';
 import ChangePassword from './components/account/changePassword';
@@ -17,7 +17,7 @@ import ChangePassword from './components/account/changePassword';
 import MaintenanceFee from './components/MaintenanceFee/maintenanceFeeComponent';
 //import container
 import ListProductCustomerContainer from './containers/customer_product/listProductContainer';
-import ListOrderContainer from './containers/order/listOrderContainer';
+
 
 // import store
 import walletStore from './store/walletStore';
@@ -34,6 +34,7 @@ if (typeof pageContext !== 'undefined') {
                 <ListProductCustomerContainer />
             </Provider>, document.getElementById('table-product-customer'));
         ReactDOM.render(<ListHistoryComponent />, document.getElementById('table-history-customer'));
+        ReactDOM.render(<MaintenanceFeeComponent />, document.getElementById('notification'));
     } else if (page === 'calculation') {
         ReactDOM.render(<CoinCalculator />, document.getElementById('calculation_hashing'));
     } else if (page === 'forgotpassword') {

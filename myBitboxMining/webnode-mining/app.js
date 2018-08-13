@@ -10,18 +10,10 @@ var bodyParser = require('body-parser');
 var session = require('express-session');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
-var paypal = require('paypal-rest-sdk');
 var ResourceHelper = require('./global/ResourceHelper');
 
 var app = express();
 
-// config paypal
-paypal.configure({
-    'mode': 'sandbox', //sandbox or live
-    'client_id': 'ASLnhIT9I40_D0Qi1XcnV0vPqdmzytHF2lO5Gd3TIQTfbdweddTJ6NVmhIvQUM6ZXo7C1vcDfg00idZP',
-    'client_secret': 'EMlUXVwhKm6rwtlc6-3JdLdqxoWJAFVKqgFK_KIJxj7XlW_dUi6SR19LlYXVQVFG6pH40Pd_OkeIhuLs'
-});
-app.locals.paypal = paypal;
 app.locals.showMessage = ResourceHelper.showMessage;
 app.locals.showAdminMessage = ResourceHelper.showAdminMessage;
 
@@ -81,7 +73,7 @@ app.use('/', maintenanceFee);
 app.use('/api-v1/products/', productApi);
 app.use('/api-v1/wallets/', walletApi);
 app.use('/api-v1/orders/', orderApi);
-app.use('/api-v1/maintenance/', maintenanceFeeApi);
+app.use('/api-v1/maintenances/', maintenanceFeeApi);
 app.use('/api-v1/customerhistories/', customerHistoryApi);
 app.use('/api-v1/admin/products/', adminProductApi);
 
@@ -135,5 +127,8 @@ passport.deserializeUser(async function (id, done) {
 // execute jobs
 const JobUpdateBalance = require('./jobs/updateWalletBalance');
 JobUpdateBalance.execute();
+
+const MaintenanceFeeJob = require('./jobs/calculationMaintainFee');
+MaintenanceFeeJob.execute();
 
 module.exports = app;

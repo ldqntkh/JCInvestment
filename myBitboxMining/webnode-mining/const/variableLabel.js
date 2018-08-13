@@ -69,6 +69,7 @@ module.exports.en = {
     LABEL_PRODUCT_INCLUDED_MAINTAINCE_FEE: 'Product is included maintaince fee',
     LABEL_PRODUCT_WITHOUT_MAINTAINCE_FEE: 'Product is not include maintaince fee',
     LABEL_MAINTENANCE_FEE: 'Maintenance Fee: ',
+    LABEL_MAINTENANCE_FEE_PAID: "You have paid this month's maintenance fee of {0}",
     // web title
     TITLE_CUSTOMER_LOGIN: "Customer Login",
     TITLE_CUSTOMER_UPDATE_PROFILE: 'Customer profile',
@@ -91,6 +92,9 @@ module.exports.en = {
     TITLE_CUSTOMER_PAYMENT_DETAIL: 'Payment detail',
     TITLE_CUSTOMER_ORDER_DETAIL: 'Order detail',
     TITLE_CUSTOMER_MAINTAINCE_FEE: 'Maintenance Fee',
+    TITLE_AMOUNT_PAIR: 'Amount to be paid:',
+    TITLE_PAYMENT_TERN: 'Payment tern:',
+    TITLE_PAID_MAINTAIN_FEE: 'Payment of maintenance fee',
 
     // title
     TITLE_CHANGE_PASSWORD: 'Change password',
@@ -174,6 +178,8 @@ module.exports.en = {
 
     // button name
     BTN_SUBMIT: 'Submit',
+    BTN_DETAILS: 'Detail',
+    BTN_CLOSE: 'Close',
 
     // alert
     AL_TITLE_CONFIRM : 'Are you sure?',
@@ -183,4 +189,10 @@ module.exports.en = {
     AL_TITLE_EDIT_WALLET : 'Edit wallet',
     AL_BTN_CANCEL : 'Cancel',
     
+    NOTE_MAINTAIN_FEE: 'If overdue but you still unpaid expenses. We will automatically convert into ETH under current rates and subtract directly from your balance.',
+    MAINTAIN_FEE_STATUS: 'Status',
+    MAINTAIN_PAID: 'Paid',
+    MAINTAIN_NOT_PAID: 'Not paid',
+    MAINTAIN_PAID_ETH: "Payment by eth",
+    MAINTAIN_ETH: 'ETH',
 }

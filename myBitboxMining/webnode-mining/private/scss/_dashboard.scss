@@ -101,3 +101,13 @@
         text-transform: lowercase;
     }
 }
+
+.form-group {
+    .value {
+        margin-left: 10px;
+        font-weight: bold;
+    }
+    .note {
+        color: red;
+    }
+}

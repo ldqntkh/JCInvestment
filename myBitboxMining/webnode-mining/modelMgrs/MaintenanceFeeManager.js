@@ -11,7 +11,7 @@ const showMessage = require('../global/ResourceHelper').showMessage;
 
 module.exports = {
     /**
-     * get customer by field name/value
+     * get maintain fee by field
      * @param {Object} field example: {fieldName: valueOfField}
      * @return {Object} customer
      */
@@ -26,6 +26,7 @@ module.exports = {
             return null;
         }
     },
+
     getAllMaintainFee: async () => {
         try {
             let results = [];
@@ -41,6 +42,28 @@ module.exports = {
         } catch(err) {
             console.log(showMessage('ERROR_GETCUSTOMER') + err.message);
             return null;
+        }
+    },
+
+    insertRecord: async (MaintainFeeObj) => {
+        try {
+            let maintainfee = await MaintenanceFeeTable.create(MaintainFeeObj);
+            return maintainfee && maintainfee.dataValues !== null ? new MaintenanceFee(maintainfee.dataValues) : null;
+        } catch (err) {
+            console.log(err.message);
+            return null;
+        }
+    },
+
+    updateRecord: async (MaintainFeeObj) => {
+        try {
+            var affectedRows =  await MaintenanceFeeTable.update(MaintainFeeObj, {
+                where: {id: MaintainFeeObj.getId()}
+            });
+            return affectedRows.length > 0 ? affectedRows[0] : -1;
+        } catch (err) {
+            console.log(err.message);
+            return -1;
         }
     }
 }

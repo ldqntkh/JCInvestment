@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: localhost:8889
--- Thời gian đã tạo: Th7 31, 2018 lúc 10:46 PM
+-- Thời gian đã tạo: Th8 01, 2018 lúc 09:55 PM
 -- Phiên bản máy phục vụ: 5.6.35
 -- Phiên bản PHP: 7.1.1
 
@@ -91,7 +91,8 @@ CREATE TABLE `historyofcustomer` (
 --
 
 INSERT INTO `historyofcustomer` (`id`, `customerId`, `userId`, `description`, `createAt`, `updateAt`) VALUES
-(1, 1, NULL, 'Your wallet balance is changed to 0.004077125262721613 ETH', '2018-07-30 17:00:01', NULL);
+(1, 1, NULL, 'Your wallet balance is changed to 0.004077125262721613 ETH', '2018-07-30 17:00:01', NULL),
+(2, 1, NULL, 'Your wallet balance is changed to 0.00828231079225724 ETH', '2018-07-31 17:00:01', NULL);
 
 -- --------------------------------------------------------
 
@@ -112,6 +113,26 @@ INSERT INTO `locale` (`id`, `name`) VALUES
 ('de', 'Denmark'),
 ('en', 'English'),
 ('vi', 'Viet Nam');
+
+-- --------------------------------------------------------
+
+--
+-- Cấu trúc bảng cho bảng `maintenance_fee`
+--
+
+CREATE TABLE `maintenance_fee` (
+  `id` int(11) NOT NULL,
+  `customerId` int(11) NOT NULL,
+  `maturity` datetime DEFAULT NULL COMMENT 'hạn thanh toán',
+  `payment_amount` float DEFAULT NULL COMMENT 'số tiền thanh toán',
+  `currency` varchar(20) NOT NULL,
+  `symbol_currency` varchar(5) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '0' COMMENT 'trạng thái thanh toán',
+  `payment_method` varchar(100) DEFAULT NULL,
+  `payment_desc` text,
+  `createAt` datetime DEFAULT NULL,
+  `updateAt` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -251,24 +272,6 @@ INSERT INTO `productofcustomer` (`id`, `name`, `hashrate`, `customerId`, `wallet
 -- --------------------------------------------------------
 
 --
--- Cấu trúc bảng cho bảng `totalpayment`
---
-
-CREATE TABLE `totalpayment` (
-  `id` int(11) NOT NULL,
-  `customerId` int(11) NOT NULL,
-  `settlementDate` datetime NOT NULL,
-  `paymentDate` datetime NOT NULL,
-  `paymentMethod` varchar(255) NOT NULL,
-  `paymentStatus` int(11) NOT NULL,
-  `totalPayment` float NOT NULL,
-  `createAt` datetime DEFAULT NULL,
-  `updateAt` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
 -- Cấu trúc bảng cho bảng `user`
 --
 
@@ -369,7 +372,7 @@ CREATE TABLE `walletbalance` (
 --
 
 INSERT INTO `walletbalance` (`id`, `walletId`, `balance`, `userUpdate`, `createAt`, `updateAt`) VALUES
-(1, 5, 0.00407713, NULL, '2018-07-30 17:00:01', '2018-07-30 17:00:01');
+(1, 5, 0.00828231, NULL, '2018-07-30 17:00:01', '2018-07-31 17:00:01');
 
 -- --------------------------------------------------------
 
@@ -440,6 +443,13 @@ ALTER TABLE `locale`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Chỉ mục cho bảng `maintenance_fee`
+--
+ALTER TABLE `maintenance_fee`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `customerId` (`customerId`);
+
+--
 -- Chỉ mục cho bảng `orders`
 --
 ALTER TABLE `orders`
@@ -481,13 +491,6 @@ ALTER TABLE `productofcustomer`
   ADD KEY `customerId` (`customerId`),
   ADD KEY `walletId` (`walletId`),
   ADD KEY `userUpdate` (`userUpdate`);
-
---
--- Chỉ mục cho bảng `totalpayment`
---
-ALTER TABLE `totalpayment`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `to_tb_customer` (`customerId`);
 
 --
 -- Chỉ mục cho bảng `user`
@@ -570,7 +573,13 @@ ALTER TABLE `historyofadmin`
 -- AUTO_INCREMENT cho bảng `historyofcustomer`
 --
 ALTER TABLE `historyofcustomer`
-  MODIFY `id` double NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` double NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT cho bảng `maintenance_fee`
+--
+ALTER TABLE `maintenance_fee`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT cho bảng `orders`
@@ -595,12 +604,6 @@ ALTER TABLE `product`
 --
 ALTER TABLE `productofcustomer`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT cho bảng `totalpayment`
---
-ALTER TABLE `totalpayment`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT cho bảng `user`
@@ -662,6 +665,12 @@ ALTER TABLE `historyofcustomer`
   ADD CONSTRAINT `historyofcustomer_ibfk_3` FOREIGN KEY (`userId`) REFERENCES `user` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
+-- Các ràng buộc cho bảng `maintenance_fee`
+--
+ALTER TABLE `maintenance_fee`
+  ADD CONSTRAINT `to_tb_customer_fee` FOREIGN KEY (`customerId`) REFERENCES `customer` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Các ràng buộc cho bảng `orders`
 --
 ALTER TABLE `orders`
@@ -693,12 +702,6 @@ ALTER TABLE `productofcustomer`
   ADD CONSTRAINT `productofcustomer_ibfk_1` FOREIGN KEY (`walletId`) REFERENCES `wallet` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `productofcustomer_ibfk_2` FOREIGN KEY (`userUpdate`) REFERENCES `user` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
   ADD CONSTRAINT `productofcustomer_ibfk_3` FOREIGN KEY (`customerId`) REFERENCES `customer` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Các ràng buộc cho bảng `totalpayment`
---
-ALTER TABLE `totalpayment`
-  ADD CONSTRAINT `to_tb_customer` FOREIGN KEY (`customerId`) REFERENCES `customer` (`id`);
 
 --
 -- Các ràng buộc cho bảng `user`
