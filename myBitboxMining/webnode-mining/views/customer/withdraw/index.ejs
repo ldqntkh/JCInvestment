@@ -9,7 +9,7 @@
             <div class="card-body">
                 <form method="POST">
                     <div class="form-group">
-                        <label>Your total ETH: <strong>10ETH</strong></label>
+                        <label>Your total ETH: <strong><%- obj_data.unpaidBalance%> ETH</strong></label>
                     </div>
                     <div class="form-group">
                         <div class="input-group">
@@ -31,6 +31,7 @@
                         <span class="note"><%- obj_data.err%></span>
                     </div>
                     <div class="form-group">
+                        <input type="hidden" value="<%- obj_data.unpaidBalance%>" name="unpaidBalance" />
                         <button type="submit" class="btn btn-lg btn-primary btn-success" value="Submit">Submit</button>
                     </div>
                 </form>

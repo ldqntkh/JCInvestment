@@ -32,7 +32,7 @@ var FileHelper = {
     },
 
     getUrl: (request, parameter) => {
-        return request.protocol + '://' + request.headers.host + '/' + parameter;
+        return request.protocol + '://' + request.get('host') + '/' + parameter;
     },
 
     crypto: (value) => {

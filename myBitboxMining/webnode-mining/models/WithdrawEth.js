@@ -14,4 +14,25 @@ class WithdrawEth {
          * updateAt: Date
          */
     }
+
+    getWithDrawId () {
+        return this.id
+    }
+
+    getCustomerId () {
+        return this.customerId;
+    }
+
+    getStatus() {
+        return this.status;
+    }
+
+    setStatus(status) {
+        this.status = status;
+    }
+
+    setUpdateAt(updateAt) {
+        this.updateAt = updateAt;
+    }
 }
+module.exports = WithdrawEth;

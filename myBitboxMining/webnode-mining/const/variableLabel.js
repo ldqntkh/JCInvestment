@@ -30,6 +30,7 @@ module.exports.en = {
     ERROR_SV_RESET_PASS: 'error while trying to connect to reset password: ',
     ERROR_AUTHENTICATION: 'Authentication failed',
     ERROR_CANNOT_GET_VALUE: "Can not get value",
+    ERROR_WALLET_NOT_FOUND: "Can not find any address of your wallet",
     ERROR_WALLET_NOT_EXISTS: "Wallet address exists",
     ERROR_CANNOT_CREATE_WALLET: "Can not create new wallet address",
     ERROR_CANNOT_REMOVE_WALLET: 'Can not remove this wallet!',
@@ -37,12 +38,21 @@ module.exports.en = {
     ERROR_CANNOT_REMOVE_ORDER: 'Can not remove this order!',
     ERROR_CANNOT_GET_ORDER: 'Can not get this order!',
     ERROR_CANNOT_REMOVE_PRODUCT: 'Can not remove this product!',
+    ERROR_DRAW_ETH_VALUE: 'Please enter the exact ETH you need to withdraw',
+    ERROR_DRAW_ETH_GET_BALANCE: 'Can not get your total balance. Please try later',
+    ERROR_DRAW_ETH_GET_MORE: 'The ETH you need to withdraw exceeds your balance',
+    ERROR_WITHDRAW_PROCESS: 'This request can not be made to you, please try again later or contact us to help you find the cause.',
+    ERROR_WITHDRAW_UPDATE: 'Can not update status your request. Please check again!',
+    ERROR_WITHDRAW_USER_REQUEST: 'We realize this is not your request.',
+    ERROR_WITHDRAW_UPDATE_STATUS: 'Your request status has been confirmed. Please do not make this request multiple times.',
 
     WARNING_ACCOUNT_NOT_ACTIVE: 'Your account is not active. Please active before login',
     WARNING_PASS_CHANGED: 'Your password is changed. Please login to enjoy!',
     WARNING_EMAIL_EXISTS: 'The email address is existed. Please try again',
+    WARNING_WITHDRAW_ETH: 'We have sent a confirmation code to your email. Please click on the link in the email to complete this process.',
 
     SUCCESS_CREATE_ACCOUNT: 'Your account is created successully. Please check email to active',
+    SUCCESS_WITHDRAW_ETH: 'Your request has been confirmed. Please wait for us to check and we will process your request within 2 to 3 business days.',
 
     LABEL_CHECKMAIL_TOKEN: 'Please check your email and find your token to reset your password',
     LABEL_ACCOUNT_ACTIVED: 'Your account is actived.',
@@ -70,6 +80,10 @@ module.exports.en = {
     LABEL_PRODUCT_WITHOUT_MAINTAINCE_FEE: 'Product is not include maintaince fee',
     LABEL_MAINTENANCE_FEE: 'Maintenance Fee: ',
     LABEL_MAINTENANCE_FEE_PAID: "You have paid this month's maintenance fee of {0}",
+    LABEL_SUBJECT_VERIFY_WITHDRAW_ETH: 'Confirmation request withdraw ETH',
+    LABEL_HTML_WITHDRAW_ETH: '<p>Please click this link to confirm your eth removal request. <a href="{0}">CLICK HERE</a></p>',
+
+    
     // web title
     TITLE_CUSTOMER_LOGIN: "Customer Login",
     TITLE_CUSTOMER_UPDATE_PROFILE: 'Customer profile',
