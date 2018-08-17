@@ -11,6 +11,38 @@ const {WithdrawEthTable} = require('./TableDefine');
 
 module.exports = {
 
+    /**
+     * get array object withdraw by field
+     * @param {Object}
+     * @return {Array} array withdraw
+     */
+    getAllWithDrawWithField: async(field)=> {
+        try {
+            let results = [];
+            let withdraws = await WithdrawEthTable.findAll({
+                where : field,
+                order: [
+                    ['id', 'DESC']
+                ]
+            });
+            if (withdraws.length > 0) {
+                for(let i = 0; i < withdraws.length; i++) {
+                    let withdraw = new WithdrawEthModel(withdraws[i].dataValues);
+                    results.push(withdraw);
+                }
+            }
+            return results;
+        } catch (err) {
+            console.log(err.message);
+            return null;
+        }
+    },
+
+    /**
+     * get a object withdraw with field
+     * @param {Object} 
+     * @return {Object}
+     */
     getWithdrawEthByField: async(field)=> {
         try {
             let withdraw = await WithdrawEthTable.findOne({
@@ -38,6 +70,11 @@ module.exports = {
         }
     },
 
+    /**
+     * update record withdraw eth
+     * @param {Object} withdraw
+     * @return {Number} affected rows
+     */
     updateWithdrawEth: async (objWithdraw) => {
         try {
             let results = await WithdrawEthTable.update(objWithdraw, {

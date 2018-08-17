@@ -13,6 +13,29 @@ var FileHelper = require('../../global/FileHelper');
 const WalletManager = require('../../modelMgrs/WalletManager');
 const WithdrawEthManager = require('../../modelMgrs/WithdrawEthManager');
 
+router.get('/list-withdraw-eth', async (req, res, next) => {
+    if ( !req.session.customer ) return res.redirect('/login');
+    var errMsg = '',
+        dataResult = [];
+    try {
+        dataResult = await WithdrawEthManager.getAllWithDrawWithField({
+            customerId : req.session.customer.id
+        });
+    } catch (err) {
+        console.log(err.message);
+        errMsg = err.message;
+    }
+    res.render('customer/withdraw/index', {
+        "title" : showMessage('TITLE_WITHDRAW_ETH'),
+        "menu_active" : 'withdraw-eth',
+        "fullname" : req.session.customer.fullname,
+        "obj_data" : {
+            dataResult: dataResult,
+            err : errMsg
+        }
+    });
+});
+
 router.get('/withdraw-eth', async (req, res, next) => {
     if ( !req.session.customer ) return res.redirect('/login');
     var unpaidBalance = 0;
@@ -22,7 +45,7 @@ router.get('/withdraw-eth', async (req, res, next) => {
     if (resultBalance !== null && resultBalance.length > 0) {
         unpaidBalance = resultBalance[0].totalBalance;
     } 
-    return res.render('customer/withdraw/index', {
+    return res.render('customer/withdraw/form-withdraw', {
         "title" : showMessage('TITLE_WITHDRAW_ETH'),
         "menu_active" : 'withdraw-eth',
         "fullname" : req.session.customer.fullname,
@@ -113,7 +136,7 @@ router.post('/withdraw-eth',async (req, res, next) => {
         }
     }
 
-    return res.render('customer/withdraw/index', {
+    return res.render('customer/withdraw/form-withdraw', {
         "title" : showMessage('TITLE_WITHDRAW_ETH'),
         "menu_active" : 'withdraw-eth',
         "fullname" : req.session.customer.fullname,

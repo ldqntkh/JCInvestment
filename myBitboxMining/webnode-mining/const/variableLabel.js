@@ -123,7 +123,6 @@ module.exports.en = {
     TITLE_HERE: 'here',
 
     // react label
-    RC_ID: 'ID',
     RC_NAME: 'Name',
     RC_EMAIL: 'Email',
     RC_FIRST_NAME: 'First name',
