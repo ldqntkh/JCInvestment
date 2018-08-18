@@ -202,4 +202,110 @@ router.get('/confirm-withdraw-eth/:token', async(req, res, next) => {
     });
 });
 
+router.get('/withdraw-eth/cancel/:requestid', async (req, res, next) => {
+    if ( !req.session.customer ) return res.redirect('/login');
+    if (typeof req.params.requestid === 'undefined' || isNaN(req.params.requestid)) {
+        return res.redirect('/list-withdraw-eth');
+    } else {
+        var errMsg = '';
+        var dataResult = null;
+        try {
+            let withdraw = await WithdrawEthManager.getWithdrawEthByField({
+                id: req.params.requestid,
+                customerId : req.session.customer.id
+            });
+            if (withdraw !== null) {
+                if (withdraw.getStatus() <= 1) {
+                    dataResult = withdraw;
+                } else {
+                    errMsg = 'You can not cancel this request, because it is in the process of being processed.';
+                }
+            } else {
+                return res.redirect('/list-withdraw-eth');
+            }
+        } catch (err) {
+            console.log(err.message);
+            errMsg = err.message;
+        }
+        res.render('customer/withdraw/withdraw-detail', {
+            "title" : showMessage('TITLE_WITHDRAW_ETH'),
+            "menu_active" : 'withdraw-eth',
+            "fullname" : req.session.customer.fullname,
+            "obj_data" : {
+                dataResult: dataResult,
+                err : errMsg
+            }
+        });
+    }
+});
+
+router.post('/withdraw-eth/cancel/:requestid', async (req, res, next) => {
+    if ( !req.session.customer ) return res.redirect('/login');
+    if (typeof req.params.requestid === 'undefined' || isNaN(req.params.requestid)) {
+        return res.redirect('/list-withdraw-eth');
+    } else {
+        var errMsg = '';
+        var dataResult = null;
+        try {
+            let withdraw = await WithdrawEthManager.getWithdrawEthByField({
+                id: req.params.requestid,
+                customerId : req.session.customer.id
+            });
+            if (withdraw !== null) {
+                if (withdraw.getStatus() <= 1) {
+
+                    withdraw.setStatus(4); // cancel
+                    withdraw.setUpdateAt(moment(Date.now()).format('YYYY-MM-DD HH:mm:ss'));
+                    let resultUpdate = await WithdrawEthManager.updateWithdrawEth(withdraw);
+                    if (resultUpdate === -1) {
+                        message = showMessage('ERROR_WITHDRAW_UPDATE');
+                    } else {
+                        //message = showMessage('SUCCESS_WITHDRAW_ETH');
+                        let total_eth = withdraw.getTotalEth();
+                        let wallet = await WalletManager.getWalletByAddress({
+                            id : withdraw.getWalletId()
+                        });
+                        if (wallet !== null) {
+                            // trả lại số tiền rút vào ví
+                            await WalletManager.updateBalance({
+                                walletId: wallet.getWalletId(),
+                                balance: total_eth,
+                                customerId: req.session.customer.id
+                            });
+                            // send email xác nhận tới customer
+                            var options = {
+                                to: req.session.customer.email,
+                                subject: showMessage('LABEL_SUBJECT_VERIFY_WITHDRAW_ETH'),
+                                html: showMessage('LABEL_HTML_WITHDRAW_CANCEL_ETH', [total_eth])
+                            }
+                            await new EmailHelper().sendEmail(options);
+                            return res.redirect('/list-withdraw-eth'); 
+                        } else {
+                            errMsg = showMessage('ERROR_WALLET_NOT_FOUND');
+                        }
+                    }
+
+                    dataResult = withdraw;
+                } else {
+                    errMsg = 'You can not cancel this request, because it is in the process of being processed.';
+                }
+            } else {
+                return res.redirect('/list-withdraw-eth');
+            }
+        } catch (err) {
+            console.log(err.message);
+            errMsg = err.message;
+        }
+        res.render('customer/withdraw/withdraw-detail', {
+            "title" : showMessage('TITLE_WITHDRAW_ETH'),
+            "menu_active" : 'withdraw-eth',
+            "fullname" : req.session.customer.fullname,
+            "obj_data" : {
+                dataResult: null,
+                err : errMsg
+            }
+        });
+    }
+});
+
 module.exports = router;

@@ -24,7 +24,10 @@ module.exports = {
         let results = [];
         try {
             let histories = await CustomerHistoryTable.findAll({
-                where: field
+                where: field,
+                order: [
+                    ['id', 'DESC']
+                ]
             });
             if (histories.length > 0) {
                 for(let i = 0; i < histories.length; i++) {

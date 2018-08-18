@@ -36,15 +36,17 @@
                                         Create
                                     <% } else if(row.status === 2) {%>
                                         Approve
+                                    <% } else if(row.status === 4) {%>
+                                        Cancel
                                     <% } else { %>
                                         Done
                                     <% } %>
                                 </td>
                                 <td>
                                     <% if(row.status < 2) {%>
-                                        <button type="button" rel="tooltip" title="" class="btn btn-danger btn-link btn-sm" data-original-title="Remove" >
+                                        <a href="/withdraw-eth/cancel/<%- row.id %>" rel="tooltip" title="" class="btn btn-danger btn-link btn-sm" data-original-title="Remove" >
                                             <i class="material-icons">close</i>
-                                        </button>
+                                        </a>
                                     <%}%>
                                 </td>
                             </tr>

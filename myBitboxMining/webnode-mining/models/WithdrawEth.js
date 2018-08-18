@@ -27,6 +27,14 @@ class WithdrawEth {
         return this.status;
     }
 
+    getWalletId() {
+        return this.walletId;
+    }
+
+    getTotalEth() {
+        return this.total_eth;
+    }
+
     setStatus(status) {
         this.status = status;
     }

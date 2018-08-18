@@ -82,7 +82,7 @@ module.exports.en = {
     LABEL_MAINTENANCE_FEE_PAID: "You have paid this month's maintenance fee of {0}",
     LABEL_SUBJECT_VERIFY_WITHDRAW_ETH: 'Confirmation request withdraw ETH',
     LABEL_HTML_WITHDRAW_ETH: '<p>Please click this link to confirm your eth removal request. <a href="{0}">CLICK HERE</a></p>',
-
+    LABEL_HTML_WITHDRAW_CANCEL_ETH: 'You have canceled the ETH withdrawal request with the {0} ETH. This balance will be transferred to your current wallet.',
     
     // web title
     TITLE_CUSTOMER_LOGIN: "Customer Login",

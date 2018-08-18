@@ -133,4 +133,7 @@ JobUpdateBalance.execute();
 const MaintenanceFeeJob = require('./jobs/calculationMaintainFee');
 MaintenanceFeeJob.execute();
 
+const UpdateStatusWithdrawEth = require('./jobs/updateStatusRequestWithdraw');
+UpdateStatusWithdrawEth.execute();
+
 module.exports = app;

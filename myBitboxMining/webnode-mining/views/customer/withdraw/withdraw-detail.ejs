@@ -1,0 +1,74 @@
+<%- include('../../share_customer/header'); %>
+<%- include('../../share_customer/navbar'); %>
+<div class="content" >
+    <div class="row">
+        <div class="col-lg-10 col-md-10 offset-lg-1 offset-md-1 ">
+            <div class="card">
+                <div class="payment-detail-container">
+                    <div class="card-header card-header-warning">
+                        <h4 class="card-title">Withdraw ETH</h4>
+                        <a href="/list-withdraw-eth">
+                            <button type="button" class="btn btn-primary btn-sm pull-right">Back</button>
+                        </a>
+                        <p class="card-category"></p>
+                    </div>
+                    <div class="card-body table-responsive">
+                        <% if (obj_data.dataResult !== null) {%>
+                            <table class="table table-hover text-center">
+                                <tbody>
+                                    <tr class="payment-detail-content">
+                                        <td><%= showMessage('RC_ID') %></td>
+                                        <td> <%- obj_data.dataResult.id %> </td>
+                                    </tr>
+                                    <tr class="payment-detail-content">
+                                        <td><%= showMessage('MAINTAIN_ETH') %></td>
+                                        <td> <%- obj_data.dataResult.total_eth %> </td>
+                                    </tr>
+                                    <tr class="payment-detail-content">
+                                        <td><%= showMessage('RC_DESCRIPTION') %></td>
+                                        <td><%- obj_data.dataResult.description %></td>
+                                    </tr>
+                                    <tr class="payment-detail-content">
+                                        <td><%= showMessage('MAINTAIN_FEE_STATUS') %></td>
+                                        <td>
+                                            <% if(obj_data.dataResult.status === 0) {%> 
+                                                New
+                                            <% } else { %>
+                                                Create
+                                            <% } %>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>    
+                        <%} else { %>
+                            <div class="form-group">
+                                <span class="note"> <%- obj_data.err %></span>
+                            </div>    
+                        <%}%>
+                    </div>
+                    <div class="card-footer">
+                        <% if (obj_data.dataResult !== null) {%>
+                            <div class="stats">
+                                <form method="POST">
+                                    <button type="submit" class="btn btn-success pull-left">Submit</button>
+                                </form>
+                            </div>
+                        <%}%>
+                        <div class="stats">
+                            <a href="/list-withdraw-eth">
+                                <button type="button" class="btn btn-warning pull-left">Back</button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var pageContext = {
+        "page" : "<%- menu_active %>"
+    }
+</script>
+
+<%- include('../../share_customer/footer'); %>
