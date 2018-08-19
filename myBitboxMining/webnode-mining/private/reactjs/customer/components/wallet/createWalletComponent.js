@@ -84,12 +84,14 @@ export default class CreateWalletComponent extends Component {
     render() {
         return(
             <React.Fragment>
+                {this.props.dataWallet.length === 0 &&
                 <div className="row">
                     <a href="#" id="showModalWallet" onClick={this.openModal} className="btn btn-round btn-success">
                         <i className="material-icons">add</i>
                         {showMessage('RC_ADDWALLET')}
                     </a>
                 </div>
+                }
                 <Modal
                     isOpen={this.state.modalIsOpen}
                     onAfterOpen={this.afterOpenModal}

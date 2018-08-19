@@ -140,7 +140,11 @@ router.get('/orders/:orderid/buysuccess/:productId', async (req, res, next) => {
                                     "menu_active" : 'not-found',
                                     "error" : {
                                         title : showMessage('TITLE_CUSTOMER_SUCCESS_PAYMENT'),
-                                        message : showMessage('LABEL_PAYMENT_SUCCESS'),
+                                        message : showMessage('LABEL_PAYMENT_SUCCESS') + '<br/>' 
+                                                    + showMessage('LABEL_PRODUCTOFCUSTOMER_INSERT', [
+                                                        "<a class='history' href='/my-product/" + productofctm.getProductId() + "'>" + productofctm.getProductId() + "</a>",
+                                                        "<a class='history' href='/my-product/" + productofctm.getProductId() + "'>" + showMessage('TITLE_HERE') + "</a>"
+                                                    ]),
                                         callback_url : {
                                             href : '/my-order/' + req.params.orderid + '/detail',
                                             // change desc

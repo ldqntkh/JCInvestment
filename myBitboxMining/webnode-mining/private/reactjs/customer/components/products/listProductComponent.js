@@ -91,16 +91,18 @@ export default class ListProductComponent extends Component {
             screen :
             <div>
                 <h3 className="text-primary">{showMessage('RC_OUR_SERVICES')}</h3>
-                {screenProductWithMaintenanceFee !== null && screenProductWithMaintenanceFee.length > 0 && <div>
-                    <h4 className="text-secondary">{showMessage('LABEL_PRODUCT_INCLUDED_MAINTAINCE_FEE')}</h4>
-                    <div className="row">
-                        {screenProductWithMaintenanceFee}
-                    </div>
-                </div>}
+                
                 {screenProductNotMaintenanceFee !== null && screenProductNotMaintenanceFee.length > 0 && <div>
                     <h4 className="text-secondary">{showMessage('LABEL_PRODUCT_WITHOUT_MAINTAINCE_FEE')}</h4>
                     <div className="row">
                         {screenProductNotMaintenanceFee}
+                    </div>
+                </div>}
+
+                {screenProductWithMaintenanceFee !== null && screenProductWithMaintenanceFee.length > 0 && <div>
+                    <h4 className="text-secondary">{showMessage('LABEL_PRODUCT_INCLUDED_MAINTAINCE_FEE')}</h4>
+                    <div className="row">
+                        {screenProductWithMaintenanceFee}
                     </div>
                 </div>}
             </div>

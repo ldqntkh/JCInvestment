@@ -237,6 +237,10 @@ export default class ListProductComponent extends Component {
                                         {this.state.err === "" ? "" : this.state.err}
                                         <div className="form-group">
                                             <button onClick={this._handleUpdateProduct} type="button" name="recover-submit" className="btn btn-lg btn-primary btn-success" value={showMessage('BTN_SUBMIT')}>{showMessage('BTN_SUBMIT')}</button>
+                                            <br/>
+                                            <a href="/my-wallet">
+                                                <span className="note">{showMessage('RC_CREATE_WALLET_YET')}</span>
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
