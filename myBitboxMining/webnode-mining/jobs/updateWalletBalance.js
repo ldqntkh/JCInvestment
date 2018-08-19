@@ -4,6 +4,10 @@ const fetch = require('node-fetch');
 const WalletManager = require('../modelMgrs/WalletManager');
 const CustomerManager = require('../modelMgrs/CustomerManager');
 
+// web3js 
+// block reward = 3
+const Web3 = require('Web3');
+
 const rule = new schedule.RecurrenceRule();
 rule.hour = 0;
 rule.minute = 0;
@@ -32,6 +36,10 @@ var JobUpdateBalance = {
                     blockReward: jsonData.Data.CoinInfo.BlockReward,
                     percent: 1
                 }
+                var web3 = new Web3('https://mainnet.infura.io');
+                var block = await web3.eth.getBlockNumber();
+                JobUpdateBalance.CoinInfo.blockNumber = block;
+                JobUpdateBalance.CoinInfo.blockReward = 3;
                 //console.log(JobUpdateBalance.CoinInfo)
             }
         } catch (err) {
