@@ -55,6 +55,7 @@ module.exports.en = {
     // dashboard
     TITLE_CUSTOMER_DASHBOARD: 'User dashboard',
     TITLE_LIST_PRODUCT: 'List products',
+    TITLE_WITHDRAW_ETH: 'Withdraw ETH',
     ERROR_PASSWORD_CONFIRM_MESSAGE: 'The password confirm is incorrect. Please try again',
 
     // error message from server

@@ -1,16 +1,7 @@
 var express = require('express');
 var router = express.Router();
-// require module
-const moment = require('moment');
-
-// import class manager
-const ProductManager = require('../../modelMgrs/ProductManager');
-
-// import model
 
 // import const
-const varibale = require('../../const/variable');
-const FileHelper = require('../../global/FileHelper');
 const showAdminMessage = require('../../global/ResourceHelper').showAdminMessage;
 
 router.get(/^\/(admin-product)/, (req, res, next) => {

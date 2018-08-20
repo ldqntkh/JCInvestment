@@ -47,7 +47,6 @@ const product = require('./routes/customer/product');
 const orders = require('./routes/customer/orders');
 const wallet = require('./routes/customer/wallet');
 const history = require('./routes/customer/history');
-const adminProduct = require('./routes/admin/product');
 const maintenanceFee = require('./routes/customer/maintenanceFee');
 const withdraweth = require('./routes/customer/withdraw_eth');
 
@@ -58,8 +57,11 @@ const orderApi = require('./routes/customerApi/orderApi');
 const customerHistoryApi = require('./routes/customerApi/historyApi');
 const adminProductApi = require('./routes/adminApi/productApi');
 const maintenanceFeeApi = require('./routes/customerApi/maintenanceFeeApi');
-// router user
+
+// router admin
 const adminAccountRoute = require('./routes/admin/account');
+const adminProduct = require('./routes/admin/product');
+const adminWithdraw = require('./routes/admin/withdraweth');
 
 // use router of customer
 app.use('/', indexRouter);
@@ -70,7 +72,6 @@ app.use('/', orders);
 app.use('/', wallet);
 app.use('/', withdraweth);
 app.use('/', history);
-app.use('/', adminProduct);
 app.use('/', maintenanceFee);
 app.use('/api-v1/products/', productApi);
 app.use('/api-v1/wallets/', walletApi);
@@ -80,6 +81,8 @@ app.use('/api-v1/customerhistories/', customerHistoryApi);
 app.use('/api-v1/admin/products/', adminProductApi);
 
 app.use('/', adminAccountRoute);
+app.use('/', adminProduct);
+app.use('/admin/', adminWithdraw);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

@@ -50,6 +50,12 @@
                                 <p><%= showAdminMessage('LABEL_MANAGE_PRODUCT') %></p>
                             </a>
                         </li>
+                        <li class="nav-item <%- menu_active === 'admin-withdraw' ? 'active' : '' %>">
+                            <a class="nav-link" href="/admin/admin-withdraw">
+                                <i class="material-icons">unarchive</i>
+                                <p><%= showAdminMessage('TITLE_WITHDRAW_ETH') %></p>
+                            </a>
+                        </li>
                     </ul>
                 </div>
             <%}%>

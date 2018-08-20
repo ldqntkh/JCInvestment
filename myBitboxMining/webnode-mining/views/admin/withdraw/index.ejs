@@ -1,0 +1,55 @@
+<%- include('../../share_admin/header'); %>
+<div class="content" >
+    <div class="col-lg-12 col-md-12">
+        <div class="card">
+            <div class="card-header card-header-warning">
+                <h4 class="card-title"><%= showAdminMessage('TITLE_WITHDRAW_ETH') %></h4>
+            </div>
+            <% if (obj_data.dataResult.length > 0) {%>
+            <div class="card-body table-responsive">
+                <table class="table table-hover text-center">
+                    <thead class="text-warning">
+                        <tr>
+                            <th> <%= showMessage('RC_ID') %> </th>
+                            <th> <%= showMessage('MAINTAIN_ETH') %> </th>
+                            <th> <%= showMessage('RC_DESCRIPTION') %> </th>
+                            <th> <%= showMessage('MAINTAIN_FEE_STATUS') %> </th>
+                            <th> <%= showMessage('RC_ACTION') %> </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% for(var i = 0; i < obj_data.dataResult.length; i++) { var row = obj_data.dataResult[i]; %>
+                            <tr>
+                                <td> <%- i+1 %> </td>
+                                <td> <%- row.total_eth %> </td>
+                                <td> <%- row.description %> </td>
+                                <td> 
+                                    <% if(row.status === 2) {%> 
+                                        Approve
+                                    <% } else { %>
+                                        Done
+                                    <% } %>
+                                </td>
+                                <td>
+                                    <% if(row.status < 2) {%>
+                                        <a href="/withdraw-eth/cancel/<%- row.id %>" rel="tooltip" title="" class="btn btn-danger btn-link btn-sm" data-original-title="Update" >
+                                            <i class="material-icons">edit</i>
+                                        </a>
+                                    <%}%>
+                                </td>
+                            </tr>
+                        <% } %>
+                    </tbody>
+                </table>
+            </div>
+            <% }%>
+        </div>
+    </div>
+</div>
+<script>
+    var pageContext = {
+        "page" : "<%- menu_active %>"
+    }
+</script>
+
+<%- include('../../share_admin/footer'); %>
