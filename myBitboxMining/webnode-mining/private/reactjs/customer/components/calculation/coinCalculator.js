@@ -6,10 +6,6 @@ const showMessage = require('../../../../../global/ResourceHelper').showMessage;
 const urlCoinInfo = 'https://min-api.cryptocompare.com/data/top/exchanges/full?fsym={0}&tsym=USD';
 const urlETH = 'https://api.coinmarketcap.com/v2/ticker/1027/';
 
-// web3js 
-// block reward = 3
-const Web3 = require('Web3');
-
 export default class CoinCalculator extends Component {
     constructor (props) {
         super(props);
@@ -36,10 +32,7 @@ export default class CoinCalculator extends Component {
                 let coinInfo = dataJson.Data.CoinInfo;
                 coinInfo.hashing = this.pageContext.totalHs;
                 coinInfo.price = dataJson.Data.AggregatedData.PRICE;
-                var web3 = new Web3('https://mainnet.infura.io');
-                var block = await web3.eth.getBlockNumber();
-                coinInfo.BlockNumber = block;
-                coinInfo.BlockReward = 3;
+                //coinInfo.BlockReward = 3;
                 try {
                     response = await fetch(urlETH);
                     dataJson = await response.json();
