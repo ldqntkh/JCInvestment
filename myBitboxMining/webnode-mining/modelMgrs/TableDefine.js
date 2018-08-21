@@ -196,6 +196,8 @@ module.exports.WithdrawEthTable = sequelize.define('withdraw_eth', {
     total_eth: Sequelize.FLOAT,
     description: Sequelize.STRING,
     status: Sequelize.INTEGER,
+    userUpdate : Sequelize.INTEGER,
+    urlTransfercoin : Sequelize.STRING,
     createAt: Sequelize.DATE,
     updateAt: Sequelize.DATE
 });

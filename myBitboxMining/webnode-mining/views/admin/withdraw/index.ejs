@@ -31,8 +31,8 @@
                                     <% } %>
                                 </td>
                                 <td>
-                                    <% if(row.status < 2) {%>
-                                        <a href="/withdraw-eth/cancel/<%- row.id %>" rel="tooltip" title="" class="btn btn-danger btn-link btn-sm" data-original-title="Update" >
+                                    <% if(row.status === 2) {%>
+                                        <a href="/admin/admin-withdraw/<%- row.id %>" rel="tooltip" title="" class="btn btn-danger btn-link btn-sm" data-original-title="Update" >
                                             <i class="material-icons">edit</i>
                                         </a>
                                     <%}%>

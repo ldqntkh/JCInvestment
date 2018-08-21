@@ -10,6 +10,8 @@ class WithdrawEth {
          * total_eth : Number
          * description: String
          * status: Number
+         * userUpdate: Number
+         * urlTransfercoin : String
          * createAt: Date
          * updateAt: Date
          */
@@ -37,6 +39,14 @@ class WithdrawEth {
 
     setStatus(status) {
         this.status = status;
+    }
+
+    setUserUpdate(userId) {
+        this.userUpdate = userId;
+    }
+
+    setUrlTransfer(url) {
+        this.urlTransfercoin = url;
     }
 
     setUpdateAt(updateAt) {

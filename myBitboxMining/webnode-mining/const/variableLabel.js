@@ -210,4 +210,9 @@ module.exports.en = {
     MAINTAIN_NOT_PAID: 'Not paid',
     MAINTAIN_PAID_ETH: "Payment by eth",
     MAINTAIN_ETH: 'ETH',
+
+    LABEL_TRANSFER_COIN: 'Url detail transfer coin',
+    LABEL_SUBJECT_SEND_WITHDRAW_ETH : '[myBitboxMining] Confirm the transfer ETH',
+    LABEL_HTML_WITHDRAW_URL_TRANSFER_ETH : 'We have moved {0} ETH into your wallet. <a href="{1}">Details you can see here</a>',
+    RECEIVE_WALLET_ADDRESS: 'Receiving address',
 }

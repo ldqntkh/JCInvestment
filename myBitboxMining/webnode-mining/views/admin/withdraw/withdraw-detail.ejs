@@ -1,0 +1,78 @@
+<%- include('../../share_admin/header'); %>
+<div class="content" >
+    <div class="row">
+        <div class="col-lg-10 col-md-10 offset-lg-1 offset-md-1 ">
+            <div class="card">
+                <div class="payment-detail-container">
+                    <div class="card-header card-header-warning">
+                        <h4 class="card-title">Withdraw ETH</h4>
+                        <a href="/admin/admin-withdraw">
+                            <button type="button" class="btn btn-primary btn-sm pull-right">Back</button>
+                        </a>
+                        <p class="card-category"></p>
+                    </div>
+                    
+                    <div class="card-body table-responsive">
+                        <% if (obj_data.dataResult !== null) {%>
+                            <form method="POST">
+                                <table class="table table-hover text-center">
+                                    <tbody>
+                                        <tr class="payment-detail-content">
+                                            <td><%= showMessage('RC_ID') %></td>
+                                            <td> <%- obj_data.dataResult.id %> </td>
+                                        </tr>
+                                        <tr class="payment-detail-content">
+                                            <td><%= showMessage('MAINTAIN_ETH') %></td>
+                                            <td> <%- obj_data.dataResult.total_eth %> </td>
+                                        </tr>
+                                        <tr class="payment-detail-content">
+                                            <td><%= showMessage('RC_DESCRIPTION') %></td>
+                                            <td><%- obj_data.dataResult.description %></td>
+                                        </tr>
+                                        <tr class="payment-detail-content">
+                                            <td><%= showMessage('RECEIVE_WALLET_ADDRESS') %></td>
+                                            <td><%- obj_data.dataResult.walletAddress %></td>
+                                        </tr>
+                                        <tr class="payment-detail-content">
+                                            <td><%= showMessage('MAINTAIN_FEE_STATUS') %></td>
+                                            <td>
+                                                Approve
+                                            </td>
+                                        </tr>
+                                        <tr class="payment-detail-content">
+                                            <td>Url Trasfer coin</td>
+                                            <td>
+                                                <div class="input-group">
+                                                    <input id="urlTransfer" type="text" class="form-control" name="urlTransfer" placeholder="<%= showAdminMessage('LABEL_TRANSFER_COIN') %>" required />
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr class="payment-detail-content">
+                                            <td></td>
+                                            <td>
+                                                <div class="stats">
+                                                    <button type="submit" class="btn btn-success pull-left">Submit</button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>    
+                            </form>
+                        <%} else { %>
+                            <div class="form-group">
+                                <span class="note"> <%- obj_data.err %></span>
+                            </div>    
+                        <%}%>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var pageContext = {
+        "page" : "<%- menu_active %>"
+    }
+</script>
+
+<%- include('../../share_admin/footer'); %>
