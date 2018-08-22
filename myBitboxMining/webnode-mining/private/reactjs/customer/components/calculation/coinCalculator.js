@@ -1,11 +1,10 @@
 import React, {Component} from 'react';
-
 // import const
 const showMessage = require('../../../../../global/ResourceHelper').showMessage;
 
 const urlCoinInfo = 'https://min-api.cryptocompare.com/data/top/exchanges/full?fsym={0}&tsym=USD';
 const urlETH = 'https://api.coinmarketcap.com/v2/ticker/1027/';
-
+const urlBlockNumber = 'https://api.etherscan.io/api?module=proxy&action=eth_blockNumber&apikey=UBC38KFZGQZK2DA7HERVT4MIPGENCTSWKV';
 export default class CoinCalculator extends Component {
     constructor (props) {
         super(props);
@@ -32,12 +31,17 @@ export default class CoinCalculator extends Component {
                 let coinInfo = dataJson.Data.CoinInfo;
                 coinInfo.hashing = this.pageContext.totalHs;
                 coinInfo.price = dataJson.Data.AggregatedData.PRICE;
-                //coinInfo.BlockReward = 3;
+                coinInfo.BlockReward = 3;
                 try {
                     response = await fetch(urlETH);
                     dataJson = await response.json();
                     if (dataJson.data) {
                         coinInfo.price = dataJson.data.quotes.USD.price;
+                    }
+                    response = await fetch (urlBlockNumber);
+                    dataJson = await response.json();
+                    if (dataJson !== null || dataJson !== 'undefined') {
+                        coinInfo.BlockNumber = parseInt(dataJson.result, 16);
                     }
                 } catch (err) {
                     console.log(err.message);

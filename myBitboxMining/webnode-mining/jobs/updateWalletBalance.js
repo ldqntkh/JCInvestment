@@ -10,6 +10,7 @@ rule.minute = 0;
 rule.second = 0;
 
 const urlInfo = 'https://min-api.cryptocompare.com/data/top/exchanges/full?fsym=ETH&tsym=USD';
+const urlBlockNumber = 'https://api.etherscan.io/api?module=proxy&action=eth_blockNumber&apikey=UBC38KFZGQZK2DA7HERVT4MIPGENCTSWKV';
 
 var JobUpdateBalance = {
     UpdateWalletBalance : null,
@@ -32,11 +33,14 @@ var JobUpdateBalance = {
                     blockReward: jsonData.Data.CoinInfo.BlockReward,
                     percent: 1
                 }
-                //var web3 = new Web3('https://mainnet.infura.io');
-                //var block = web3.eth.blockNumber;
-                //JobUpdateBalance.CoinInfo.blockNumber = block;
-                //JobUpdateBalance.CoinInfo.blockReward = 3;
-                // console.log(JobUpdateBalance);
+                if (JobUpdateBalance.CoinInfo.blockNumber === 0 || JobUpdateBalance.CoinInfo.blockReward == 0) {
+                    response = await fetch (urlBlockNumber);
+                    dataJson = await response.json();
+                    if (dataJson !== null || dataJson !== 'undefined') {
+                        JobUpdateBalance.CoinInfo.blockNumber = parseInt(dataJson.result, 16);
+                        JobUpdateBalance.CoinInfo.blockReward = 3;
+                    }
+                }
             }
         } catch (err) {
             console.log(err);

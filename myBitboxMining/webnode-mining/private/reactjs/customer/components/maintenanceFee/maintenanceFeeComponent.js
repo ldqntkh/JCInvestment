@@ -8,7 +8,6 @@ import { API_URL } from '../../const/variable';
 
 // import const
 const showMessage = require('../../../../../global/ResourceHelper').showMessage;
-const moment = require('moment');
 const url = 'https://api.coinmarketcap.com/v2/ticker/1027/';
 
 export default class ListProductComponent extends Component {

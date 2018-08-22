@@ -1,10 +1,5 @@
 import React, {Component} from 'react';
 
-// import const
-import { MAIN_URL, API_URL } from '../../const/variable';
-
-const showMessage = require('../../../../../global/ResourceHelper').showMessage;
-
 export default class ProductItemComponent extends Component {
 
     constructor(props) {

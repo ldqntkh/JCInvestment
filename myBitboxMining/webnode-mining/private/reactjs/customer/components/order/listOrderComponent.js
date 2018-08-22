@@ -3,9 +3,6 @@ import React, {Component} from 'react';
 // import container
 import OrderItemContainer from '../../containers/order/orderItemContainer';
 
-// import component
-import OrderItemComponent from './orderItemComponent';
-
 // import variable
 import { API_URL } from '../../const/variable';
 
